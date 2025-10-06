@@ -1,10 +1,16 @@
 import {useEffect} from "react"
-import {useSignInContext} from "../context/SignInViewModel"
+import {useSignInContext} from "../context/SignInContext.jsx"
 import {useNavigate} from "react-router-dom"
+import {FormValidationServices} from "../services/FormValidationServices.js";
 
 
 export  const UsageViewModel = () => {
+
     const  navigate = useNavigate()
+    // typeOfUsage designe le type d' utilisation du plateformes ("personnelle", "organisationelle")
+    const { SetTypeOfUsage, typeOfUsage } = useSignInContext() //Contexte du Formulaire d' inscription
+
+    //assurer que le boutton suivant soit pas masqué(voir PresentationFormViewModel)
     useEffect(() => {
         const nextButton = document.getElementById("nextFormular")
         if (nextButton) {
@@ -12,37 +18,24 @@ export  const UsageViewModel = () => {
         }
     }, [])
 
-    const GetTypeOfUsage = () => {
-        const checkedBox = document.querySelector('input[name="typeOfUsage"]:checked')
-        return checkedBox ? checkedBox.value : null
-    }
+    const HandleTypeOfUsage = (e) => { SetTypeOfUsage(e.target.value) }
 
-    const { SetTypeOfUsage } = useSignInContext()
-    const HandleTypeOfUsage = (usage) => { SetTypeOfUsage(usage) }
-
+    // Gerer l action du boutton suivant dans le composant actuel
     useEffect(() => {
-        const buttonNext = document.getElementById("nextFormular")
-        if (buttonNext) {
-            const handleClick = () => {
-                const usage = GetTypeOfUsage()
-                if (usage == null) {
-                    alert('Please select the type of usage')
-                    return
-                }
-                HandleTypeOfUsage(usage)
-
-                if ( usage === 'personal' )
-                    navigate("/personalForm")
-                else
-                navigate("/OrganisationalForm")
+        const nextButton = document.getElementById("nextFormular")
+        if (nextButton) {
+            const HandleNextButton = () => {
+                if (FormValidationServices.usageForm.isAllUsageFormFulFilled(typeOfUsage)) // retourne true si le formulaire est rempli
+                    return (typeOfUsage === "personal") ? navigate("/personalForm") : navigate("/organisational")
+                return alert("Veuillez remplir tous les champs !!")
             }
-            
-            buttonNext.addEventListener('click', handleClick)
-            
-            // Cleanup function to remove event listener
-            return () => {
-                buttonNext.removeEventListener('click', handleClick)
-            }
+            nextButton.addEventListener("click", HandleNextButton)
+            return () => { nextButton.removeEventListener("click", HandleNextButton) }
         }
-    }, [])
+    }, [navigate, typeOfUsage])
+
+    return {
+        typeOfUsage,
+        HandleTypeOfUsage
+    }
 }

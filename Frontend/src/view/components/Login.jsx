@@ -22,13 +22,13 @@ export const Login = () => {
 
                     <div className={'flex flex-col text-left gap-1'}>
                         <label htmlFor="name" className={'text-[11px] font-bold'}>Nom d' utilisateur</label>
-                        <input type="text" id="username" value={loginData.username} onChange={GetLoginName} placeholder="Nom d'Utilisateur..." className={'pl-3 py-2 text-[12px] input__shadow bg-slate-100'} />
+                        <input type="text" id="username" value={loginData.username} onChange={GetLoginName} placeholder="Nom d'Utilisateur..." className={'input__shadow text_input'} />
                     </div>
 
                     <div className={'flex flex-col text-left gap-1'}>
                         <label htmlFor="password" className={'text-[11px] font-bold'}>Mot de pass</label>
                         <div className={'flex flex-col relative'}>
-                            <input type={(passwordVisibility)? "text" : "password"} id="password" value={loginData.password} onChange={GetLoginPassword} placeholder={"votre mot de passe..."}  className={'pl-3 py-2 text-[12px] input__shadow bg-slate-100'} />
+                            <input type={(passwordVisibility)? "text" : "password"} id="password" value={loginData.password} onChange={GetLoginPassword} placeholder={"votre mot de passe..."}  className={'input__shadow text_input'} />
                             <button id={"password_viewer"} onClick={HandlePassWordViewClick} className={'icon_btn absolute right-[-5px] top-[-4px]'} ></button>
                         </div>
                     </div>

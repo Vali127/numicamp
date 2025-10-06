@@ -112,3 +112,9 @@ button:focus-visible {
 input:focus {
     outline: 1px solid  var(--main-color);
 }
+
+.text_input { @apply pl-3 py-2 text-[12px] bg-slate-100 }
+
+
+select option:hover { background-color: var(--main-color) }
+input[type=radio] { outline: none; }
