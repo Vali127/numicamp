@@ -1,9 +1,13 @@
 import  { PersonalFormViewModel } from "../../../viewmodel/PersonalFormViewModel.js"
 import { OrderedListOfPlace } from "../../../context/SignInContext.jsx";
+import { useEffect } from "react";
 
-export const PersonalForm = () => {
+export const PersonalForm = ({CurrentPage}) => {
+
     const { personalForm, SetName, SetFirstname, SetBirthDate, SetPlace, SetSex } = PersonalFormViewModel()
     const Places = OrderedListOfPlace()
+    useEffect(() => { if (CurrentPage) { CurrentPage('personalForm') } }, [])
+
     return (
         <div className={"text-left ml-20"}>
             <h2 className={"font-bold text-2xl mb-4"}><span>Information</span> personnelles</h2>
@@ -34,9 +38,9 @@ export const PersonalForm = () => {
                         <p className={'text-[12px]'}><b>Lieu actuel</b></p>
                         <select value={personalForm.place} onChange={SetPlace} className={'text_input input__shadow w-60'} id={'place'} name={'place'}>
                             {
-                                Places.map(place =>
+                                Places.map((place,index) =>
                                     (
-                                        <option className={''} value={place}>
+                                        <option key={index} className={''} value={place}>
                                             {place}
                                         </option>
                                     )
