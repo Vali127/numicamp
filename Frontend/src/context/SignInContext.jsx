@@ -14,7 +14,7 @@ export const SignInContextProvider = ({children}) => {
         name : '',
         first_name : '',
         birth_date : '',
-        place : '',
+        place : 'Alaotra Mangoro',
         sex : ''
     })
 
@@ -22,7 +22,7 @@ export const SignInContextProvider = ({children}) => {
     const [organisationForm, setOrganisationForm] = useState({
         name : '',
         creation_date : '',
-        place : '',
+        place : 'Alaotra Mangoro',
     })
 
     //données à remplir sur AccountForm
