@@ -1,7 +1,11 @@
 import {UsageViewModel} from "../../../viewmodel/UsageViewModel.js";
+import {useEffect} from "react";
 
-export const Usage = () => {
+export const Usage = ({CurrentPage}) => {
+
     const { HandleTypeOfUsage, typeOfUsage } = UsageViewModel()
+    useEffect(() => { if (CurrentPage) { CurrentPage('usageForm') } }, []) // Éviter re-render à chaque changement de CurrentPage
+
     return (
         <div className={'mx-20 text-left flex flex-col gap-10'}>
             <div className={'relative text-wrap'}>

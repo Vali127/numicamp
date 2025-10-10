@@ -6,7 +6,7 @@ export const loginViewModel = () => {
     const HandlePasswordVisibility = () => { setPasswordVisibility(!passwordVisibility) }
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-        // document.getElementById("nextFormular").style.display = 'none'
+        document.getElementById("nextFormular").style.display = 'none'
         document.getElementById('password_viewer').innerHTML = (passwordVisibility) ? '&#xE224;' : '&#xE220;'
     }, [passwordVisibility]);
 

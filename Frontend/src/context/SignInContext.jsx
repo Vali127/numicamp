@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from "react";
+import {createContext, useContext, useState} from "react";
 
 //CONTEXT
 const SignInContext = createContext(null)
@@ -9,14 +9,20 @@ export const SignInContextProvider = ({children}) => {
     // données à remplir sur le composant Usage
     const [typeOfUsage, setTypeOfUsage] = useState('')
 
-    //données à remplir sur le composant PersonalForm
-    const [personalForm, setPersonalForm] = useState({
+    //données à remplir sur le composant PersonForm
+    const [personForm, setPersonForm] = useState({
         name : '',
         first_name : '',
         birth_date : '',
-        creation_date : '',
-        place : '',
+        place : 'Alaotra Mangoro',
         sex : ''
+    })
+
+    //données à remplir sur le composant OrganisationForm
+    const [organisationForm, setOrganisationForm] = useState({
+        name : '',
+        creation_date : '',
+        place : 'Alaotra Mangoro',
     })
 
     //données à remplir sur AccountForm
@@ -28,15 +34,18 @@ export const SignInContextProvider = ({children}) => {
     })
 
     const SetTypeOfUsage = (newTypeOfUsage) => { setTypeOfUsage(newTypeOfUsage) }
-    const SetPersonalForm = (newPersonalForm) => { setPersonalForm(newPersonalForm) }
+    const SetPersonForm = (newPersonForm) => { setPersonForm(newPersonForm) }
+    const SetOrganisationForm = (newOrganisationForm) => { setOrganisationForm(newOrganisationForm) }
     const SetAccountForm = (newAccountForm) => { setAccountForm(newAccountForm) }
 
     const value = {
         typeOfUsage,
-        personalForm,
+        personForm,
+        organisationForm,
         accountForm,
         SetTypeOfUsage,
-        SetPersonalForm,
+        SetPersonForm,
+        SetOrganisationForm,
         SetAccountForm
     }
 
