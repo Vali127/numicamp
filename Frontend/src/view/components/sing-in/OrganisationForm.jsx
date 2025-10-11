@@ -1,32 +1,60 @@
 import  { OrganisationFormViewModel } from "../../../viewmodel/OrganisationFormViewModel.js";
-import { OrderedListOfPlace } from "../../../context/SignInContext.jsx";
+import {OrderedListOfPlace} from "../../../context/SignInContext.jsx";
 import { useEffect } from "react";
+import {organisationFormValidation} from "../../../services/FormValidationServices.jsx";
 
-export const OrganisationForm = ({CurrentPage}) => {
+export const OrganisationForm = ({CurrentPage, isButtonNextDisabled}) => {
 
-    const { organisationForm , SetName, SetCreationDate, SetPlace } = OrganisationFormViewModel()
+
+    const { isAllOrganisationFormFulFilled } = organisationFormValidation()
+    const  { nameError, organisationForm, SetOrganisationForm, HandleInputNameChange } = OrganisationFormViewModel()
     const Places = OrderedListOfPlace()
+
     useEffect(() => { if (CurrentPage) { CurrentPage('organisationForm') } }, [])
+    useEffect(() => {
+        if ( nameError.type != null ) {
+            isButtonNextDisabled(true)
+        } else {
+            isButtonNextDisabled(!isAllOrganisationFormFulFilled())
+        }
+    })
 
     return (
         <div className={"text-left ml-20"}>
             <h2 className={"font-bold text-2xl mb-4"}><span>Information</span> sur votre organisation</h2>
 
             <div>
-                <form className={"flex flex-col gap-4"}>
+                <div className={"flex flex-col gap-4"}>
                     <div className={"flex flex-col gap-1"}>
                         <p className={"text-[12px]"}><b>Nom de votre Organisation</b></p>
                         <div className={'flex gap-10'}>
-                            <input type={"text"} value={organisationForm.name} onChange={SetName} className={'text_input input__shadow w-60'} placeholder={"votre nom ici..."}/>
+                                <div>
+                                    <input
+                                        type={"text"}
+                                        value={organisationForm.name}
+                                        onChange={HandleInputNameChange}
+                                        className={'text_input input__shadow w-60'}
+                                        placeholder={"votre nom ici..."}/>
+                                    { ( nameError && nameError.type === "alert" ) && <p className="error">{nameError.message}</p> }
+                                    { ( nameError && nameError.type === "warning" ) && <p className="warning">{nameError.message}</p> }
+                                </div>
                         </div>
                     </div>
                     <div className={"flex flex-col gap-1"}>
                         <p className={"text-[12px]"}><b>Date de creation</b></p>
-                        <input type={"date"} value={organisationForm.creation_date} onChange={SetCreationDate} className={'text_input input__shadow w-40'}/>
+                        <input
+                            type={"date"}
+                            value={organisationForm.creation_date}
+                            onChange={(e) => { SetOrganisationForm({...OrganisationForm, creation_date: e.target.value}) }}
+                            className={'text_input input__shadow w-40'}/>
                     </div>
                     <div className={"flex flex-col gap-1"}>
                         <p className={'text-[12px]'}><b>Lieu actuel</b></p>
-                        <select value={organisationForm.place} onChange={SetPlace} className={'text_input input__shadow w-60'} id={'place'} name={'place'}>
+                        <select
+                            value={organisationForm.place}
+                            onChange={(e) => { SetOrganisationForm({...OrganisationForm, place: e.target.value}) }}
+                            className={'text_input input__shadow w-60'}
+                            id={'place'} name={'place'}>
                             {
                                 Places.map((place,index) =>
                                     (
@@ -38,7 +66,7 @@ export const OrganisationForm = ({CurrentPage}) => {
                             }
                         </select>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     )

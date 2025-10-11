@@ -1,17 +1,17 @@
 import {useSignInContext} from "../context/SignInContext.jsx";
 import {useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
-import {FormValidationServices} from "../services/FormValidationServices.jsx";
 
 
 export const SignInViewModel = () => {
 
     const navigate = useNavigate()
     const  { typeOfUsage } = useSignInContext()
-    const { isAllUsageFormFulFilled, isAllPersonFormFulFilled, isAllOrganisationFormFulFilled } = FormValidationServices()
 
     const [ currentForm, setCurrentForm ] = useState('')
-    
+    const [ buttonDisabled, setButtonDisabled ] = useState(true)
+
+
     // Détecter automatiquement le formulaire actuel depuis l'URL pour éviter les probleme de timing
     useEffect(() => {
         if (currentForm === '') {
@@ -21,31 +21,25 @@ export const SignInViewModel = () => {
         }
     }, [currentForm])
 
-
-
     const ManageButtonNext = () => {
         switch (currentForm) {
-
             case 'usageForm': {
-                if ( isAllUsageFormFulFilled() ) {
-                    if ( typeOfUsage === 'personal' && typeOfUsage !== '' ) { navigate('/signIn/personForm') }
-                    else { navigate('/signIn/organisationForm/') }
-                    break
-                }
-                else { return alert('Veuillez remplir tous les champs !!') }
+                ( typeOfUsage === 'personal' && typeOfUsage !== '' ) ? navigate('/signIn/personForm') : navigate('/signIn/organisationForm/')
+                break
             }
 
             case 'personForm': {
-                if ( isAllPersonFormFulFilled() ) {
-                        navigate("/signIn/accountForm")
-                } else { alert("Veuillez remplir tous les champs !!") }
+                navigate("/signIn/accountForm")
                 break
             }
 
             case 'organisationForm': {
-                if ( isAllOrganisationFormFulFilled() ) {
-                    navigate('/signIn/accountForm')
-                } else { alert("Veuillez remplir tous les champs !!") }
+                navigate('/signIn/accountForm')
+                break
+            }
+
+            case 'accountForm': {
+                navigate('/signIn/passwordForm')
                 break
             }
 
@@ -56,8 +50,16 @@ export const SignInViewModel = () => {
         }
     }
 
+    const ManageButtonPrev = () => {
+        return window.history.go(-1)
+    }
+
     return {
+        currentForm,
         setCurrentForm,
-        ManageButtonNext
+        buttonDisabled,
+        setButtonDisabled,
+        ManageButtonNext,
+        ManageButtonPrev
     }
 }

@@ -5,7 +5,7 @@ import {SignIn} from "../components/SignIn.jsx";
 
 export const Presentation = () => {
     return (
-            <div className={'w-[60vw] h-[70vh] bg-white shadow-lg rounded-2xl relative'}>
+            <div className={'w-[60vw] h-[80vh] bg-white shadow-lg rounded-2xl relative'}>
                 <div className={'absolute w-full flex items-center justify-center top-[-50px]'}>
                     <img src={numicamp} alt='numicamp' className={'w-[120px]'} />
                 </div>

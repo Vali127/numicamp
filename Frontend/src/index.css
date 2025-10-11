@@ -73,6 +73,9 @@ h1 {
     font-size: 16px;
     @apply bg-slate-900 text-amber-50 rounded-lg px-3 py-2
 }
+
+button[disabled] { opacity: 0.6; }
+
 .icon_btn {
     font-family: 'Phosphor';
     background-color: rgba(255, 255, 255, 0);
@@ -100,3 +103,11 @@ input:focus {
 
 select option:hover { background-color: var(--main-color) }
 input[type=radio] { outline: none; }
+
+.error {
+    @apply text-red-500 text-[12px]
+}
+
+.warning {
+    @apply text-yellow-400  text-[12px]
+}

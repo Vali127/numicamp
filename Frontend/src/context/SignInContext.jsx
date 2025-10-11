@@ -12,7 +12,7 @@ export const SignInContextProvider = ({children}) => {
     //données à remplir sur le composant PersonForm
     const [personForm, setPersonForm] = useState({
         name : '',
-        first_name : '',
+        firstname : '',
         birth_date : '',
         place : 'Alaotra Mangoro',
         sex : ''
@@ -27,10 +27,11 @@ export const SignInContextProvider = ({children}) => {
 
     //données à remplir sur AccountForm
     const [accountForm, setAccountForm] = useState({
-        username: '',
-        bio: '',
-        mail: '',
-        password: ''
+        username : '',
+        image : null,
+        bio : '',
+        mail : '',
+        password : ''
     })
 
     const SetTypeOfUsage = (newTypeOfUsage) => { setTypeOfUsage(newTypeOfUsage) }
