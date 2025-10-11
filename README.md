@@ -22,7 +22,11 @@
 ```
 5. Ouvrez un pull request
 ### Partie front-end
-1. Installation des dépendances :
+1. Aller dans le dossier Frontend
+```shell
+    cd Frontend/
+```
+2. Installation des dépendances :
 ```shell
     npm install
 ```
@@ -35,5 +39,34 @@ ou
     npm run dev
 ```
 
-
-<font color="yellow">Partie Backend à remplir !</font>
+### Partie back-end
+1. Aller dans le dossier Backend
+```shell
+    cd Backend/
+```
+2. Installation des dépendances :
+```shell
+    npm install
+```
+3. Démarrage du serveur node
+```shell
+      node server.js
+```
+### Importation de la base de données dans mysql
+1. Se connecter au serveur local mysql
+```shell
+      mysql -u user -p 
+```
+ou
+```shell
+        mysql -u user
+```
+2. Créer une base de données vide puis quitter
+```shell
+      CREATE DATABASE numicamp;
+      exit;
+```
+3. Importer la base de donnée 
+```shell
+      mysql -u user -p numicamp < numicamp.sql
+```
