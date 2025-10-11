@@ -19,8 +19,5 @@ export const loginViewModel = () => {
     return {
         passwordVisibility,
         HandlePasswordVisibility,
-        loginData,
-        GetLoginName,
-        GetLoginPassword
     }
 }

@@ -1,17 +1,25 @@
 import  { useSignInContext } from "../context/SignInContext.jsx";
+import {useState} from "react";
+import {organisationFormValidation} from "../services/FormValidationServices.jsx";
 
 export const  OrganisationFormViewModel = () => {
 
-    const  { organisationForm , SetOrganisationForm   } = useSignInContext()
+    const  { organisationForm, SetOrganisationForm } = useSignInContext()
+    const { name } = organisationFormValidation()
 
-    const SetName = (e) => { SetOrganisationForm({ ...organisationForm, name : e.target.value }) }
-    const SetCreationDate = (e) => { SetOrganisationForm({...organisationForm,creation_date: e.target.value }) }
-    const SetPlace = (e) => { SetOrganisationForm({ ...organisationForm,place: e.target.value }) }
+    const [ nameError, setNameError ] = useState({type : null, message : null})
+
+    const HandleInputNameChange = (e) => {
+        SetOrganisationForm({...organisationForm, name: e.target.value})
+        setNameError(name.checkExpression(e.target.value))
+        if ( name.checkLength().type != null ) { setNameError(name.checkLength()) }
+        console.log(nameError)
+    }
 
     return {
         organisationForm,
-        SetName,
-        SetPlace,
-        SetCreationDate
+        nameError,
+        SetOrganisationForm,
+        HandleInputNameChange
     }
 }

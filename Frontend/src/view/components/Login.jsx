@@ -1,8 +1,11 @@
 import  {loginViewModel} from "../../viewmodel/LoginViewModel.js"
 import {Link} from "react-router-dom"
+import {LoginContextProvider, useLoginContext} from "../../context/LoginContext.jsx";
 
-export const Login = () => {
-    const { passwordVisibility,HandlePasswordVisibility, loginData, GetLoginName, GetLoginPassword } = loginViewModel()
+const LoginContent = () => {
+
+    const { passwordVisibility,HandlePasswordVisibility } = loginViewModel()
+    const { loginData, SetLoginData } = useLoginContext()
 
     //icon de masquage/demasquage du mot de passe
     const HandlePassWordView = (e) => {
@@ -24,14 +27,25 @@ export const Login = () => {
 
                     <div className={'flex flex-col text-left gap-1'}>
                         <label htmlFor="name" className={'text-[11px] font-bold'}>Nom d' utilisateur</label>
-                        <input type="text" id="username" value={loginData.username} onChange={GetLoginName} placeholder="Nom d'Utilisateur..." className={'input__shadow text_input'} />
+                        <input
+                            type="text"
+                            id="username"
+                            value={loginData.username}
+                            onChange={ (e) => { SetLoginData({ ...loginData,username: e.target.value }) } }
+                            placeholder="Nom d'Utilisateur..."
+                            className={'input__shadow text_input'} />
                     </div>
 
                     <div className={'flex flex-col text-left gap-1'}>
                         <label htmlFor="password" className={'text-[11px] font-bold'}>Mot de pass</label>
                         <div className={'flex flex-col relative'}>
-                            <input type={(passwordVisibility)? "text" : "password"} id="password" value={loginData.password} onChange={GetLoginPassword} placeholder={"votre mot de passe..."}  className={'input__shadow text_input'} />
-                            <button id={"password_viewer"} onClick={HandlePassWordView} className={'icon_btn absolute right-[-5px] top-[-4px]'} ></button>
+                            <input
+                                type={(passwordVisibility)? "text" : "password"}
+                                id="password" value={loginData.password}
+                                onChange={ (e) => { SetLoginData({ ...loginData,password : e.target.value }) } }
+                                placeholder={"votre mot de passe..."}
+                                className={'input__shadow text_input'} />
+                            <button id={"password_viewer"} onClick={HandlePassWordView} className={'icon_btn absolute right-1 top-1'} ></button>
                         </div>
                     </div>
 
@@ -46,5 +60,13 @@ export const Login = () => {
 
             </div>
         </div>
+    )
+}
+
+export const Login = () => {
+    return (
+        <LoginContextProvider>
+            <LoginContent/>
+        </LoginContextProvider>
     )
 }
