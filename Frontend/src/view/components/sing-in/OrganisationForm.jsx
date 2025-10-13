@@ -45,14 +45,14 @@ export const OrganisationForm = ({CurrentPage, isButtonNextDisabled}) => {
                         <input
                             type={"date"}
                             value={organisationForm.creation_date}
-                            onChange={(e) => { SetOrganisationForm({...OrganisationForm, creation_date: e.target.value}) }}
+            onChange={(e) => { SetOrganisationForm({...organisationForm, creation_date: e.target.value}) }}
                             className={'text_input input__shadow w-40'}/>
                     </div>
                     <div className={"flex flex-col gap-1"}>
                         <p className={'text-[12px]'}><b>Lieu actuel</b></p>
                         <select
                             value={organisationForm.place}
-                            onChange={(e) => { SetOrganisationForm({...OrganisationForm, place: e.target.value}) }}
+            onChange={(e) => { SetOrganisationForm({...organisationForm, place: e.target.value}) }}
                             className={'text_input input__shadow w-60'}
                             id={'place'} name={'place'}>
                             {

@@ -10,11 +10,6 @@ export const loginViewModel = () => {
     }, [passwordVisibility]);
 
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [loginData, setLoginData] = useState({username : '', password: ''})
-    const GetLoginName = (e) => { setLoginData({ ...loginData , username : e.target.value }) }
-    const GetLoginPassword = (e) => { setLoginData({ ...loginData , password: e.target.value }) }
-
     return {
         passwordVisibility,
         HandlePasswordVisibility,

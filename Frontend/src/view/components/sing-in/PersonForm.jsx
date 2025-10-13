@@ -51,6 +51,7 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                         <p className={"text-[12px]"}><b>Date de naissance</b></p>
                         <div>
                             <input type={"date"}
+                                   value={personForm.birth_date || ''}
                                    onChange={HandleInputDateChange}
                                    className={'text_input input__shadow w-40'}/>
                             { ( dateError  ) && <p className="error">{dateError.message}</p> }

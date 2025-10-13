@@ -13,7 +13,6 @@ export const  OrganisationFormViewModel = () => {
         SetOrganisationForm({...organisationForm, name: e.target.value})
         setNameError(name.checkExpression(e.target.value))
         if ( name.checkLength().type != null ) { setNameError(name.checkLength()) }
-        console.log(nameError)
     }
 
     return {
