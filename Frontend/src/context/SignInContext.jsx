@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 
 //CONTEXT
 const SignInContext = createContext(null)
@@ -34,6 +34,9 @@ export const SignInContextProvider = ({children}) => {
         password : ''
     })
 
+    // État pour le modal de validation
+    const [showSignInValidationModal, setShowSignInValidationModal] = useState(false)
+
     const SetTypeOfUsage = (newTypeOfUsage) => { setTypeOfUsage(newTypeOfUsage) }
     const SetPersonForm = (newPersonForm) => { setPersonForm(newPersonForm) }
     const SetOrganisationForm = (newOrganisationForm) => { setOrganisationForm(newOrganisationForm) }
@@ -44,10 +47,12 @@ export const SignInContextProvider = ({children}) => {
         personForm,
         organisationForm,
         accountForm,
+        showSignInValidationModal,
         SetTypeOfUsage,
         SetPersonForm,
         SetOrganisationForm,
-        SetAccountForm
+        SetAccountForm,
+        setShowSignInValidationModal
     }
 
     return (

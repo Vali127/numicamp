@@ -20,7 +20,7 @@ app.get('/test/db', async  (req, res) => {
 //autoriser react a envoyer des requetes
 app.use(cors(
     {
-        origin: 'localhost',
+        origin: 'http://localhost:5173',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true
     }

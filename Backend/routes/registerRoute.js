@@ -4,7 +4,7 @@ import {registerOrganisationController, registerPersonController} from '../contr
 const router = express.Router();
 
 //pour les inscriptions, fonction diff selon usage
-router.post('/register/person', registerPersonController);
-router.post('/register/organisation', registerOrganisationController);
+router.post('/person', registerPersonController);
+router.post('/organisation', registerOrganisationController);
 
 export default router;

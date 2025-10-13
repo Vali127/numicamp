@@ -1,0 +1,69 @@
+import {Modal} from "./Modal.jsx";
+import { ThreeDots } from "react-loader-spinner";
+import {SignInValidationModalViewModel} from "../../viewmodel/SignInValidationModalViewModel.js";
+import {useNavigate} from "react-router-dom";
+
+
+
+const SignInValidationLoading = () => {
+
+    return (
+        <div className={"text-center"}>
+            <h2 className={"font-bold text-2xl"}>Veuillez <span>patientez !!</span> </h2>
+            <p className={"text-[12px]"}>entrain de soumettre votre incription !</p>
+
+            <div className={" flex justify-around"}>
+                <ThreeDots color="#1ACD2F" />
+            </div>
+        </div>
+    )
+}
+
+
+
+const SignInValidationAccepted = () => {
+
+    const navigate = useNavigate()
+
+    return (
+        <div className={"text-center"}>
+            <h2 className={"font-bold text-2xl"}>Inscription <span>acceptée !!</span> </h2>
+            <p className={"text-[12px] mb-5"}>votre inscription est tériminé avec succèes !!</p>
+
+            <button
+                className={" bg-green-400 text-amber-50 px-2 py-1 rounded-lg absolute right-2 bottom-2 "}
+                onClick={() => { navigate('/') }}
+            >se connecter</button>
+        </div>
+    )
+}
+
+
+
+const SignInValidationRejected = () => {
+    return (
+        <div className={"text-center"}>
+            <h2 className={"font-bold text-2xl"}>Inscription <span className={"text-red-500"}>rejetée !!</span> </h2>
+            <p className={"text-[12px] mb-5"}>votre inscription a echoué !! <br/> Veuillez reesayer !! </p>
+
+            <button
+                className={" bg-green-400 text-amber-50 px-2 py-1 rounded-lg absolute right-2 bottom-2 "}
+                onClick={() => {window.close()}}
+            >quitter</button>
+        </div>
+    )
+}
+
+
+export const SignInValidationModal = () => {
+
+    const { FormUploaded, response } = SignInValidationModalViewModel()
+
+        return (
+            <Modal>
+                { (FormUploaded) && < SignInValidationLoading/>  }
+                { ( response === "success" ) && <SignInValidationAccepted/> }
+                { ( response === "failure" ) && <SignInValidationRejected/> }
+            </Modal>
+        )
+}

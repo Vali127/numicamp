@@ -1,4 +1,5 @@
 import {insertPerson} from "../models/registerModel.js";
+import bcrypt from "bcrypt";
 
 export async function registerService(data){
 

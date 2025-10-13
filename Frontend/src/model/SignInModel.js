@@ -1,34 +1,40 @@
 import {useSignInContext} from "../context/SignInContext.jsx";
-import {SignInFormApi} from "../api/SignInFormApi.js";
+import { SignInFormApi } from "../api/SignInFormApi.js"
+
+export const SignInModel = () => {
 
 
-const SignInModel = () => {
-    const { typeOfUsage , personForm, organisationForm, accountForm } = useSignInContext();
-    const { SendFormForPersonalUsage, SendFormForOrganisationalUsage } = SignInFormApi()
+    const { SendFormForPersonalUsage } = SignInFormApi()
+    const SignInData = useSignInContext()
 
-    const submitSignInForm = async () => {
-        let response;
-        
-        if ( typeOfUsage === "personal" ) {
-            try {
-                response = await SendFormForPersonalUsage({ type_of_usage : typeOfUsage,  person_form : personForm,  account_form : accountForm });
-            } catch (error) {
-                response = error.response || error;
+    const SubmitForm = async () => {
+
+        let object = null
+        if ( SignInData.typeOfUsage === "personal" ) {
+            object = {
+                name: SignInData.personForm.name,
+                firstname: SignInData.personForm.firstname,
+                birth_date: SignInData.personForm.birth_date,
+                sex: SignInData.personForm.sex,
+                localisation: SignInData.personForm.place,
+                profil_name: SignInData.accountForm.username,
+                profil_description: SignInData.accountForm.bio,
+                mail: SignInData.accountForm.mail,
+                password: SignInData.accountForm.password
             }
-            return response;
         }
-        else if ( typeOfUsage === "organisation" ) {
-            try {
-                response = await SendFormForOrganisationalUsage({ type_of_usage : typeOfUsage, organisation_form : organisationForm, account_form : accountForm });
-            } catch (error) {
-                response = error.response || error;
-            }
-            return response;
+        else if ( SignInData.typeOfUsage === "organisation" ) {
+            // object = { }
         }
-        
-        // Cas par défaut si typeOfUsage n'est ni "personal" ni "organisation"
-        return { error: "Type d'usage non valide" };
+
+        if (!object) {
+            throw new Error('Objet de données null - vérifiez le typeOfUsage et les données des formulaires')
+        }
+
+        return await SendFormForPersonalUsage(object)
     }
 
-    return { submitSignInForm }
+    return {
+        SubmitForm
+    }
 }

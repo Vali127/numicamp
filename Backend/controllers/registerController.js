@@ -8,7 +8,7 @@ export async function registerPersonController(req, res) {
         const result = await registerService(req.body);
 
         if(result.ok){
-            res.status(201).json({ message: 'Inscription réussie' });
+            res.status(200).json({ message: 'Inscription réussie' });
         }
         else{
             res.status(500).json({message: result.error});

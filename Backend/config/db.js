@@ -36,23 +36,24 @@ export async function testConnection() {
 }
 
 //--------------TEST-----------------
-// export async function getRole() {
-//     let conn;
-//     try{
-//         conn = await pool.getConnection();
-//         const [rows] = await conn.query('SELECT * FROM role');
-//         return {
-//             ok:true,
-//             rows
-//         }
-//     }
-//     catch (error) {
-//         return {
-//             ok: false,
-//             error: error.message || error
-//         }
-//     }
-// }
-// //------------------------------------
-export  { pool };
 
+ export async function getRole() {
+     let conn;
+     try{
+         conn = await pool.getConnection();
+         const [rows] = await conn.query('SELECT * FROM role');
+         return {
+             ok:true,
+             rows
+         }
+     }
+     catch (error) {
+         return {
+             ok: false,
+             error: error.message || error
+         }
+     }
+ }
+// //------------------------------------
+
+export  { pool };

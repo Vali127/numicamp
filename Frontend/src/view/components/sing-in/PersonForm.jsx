@@ -61,17 +61,17 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                             <p className={"text-[12px]"}><b>Votre sexe</b></p>
                             <div className={'text-[12px] pt-2 flex gap-2'}>
                                 <p><input
-                                    checked={ personForm.sex === "female" }
+                                    checked={ personForm.sex === "F" }
                                     onChange={(e) => { SetPersonForm({...personForm, sex : e.target.value }) }}
                                     type={"radio"} name={'sex'}
-                                    value={"female"}
+                                    value={"F"}
                                     className={'mr-2'}/>
                                     <label>Femme</label></p>
                                 <p><input
-                                    checked={ personForm.sex === "male" }
+                                    checked={ personForm.sex === "M" }
                                     onChange={(e) => { SetPersonForm({...personForm, sex : e.target.value }) }}
                                     type={"radio"} name={'sex'}
-                                    value={"male"}
+                                    value={"M"}
                                     className={'mr-2'}/>
                                     <label>Homme</label></p>
                             </div>

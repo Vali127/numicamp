@@ -1,12 +1,14 @@
 import {useSignInContext} from "../context/SignInContext.jsx";
 import {useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
+import {SignInModel} from "../model/SignInModel.js";
 
 
 export const SignInViewModel = () => {
 
     const navigate = useNavigate()
-    const  { typeOfUsage } = useSignInContext()
+    const model = SignInModel()
+    const  { typeOfUsage, setShowSignInValidationModal } = useSignInContext()
 
     const [ currentForm, setCurrentForm ] = useState('')
     const [ buttonDisabled, setButtonDisabled ] = useState(true)
@@ -22,6 +24,7 @@ export const SignInViewModel = () => {
     }, [currentForm])
 
     const ManageButtonNext = () => {
+
         switch (currentForm) {
             case 'usageForm': {
                 ( typeOfUsage === 'personal' && typeOfUsage !== '' ) ? navigate('/signIn/personForm') : navigate('/signIn/organisationForm/')
@@ -43,6 +46,10 @@ export const SignInViewModel = () => {
                 break
             }
 
+            case 'passwordForm': {
+                setShowSignInValidationModal(true)
+                break
+            }
             default : {
                 alert("En cours de developpement...")
                 break
