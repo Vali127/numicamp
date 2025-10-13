@@ -4,7 +4,7 @@ import { SignInFormApi } from "../api/SignInFormApi.js"
 export const SignInModel = () => {
 
 
-    const { SendFormForPersonalUsage } = SignInFormApi()
+    const { SendFormForPersonalUsage, SendFormForOrganisationalUsage } = SignInFormApi()
     const SignInData = useSignInContext()
 
     const SubmitForm = async () => {
@@ -22,16 +22,23 @@ export const SignInModel = () => {
                 mail: SignInData.accountForm.mail,
                 password: SignInData.accountForm.password
             }
+            return await SendFormForPersonalUsage(object)
         }
-        else if ( SignInData.typeOfUsage === "organisation" ) {
-            // object = { }
+        else if ( SignInData.typeOfUsage === "organisational" ) {
+             object = {
+                 name : SignInData.organisationForm.name ,
+                 creation_date : SignInData.organisationForm.creation_date,
+                 localisation : SignInData.organisationForm.place,
+                 profil_name : SignInData.accountForm.username,
+                 profil_description : SignInData.accountForm.bio,
+                 mail : SignInData.accountForm.mail,
+                 password : SignInData.accountForm.password
+             }
+             return await SendFormForOrganisationalUsage(object)
         }
-
         if (!object) {
             throw new Error('Objet de données null - vérifiez le typeOfUsage et les données des formulaires')
         }
-
-        return await SendFormForPersonalUsage(object)
     }
 
     return {

@@ -41,6 +41,7 @@ const SignInValidationAccepted = () => {
 
 
 const SignInValidationRejected = () => {
+    const navigate = useNavigate()
     return (
         <div className={"text-center"}>
             <h2 className={"font-bold text-2xl"}>Inscription <span className={"text-red-500"}>rejetée !!</span> </h2>
@@ -48,7 +49,7 @@ const SignInValidationRejected = () => {
 
             <button
                 className={" bg-green-400 text-amber-50 px-2 py-1 rounded-lg absolute right-2 bottom-2 "}
-                onClick={() => {window.close()}}
+                onClick={() => { navigate('/') }}
             >quitter</button>
         </div>
     )

@@ -1,13 +1,11 @@
 import {useSignInContext} from "../context/SignInContext.jsx";
 import {useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
-import {SignInModel} from "../model/SignInModel.js";
 
 
 export const SignInViewModel = () => {
 
     const navigate = useNavigate()
-    const model = SignInModel()
     const  { typeOfUsage, setShowSignInValidationModal } = useSignInContext()
 
     const [ currentForm, setCurrentForm ] = useState('')

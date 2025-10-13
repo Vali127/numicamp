@@ -18,16 +18,16 @@ export async function registerPersonController(req, res) {
     }
 }
 export async function registerOrganisationController(req, res) {
-    const result = await registerOrganisationService(req.body);
-    try{
+    try {
+        const result = await registerOrganisationService(req.body);
+        
         if(result.ok){
-            res.status(201).json({message: 'Inscription réussie'});
+            res.status(200).json({message: 'Inscription réussie'});
         }
         else{
             res.status(500).json({message: result.error});
         }
-    }
-    catch (error) {
+    } catch (error) {
         res.status(400).json({ message: error.message });
     }
 }

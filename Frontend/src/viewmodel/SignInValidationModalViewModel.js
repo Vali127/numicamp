@@ -23,6 +23,7 @@ export const SignInValidationModalViewModel = () => {
         } catch (error) {
             setResponse('failure')
             setFormUploaded(false)
+            console.log(error)
         }
     }
     

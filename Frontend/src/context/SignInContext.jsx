@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from "react";
+import {createContext, useContext, useState} from "react";
 
 //CONTEXT
 const SignInContext = createContext(null)
@@ -62,11 +62,15 @@ export const SignInContextProvider = ({children}) => {
     )
 }
 
+
+
 //hooks pour utiliser le context :
 // eslint-disable-next-line react-refresh/only-export-components
 export const useSignInContext = () => {
     return useContext(SignInContext)
 }
+
+
 
 export const OrderedListOfPlace = () => {
     const ListOfPlace = [ 'Diana', 'Sava', 'Sofia', 'Analanjirofo', 'Boeny', 'Melaky', 'Betsiboka', 'Alaotra Mangoro', 'Analamanga', 'Menabe', 'Bongolava', 'Itasy', 'Vakinankaratra', 'Antsinanana', 'Amoron \' i Mania', 'Haute-Matsiatra', 'Vatovavy-Fitovinanay', 'Atsimo-Andrefana', 'Ihorombe', 'Atsimo-Antsinanana', 'Anosy', 'Androy' ]
