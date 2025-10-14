@@ -19,14 +19,14 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
     });
 
     return (
-        <div className={"text-left ml-20"}>
-            <h2 className={"font-bold text-2xl mb-4"}><span>Information</span> personnelles</h2>
+        <div className={"text-left mx-8 md:mx-20"}>
+            <h2 className={"font-bold text-[20px] md:text-2xl mb-4"}><span>Information</span> personnelles</h2>
 
             <div>
                 <div className={"flex flex-col gap-4"}>
                     <div className={"flex flex-col gap-1"}>
                         <p className={"text-[12px]"}><b>Votre nom et prénom</b></p>
-                        <div className={'flex gap-10'}>
+                        <div className={'flex flex-col md:flex-row gap-3 md:gap-10'}>
                             <div>
                                 <input
                                     type={"text"}
@@ -78,7 +78,7 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                             </div>
                         </div>
                     </div>
-                    <div className={"flex items-center gap-3"}>
+                    <div className={"flex flex-col gap-1"}>
                         <p className={'text-[12px]'}><b>Lieu actuel</b></p>
                         <select
                             value={personForm.place}

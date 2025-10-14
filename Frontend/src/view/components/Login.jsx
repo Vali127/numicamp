@@ -15,7 +15,7 @@ const LoginContent = () => {
 
     return (
         <div>
-            <h2 className={'font-bold text-2xl'}>
+            <h2 className={'font-bold text-[20px] md:text-2xl'}>
                 Bienvenue Sur <span>NumiCamp</span>
             </h2>
 
@@ -23,7 +23,7 @@ const LoginContent = () => {
                 className={'flex justify-center mt-5'}>
 
 
-                <form className={'w-[20vw] flex flex-col gap-2'}>
+                <form className={'md:w-[20vw] flex flex-col gap-4 md:gap-2'}>
 
                     <div className={'flex flex-col text-left gap-1'}>
                         <label htmlFor="name" className={'text-[11px] font-bold'}>Nom d' utilisateur</label>
@@ -33,11 +33,11 @@ const LoginContent = () => {
                             value={loginData.username}
                             onChange={ (e) => { SetLoginData({ ...loginData,username: e.target.value }) } }
                             placeholder="Nom d'Utilisateur..."
-                            className={'input__shadow text_input'} />
+                            className={'input__shadow text_input w-[273px]'} />
                     </div>
 
                     <div className={'flex flex-col text-left gap-1'}>
-                        <label htmlFor="password" className={'text-[11px] font-bold'}>Mot de pass</label>
+                        <label htmlFor="password" className={'text-[11px] font-bold'}>Mot de passe</label>
                         <div className={'flex flex-col relative'}>
                             <input
                                 type={(passwordVisibility)? "text" : "password"}

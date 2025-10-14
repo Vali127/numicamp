@@ -9,7 +9,7 @@ const SignInValidationLoading = () => {
 
     return (
         <div className={"text-center"}>
-            <h2 className={"font-bold text-2xl"}>Veuillez <span>patientez !!</span> </h2>
+            <h2 className={"font-bold text-[20px] md:text-2xl"}>Veuillez <span>patientez !!</span> </h2>
             <p className={"text-[12px]"}>entrain de soumettre votre incription !</p>
 
             <div className={" flex justify-around"}>
@@ -27,11 +27,11 @@ const SignInValidationAccepted = () => {
 
     return (
         <div className={"text-center"}>
-            <h2 className={"font-bold text-2xl"}>Inscription <span>acceptée !!</span> </h2>
-            <p className={"text-[12px] mb-5"}>votre inscription est tériminé avec succèes !!</p>
+            <h2 className={"font-bold text-[20px] md:text-2xl"}>Inscription <span>acceptée !!</span> </h2>
+            <p className={"text-[12px] mb-10"}>votre inscription est tériminé avec succèes !!</p>
 
             <button
-                className={" bg-green-400 text-amber-50 px-2 py-1 rounded-lg absolute right-2 bottom-2 "}
+                className={" bg-green-500 text-white px-3 py-2 rounded-lg absolute right-2 bottom-2 "}
                 onClick={() => { navigate('/') }}
             >se connecter</button>
         </div>
@@ -39,16 +39,15 @@ const SignInValidationAccepted = () => {
 }
 
 
-
 const SignInValidationRejected = () => {
     const navigate = useNavigate()
     return (
         <div className={"text-center"}>
-            <h2 className={"font-bold text-2xl"}>Inscription <span className={"text-red-500"}>rejetée !!</span> </h2>
+            <h2 className={"font-bold text-[20px] md:text-2xl"}>Inscription <b className={"text-red-500"}>rejetée !!</b> </h2>
             <p className={"text-[12px] mb-5"}>votre inscription a echoué !! <br/> Veuillez reesayer !! </p>
 
             <button
-                className={" bg-green-400 text-amber-50 px-2 py-1 rounded-lg absolute right-2 bottom-2 "}
+                className={" bg-red-500 text-white px-2 py-2 rounded-lg absolute right-2 bottom-2 "}
                 onClick={() => { navigate('/') }}
             >quitter</button>
         </div>

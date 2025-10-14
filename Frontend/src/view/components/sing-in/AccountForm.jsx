@@ -22,11 +22,11 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
     })
 
     return (
-        <div className={"text-left mx-20"}>
-            <h2 className={"text-2xl font-bold mb-5"}>Créez votre <span>Profil</span></h2>
-            <div className={"flex gap-25"}>
-                <div className={"flex flex-col w-30 gap-2"}>
-                    <div className={"bg-gray-500 w-30 h-30 rounded-full relative flex items-center justify-center overflow-hidden"}>
+        <div className={"text-left mx-8 md:mx-20"}>
+            <h2 className={" text-[20px] md:text-2xl font-bold mb-5"}>Créez votre <span>Profil</span></h2>
+            <div className={"flex flex-col md:flex-row gap-5 md:gap-25"}>
+                <div className={"flex md:flex-col md:w-30 gap-5 md:gap-2"}>
+                    <div className={"bg-gray-200 border-2 border-gray-300  w-25 h-25 md:w-30 md:h-30 rounded-full relative flex items-center justify-center overflow-hidden"}>
                         <input 
                             id="imageInput" 
                             type="file" 
@@ -35,9 +35,9 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                             className="hidden"
                         />
                         { accountForm.image && <img src={URL.createObjectURL(accountForm.image)} alt="image" className="w-full h-full object-cover" /> }
-                        { !accountForm.image && <span className="text-white text-xs">Photo</span> }
+                        { !accountForm.image && <h2 className="text-gray-400 text-xs">Photo</h2> }
                     </div>
-                    <div className={"flex gap-2"}>
+                    <div className={"flex items-end gap-2"}>
                         <button 
                             onClick={() => document.getElementById('imageInput').click()}
                             className={" h-8 text-[12px] px-2 pl-1 font-bold border-2 border-slate-800 rounded-2xl flex items-center justify-center cursor-pointer"}
@@ -46,7 +46,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                             <label className="cursor-pointer">Modifier</label>
                         </button>
                         <button onClick={resetImage}>
-                            <Trash className={"scale-90"}/>
+                            <Trash className={"scale-90 mb-1"}/>
                         </button>
                     </div>
                     {imageError && (
