@@ -8,9 +8,13 @@ export const LoginContextProvider = ({children}) => {
 
     const SetLoginData = (data) => { setLoginData(data) }
 
+    const [showLogInValidationModal, setShowLogInValidationModal] = useState(false)
+
     const values = {
         loginData,
-        SetLoginData
+        SetLoginData,
+        showLogInValidationModal,
+        setShowLogInValidationModal
     }
 
     return (

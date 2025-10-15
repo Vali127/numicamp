@@ -7,11 +7,11 @@ import {SignIn} from "../components/SignIn.jsx";
 export const Presentation = () => {
 
     return (
-            <div className={'w-[60vw] h-[80vh] bg-white shadow-lg rounded-2xl relative'}>
-                <div className={'absolute w-full flex items-center justify-center top-[-50px]'}>
-                    <img src={numicamp} alt='numicamp' className={'w-[120px]'} />
+            <div className={'w-[90vw] md:w-[60vw] h-[75vh] md:h-[80vh] bg-white shadow-lg rounded-2xl relative'}>
+                <div className={'absolute w-full flex items-center justify-center top-[-35px] md:top-[-50px]'}>
+                    <img src={numicamp} alt='numicamp' className={'w-[80px] md:w-[120px]'} />
                 </div>
-                <div className={'h-23'}></div>
+                <div className={' h-15 md:h-23'}></div>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Login />} />

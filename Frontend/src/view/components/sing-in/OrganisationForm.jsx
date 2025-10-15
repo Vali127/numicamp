@@ -1,7 +1,7 @@
 import  { OrganisationFormViewModel } from "../../../viewmodel/OrganisationFormViewModel.js";
 import {OrderedListOfPlace} from "../../../context/SignInContext.jsx";
 import { useEffect } from "react";
-import {organisationFormValidation} from "../../../services/FormValidationServices.jsx";
+import {organisationFormValidation} from "../../../services/FormValidationServices.js";
 
 export const OrganisationForm = ({CurrentPage, isButtonNextDisabled}) => {
 
@@ -20,8 +20,8 @@ export const OrganisationForm = ({CurrentPage, isButtonNextDisabled}) => {
     })
 
     return (
-        <div className={"text-left ml-20"}>
-            <h2 className={"font-bold text-2xl mb-4"}><span>Information</span> sur votre organisation</h2>
+        <div className={"text-left mx-8 md:mx-20"}>
+            <h2 className={"font-bold text-[20px] md:text-2xl mb-4"}><span>Information</span> sur votre organisation</h2>
 
             <div>
                 <div className={"flex flex-col gap-4"}>

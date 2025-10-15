@@ -4,6 +4,6 @@ import {checkInfoLoginController} from "../controllers/loginController.js"
 const router = express.Router();
 
 //pour la verification si info de connexion non vide(validateInfoLogin) et correcte(checkInfoLogin)
-router.get('/checkLoginInfo',validateInfoLogin,checkInfoLoginController);
+router.get('/checkLoginInfo',checkInfoLoginController);
 
 export default router;
