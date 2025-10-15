@@ -1,4 +1,4 @@
-import{ Routes, Route } from "react-router-dom";
+import {Routes, Route, Link} from "react-router-dom";
 import  { SignInContextProvider } from "../../context/SignInContext.jsx";
 import {Usage} from "./sing-in/Usage.jsx";
 import {PersonForm} from "./sing-in/PersonForm.jsx";
@@ -25,6 +25,7 @@ const SignInContent = () => {
                 </Routes>
                 <button id={"nextButton"} disabled={buttonDisabled} onClick={ManageButtonNext} className={"btn absolute right-5 bottom-5 "} >Suivant</button>
                 { ( currentForm !== "usageForm" ) && <button id={"prevButton"} onClick={ManageButtonPrev} className={"btn absolute left-5 bottom-5 "} >Retour</button> }
+                { ( currentForm === "usageForm" ) && <Link to={"/"} className={"font-bold text-[12px] md:text-[14px] absolute left-5 bottom-5 "} >Vous avez déjà un compte ?</Link> }
                 { signInContext.showSignInValidationModal && <SignInValidationModal/> }
         </div>
     )

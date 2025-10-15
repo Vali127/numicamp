@@ -7,20 +7,11 @@ dotenv.config();
 
 export async function checkInfoLoginService(data) {
     try {
-        const res = await getLoginInfo(data.username);
-        const infodb = res.row;
+        const res = await getLoginInfo(data.username)
 
-        //si aucun resultat
-        if (res.ok&&infodb.length === 0) {
-            return {
-                ok: false,
-                message: 'Utilisateur introuvable'
-            };
-        }
         //si resultat obtenu => comparaison
-         if(infodb.length !== 0) {
-            const isMatch = await bcrypt.compare(data.password, infodb.mot_de_passe);
-
+         if(res) {
+            const isMatch = await bcrypt.compare(data.password, res.mot_de_passe);
             if (!isMatch) {
                 return {
                     ok: false, message: 'Mot de passe incorrect'
@@ -29,9 +20,9 @@ export async function checkInfoLoginService(data) {
 
             const token = jwt.sign(
                 {
-                    id: infodb.id_profil,
-                    role: infodb.id_role,
-                    email: infodb.mail
+                    id: res.id_profil,
+                    role: res.id_role,
+                    email: res.mail
                 },
                 process.env.JWT_SECRET
             );
@@ -42,13 +33,12 @@ export async function checkInfoLoginService(data) {
                 token
             };
         }
-         //si resultat non obtenue
-        if(!res.ok){
-            return {
-                ok: false,
-                message: res.message
-            }
-        }
+         else {
+             return {
+                 ok: false,
+                 message: 'Utilisateur introuvable'
+             }
+         }
 
     } catch (error) {
         return { ok: false, message: error.message };

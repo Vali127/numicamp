@@ -28,7 +28,7 @@ const LogInValidationVerified = ({message}) => {
             <h2 className={"font-bold text-[20px] md:text-2xl"}>Connexion <span>acceptée !!</span> </h2>
             <p className={"text-[12px] mb-2"}>{message}</p>
             <div>
-                <Lottie className={"h-30"} animationData={successAnimation} loop={false} />
+                <Lottie className={" h-20 md:h-30 mb-4"} animationData={successAnimation} loop={false} />
             </div>
             <button
                 className={" bg-green-500 text-white px-3 py-2 rounded-lg absolute right-2 bottom-2 "}
@@ -44,7 +44,7 @@ const LogInValidationWrong = ({message}) => {
             <h2 className={"font-bold text-[20px] md:text-2xl"}>Connexion <b className={"text-yellow-300"}>Rejetée !!</b> </h2>
             <p className={"text-[12px] mb-2"}>{message}</p>
             <div>
-                <Lottie className={"h-30"} animationData={rejectAnimation} loop={false} />
+                <Lottie className={" h-20 md:h-30 mb-4"} animationData={rejectAnimation} loop={false} />
             </div>
             <button
                 onClick={() => { loginContext.setShowLogInValidationModal(false) }}
@@ -61,7 +61,7 @@ const LogInValidationError = () => {
             <h2 className={"font-bold text-[20px] md:text-2xl"}>Une <b className={"text-red-500"}>Erreur</b> s' est produite</h2>
             <p className={"text-[12px] mb-2"}>Vous avez rencontrez une erreur , veuillez réessayer plus tard !</p>
             <div>
-                <Lottie className={"h-30"} animationData={errorAnimation} loop={false} />
+                <Lottie className={" h-20 md:h-30 mb-4"} animationData={errorAnimation} loop={false} />
             </div>
             <button
                 onClick={() => { loginContext.setShowLogInValidationModal(false) }}

@@ -13,6 +13,7 @@ export const  LogInValidationModalViewModel = () => {
     const HandleModalBehavior = async() => {
         try {
             const response = await loginModel.SubmitForm()
+            console.log(response)
             setMessage(response.data.message)
             if (response.data.ok) {
                 setResult('success')
@@ -24,7 +25,7 @@ export const  LogInValidationModalViewModel = () => {
             }
         } catch (error) {
             setResult('error')
-            console.log(error)
+            console.log("Erreur : ",error)
         }
         setFormUploaded(false)
     }

@@ -57,7 +57,7 @@ const LoginContent = () => {
                         </div>
                     </div>
 
-                    <div className={'text-[12px] text-left'}>Pas de compte ? <Link to={"/signIn"}> s' inscrire</Link></div>
+                    <div className={'text-[12px] text-left'}>Pas de compte ? <Link className={"underline"} to={"/signIn"}> s' inscrire</Link></div>
 
                     <div className={'mt-10'}>
                         <button onClick={HandleButtonConnexion} type={'submit'} disabled={buttonDisabled} className={'text-slate-100 w-full btn rounded-2xl bg-slate-800'}>Se connecter</button>
