@@ -25,7 +25,6 @@ export async function insertPerson({ name, firstname, birth_date, sex, localisat
             profil_description,
             mail,
             password
-
         ]);
 
         return {
