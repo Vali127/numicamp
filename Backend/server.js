@@ -1,8 +1,9 @@
 import {testConnection, pool,getRole} from './config/db.js';
 import express from 'express';
 import dotenv from 'dotenv';
-import registerRoute from "./routes/registerRoute.js";
 import cors from "cors";
+import registerRoute from "./routes/registerRoute.js";
+import loginRoute from "./routes/loginRoute.js";
 //chargement des variables environnement
 dotenv.config();
 
@@ -28,6 +29,8 @@ app.use(cors(
 
 //definition des fichiers de routage(redirige les req)
 app.use('/api/register',registerRoute);
+app.use('/api/login',loginRoute);
+
 
 //creation server et ecoute sur le port dans .env
 const PORT = process.env.SERVER_PORT;
