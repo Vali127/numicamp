@@ -1,11 +1,14 @@
 import  {loginViewModel} from "../../viewmodel/LoginViewModel.js"
 import {Link} from "react-router-dom"
-import {LoginContextProvider, useLoginContext} from "../../context/LoginContext.jsx";
+import {LoginContextProvider, useLoginContext} from "../../context/LoginContext.jsx"
+import {useEffect} from "react";
 
 const LoginContent = () => {
 
-    const { passwordVisibility,HandlePasswordVisibility } = loginViewModel()
+    const { passwordVisibility,HandlePasswordVisibility, buttonDisabled, SetConnexionButtonActivation } = loginViewModel()
     const { loginData, SetLoginData } = useLoginContext()
+
+    useEffect(() => { SetConnexionButtonActivation() }, [loginData])
 
     //icon de masquage/demasquage du mot de passe
     const HandlePassWordView = (e) => {
@@ -52,7 +55,7 @@ const LoginContent = () => {
                     <div className={'text-[12px] text-left'}>Pas de compte ? <Link to={"/signIn"}> s' inscrire</Link></div>
 
                     <div className={'mt-10'}>
-                        <button type={'submit'} className={'text-slate-100 w-full btn rounded-2xl bg-slate-800'}>Se connecter</button>
+                        <button type={'submit'} disabled={buttonDisabled} className={'text-slate-100 w-full btn rounded-2xl bg-slate-800'}>Se connecter</button>
                     </div>
 
                 </form>
