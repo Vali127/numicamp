@@ -1,7 +1,7 @@
 import  { OrganisationFormViewModel } from "../../../viewmodel/OrganisationFormViewModel.js";
 import {OrderedListOfPlace} from "../../../context/SignInContext.jsx";
 import { useEffect } from "react";
-import {organisationFormValidation} from "../../../services/FormValidationServices.jsx";
+import {organisationFormValidation} from "../../../services/FormValidationServices.js";
 
 export const OrganisationForm = ({CurrentPage, isButtonNextDisabled}) => {
 

@@ -1,6 +1,6 @@
 import {useSignInContext} from "../context/SignInContext.jsx"
 import { useState, useEffect } from "react"
-import {accountFormValidation} from "../services/FormValidationServices.jsx";
+import {accountFormValidation} from "../services/FormValidationServices.js";
 
 
 export const PasswordViewModel = () => {

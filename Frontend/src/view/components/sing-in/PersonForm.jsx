@@ -1,7 +1,7 @@
 import  { PersonFormViewModel } from "../../../viewmodel/PersonFormViewModel.js"
 import {OrderedListOfPlace} from "../../../context/SignInContext.jsx";
 import { useEffect } from "react";
-import { personFormValidation } from "../../../services/FormValidationServices.jsx";
+import { personFormValidation } from "../../../services/FormValidationServices.js";
 
 export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
 

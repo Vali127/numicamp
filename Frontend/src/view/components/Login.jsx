@@ -2,18 +2,23 @@ import  {loginViewModel} from "../../viewmodel/LoginViewModel.js"
 import {Link} from "react-router-dom"
 import {LoginContextProvider, useLoginContext} from "../../context/LoginContext.jsx"
 import {useEffect} from "react";
+import {LogInValidationModal} from "./LogInValidationModal.jsx";
 
 const LoginContent = () => {
-
+    const loginContext = useLoginContext()
     const { passwordVisibility,HandlePasswordVisibility, buttonDisabled, SetConnexionButtonActivation } = loginViewModel()
-    const { loginData, SetLoginData } = useLoginContext()
 
-    useEffect(() => { SetConnexionButtonActivation() }, [loginData])
+    useEffect(() => { SetConnexionButtonActivation() }, [loginContext.loginData])
 
     //icon de masquage/demasquage du mot de passe
     const HandlePassWordView = (e) => {
         e.preventDefault() //A cause du form
         HandlePasswordVisibility()
+    }
+
+    const HandleButtonConnexion = (e) => {
+        e.preventDefault()
+        loginContext.setShowLogInValidationModal(true)
     }
 
     return (
@@ -33,8 +38,8 @@ const LoginContent = () => {
                         <input
                             type="text"
                             id="username"
-                            value={loginData.username}
-                            onChange={ (e) => { SetLoginData({ ...loginData,username: e.target.value }) } }
+                            value={loginContext.loginData.username}
+                            onChange={ (e) => { loginContext.SetLoginData({ ...loginContext.loginData,username: e.target.value }) } }
                             placeholder="Nom d'Utilisateur..."
                             className={'input__shadow text_input w-[273px]'} />
                     </div>
@@ -44,8 +49,8 @@ const LoginContent = () => {
                         <div className={'flex flex-col relative'}>
                             <input
                                 type={(passwordVisibility)? "text" : "password"}
-                                id="password" value={loginData.password}
-                                onChange={ (e) => { SetLoginData({ ...loginData,password : e.target.value }) } }
+                                id="password" value={loginContext.loginData.password}
+                                onChange={ (e) => { loginContext.SetLoginData({ ...loginContext.loginData,password : e.target.value }) } }
                                 placeholder={"votre mot de passe..."}
                                 className={'input__shadow text_input'} />
                             <button id={"password_viewer"} onClick={HandlePassWordView} className={'icon_btn absolute right-1 top-1'} ></button>
@@ -55,13 +60,12 @@ const LoginContent = () => {
                     <div className={'text-[12px] text-left'}>Pas de compte ? <Link to={"/signIn"}> s' inscrire</Link></div>
 
                     <div className={'mt-10'}>
-                        <button type={'submit'} disabled={buttonDisabled} className={'text-slate-100 w-full btn rounded-2xl bg-slate-800'}>Se connecter</button>
+                        <button onClick={HandleButtonConnexion} type={'submit'} disabled={buttonDisabled} className={'text-slate-100 w-full btn rounded-2xl bg-slate-800'}>Se connecter</button>
                     </div>
 
                 </form>
-
-
             </div>
+            { loginContext.showLogInValidationModal && <LogInValidationModal/> }
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from "react";
+import {createContext, useContext, useState} from "react";
 
 
 const LoginContext = createContext(null)
@@ -8,10 +8,13 @@ export const LoginContextProvider = ({children}) => {
 
     const SetLoginData = (data) => { setLoginData(data) }
 
+    const [showLogInValidationModal, setShowLogInValidationModal] = useState(false)
 
     const values = {
         loginData,
-        SetLoginData
+        SetLoginData,
+        showLogInValidationModal,
+        setShowLogInValidationModal
     }
 
     return (

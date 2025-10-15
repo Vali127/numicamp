@@ -1,6 +1,6 @@
 import {UsageViewModel} from "../../../viewmodel/UsageViewModel.js";
 import {useEffect} from "react";
-import {usageFormValidation} from "../../../services/FormValidationServices.jsx";
+import {usageFormValidation} from "../../../services/FormValidationServices.js";
 
 export const Usage = ({CurrentPage, isButtonNextDisabled }) => {
 
