@@ -6,6 +6,9 @@ import { generateUniqueFilename } from "../utils/fileManager.js"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
+// Ce template de code provient du documentation du module 'multer' de npm.
+// Ca defini en general la destination du fichier et son nommage
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const tempDir = path.join(__dirname, '..', 'Users', 'temp');

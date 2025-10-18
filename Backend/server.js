@@ -3,14 +3,13 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from "cors";
 import registerRoute from "./routes/registerRoute.js";
-import profileRoute from "./routes/profileRoute.js";
 import loginRoute from "./routes/loginRoute.js";
 import uploadRoute from "./routes/uploadRoute.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 //chargement des variables environnement
 dotenv.config();
@@ -38,9 +37,9 @@ app.use(cors(
 //definition des fichiers de routage(redirige les req)
 app.use('/api/register',registerRoute);
 app.use('/api/login',loginRoute);
-app.use('/api/uploads', profileRoute);
 app.use('/api/upload', uploadRoute);
-app.use('/static/users', express.static(path.join(__dirname, 'Users'))) // Servir les fichiers statiques(pour le frontend) (images utilisateurs)
+// Servir les fichiers statiques (images utilisateurs)
+app.use('/static/users', express.static(path.join(__dirname, 'Users')));
 
 
 //creation server et ecoute sur le port dans .env

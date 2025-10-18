@@ -25,7 +25,7 @@ router.post('/temp-profile-picture', upload.single('profilePicture'), (req, res)
             }
         });
     } catch (error) {
-        res.status(500).json({
+        res.status(500).json({ //yes ...using an error status on the catch block seems to work Lol...
             ok: false,
             message: 'Erreur lors de l\'upload',
             error: error.message
