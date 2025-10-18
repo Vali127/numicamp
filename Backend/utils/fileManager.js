@@ -25,6 +25,7 @@ export function createUserDirectory(username) {
         return userDir
     } catch (error) {
         console.error('Erreur lors de la création du dossier utilisateur:', error)
+        throw error
     }
 }
 
@@ -42,13 +43,14 @@ export function moveProfilePicture(tempFilename, username) {
         if (!fs.existsSync(userProfileDir))
             fs.mkdirSync(userProfileDir, { recursive: true })
         
-        // Déplacer le fichier
+        // Déplacer le fichier (ceci supprime automatiquement le fichier temp)
         fs.renameSync(tempFilePath, finalFilePath)
         
         // Retourner le chemin relatif depuis le dossier Users
         return path.join('Users', username, 'profile', tempFilename)
     } catch (error) {
         console.error('Erreur lors du déplacement de la photo:', error)
+        throw error // Propager l'erreur
     }
 }
 

@@ -69,7 +69,6 @@ export const AccountFormViewModel = () => {
 
     const HandleInputUsernameChange = (e) => {
         SetAccountForm({...accountForm, username: e.target.value})
-        setUsernameError(username.checkExpression(e.target.value))
         if ( username.checkLength().type != null ) { setUsernameError(name.checkLength()) }
     }
 

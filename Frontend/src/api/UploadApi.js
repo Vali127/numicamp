@@ -17,5 +17,6 @@ export const uploadTempProfilePicture = async (file) => {
         return data
     } catch (error) {
         console.error('Erreur upload photo:', error)
+        throw error;
     }
 };

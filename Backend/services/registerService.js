@@ -21,10 +21,7 @@ export async function registerPersonService(data){
             photo_profil: photoPath
         })
         
-        // supprimmer le fichier temporaire s'il y en avait un
-        if (data.temp_photo)
-            cleanupTempFile(data.temp_photo);
-        
+        // Note: Le fichier temporaire a déjà été supprimé par moveProfilePicture()
         return result;
     } catch (error) {
         //suppression du fichier temporaire s'il existe
@@ -55,9 +52,7 @@ export async function registerOrganisationService(data){
             photo_profil: photoPath
         })
 
-        if (data.temp_photo)
-            cleanupTempFile(data.temp_photo)
-        
+        // Note: Le fichier temporaire a déjà été supprimé par moveProfilePicture()
         return result;
     } catch (error) {
 
