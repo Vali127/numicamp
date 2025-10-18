@@ -8,7 +8,7 @@ import {accountFormValidation} from "../../../services/FormValidationServices.js
 export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
 
     const { accountForm, SetAccountForm } = useSignInContext()
-    const { HandleImage, resetImage, imageError, emailError, usernameError, HandleInputUsernameChange, HandleInputEmailChange } = AccountFormViewModel()
+    const { HandleImage, resetImage, imageError, emailError, usernameError, HandleInputUsernameChange, HandleInputEmailChange, isUploading } = AccountFormViewModel()
     const { isAllAccountFormFulFilled } = accountFormValidation()
 
     useEffect(() => { if (CurrentPage) { CurrentPage('accountForm') } }, [])
@@ -35,7 +35,8 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                             className="hidden"
                         />
                         { accountForm.image && <img src={URL.createObjectURL(accountForm.image)} alt="image" className="w-full h-full object-cover" /> }
-                        { !accountForm.image && <h2 className="text-gray-400 text-xs">Photo</h2> }
+                        { !accountForm.image && !isUploading && <h2 className="text-gray-400 text-xs">Photo</h2> }
+                        { isUploading && <h2 className="text-blue-500 text-xs">Upload...</h2> }
                     </div>
                     <div className={"flex items-end gap-2"}>
                         <button 
@@ -46,7 +47,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                             <label className="cursor-pointer">Modifier</label>
                         </button>
                         <button onClick={resetImage}>
-                            <Trash className={"scale-90 mb-1"}/>
+                            <Trash className={"scale-90 mb-1 text-red-500"}/>
                         </button>
                     </div>
                     {imageError && (
@@ -60,10 +61,10 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                     <div className={"flex flex-col gap-1"}>
                         <p className={"text-[12px]"}><b>Nom d' utilisateur</b></p>
                         <div className={'flex gap-10'}>
-                            <div>
+                            <div className={"w-full"}>
                                 <input
                                     type={"text"}
-                                    className={'text_input input__shadow w-60'}
+                                    className={'text_input input__shadow w-full md:w-60'}
                                     placeholder={"nom d' utilisateur ici..."}
                                     value={accountForm.username}
                                     onChange={HandleInputUsernameChange}
@@ -78,7 +79,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                         <p className={"text-[12px]"}><b>ajouter une bio</b></p>
                         <div className={'flex gap-10'}>
                             <textarea 
-                                className={'text_input resize-none input__shadow w-110 h-[80px] pr-2'} 
+                                className={'text_input resize-none input__shadow w-full md:w-110 h-[80px] pr-2'}
                                 placeholder={"Qui êtes vous ? ..."}
                                 value={accountForm.bio}
                                 onChange={(e) => SetAccountForm({...accountForm, bio: e.target.value})}
@@ -89,10 +90,10 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                     <div className={"flex flex-col gap-1"}>
                         <p className={"text-[12px]"}><b>Votre mail</b></p>
                         <div className={'flex gap-10'}>
-                            <div>
+                            <div className={"w-full"}>
                                 <input
                                     type={"email"}
-                                    className={'text_input input__shadow w-60'}
+                                    className={'text_input input__shadow w-full md:w-60'}
                                     placeholder={"votre email ici..."}
                                     value={accountForm.mail}
                                     onChange={HandleInputEmailChange}

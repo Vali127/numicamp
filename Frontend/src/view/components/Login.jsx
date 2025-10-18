@@ -53,7 +53,7 @@ const LoginContent = () => {
                                 onChange={ (e) => { loginContext.SetLoginData({ ...loginContext.loginData,password : e.target.value }) } }
                                 placeholder={"votre mot de passe..."}
                                 className={'input__shadow text_input'} />
-                            <button id={"password_viewer"} onClick={HandlePassWordView} className={'icon_btn absolute right-1 top-1'} ></button>
+                            <button id={"password_viewer"} onClick={HandlePassWordView} className={'icon_btn absolute right-1 top-1.5'} ></button>
                         </div>
                     </div>
 
