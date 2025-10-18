@@ -32,7 +32,7 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                                     type={"text"}
                                     value={personForm.name}
                                     onChange={HandleInputNameChange}
-                                    className={'text_input input__shadow w-60 h-10'} placeholder={"votre nom ici..."}/>
+                                    className={'text_input input__shadow w-full md:w-60 h-10'} placeholder={"votre nom ici..."}/>
                                 { ( nameError && nameError.type === "alert" ) && <p className="error">{nameError.message}</p> }
                                 { ( nameError && nameError.type === "warning" ) && <p className="warning">{nameError.message}</p> }
                             </div>
@@ -41,7 +41,7 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                                     type={"text"}
                                     value={personForm.firstname}
                                     onChange={HandleInputFirstnameChange}
-                                    className={'text_input input__shadow w-50 h-10'} placeholder={"votre prénom ici..."}/>
+                                    className={'text_input input__shadow w-full md:w-60 h-10'} placeholder={"votre prénom ici..."}/>
                                 { ( firstnameError && firstnameError.type === "alert" ) && <p className="error">{firstnameError.message}</p> }
                                 { ( firstnameError && firstnameError.type === "warning" ) && <p className="warning">{firstnameError.message}</p> }
                             </div>
@@ -83,7 +83,7 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                         <select
                             value={personForm.place}
                             onChange={(e) => { SetPersonForm({...personForm, place : e.target.value }) }}
-                            className={'text_input input__shadow w-60'}
+                            className={'text_input input__shadow w-full md:w-60'}
                             id={'place'}
                             name={'place'}>
                             {

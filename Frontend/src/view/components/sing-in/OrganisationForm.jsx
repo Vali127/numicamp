@@ -28,12 +28,12 @@ export const OrganisationForm = ({CurrentPage, isButtonNextDisabled}) => {
                     <div className={"flex flex-col gap-1"}>
                         <p className={"text-[12px]"}><b>Nom de votre Organisation</b></p>
                         <div className={'flex gap-10'}>
-                                <div>
+                                <div className={"w-full"}>
                                     <input
                                         type={"text"}
                                         value={organisationForm.name}
                                         onChange={HandleInputNameChange}
-                                        className={'text_input input__shadow w-60'}
+                                        className={'text_input input__shadow w-full md:w-60'}
                                         placeholder={"votre nom ici..."}/>
                                     { ( nameError && nameError.type === "alert" ) && <p className="error">{nameError.message}</p> }
                                     { ( nameError && nameError.type === "warning" ) && <p className="warning">{nameError.message}</p> }
@@ -53,7 +53,7 @@ export const OrganisationForm = ({CurrentPage, isButtonNextDisabled}) => {
                         <select
                             value={organisationForm.place}
             onChange={(e) => { SetOrganisationForm({...organisationForm, place: e.target.value}) }}
-                            className={'text_input input__shadow w-60'}
+                            className={'text_input input__shadow w-full md:w-60'}
                             id={'place'} name={'place'}>
                             {
                                 Places.map((place,index) =>

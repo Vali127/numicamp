@@ -7,7 +7,7 @@ import {checkInfoLoginService} from "../services/loginService.js";
 
 export async function checkInfoLoginController(req,res){
     try {
-        const result = await checkInfoLoginService(req.query);
+        const result = await checkInfoLoginService(req.body);
         if (result.ok) {
             res.status(200).json({message: result.message, ok : result.ok, token: result.token });
         } else {
