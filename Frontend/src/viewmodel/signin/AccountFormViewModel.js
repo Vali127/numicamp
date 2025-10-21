@@ -1,7 +1,7 @@
 import {useState} from "react";
-import {useSignInContext} from "../context/SignInContext.jsx";
-import {accountFormValidation} from "../services/FormValidationServices.js";
-import { uploadTempProfilePicture } from '../api/UploadApi.js';
+import {useSignInContext} from "../../context/SignInContext.jsx";
+import {accountFormValidation} from "../../services/FormValidationServices.js";
+import { uploadTempProfilePicture } from '../../api/UploadApi.js';
 
 export const AccountFormViewModel = () => {
 

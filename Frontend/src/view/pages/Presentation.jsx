@@ -1,7 +1,7 @@
 import numicamp from '../../assets/images/numicamp.png'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-import {Login} from "../components/Login.jsx"
-import {SignIn} from "../components/SignIn.jsx";
+import {Login} from "../components/login/Login.jsx"
+import {SignIn} from "../components/singin/SignIn.jsx";
 
 
 export const Presentation = () => {

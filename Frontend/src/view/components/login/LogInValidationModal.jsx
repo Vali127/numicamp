@@ -1,11 +1,11 @@
-import {LogInValidationModalViewModel} from "../../viewmodel/LogInValidationModalViewModel.js";
+import {LogInValidationModalViewModel} from "../../../viewmodel/login/LogInValidationModalViewModel.js";
 import {ThreeDots} from "react-loader-spinner";
-import {Modal} from "./Modal.jsx";
+import {Modal} from "../Modal.jsx";
 import Lottie from "lottie-react";
-import successAnimation from "../../assets/animations/system-solid-31-check-in-reveal.json"
-import rejectAnimation from "../../assets/animations/system-solid-55-error-in-error.json"
-import errorAnimation from "../../assets/animations/system-solid-21-bug-hover-bug-2.json"
-import {useLoginContext} from "../../context/LoginContext.jsx";
+import successAnimation from "../../../assets/animations/system-solid-31-check-in-reveal.json"
+import rejectAnimation from "../../../assets/animations/system-solid-55-error-in-error.json"
+import errorAnimation from "../../../assets/animations/system-solid-21-bug-hover-bug-2.json"
+import {useLoginContext} from "../../../context/LoginContext.jsx";
 
 const LogInValidationLoading = () => {
 

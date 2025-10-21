@@ -1,6 +1,6 @@
 import {Pencil, Trash} from "lucide-react"
 
-import {AccountFormViewModel} from "../../../viewmodel/AccountFormViewModel.js";
+import {AccountFormViewModel} from "../../../viewmodel/signin/AccountFormViewModel.js";
 import {useSignInContext} from "../../../context/SignInContext.jsx";
 import {useEffect} from "react";
 import {accountFormValidation} from "../../../services/FormValidationServices.js";

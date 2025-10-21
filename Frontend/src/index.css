@@ -105,3 +105,11 @@ input[type=radio] { outline: none; }
 .warning {
     @apply text-yellow-400  text-[12px]
 }
+
+.selection_btn {
+    @apply border-2 border-green-500 rounded-2xl text-green-500 px-3 py-1
+}
+
+.selection_btn_selected {
+    @apply border-2 border-green-500 rounded-2xl text-white bg-green-500 px-3 py-1
+}

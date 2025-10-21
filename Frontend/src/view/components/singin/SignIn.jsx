@@ -1,13 +1,14 @@
 import {Routes, Route, Link} from "react-router-dom";
-import  { SignInContextProvider } from "../../context/SignInContext.jsx";
-import {Usage} from "./sing-in/Usage.jsx";
-import {PersonForm} from "./sing-in/PersonForm.jsx";
-import {SignInViewModel} from "../../viewmodel/SignInViewModel.js";
-import {OrganisationForm} from "./sing-in/OrganisationForm.jsx";
-import {AccountForm} from "./sing-in/AccountForm.jsx";
-import {PasswordForm} from "./sing-in/PasswordForm.jsx";
+import  { SignInContextProvider } from "../../../context/SignInContext.jsx";
+import {Usage} from "./Usage.jsx";
+import {PersonForm} from "./PersonForm.jsx";
+import {SignInViewModel} from "../../../viewmodel/signin/SignInViewModel.js";
+import {OrganisationForm} from "./OrganisationForm.jsx";
+import {AccountForm} from "./AccountForm.jsx";
+import {PasswordForm} from "./PasswordForm.jsx";
 import {SignInValidationModal} from "./SignInValidationModal.jsx";
-import {useSignInContext} from "../../context/SignInContext.jsx";
+import {useSignInContext} from "../../../context/SignInContext.jsx";
+import {DomainForm} from "./DomainForm.jsx";
 
 const SignInContent = () => {
 
@@ -21,6 +22,7 @@ const SignInContent = () => {
                     <Route path="personForm" element={<PersonForm CurrentPage={setCurrentForm} isButtonNextDisabled={setButtonDisabled} /> } />
                     <Route path="organisationForm" element={<OrganisationForm CurrentPage={setCurrentForm} isButtonNextDisabled={setButtonDisabled} /> } />
                     <Route path="accountForm" element={<AccountForm CurrentPage={setCurrentForm} isButtonNextDisabled={setButtonDisabled} />}  />
+                    <Route path="domainForm" element={<DomainForm CurrentPage={setCurrentForm} isButtonNextDisabled={setButtonDisabled} /> } />
                     <Route path="passwordForm" element={<PasswordForm CurrentPage={setCurrentForm} isButtonNextDisabled={setButtonDisabled} />}/>
                 </Routes>
                 <button id={"nextButton"} disabled={buttonDisabled} onClick={ManageButtonNext} className={"btn absolute right-5 bottom-5 "} >Suivant</button>

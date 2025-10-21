@@ -1,4 +1,4 @@
-import {UsageViewModel} from "../../../viewmodel/UsageViewModel.js";
+import {UsageViewModel} from "../../../viewmodel/signin/UsageViewModel.js";
 import {useEffect} from "react";
 import {usageFormValidation} from "../../../services/FormValidationServices.js";
 
