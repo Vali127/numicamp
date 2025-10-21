@@ -1,4 +1,4 @@
-import  { OrganisationFormViewModel } from "../../../viewmodel/OrganisationFormViewModel.js";
+import  { OrganisationFormViewModel } from "../../../viewmodel/signin/OrganisationFormViewModel.js";
 import {OrderedListOfPlace} from "../../../context/SignInContext.jsx";
 import { useEffect } from "react";
 import {organisationFormValidation} from "../../../services/FormValidationServices.js";

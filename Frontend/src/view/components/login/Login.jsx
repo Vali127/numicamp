@@ -1,6 +1,6 @@
-import  {loginViewModel} from "../../viewmodel/LoginViewModel.js"
+import  {loginViewModel} from "../../../viewmodel/login/LoginViewModel.js"
 import {Link} from "react-router-dom"
-import {LoginContextProvider, useLoginContext} from "../../context/LoginContext.jsx"
+import {LoginContextProvider, useLoginContext} from "../../../context/LoginContext.jsx"
 import {useEffect} from "react";
 import {LogInValidationModal} from "./LogInValidationModal.jsx";
 

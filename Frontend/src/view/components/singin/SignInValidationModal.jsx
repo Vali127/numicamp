@@ -1,6 +1,6 @@
-import {Modal} from "./Modal.jsx";
+import {Modal} from "../Modal.jsx";
 import { ThreeDots } from "react-loader-spinner";
-import {SignInValidationModalViewModel} from "../../viewmodel/SignInValidationModalViewModel.js";
+import {SignInValidationModalViewModel} from "../../../viewmodel/signin/SignInValidationModalViewModel.js";
 import {useNavigate} from "react-router-dom";
 
 

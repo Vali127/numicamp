@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import {LoginModel} from "../model/LoginModel.js"
+import {LoginModel} from "../../model/LoginModel.js"
 
 export const  LogInValidationModalViewModel = () => {
 

@@ -1,4 +1,4 @@
-import {PasswordViewModel} from "../../../viewmodel/PasswordViewModel.js";
+import {PasswordViewModel} from "../../../viewmodel/signin/PasswordViewModel.js";
 import { useEffect } from "react"
 
 

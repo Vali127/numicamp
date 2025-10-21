@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef} from "react";
-import {SignInModel} from "../model/SignInModel.js";
+import {SignInModel} from "../../model/SignInModel.js";
 
 
 export const SignInValidationModalViewModel = () => {
