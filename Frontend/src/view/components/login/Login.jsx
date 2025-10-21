@@ -1,6 +1,6 @@
-import  {loginViewModel} from "../../viewmodel/LoginViewModel.js"
+import  {loginViewModel} from "../../../viewmodel/login/LoginViewModel.js"
 import {Link} from "react-router-dom"
-import {LoginContextProvider, useLoginContext} from "../../context/LoginContext.jsx"
+import {LoginContextProvider, useLoginContext} from "../../../context/LoginContext.jsx"
 import {useEffect} from "react";
 import {LogInValidationModal} from "./LogInValidationModal.jsx";
 
@@ -53,7 +53,7 @@ const LoginContent = () => {
                                 onChange={ (e) => { loginContext.SetLoginData({ ...loginContext.loginData,password : e.target.value }) } }
                                 placeholder={"votre mot de passe..."}
                                 className={'input__shadow text_input'} />
-                            <button id={"password_viewer"} onClick={HandlePassWordView} className={'icon_btn absolute right-1 top-1'} ></button>
+                            <button id={"password_viewer"} onClick={HandlePassWordView} className={'icon_btn absolute right-1 top-1.5'} ></button>
                         </div>
                     </div>
 

@@ -1,4 +1,4 @@
-import {useSignInContext} from "../context/SignInContext.jsx";
+import {useSignInContext} from "../../context/SignInContext.jsx";
 import {useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 
@@ -40,6 +40,11 @@ export const SignInViewModel = () => {
             }
 
             case 'accountForm': {
+                navigate('/signIn/domainForm')
+                break
+            }
+
+            case 'domainForm': {
                 navigate('/signIn/passwordForm')
                 break
             }

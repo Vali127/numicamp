@@ -124,7 +124,8 @@ temp/
 *.njsproj
 *.sln
 *.sw?
-
+#For the project usage
+Users/
 # Backend specific (when you add backend technology)
 # Uncomment relevant sections when you implement backend
 

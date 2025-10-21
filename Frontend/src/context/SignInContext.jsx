@@ -31,8 +31,9 @@ export const SignInContextProvider = ({children}) => {
         image : null,
         bio : '',
         mail : '',
-        password : ''
+        password : '',
     })
+    const  [ domain, setDomain ] = useState([])
 
     // État pour le modal de validation
     const [showSignInValidationModal, setShowSignInValidationModal] = useState(false)
@@ -52,7 +53,9 @@ export const SignInContextProvider = ({children}) => {
         SetPersonForm,
         SetOrganisationForm,
         SetAccountForm,
-        setShowSignInValidationModal
+        setShowSignInValidationModal,
+        domain,
+        setDomain,
     }
 
     return (
@@ -75,4 +78,23 @@ export const useSignInContext = () => {
 export const OrderedListOfPlace = () => {
     const ListOfPlace = [ 'Diana', 'Sava', 'Sofia', 'Analanjirofo', 'Boeny', 'Melaky', 'Betsiboka', 'Alaotra Mangoro', 'Analamanga', 'Menabe', 'Bongolava', 'Itasy', 'Vakinankaratra', 'Antsinanana', 'Amoron \' i Mania', 'Haute-Matsiatra', 'Vatovavy-Fitovinanay', 'Atsimo-Andrefana', 'Ihorombe', 'Atsimo-Antsinanana', 'Anosy', 'Androy' ]
     return ListOfPlace.sort()
+}
+
+export const ITDomain = () => {
+    const ITDomains = [
+        "Intelligence artificielle",
+        "Machine Learning",
+        "Cybersécurité",
+        "Cloud computing",
+        "Développement",
+        "Data Science",
+        "Big Data",
+        "Blockchain & Web3",
+        "DevOps",
+        "Internet des objets",
+        "Admin systemes & Reseaux",
+        "Informatique quantique"
+    ];
+
+    return ITDomains.sort()
 }

@@ -127,14 +127,6 @@ export const accountFormValidation = () => {
     }
 
     const username = {
-        checkExpression : (text) => {
-            let regex = /^[a-zA-Z0-9\s]+$/
-            if ( text === '' )
-                return { type: "warning", message : "* champs obligatoire !" }
-            if ( text.match(regex) )
-                return { type: null, message : null }
-            return { type: "alert", message : "Nom invalide !( pas de caractère spéciaux )" }
-        },
         checkLength : () => {
             if ( accountForm.username.length >= 60  )
                 return { type : "alert", message : "Votre nom est trop long !" }

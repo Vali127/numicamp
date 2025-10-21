@@ -7,11 +7,11 @@
 import { pool } from '../config/db.js';
 
 
-export async function insertPerson({ name, firstname, birth_date, sex, localisation, profil_name, profil_description, mail,password }) {
+export async function insertPerson({ name, firstname, birth_date, sex, localisation, profil_name, profil_description, mail, password, photo_profil = null }) {
 
     const sql = `
-        INSERT INTO personne(nom_personne, prenom_personne, datenais, sexe, localisation, nom_profil, description_profil,mail, mot_de_passe)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        INSERT INTO personne(nom_personne, prenom_personne, datenais, sexe, localisation, nom_profil, description_profil, mail, mot_de_passe, photo_profil)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
     `;
 
     try{
@@ -24,7 +24,8 @@ export async function insertPerson({ name, firstname, birth_date, sex, localisat
             profil_name,
             profil_description,
             mail,
-            password
+            password,
+            photo_profil
         ]);
 
         return {
@@ -41,10 +42,10 @@ export async function insertPerson({ name, firstname, birth_date, sex, localisat
 
 }
 
-export async function insertOrganisation({name,creation_date,localisation, profil_name, profil_description, mail,password}) {
+export async function insertOrganisation({name,creation_date,localisation, profil_name, profil_description, mail, password, photo_profil = null}) {
     const sql = `
-                        INSERT INTO organisation(nom_organisation,date_creation,localisation,nom_profil,description_profil,mail,mot_de_passe) 
-                        VALUES (?,?,?,?,?,?,?);
+                        INSERT INTO organisation(nom_organisation,date_creation,localisation,nom_profil,description_profil,mail,mot_de_passe,photo_profil) 
+                        VALUES (?,?,?,?,?,?,?,?);
     `;
     try{
         const [result] = await pool.query(sql,[
@@ -54,7 +55,8 @@ export async function insertOrganisation({name,creation_date,localisation, profi
            profil_name,
            profil_description,
            mail,
-           password
+           password,
+           photo_profil
         ]);
         return {
             ok: true,
