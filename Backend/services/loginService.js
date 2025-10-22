@@ -39,8 +39,7 @@ export async function checkInfoLoginService(data) {
                  message: 'Utilisateur introuvable'
              }
          }
-
     } catch (error) {
-        return { ok: false, message: error.message };
+        throw new Error("Erreur dans le service :"+error.message) ;
     }
 }
