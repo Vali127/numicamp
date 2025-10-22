@@ -14,6 +14,6 @@ export async function checkInfoLoginController(req,res){
             res.status(200).json({ message: result.message,  ok : result.ok, });
         }
     } catch (error) {
-        res.status(error.status).json({ message: error.message });
+        res.status(error.status||500).json({ message: error.message });
     }
 }
