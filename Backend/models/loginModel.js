@@ -15,8 +15,8 @@ export async function getLoginInfo(username){
                         WHERE nom_profil =?;`
     try{
         const [row] = await pool.query(sql, [username, username]);
-        return row[0]
+        return row[0];
     }catch(error){
-        throw error
+        throw new Error("Erreur dans le model :"+error.message);
     }
 }

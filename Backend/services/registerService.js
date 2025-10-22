@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt';
 import { createUserDirectory, moveProfilePicture, cleanupTempFile } from '../utils/fileManager.js';
 
 export async function registerPersonService(data){
+    console.log("debut service")
+
     const hashedPassword = await bcrypt.hash(data.password, 10);
     let photoPath = null;
     
@@ -27,11 +29,7 @@ export async function registerPersonService(data){
         //suppression du fichier temporaire s'il existe
         if (data.temp_photo)
             cleanupTempFile(data.temp_photo);
-
-        return {
-            ok: false,
-            error: error.message
-        }
+        throw new Error("Erreur services "+error.message);
     }
 }
 
