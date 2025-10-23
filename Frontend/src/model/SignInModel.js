@@ -21,8 +21,10 @@ export const SignInModel = () => {
                 profil_description: SignInData.accountForm.bio,
                 mail: SignInData.accountForm.mail,
                 password: SignInData.accountForm.password,
-                temp_photo: SignInData.accountForm.tempPhotoFilename
+                temp_photo: SignInData.accountForm.tempPhotoFilename,
+                domaines : SignInData.domain
             }
+            console.log("SignInData : ", object)
             return await SendFormForPersonalUsage(object)
         }
         else if ( SignInData.typeOfUsage === "organisational" ) {
@@ -34,7 +36,8 @@ export const SignInModel = () => {
                  profil_description : SignInData.accountForm.bio,
                  mail : SignInData.accountForm.mail,
                  password : SignInData.accountForm.password,
-                 temp_photo: SignInData.accountForm.tempPhotoFilename
+                 temp_photo: SignInData.accountForm.tempPhotoFilename,
+                 domaines : SignInData.domain
              }
              return await SendFormForOrganisationalUsage(object)
         }
