@@ -1,4 +1,4 @@
-import numicamp from '../../assets/images/numicamp.png'
+import numicamp from '../../../assets/images/numicamp.png'
 import { Portal } from './Portal.jsx'
 
 export const Modal = ({children}) => {

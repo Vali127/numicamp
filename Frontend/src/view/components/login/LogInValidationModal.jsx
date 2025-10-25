@@ -1,11 +1,13 @@
 import {LogInValidationModalViewModel} from "../../../viewmodel/login/LogInValidationModalViewModel.js";
 import {ThreeDots} from "react-loader-spinner";
-import {Modal} from "../Modal.jsx";
+import {Modal} from "../interface/Modal.jsx";
 import Lottie from "lottie-react";
 import successAnimation from "../../../assets/animations/system-solid-31-check-in-reveal.json"
 import rejectAnimation from "../../../assets/animations/system-solid-55-error-in-error.json"
 import errorAnimation from "../../../assets/animations/system-solid-21-bug-hover-bug-2.json"
 import {useLoginContext} from "../../../context/LoginContext.jsx";
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 
 const LogInValidationLoading = () => {
 
@@ -23,6 +25,10 @@ const LogInValidationLoading = () => {
 
 
 const LogInValidationVerified = ({message}) => {
+    const navigate = useNavigate()
+
+    useEffect( () => { setTimeout( () => { navigate('/home') }, 2500 ) } , [])
+
     return (
         <div className={"text-center"}>
             <h2 className={"font-bold text-[20px] md:text-2xl"}>Connexion <span>acceptée !!</span> </h2>
@@ -30,9 +36,6 @@ const LogInValidationVerified = ({message}) => {
             <div>
                 <Lottie className={" h-20 md:h-30 mb-4"} animationData={successAnimation} loop={false} />
             </div>
-            <button
-                className={" bg-green-500 text-white px-3 py-2 rounded-lg absolute right-2 bottom-2 "}
-            >se connecter</button>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import numicamp from '../../assets/images/numicamp.png'
-import {BrowserRouter, Routes, Route} from "react-router-dom"
+import { Routes, Route} from "react-router-dom"
 import {Login} from "../components/login/Login.jsx"
 import {SignIn} from "../components/singin/SignIn.jsx";
 
@@ -12,12 +12,10 @@ export const Presentation = () => {
                     <img src={numicamp} alt='numicamp' className={'w-[80px] md:w-[120px]'} />
                 </div>
                 <div className={' h-15 md:h-23'}></div>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<Login />} />
-                        <Route path={"/signIn/*"} element={<SignIn />} />
-                    </Routes>
-                </BrowserRouter>
+                <Routes>
+                    <Route index element={<Login />} />
+                    <Route path={"/signIn/*"} element={<SignIn />} />
+                </Routes>
             </div>
     )
 }
