@@ -56,7 +56,7 @@ export async function insertPerson({ name, firstname, birth_date, sex, localisat
         }
 
         //Insérer les relations dans orienter
-        const sqlOrienter = `INSERT INTO orienter (id_profil, id_domaine)VALUES (?, ?)`;
+        const sqlOrienter = `INSERT INTO orienter_pers (id_profil, id_domaine)VALUES (?, ?)`;
         for (const domain of domainesRows) {
             await connection.query(sqlOrienter, [idProfil, domain.id_domaine]);
         }
@@ -116,7 +116,7 @@ export async function insertOrganisation({name,creation_date,localisation, profi
         }
 
         //Insérer les relations dans orienter
-        const [sqlOrienter] = `INSERT INTO orienter (id_profil, id_domaine)VALUES (?, ?)`;
+        const [sqlOrienter] = `INSERT INTO orienter_org (id_profil, id_domaine)VALUES (?, ?)`;
         for (const domain of domainesRows) {
             await connection.query(sqlOrienter, [idProfil, domain.id_domaine]);
         }
