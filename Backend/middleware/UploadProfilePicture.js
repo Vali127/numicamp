@@ -37,5 +37,3 @@ export const upload = multer({
         fileSize: 5 * 1024 * 1024 // 5MB
     }
 })
-
-
