@@ -21,7 +21,8 @@ export const SignInModel = () => {
                 profil_description: SignInData.accountForm.bio,
                 mail: SignInData.accountForm.mail,
                 password: SignInData.accountForm.password,
-                temp_photo: SignInData.accountForm.tempPhotoFilename
+                temp_photo: SignInData.accountForm.tempPhotoFilename,
+                domaines : SignInData.domain
             }
             return await SendFormForPersonalUsage(object)
         }
@@ -34,7 +35,8 @@ export const SignInModel = () => {
                  profil_description : SignInData.accountForm.bio,
                  mail : SignInData.accountForm.mail,
                  password : SignInData.accountForm.password,
-                 temp_photo: SignInData.accountForm.tempPhotoFilename
+                 temp_photo: SignInData.accountForm.tempPhotoFilename,
+                 domaines : SignInData.domain
              }
              return await SendFormForOrganisationalUsage(object)
         }

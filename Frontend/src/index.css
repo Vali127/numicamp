@@ -53,7 +53,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-    @apply bg-slate-100 text-slate-800;
+    background-color: #f9f9fa;
+    @apply text-slate-700;
     font-family: 'ubuntu';
 }
 
@@ -67,7 +68,7 @@ h1 {
 }
 
 .input__shadow {
-    /*box-shadow: 0 5px 10px rgba(110, 110, 110, 0.24);*/
+    box-shadow: 0px 3px 3px rgba(110, 110, 110, 0.24);
 }
 .btn {
     font-size: 16px;
@@ -92,7 +93,7 @@ input:focus, textarea:focus {
     outline: 1px solid  var(--main-color);
 }
 
-.text_input { @apply pl-3 py-2 text-[12px]   border-1 border-gray-300 }
+.text_input {  @apply pl-3 py-2 text-[12px] bg-slate-100 }
 
 
 select option:hover { background-color: var(--main-color) }
@@ -112,4 +113,11 @@ input[type=radio] { outline: none; }
 
 .selection_btn_selected {
     @apply border-2 border-green-500 rounded-2xl text-white bg-green-500 px-3 py-1
+}
+.alert__card { background-color: rgba(255, 0, 0, 0.08); }
+.warning__card { background-color: rgba(255, 196, 0, 0.08); }
+.menu { @apply bg-white w-full rounded-lg text-left px-5 py-2 shadow text-[14px] }
+.logout {
+    @apply w-full rounded-lg text-red-500 text-left px-5 py-2 text-[14px];
+    background-color: rgba(248, 21, 21, 0.28);
 }

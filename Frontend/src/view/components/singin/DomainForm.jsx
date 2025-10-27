@@ -15,7 +15,7 @@ export const DomainForm = ({CurrentPage, isButtonNextDisabled}) => {
         }
     }
 
-    useEffect(() => { if (CurrentPage) { CurrentPage('accountForm') } }, [])
+    useEffect(() => { if (CurrentPage) { CurrentPage('domainForm') } }, [])
     useEffect( () => { ( domain.length >= 1 ) ? isButtonNextDisabled(false) : isButtonNextDisabled(true)  }, [domain] )
 
     const data = ITDomain()
