@@ -21,7 +21,7 @@ export async function insertPerson({ name, firstname, birth_date, sex, localisat
         INSERT INTO personne(nom_personne, prenom_personne, datenais, sexe, localisation, nom_profil, description_profil, mail, mot_de_passe, photo_profil)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
-        await connection.query(sqlPerson, [
+        const [result] = await connection.query(sqlPerson, [
             name,
             firstname,
             birth_date,
@@ -48,7 +48,7 @@ export async function insertPerson({ name, firstname, birth_date, sex, localisat
             throw new Error("Aucun domaine fourni");
         }
         const [domainesRows] = await connection.query(
-            `SELECT id_domaine FROM domaine WHERE design_domaine IN (${domaines.map(() => '?').join(',')})`,
+            `SELECT id_domaine FROM domaine WHERE nom_domaine IN (${domaines.map(() => '?').join(',')})`,
             domaines
         );
         if (domainesRows.length === 0) {
@@ -64,7 +64,8 @@ export async function insertPerson({ name, firstname, birth_date, sex, localisat
         await connection.commit();
 
         return {
-                ok: true
+                ok: true,
+                result
         };
 
     }catch (error) {
@@ -75,7 +76,7 @@ export async function insertPerson({ name, firstname, birth_date, sex, localisat
     }
 }
 
-export async function insertOrganisation({name,creation_date,localisation, profil_name, profil_description, mail, password, photo_profil = null, domaines}) {
+export async function insertOrganisation({name,creation_date,localisation, profil_name, profil_description, mail, password, photo_profil = null}) {
     const connection = await pool.getConnection()
     try{
         await connection.beginTransaction()
@@ -83,7 +84,7 @@ export async function insertOrganisation({name,creation_date,localisation, profi
                         INSERT INTO organisation(nom_organisation,date_creation,localisation,nom_profil,description_profil,mail,mot_de_passe,photo_profil) 
                         VALUES (?,?,?,?,?,?,?,?);
     `;
-        await connection.query(sqlOrganisation,[
+        const result = await connection.query(sqlOrganisation,[
            name,
            creation_date,
            localisation,
@@ -107,7 +108,7 @@ export async function insertOrganisation({name,creation_date,localisation, profi
             throw new Error("Aucun domaine fourni");
         }
         const [domainesRows] = await connection.query(
-            `SELECT id_domaine FROM domaine WHERE design_domaine IN (${domaines.map(() => '?').join(',')})`,
+            `SELECT id_domaine FROM domaine WHERE nom_domaine IN (${domaines.map(() => '?').join(',')})`,
             domaines
         );
         if (domainesRows.length === 0) {
@@ -115,7 +116,7 @@ export async function insertOrganisation({name,creation_date,localisation, profi
         }
 
         //Insérer les relations dans orienter
-        const sqlOrienter = `INSERT INTO orienter (id_profil, id_domaine)VALUES (?, ?)`;
+        const [sqlOrienter] = `INSERT INTO orienter (id_profil, id_domaine)VALUES (?, ?)`;
         for (const domain of domainesRows) {
             await connection.query(sqlOrienter, [idProfil, domain.id_domaine]);
         }
@@ -123,7 +124,8 @@ export async function insertOrganisation({name,creation_date,localisation, profi
         await connection.commit();
 
         return {
-            ok: true
+            ok: true,
+            result
         };
     }
     catch (error) {
