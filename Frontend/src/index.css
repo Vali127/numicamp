@@ -68,7 +68,7 @@ h1 {
 }
 
 .input__shadow {
-    box-shadow: 0px 0px 10px rgba(110, 110, 110, 0.24);
+    box-shadow: 0px 3px 3px rgba(110, 110, 110, 0.24);
 }
 .btn {
     font-size: 16px;

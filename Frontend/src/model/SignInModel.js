@@ -24,7 +24,6 @@ export const SignInModel = () => {
                 temp_photo: SignInData.accountForm.tempPhotoFilename,
                 domaines : SignInData.domain
             }
-            console.log("SignInData : ", object)
             return await SendFormForPersonalUsage(object)
         }
         else if ( SignInData.typeOfUsage === "organisational" ) {

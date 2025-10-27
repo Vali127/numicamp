@@ -18,7 +18,7 @@ const HomeContents = () => {
                 <UserMenu/>
                 <div className={"absolute w-full bottom-5"}>
                     <UserLogout SetLogout={setLogout}/>
-                    { logout && <LogoutModal SetLogout={setLogout} /> }
+                    { logout && <LogoutModal Type={"red"} SetLogout={setLogout} /> }
                 </div>
             </div>
 

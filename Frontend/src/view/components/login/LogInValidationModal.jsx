@@ -62,7 +62,7 @@ const LogInValidationError = () => {
     return (
         <div className={"text-center"}>
             <h2 className={"font-bold text-[20px] md:text-2xl"}>Une <b className={"text-red-500"}>Erreur</b> s' est produite</h2>
-            <p className={"text-[12px] mb-2"}>Vous avez rencontrez une erreur , veuillez réessayer plus tard !</p>
+            <p className={"text-[12px] mb-2"}>Vous avez rencontrer une erreur , veuillez réessayer plus tard !</p>
             <div>
                 <Lottie className={" h-20 md:h-30 mb-4"} animationData={errorAnimation} loop={false} />
             </div>
