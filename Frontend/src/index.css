@@ -68,7 +68,7 @@ h1 {
 }
 
 .input__shadow {
-    box-shadow: 0px 3px 3px rgba(110, 110, 110, 0.24);
+    box-shadow: inset 0px 0px 8px rgba(110, 110, 110, 0.14);
 }
 .btn {
     font-size: 16px;
@@ -93,7 +93,7 @@ input:focus, textarea:focus {
     outline: 1px solid  var(--main-color);
 }
 
-.text_input {  @apply pl-3 py-2 text-[12px] bg-slate-100 }
+.text_input {  @apply pl-3 py-2 text-[12px] bg-slate-100 rounded }
 
 
 select option:hover { background-color: var(--main-color) }
@@ -120,4 +120,12 @@ input[type=radio] { outline: none; }
 .logout {
     @apply w-full rounded-lg text-red-500 text-left px-5 py-2 text-[14px];
     background-color: rgba(248, 21, 21, 0.28);
+}
+.card_empty_suggestion {
+    @apply text-gray-400 py-5 pl-3 rounded-lg text-[14px] ;
+    background-color: rgba(66, 66, 66, 0.07);
+}
+.empty_feeds {
+    @apply bg-white text-emerald-800 text-[14px] py-5 px-4 rounded-lg ;
+    box-shadow: 0px 0px 8px rgba(110, 110, 110, 0.14);
 }

@@ -7,6 +7,7 @@ import loginRoute from "./routes/loginRoute.js";
 import uploadRoute from "./routes/uploadRoute.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
+import accountInfoRoute from "./routes/accountInfoRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,7 +31,8 @@ app.use(cors(
     {
         origin: 'http://localhost:5173',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        credentials: true
+        credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization']
     }
 ))
 
@@ -38,6 +40,7 @@ app.use(cors(
 app.use('/api/register',registerRoute);
 app.use('/api/login',loginRoute);
 app.use('/api/upload', uploadRoute);
+app.use('/api/account', accountInfoRoute );
 // Servir les fichiers statiques (images utilisateurs)
 app.use('/static/users', express.static(path.join(__dirname, 'Users')));
 

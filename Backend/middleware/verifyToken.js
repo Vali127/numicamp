@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-export const verifyToken = (req, res,next) => {
+// Version pour utilisation en controller
+export const verifyToken = (req, res) => {
     const authHeader = req.headers["authorization"];
     const token =  authHeader && authHeader.split(" ")[1];
 
@@ -9,11 +10,10 @@ export const verifyToken = (req, res,next) => {
     }
 
     try {
-        req.user = jwt.verify(token,process.env.JWT_SECRET);
-        next();
+        req.user = jwt.verify(token, process.env.JWT_SECRET);
     }
     catch (error) {
-        console.error("Erreur de la verification du token :",error.message);
+        console.error("Erreur de la verification du token :", error.message);
         return res.status(403).json({message:"Token invalide"});
     }
 }
