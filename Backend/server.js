@@ -2,12 +2,15 @@ import {testConnection, pool} from './config/db.js';
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from "cors";
+import path from 'path';
+import { fileURLToPath } from 'url';
 import registerRoute from "./routes/registerRoute.js";
 import loginRoute from "./routes/loginRoute.js";
 import uploadRoute from "./routes/uploadRoute.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import accountInfoRoute from "./routes/accountInfoRoute.js";
+import publicationRoute from "./routes/publicationRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,6 +44,7 @@ app.use('/api/register',registerRoute);
 app.use('/api/login',loginRoute);
 app.use('/api/upload', uploadRoute);
 app.use('/api/account', accountInfoRoute );
+app.use('/api/publication',publicationRoute);
 // Servir les fichiers statiques (images utilisateurs)
 app.use('/static/users', express.static(path.join(__dirname, 'Users')));
 

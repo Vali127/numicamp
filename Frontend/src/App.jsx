@@ -6,7 +6,6 @@ import {MainApp} from "./view/pages/MainApp.jsx";
 
 function App() {
 
-
   return (
     <div>
         <BrowserRouter>
