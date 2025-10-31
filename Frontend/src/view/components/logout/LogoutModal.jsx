@@ -1,4 +1,4 @@
-import {Modal} from "../interface/Modal.jsx";
+import {Modal} from "../lower_components/Modal.jsx";
 import {HomeViewModel} from "../../../viewmodel/main/HomeViewModel.js";
 import {useNavigate} from "react-router-dom";
 

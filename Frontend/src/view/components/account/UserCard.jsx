@@ -1,9 +1,9 @@
 
 export const UserCard = ({ profile, name, firstname, user, postModalIsVisible}) => {
-    console.log("info : " ,user, " ", firstname, " ", user)
+
     return (
         <div className="bg-white flex flex-col gap-2 rounded-lg shadow p-3" >
-            <div className={ "flex" } >
+            <div className={ "flex gap-2" } >
                 <div className={"w-12 h-12 rounded-full bg-gray-500 overflow-hidden"} >
                     <img src={profile} alt="image" className="w-full h-full"  />
                 </div>

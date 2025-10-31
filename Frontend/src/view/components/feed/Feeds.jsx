@@ -1,5 +1,5 @@
 import {Newspaper} from "lucide-react";
-import {UserEmptyFeeds} from "../interface/UserEmptyFeeds.jsx";
+import {UserEmptyFeeds} from "./UserEmptyFeeds.jsx";
 
 export const Feeds = () => {
     return (

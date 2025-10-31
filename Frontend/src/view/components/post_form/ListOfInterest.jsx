@@ -1,6 +1,6 @@
 import React from 'react'
-import { getListOfInterest } from '../../../context/MainAppContext'
-import { HandleItemSelection } from '../../../utils/UI'
+import { getListOfInterest } from '../../../context/MainAppContext.jsx'
+import { HandleItemSelection } from '../../../utils/UI.js'
 
 const ListOfInterest = () => {
 

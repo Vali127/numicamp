@@ -14,7 +14,7 @@ export const HomeViewModel = () => {
     useEffect(() => { setAuthenticated(isUserAuthenticated()) }, [authenticated])
 
     const [logout, setLogout] = useState(false)
-    const [userInfo, setUserInfo] = useState({ nom_personne: '', prenom_personne: '' , nom_profil: '', photo_profil : '' });
+    const [userInfo, setUserInfo] = useState({ nom_personne: '', prenom_personne: '' , nom_profil: '', photo_profil : '/src/assets/images/default-pfp.jpg' });
     const [ postModalVisibility, setPostModalVisibility  ] = useState(false)
 
     const HandleAccountInformation = async () => {
@@ -23,9 +23,7 @@ export const HomeViewModel = () => {
             setUserInfo(res.data)
             const rawPath = `http://localhost:3000/static/users/${res.data.photo_profil}`
             const image_path = rawPath.replace(/Users\//, '')
-            console.log("CHEMIN : ",image_path)
             setUserInfo({...res.data, photo_profil: image_path})
-            console.log("RESPONSE : ",res.data)
         }
         catch (e) {
             console.log(e)

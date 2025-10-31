@@ -1,5 +1,5 @@
 import React from 'react'
-import { HandleItemSelection } from '../../../utils/UI'
+import { HandleItemSelection } from '../../../utils/UI.js'
 
 const ListOfDomain = ({data}) => {
 

@@ -2,7 +2,6 @@ import { pool } from "../config/db.js";
 
 
 export async function getAccountInfo(user_id) {
-
     let connection
     try {
 
@@ -31,8 +30,11 @@ export async function getAccountInfo(user_id) {
 
 
 export async function getUserDomains(id_user) {
+
     let connection
+
     try {
+
         const connection = await pool.getConnection()
         await connection.beginTransaction()
 
@@ -51,13 +53,13 @@ export async function getUserDomains(id_user) {
             AND orienter_org.id_profil = ?
             `
         const result = await connection.query(sql, [id_user])
-        await connection.commit()
+        //await connection.commit()
+
         return { ok: true, data: result[0] }
     }
     catch (error) {
         if (connection) await connection.rollback()
         throw new Error('Erreur de recuperation de domaine : ' + error.message);
-        console.log(error)
     }
     finally {
         if (connection) connection.release()
@@ -74,6 +76,7 @@ async function accountPurpose(id_user) {
         const sql = ` SELECT * FROM personne WHERE id_profil = ? `
 
         const result = await  connection.query(sql, [id_user])
+        await connection.commit()
 
         if (result.length <= 0 )
             return "organisational"

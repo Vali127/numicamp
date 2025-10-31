@@ -1,14 +1,14 @@
 import {HomeViewModel} from "../../../viewmodel/main/HomeViewModel.js";
-import {AlertCard} from "../interface/AlertCard.jsx";
-import {UserCard} from "../interface/UserCard.jsx";
-import {UserMenu} from "../interface/UserMenu.jsx";
-import {UserLogout} from "../interface/UserLogout.jsx";
+import {AlertCard} from "../lower_components/AlertCard.jsx";
+import {UserCard} from "../account/UserCard.jsx";
+import {UserMenu} from "../menu/UserMenu.jsx";
+import {UserLogout} from "./UserLogout.jsx";
 import {LogoutModal} from "../logout/LogoutModal.jsx";
 import numicamp from "../../../assets/images/numicamp.png"
 import {Search} from "lucide-react";
-import {UserEmptySuggestion} from "../interface/UserEmptySuggestion.jsx";
-import {Feeds} from "./Feeds.jsx";
-import PostModal from "./PostModal.jsx";
+import {UserEmptySuggestion} from "../suggestion/UserEmptySuggestion.jsx";
+import {Feeds} from "../feed/Feeds.jsx";
+import PostModal from "../post_form/PostModal.jsx";
 
 
 
