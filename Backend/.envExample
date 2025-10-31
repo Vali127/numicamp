@@ -1,6 +1,0 @@
-DB_HOST=localhost
-DB_PORT=port_mysql
-DB_USER=dbuser
-DB_PASSWORD=db password
-DB_NAME=dbname
-SERVER_PORT=node port

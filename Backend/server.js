@@ -7,6 +7,9 @@ import { fileURLToPath } from 'url';
 import registerRoute from "./routes/registerRoute.js";
 import loginRoute from "./routes/loginRoute.js";
 import uploadRoute from "./routes/uploadRoute.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import accountInfoRoute from "./routes/accountInfoRoute.js";
 import publicationRoute from "./routes/publicationRoute.js";
 import organisationRoute from "./routes/organisationRoute.js";
 
@@ -32,7 +35,8 @@ app.use(cors(
     {
         origin: 'http://localhost:5173',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        credentials: true
+        credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization']
     }
 ))
 
@@ -40,6 +44,7 @@ app.use(cors(
 app.use('/api/register',registerRoute);
 app.use('/api/login',loginRoute);
 app.use('/api/upload', uploadRoute);
+app.use('/api/account', accountInfoRoute );
 app.use('/api/publication',publicationRoute);
 app.use('/api/organisation',organisationRoute);
 

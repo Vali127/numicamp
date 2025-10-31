@@ -23,7 +23,7 @@ export const DomainForm = ({CurrentPage, isButtonNextDisabled}) => {
     return (
         <div className={"text-left mx-8 md:mx-20"}>
             <h2 className={" text-[20px] md:text-2xl font-bold mb-5"}>Quelles<span> domaines</span> vous interresses ?</h2>
-            <div className={"flex gap-4 flex-wrap overflow-scroll h-105 md:h-auto"}>
+            <div className={"flex gap-4 flex-wrap overflow-scroll h-90 md:h-auto"}>
                 {
                     data.map((domain, index) => (
                         <button
