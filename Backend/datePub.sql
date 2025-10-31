@@ -18,3 +18,17 @@ DELIMITER ;
 //pour la photo de publication
 ALTER TABLE publication
     ADD COLUMN photo_pub VARCHAR(255) NULL AFTER description_pub;
+
+
+
+
+//pour la nouvelle table orienter
+CREATE TABLE abonner (
+    id_profil_pers VARCHAR(15) NOT NULL,
+    id_profil_org VARCHAR(15) NOT NULL,
+    FOREIGN KEY (id_profil_pers) REFERENCES personne(id_profil) ON DELETE CASCADE,
+    FOREIGN KEY (id_profil_org) REFERENCES organisation(id_profil) ON DELETE CASCADE
+);
+
+ALTER TABLE abonner
+ADD CONSTRAINT unique_abonnement UNIQUE (id_profil_pers, id_profil_org);

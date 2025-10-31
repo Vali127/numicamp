@@ -8,6 +8,7 @@ import registerRoute from "./routes/registerRoute.js";
 import loginRoute from "./routes/loginRoute.js";
 import uploadRoute from "./routes/uploadRoute.js";
 import publicationRoute from "./routes/publicationRoute.js";
+import organisationRoute from "./routes/organisationRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,6 +41,8 @@ app.use('/api/register',registerRoute);
 app.use('/api/login',loginRoute);
 app.use('/api/upload', uploadRoute);
 app.use('/api/publication',publicationRoute);
+app.use('/api/organisation',organisationRoute);
+
 // Servir les fichiers statiques (images utilisateurs)
 app.use('/static/users', express.static(path.join(__dirname, 'Users')));
 

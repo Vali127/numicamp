@@ -1,7 +1,10 @@
 /**
  * param : titre,description,nom_profil (auteur) de la publication, photopath
  * retour : succes ou echec
+ *
  */
+import {pool} from "../config/db.js";
+
 export async function insertPublication({ title, description, profil_name ,photoPath = null}) {
     const connection = await pool.getConnection();
     try {
@@ -61,3 +64,49 @@ export async function insertPublication({ title, description, profil_name ,photo
         connection.release();
     }
 }
+
+//pour recuperer les publications de l' utilisateur
+export async function getPubDescriptionUser(idProfil){
+
+    const sql = 'SELECT * FROM publication WHERE id_profil_pers = ?';
+    try{
+        const [rowsPub] = await pool.query(sql, [idProfil]);
+        return {
+            ok:true,
+            message:"Publications récupérées avec succès",
+            rowsPub
+        };
+    }catch (err){
+        throw new Error("Erreur dans le model :"+err.message);
+    }
+
+}
+
+//pour recuperer les publications des organisations suivis par l user
+export async function getPubDescriptionOrg(idProfil) {
+
+           const sql = `
+            SELECT p.*
+            FROM publication p
+            WHERE p.id_profil_org IN (
+                   SELECT a.id_profil_org
+                   FROM abonner a
+                   WHERE a.id_profil_pers = ?
+               )
+            ORDER BY p.date_pub DESC;
+        `;
+
+    try {
+        const [rows] = await pool.query(sql, [idProfil]);
+        return {
+            ok:true,
+            message:"Publications récupérées avec succès",
+            rows
+            };
+
+    } catch (err) {
+        throw new Error("Erreur dans le modèle : " + err.message);
+    }
+}
+
+
