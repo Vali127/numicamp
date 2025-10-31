@@ -1,18 +1,18 @@
 import {useEffect} from "react";
 import {ITDomain, useSignInContext} from "../../../context/SignInContext.jsx";
+import { HandleItemSelection } from "../../../utils/UI.js";
 
 export const DomainForm = ({CurrentPage, isButtonNextDisabled}) => {
     const { domain, setDomain } = useSignInContext()
 
     const HandleSelection = (e)=>{
-        const currentclasses = e.target.className;
-        if ( currentclasses.includes("selection_btn_selected") ) {
-            e.target.classList.remove("selection_btn_selected");
-            setDomain(domain.filter( domain => domain !== e.target.value )); // parce que react est immuable
-        } else {
-            e.target.classList.add("selection_btn_selected");
-            setDomain([...domain, e.target.value]); // parce que react est immuable
-        }
+        
+        HandleItemSelection(
+            e,
+            "selection_btn_selected",
+            () =>  setDomain([...domain, e.target.value]),
+            () => setDomain(domain.filter( domain => domain !== e.target.value ))
+        )
     }
 
     useEffect(() => { if (CurrentPage) { CurrentPage('domainForm') } }, [])

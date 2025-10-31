@@ -7,8 +7,6 @@ import { fileURLToPath } from 'url';
 import registerRoute from "./routes/registerRoute.js";
 import loginRoute from "./routes/loginRoute.js";
 import uploadRoute from "./routes/uploadRoute.js";
-import path from 'path';
-import { fileURLToPath } from 'url';
 import accountInfoRoute from "./routes/accountInfoRoute.js";
 import publicationRoute from "./routes/publicationRoute.js";
 

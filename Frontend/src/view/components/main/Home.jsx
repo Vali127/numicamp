@@ -8,12 +8,25 @@ import numicamp from "../../../assets/images/numicamp.png"
 import {Search} from "lucide-react";
 import {UserEmptySuggestion} from "../interface/UserEmptySuggestion.jsx";
 import {Feeds} from "./Feeds.jsx";
+import PostModal from "./PostModal.jsx";
+
 
 
 const HomeContents = () => {
-    const { logout, setLogout, userInfo } = HomeViewModel()
+    const { logout, setLogout, userInfo, postModalVisibility, setPostModalVisibility } = HomeViewModel()
     return (
         <div className={" w-full h-screen flex px-3 gap-4"}>
+            
+            {
+                postModalVisibility && 
+                <PostModal
+                    profil={userInfo.photo_profil}
+                    name= { userInfo.nom_personne }
+                    firstname= { userInfo.prenom_personne }
+                    username={ userInfo.nom_profil } 
+                    close={setPostModalVisibility}
+                />
+            }
 
             <div className={"relative flex flex-col w-[16%] h-auto mt-3 gap-10"} >
                 <UserCard
@@ -21,6 +34,7 @@ const HomeContents = () => {
                     name= { userInfo.nom_personne }
                     firstname= { userInfo.prenom_personne }
                     user={ userInfo.nom_profil }
+                    postModalIsVisible={setPostModalVisibility} 
                 />
                 <UserMenu/>
                 <div className={"absolute w-full bottom-5"}>
@@ -30,14 +44,16 @@ const HomeContents = () => {
             </div>
 
 
-            <div className={"flex flex-col w-[60%] mt-3 h-auto grid gap-8 "} >
-                <div className={"flex h-10 w-full gap-2"} >
-                    <img src={numicamp} alt="numicamp" />
-                    <div className={"font-bold text-green-400 text-[34px]"} >Numicamp</div>
+            <div className={"flex flex-col w-[60%] mt-3 h-auto gap-8 "} >
+                
+                <div className={"flex h-10 w-auto gap-2 mx-3 "} >
+                        <img src={numicamp} alt="numicamp" />
+                        <div className={"font-bold text-green-400 text-[34px]"} >Numicamp</div>
                 </div>
                 <div className={" overflow-scroll h-[81vh] "}>
                         <Feeds/>
                 </div>
+
             </div>
 
 
@@ -53,6 +69,8 @@ const HomeContents = () => {
         </div>
     )
 }
+
+
 
 export const Home = () => {
     const { authenticated } = HomeViewModel()

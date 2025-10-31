@@ -11,7 +11,17 @@ export const AccountApi = () => {
         return response.data
     }
 
+    const userDomainApi = async () => {
+        const response = await axios.get("http://localhost:3000/api/account/userDomains", {
+            headers: {
+                'Authorization' : `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        return response.data
+    }
+
     return {
-        accountInfoApi
+        accountInfoApi,
+        userDomainApi
     }
 }

@@ -15,6 +15,7 @@ export const HomeViewModel = () => {
 
     const [logout, setLogout] = useState(false)
     const [userInfo, setUserInfo] = useState({ nom_personne: '', prenom_personne: '' , nom_profil: '', photo_profil : '' });
+    const [ postModalVisibility, setPostModalVisibility  ] = useState(false)
 
     const HandleAccountInformation = async () => {
         try {
@@ -36,6 +37,8 @@ export const HomeViewModel = () => {
         authenticated,
         logout,
         setLogout,
-        userInfo
+        userInfo,
+        postModalVisibility,
+        setPostModalVisibility
     }
 }
