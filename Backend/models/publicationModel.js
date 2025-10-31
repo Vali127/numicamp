@@ -1,4 +1,4 @@
-/**
+les /**
  * param : titre,description,nom_profil (auteur) de la publication, photopath
  * retour : succes ou echec
  *
