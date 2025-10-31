@@ -8,7 +8,7 @@ export async function getOrganisationController(req, res) {
     try {
         const result = await getOrganisationService(req.user.id);
         if(result.ok){
-            res.status(200).json({message: result.message, rows: result.rows });
+            res.status(200).json({message: result.message, data: result.data });
         }
     } catch (err) {
         res.status(err.status||500).json({ message: err.message });
