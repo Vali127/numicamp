@@ -1,29 +1,11 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { HomeModel } from '../../model/HomeModel'
 
 export const PostCreationViewModel = () => {
-  const { getUserDomains } = HomeModel()
   //image
   const [imageError, setImageError ] = useState('')
   const [image, setImage] = useState('')
-
-
-  const [listOfDomains, setListOfDomains] = useState([])
-
-
-  const HandleUserDomains = async() => {
-    try {
-        const res = await getUserDomains()
-        setListOfDomains(res.data)
-    }
-    catch(error) {
-        console.log(error)
-    }
-  }
-  useEffect(
-    () => { HandleUserDomains() }, []
-  )
 
   const HandleImage = async (e) => {
       const file = e.target.files[0];
@@ -62,7 +44,6 @@ export const PostCreationViewModel = () => {
   }
   
   return {
-    listOfDomains,
     HandleImage,
     imageError,
     image,

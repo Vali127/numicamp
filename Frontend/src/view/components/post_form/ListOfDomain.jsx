@@ -2,7 +2,6 @@ import React from 'react'
 import { HandleItemSelection } from '../../../utils/UI.js'
 
 const ListOfDomain = ({data}) => {
-
     const HandleSelection = (e) => HandleItemSelection(e, "domain-list-active")
 
   return (

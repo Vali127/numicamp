@@ -9,8 +9,8 @@ import ImageInput from './ImageInput.jsx'
 import { SendHorizonal } from 'lucide-react'
 
 
-const PostModal = ({profil, name, firstname, username, close}) => {
-  const { listOfDomains, HandleImage, image, imageError, resetImage  } = PostCreationViewModel()
+const PostModal = ({profil, name, firstname, username, close, domains}) => {
+  const { HandleImage, image, imageError, resetImage } = PostCreationViewModel()
   return (
     <LargeModal>
         <div className='w-full p-3 bg-gradient-to-b from-blue-100 from-0%  to-blue-100/10%  to-100%  h-20' >
@@ -26,7 +26,7 @@ const PostModal = ({profil, name, firstname, username, close}) => {
                 <PostForm/>
                 <ImageInput image={image} HandleImage={HandleImage} resetImage={resetImage} />
                 { imageError && <p className='error' >{imageError}</p> }
-                <ListOfDomain data = {listOfDomains} />
+                <ListOfDomain data={domains} />
             </div>
         </div>
         <button className='absolute bottom-3 right-3 bg-slate-900 text-white text-[14px] px-3 py-1 rounded flex gap-1 cursor-pointer' ><SendHorizonal className='scale-70'/> Poster</button>

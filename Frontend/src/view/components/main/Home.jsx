@@ -13,7 +13,9 @@ import PostModal from "../post_form/PostModal.jsx";
 
 
 const HomeContents = () => {
+    
     const { logout, setLogout, userInfo, postModalVisibility, setPostModalVisibility } = HomeViewModel()
+
     return (
         <div className={" w-full h-screen flex px-3 gap-4"}>
             
@@ -23,7 +25,8 @@ const HomeContents = () => {
                     profil={userInfo.photo_profil}
                     name= { userInfo.nom_personne }
                     firstname= { userInfo.prenom_personne }
-                    username={ userInfo.nom_profil } 
+                    username={ userInfo.nom_profil }
+                    domains={userInfo.domains} 
                     close={setPostModalVisibility}
                 />
             }
