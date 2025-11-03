@@ -32,3 +32,16 @@ CREATE TABLE abonner (
 
 ALTER TABLE abonner
 ADD CONSTRAINT unique_abonnement UNIQUE (id_profil_pers, id_profil_org);
+
+//pour la modif trigger publication
+DROP TRIGGER before_insert_publication;
+
+DELIMITER //
+CREATE TRIGGER before_insert_publication BEFORE INSERT ON publication FOR EACH ROW BEGIN   SET NEW.id_pub = CONCAT('PUB-',LEFT(REPLACE(UUID(),'-',''),12));   SET
+@last_id_pub := NEW.id_pub; END//
+
+//pour la modif trigger mot_cle
+DROP TRIGGER before_insert_mot_cle;
+
+DELIMITER //
+CREATE TRIGGER before_insert_mot_cle BEFORE INSERT ON mot_cle FOR EACH ROW BEGIN   SET NEW.id_mot_cle = CONCAT('MCL-',LEFT(REPLACE(UUID(),'-',''),12));   SET @last_mot_cle := NEW.id_mot_cle; END//

@@ -1,5 +1,5 @@
 /**
- * param : req avec (titre,description,nom_profil)
+ * param : req avec (titre,description)
  * retour : res
  */
 import {getPubDescriptionUserService,getPubDescriptionOrgService, sendPubDescriptionService} from "../services/publicationService.js";
@@ -7,9 +7,10 @@ import {getPubDescriptionUserService,getPubDescriptionOrgService, sendPubDescrip
 export async function sendPubDescriptionController(req, res) {
     try{
         const photoPath = req.file ? req.file.path : null;
-        const { title, description, profil_name } = req.body;
+        const { title, description } = req.body;
+        const id = req.user.id
 
-        const result  = await sendPubDescriptionService({title, description, profil_name,photoPath});
+        const result  = await sendPubDescriptionService({title, description,photoPath,keywords,domains,id});
         if(result.ok){
             res.status(200).json({message: "Enregistrement de publication reussi"});
         }

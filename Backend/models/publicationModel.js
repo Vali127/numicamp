@@ -1,22 +1,23 @@
 les /**
  * param : titre,description,nom_profil (auteur) de la publication, photopath
+ * traitement : insertion pub, insertion association comprendre mot cle, insertion association concener domaine
  * retour : succes ou echec
  *
  */
 import {pool} from "../config/db.js";
 
-export async function insertPublication({ title, description, profil_name ,photoPath = null}) {
+export async function insertPublication({ title, description,photoPath=null,keywords,domains,id}) {
     const connection = await pool.getConnection();
     try {
         await connection.beginTransaction();
 
         const [rowPers] = await connection.query(
-            "SELECT id_profil FROM personne WHERE nom_profil = ?",
-            [profil_name]
+            "SELECT id_profil FROM personne WHERE id_profil  = ?",
+            [id]
         );
         const [rowOrg] = await connection.query(
-            "SELECT id_profil FROM organisation WHERE nom_profil = ?",
-            [profil_name]
+            "SELECT id_profil FROM organisation WHERE id_profil = ?",
+            [id]
         );
 
         let idProfil = null;
@@ -36,24 +37,68 @@ export async function insertPublication({ title, description, profil_name ,photo
         }
 
         //Insertion dans la table publication
-        const sql = `
+        const sqlPub = `
       INSERT INTO publication (titre_pub, description_pub, photo_pub, id_profil_pers, id_profil_org)
       VALUES (?, ?, ?, ?, ?);
     `;
-        await connection.query(sql, [
+        await connection.query(sqlPub, [
             title,
             description,
             photoPath,
             isOrg ? null : idProfil,
             isOrg ? idProfil : null
         ]);
+        const [[{ id_pub }]] = await connection.query(`SELECT @last_id_pub AS id_pub`);
+
+        //inserer dans mot cle les mots cles
+        for (const mot of keywords) {
+            // Vérifier s’il existe déjà
+            const [exist] = await connection.query(
+                `SELECT id_mot_cle FROM mot_cle WHERE mot_cle = ?`,
+                [mot]
+            );
+
+            let id_mot_cle;
+            if (exist.length > 0) {
+                // Mot déjà existant
+                id_mot_cle = exist[0].id_mot_cle;
+            } else {
+                await connection.query(
+                    `INSERT INTO mot_cle (mot_cle) VALUES (?)`,
+                    [mot]
+                );
+                 [[{ id_mot_cle }]] = await connection.query(`SELECT @last_mot_cle AS id_mot_cle`);
+            }
+            // Insérer dans comprendre
+            await connection.query(
+                `INSERT INTO comprendre (id_pub, id_mot_cle) VALUES (?, ?)`,
+                [id_pub, id_mot_cle]
+            );
+        }
+
+        //insertion des domaines
+        if (!Array.isArray(domains) || domains.length === 0) {
+            throw new Error("Aucun domaine fourni");
+        }
+        const [domainsRows] = await connection.query(
+            `SELECT id_domaine FROM domaine WHERE design_domaine IN (${domaines.map(() => '?').join(',')})`,
+            domains
+        );
+        if (domainsRows.length === 0) {
+            throw new Error("Aucun domaine trouvé");
+        }
+
+        //Insérer les relations dans concerner
+        const sqlConcerner = `INSERT INTO concerner (id_pub, id_domaine)VALUES (?, ?)`;
+        for (const domain of domainsRows) {
+            await connection.query(sqlConcerner, [id_pub, domain.id_domaine]);
+        }
 
         await connection.commit();
 
         return{
             ok: true
         }
-        // console.log(" Publication ajoutée avec succès !");
 
     } catch (err) {
 

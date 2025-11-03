@@ -2,8 +2,6 @@ import {testConnection, pool} from './config/db.js';
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from "cors";
-import path from 'path';
-import { fileURLToPath } from 'url';
 import registerRoute from "./routes/registerRoute.js";
 import loginRoute from "./routes/loginRoute.js";
 import uploadRoute from "./routes/uploadRoute.js";
