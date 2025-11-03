@@ -7,9 +7,25 @@ import {accountFormValidation} from "../../../services/FormValidationServices.js
 
 export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
 
-    const { accountForm, SetAccountForm } = useSignInContext()
-    const { HandleImage, resetImage, imageError, emailError, usernameError, HandleInputUsernameChange, HandleInputEmailChange, isUploading } = AccountFormViewModel()
-    const { isAllAccountFormFulFilled } = accountFormValidation()
+    const { 
+        accountForm, 
+        SetAccountForm 
+    } = useSignInContext()
+    
+    const { 
+        HandleImage, 
+        resetImage, 
+        imageError, 
+        emailError, 
+        usernameError, 
+        HandleInputUsernameChange, 
+        HandleInputEmailChange, 
+        isUploading 
+    } = AccountFormViewModel()
+
+    const { 
+        isAllAccountFormFulFilled 
+    } = accountFormValidation()
 
     useEffect(() => { if (CurrentPage) { CurrentPage('accountForm') } }, [])
 

@@ -2,23 +2,35 @@ import React from 'react'
 import { getListOfInterest } from '../../../context/MainAppContext.jsx'
 import { HandleItemSelection } from '../../../utils/UI.js'
 
-const ListOfInterest = () => {
+const ListOfInterest = ({setPostData, postData}) => {
 
     const data = getListOfInterest()
 
-    const HandleSelection = (e) => HandleItemSelection(e, "interest-list-active")
+    const HandleSelection = (e) => HandleItemSelection(
+        e, 
+        "interest-list-active", 
+        () => { setPostData({...postData, keyWords : [ ...postData.keyWords, e.target.value ]}) },
+        () => { setPostData({...postData, keyWords : (postData.keyWords).filter( kw => kw != e.target.value )}) }  
+    )
 
   return (
-    <div className='flex gap-2' >
+    <div 
+        className='flex gap-2' >
+
         {
             data.map(
                 (item,index) => (
-                    <button key={index} onClick={HandleSelection}  className='interest-list'  >
+                    <button 
+                        key={index} 
+                        onClick={HandleSelection} 
+                        value={item}  
+                        className='interest-list'  >
                         {item}
                     </button>
                 )
             )
         }
+        
     </div>
   )
 }
