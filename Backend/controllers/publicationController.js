@@ -6,6 +6,7 @@ import {getPubDescriptionUserService,getPubDescriptionOrgService, sendPubDescrip
 
 export async function sendPubDescriptionController(req, res) {
     try{
+        console.log("has been here...")
         const photoPath = req.file ? req.file.path : null;
         const { title, description } = req.body;
         const id = req.user.id

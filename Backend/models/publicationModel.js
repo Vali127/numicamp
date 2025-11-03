@@ -7,7 +7,6 @@ les /**
  * retour : succes ou echec
  *
  */
-import {pool} from "../config/db.js";
 
 export async function insertPublication({ title, description,photoPath=null,keywords,domains,id}) {
     const connection = await pool.getConnection();

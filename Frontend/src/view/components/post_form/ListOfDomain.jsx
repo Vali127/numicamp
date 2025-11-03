@@ -6,8 +6,8 @@ const ListOfDomain = ({data, postData, setPostData}) => {
     const HandleSelection = (e) => HandleItemSelection(
         e,
         "domain-list-active",
-        () => { setPostData({...postData, keyWords : [ ...postData.keyWords, e.target.value ]}) },
-        () => { setPostData({...postData, keyWords : (postData.keyWords).filter( kw => kw != e.target.value )}) }  
+        () => { setPostData({...postData, domains : [ ...postData.domains, e.target.value ]}) },
+        () => { setPostData({...postData, domains : (postData.domains).filter( kw => kw != e.target.value )}) }  
     )
 
   return (

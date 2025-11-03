@@ -9,8 +9,8 @@ const ListOfInterest = ({setPostData, postData}) => {
     const HandleSelection = (e) => HandleItemSelection(
         e, 
         "interest-list-active", 
-        () => { setPostData({...postData, keyWords : [ ...postData.keyWords, e.target.value ]}) },
-        () => { setPostData({...postData, keyWords : (postData.keyWords).filter( kw => kw != e.target.value )}) }  
+        () => { setPostData({...postData, keywords : [ ...postData.keywords, e.target.value ]}) },
+        () => { setPostData({...postData, keywords : (postData.keywords).filter( kw => kw != e.target.value )}) }  
     )
 
   return (

@@ -7,12 +7,12 @@ import { ImageServices } from '../../services/ImageServices'
 export const PostCreationViewModel = ({setModalVisibility}) => {
   //image
   const [imageError, setImageError ] = useState('')
-  const [image, setImage] = useState('')
   const [postData, setPostData] = useState({
     title : '',
     description : '',
-    profil_name : '',
-    keyWords : []
+    domains : [],
+    keywords : [],
+    photo_pub : null
   })
 
   const HandleImage = async (e) => {
@@ -20,7 +20,7 @@ export const PostCreationViewModel = ({setModalVisibility}) => {
   
       if (!file) {
           setImageError(null)
-          setImage(null)
+          setPostData({...postData, photo_pub: null})
           return
       }      
       
@@ -28,7 +28,7 @@ export const PostCreationViewModel = ({setModalVisibility}) => {
       
       if (!service.isImageTypeValid(file.type)) {
           setImageError('Format de fichier non supporté. Veuillez choisir une image (JPEG, PNG, GIF, WebP).')
-          setImage(null)
+          setPostData({...postData, photo_pub: null})
           return
       }
 
@@ -38,25 +38,29 @@ export const PostCreationViewModel = ({setModalVisibility}) => {
       }
   
       setImageError(null)
-      setImage(file)
+      setPostData({...postData, photo_pub: file})
   }
 
   const resetImage = () => {
-    setImage(null)
+    setPostData({...postData, photo_pub: null})
     setImageError(null)
   }
 
 
-  const HandleUpload = () => {
+  const HandleUpload = async() => {
     const model = PostModel()
-    model.UploadPost(postData)
-    return setModalVisibility(false)
+    try {
+        const res = await model.UploadPost( postData )
+        console.log("REPONSES : ", res)
+    }
+    catch (error) {
+      console.error("Erreur lors de la création du post :", error)
+    }
   }
   
   return {
     HandleImage,
     imageError,
-    image,
     resetImage,
     postData,
     setPostData,

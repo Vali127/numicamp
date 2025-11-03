@@ -12,8 +12,7 @@ import { SendHorizonal } from 'lucide-react'
 const PostModal = ({profil, name, firstname, username, setModalVisibility, domains}) => {
   
   const { 
-    HandleImage, 
-    image, 
+    HandleImage,  
     imageError, 
     resetImage, 
     setPostData, 
@@ -45,7 +44,7 @@ const PostModal = ({profil, name, firstname, username, setModalVisibility, domai
                   postData={postData}/>
 
                 <ImageInput 
-                  image={image}
+                  image={postData.photo_pub}
                   HandleImage={HandleImage} 
                   resetImage={resetImage} 
                   setPostData={setPostData} 
