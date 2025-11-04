@@ -4,7 +4,7 @@ import { HomeModel } from '../../model/HomeModel'
 import { PostModel } from '../../model/PostModel'
 import { ImageServices } from '../../services/ImageServices'
 
-export const PostCreationViewModel = ({}) => {
+export const PostCreationViewModel = ({setModalVisibility}) => {
   //image
   const [imageError, setImageError ] = useState('')
   const [postData, setPostData] = useState({
@@ -16,7 +16,8 @@ export const PostCreationViewModel = ({}) => {
     photo : null,
   })
 
-
+  //Etat du composants :
+  const [uploadState, setUploadState] = useState('')
 
 
   const HandleImage = async (e) => {
@@ -66,12 +67,16 @@ export const PostCreationViewModel = ({}) => {
 
   const HandleUpload = async() => {
     try {
+      setUploadState("loading")
       const model = PostModel()
-      const response =  await  model.UploadPostData( postData )
-      console.log("REPONSE : ", response)
+      await  model.UploadPostData( postData )
+      setUploadState("success")
+      setTimeout(
+        () => { setModalVisibility(false) }, 3000
+      )
     }
     catch(error) {
-      alert('Check console logs !!!')
+      setUploadState("error")
       console.log("UNE ERREUR S' EST PRODUITE !! :", error)
     }
   }
@@ -82,7 +87,8 @@ export const PostCreationViewModel = ({}) => {
     resetImage,
     postData,
     setPostData,
-    HandleUpload
+    HandleUpload,
+    uploadState
   }
 
 }
