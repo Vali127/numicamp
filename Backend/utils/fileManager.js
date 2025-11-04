@@ -67,11 +67,11 @@ export function cleanupTempFile(tempFilename) {
 }
 
 // Not mine (-_-)...
-export function generateUniqueFilename(originalName) {
+export function generateUniqueFilename(originalName, type) {
     const timestamp = Date.now()
     const random = Math.random().toString(36).substring(2, 15)
     const extension = path.extname(originalName)
-    const nameWithoutExt = path.basename(originalName, extension)
+    const header = type
     
-    return `${nameWithoutExt}_${timestamp}_${random}${extension}`
+    return `${header}_${timestamp}_${random}${extension}`
 }

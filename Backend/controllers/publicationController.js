@@ -2,12 +2,14 @@
  * param : req avec (titre,description)
  * retour : res
  */
+import { verifyToken } from "../middleware/verifyToken.js";
 import {getPubDescriptionUserService,getPubDescriptionOrgService, sendPubDescriptionService} from "../services/publicationService.js";
 
 export async function sendPubDescriptionController(req, res) {
     try{
-        const photoPath = req.file ? req.file.path : null;
-        const { title, description } = req.body;
+        console.log(" Publication controller ...")
+        const { title, description, photoPath, keywords, domains } = req.body;
+        verifyToken(req, res)
         const id = req.user.id
 
         const result  = await sendPubDescriptionService({title, description,photoPath,keywords,domains,id});

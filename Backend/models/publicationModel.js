@@ -1,14 +1,18 @@
+import { pool } from "../config/db.js";
+
+/**
 les /**
  * param : titre,description,nom_profil (auteur) de la publication, photopath
  * traitement : insertion pub, insertion association comprendre mot cle, insertion association concener domaine
  * retour : succes ou echec
  *
  */
-import {pool} from "../config/db.js";
 
 export async function insertPublication({ title, description,photoPath=null,keywords,domains,id}) {
-    const connection = await pool.getConnection();
+    
+    let connection
     try {
+        connection = await pool.getConnection();
         await connection.beginTransaction();
 
         const [rowPers] = await connection.query(
@@ -81,7 +85,7 @@ export async function insertPublication({ title, description,photoPath=null,keyw
             throw new Error("Aucun domaine fourni");
         }
         const [domainsRows] = await connection.query(
-            `SELECT id_domaine FROM domaine WHERE design_domaine IN (${domaines.map(() => '?').join(',')})`,
+            `SELECT id_domaine FROM domaine WHERE design_domaine IN (${domains.map(() => '?').join(',')})`,
             domains
         );
         if (domainsRows.length === 0) {
@@ -109,6 +113,8 @@ export async function insertPublication({ title, description,photoPath=null,keyw
         connection.release();
     }
 }
+
+
 
 //pour recuperer les publications de l' utilisateur
 export async function getPubDescriptionUser(idProfil){

@@ -165,3 +165,6 @@ Users/
 # /test/tmp/
 # /test/version_tmp/
 # /tmp/
+
+# React Component Preview
+previewConfig.json

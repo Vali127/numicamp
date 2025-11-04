@@ -1,4 +1,4 @@
-import {AlertCard} from "../components/interface/AlertCard.jsx";
+import {AlertCard} from "../components/lower_components/AlertCard.jsx";
 import {Home} from "../components/main/Home.jsx";
 import {Routes, Route} from "react-router-dom";
 

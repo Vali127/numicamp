@@ -5,11 +5,11 @@ import cors from "cors";
 import registerRoute from "./routes/registerRoute.js";
 import loginRoute from "./routes/loginRoute.js";
 import uploadRoute from "./routes/uploadRoute.js";
-import path from 'path';
-import { fileURLToPath } from 'url';
 import accountInfoRoute from "./routes/accountInfoRoute.js";
 import publicationRoute from "./routes/publicationRoute.js";
 import organisationRoute from "./routes/organisationRoute.js";
+import {fileURLToPath} from 'url';
+import path from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,8 +33,7 @@ app.use(cors(
     {
         origin: 'http://localhost:5173',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        credentials: true,
-        allowedHeaders: ['Content-Type', 'Authorization']
+        credentials: true
     }
 ))
 
@@ -69,6 +68,11 @@ async function gracefulShutdown() {
             process.exit(1);
         }
     });
+    // Force la fermeture après 10s si le serveur ne se ferme pas proprement
+    setTimeout(() => {
+        console.error('Could not close connections in time, forcefully shutting down');
+        process.exit(1);
+    }, 3000);
 }
 
 //appel de gracefulShutdown si CTrl + C ou interruption du programme

@@ -68,7 +68,7 @@ h1 {
 }
 
 .input__shadow {
-    box-shadow: inset 0px 0px 8px rgba(110, 110, 110, 0.14);
+    box-shadow: inset 0px 0px 8px rgba(110, 110, 110, 0.082);
 }
 .btn {
     font-size: 16px;
@@ -79,7 +79,6 @@ button[disabled] { opacity: 0.6; }
 
 .icon_btn {
     font-family: 'Phosphor';
-    background-color: rgba(255, 255, 255, 0);
     border: none;
 }
 
@@ -129,3 +128,14 @@ input[type=radio] { outline: none; }
     @apply bg-white text-emerald-800 text-[14px] py-5 px-4 rounded-lg ;
     box-shadow: 0px 0px 8px rgba(110, 110, 110, 0.14);
 }
+.modal-bg {
+    background-color: #2424241f;
+}
+.modal-shadow {
+    box-shadow: 0 0 18px rgba(68, 68, 68, 0.158);
+}
+.interest-list { @apply border border-purple-600 text-purple-600 text-[14px]  px-2 rounded }
+.interest-list-active { @apply bg-purple-600 text-white  }
+
+.domain-list { @apply border border-green-600 text-green-600 text-[14px]  px-2 rounded }
+.domain-list-active { @apply bg-green-600 text-white  }

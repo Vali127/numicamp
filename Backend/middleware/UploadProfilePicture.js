@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
         cb(null, tempDir);
     },
     filename: function (req, file, cb) {
-        const uniqueFilename = generateUniqueFilename(file.originalname);
+        const uniqueFilename = generateUniqueFilename(file.originalname, "pfp");
         cb(null, uniqueFilename);
     }
 })

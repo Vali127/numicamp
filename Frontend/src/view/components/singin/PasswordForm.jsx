@@ -40,9 +40,17 @@ export const PasswordForm = ({CurrentPage, isButtonNextDisabled}) => {
                     />
                     { ( error.type === "alert") && <p className={"text-[12px] text-red-500"}>{error.message}</p> }
                     { (error.type === "warning") && <p className={"text-[12px] text-yellow-400"}>{error.message}</p> }
-                    <button id={"password_viewer2"} onClick={HandlePasswordVisibility2} className={'icon_btn absolute right-1 top-1.5'} ></button>
+                    
+                    <button 
+                        id={"password_viewer2"} 
+                        onClick={HandlePasswordVisibility2} 
+                        className={'icon_btn absolute right-1 top-1.5'} >    
+                    </button>
+                
                 </div>
+            
             </div>
+        
         </div>
     )
 }
