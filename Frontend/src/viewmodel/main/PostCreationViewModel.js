@@ -4,7 +4,7 @@ import { HomeModel } from '../../model/HomeModel'
 import { PostModel } from '../../model/PostModel'
 import { ImageServices } from '../../services/ImageServices'
 
-export const PostCreationViewModel = ({setModalVisibility}) => {
+export const PostCreationViewModel = ({}) => {
   //image
   const [imageError, setImageError ] = useState('')
   const [postData, setPostData] = useState({
@@ -12,8 +12,12 @@ export const PostCreationViewModel = ({setModalVisibility}) => {
     description : '',
     domains : [],
     keywords : [],
-    photo_pub : null
+    photo_pub : null,
+    photo : null,
   })
+
+
+
 
   const HandleImage = async (e) => {
       const file = e.target.files[0];
@@ -38,8 +42,20 @@ export const PostCreationViewModel = ({setModalVisibility}) => {
       }
   
       setImageError(null)
-      setPostData({...postData, photo_pub: file})
+
+      try {
+        const model = PostModel()
+        const res = await model.UploadPostImage( file )
+        setPostData({...postData, photo : res.data.data , photo_pub: file })
+      }
+      catch(error) {
+        console.log("Erreur d' upload : ", error)
+        setImageError("Erreur lors de l'upload de l'image. Veuillez réessayer plus tard.")
+        setPostData({...postData, photo_pub: null })
+      }
   }
+
+
 
   const resetImage = () => {
     setPostData({...postData, photo_pub: null})
@@ -47,14 +63,16 @@ export const PostCreationViewModel = ({setModalVisibility}) => {
   }
 
 
+
   const HandleUpload = async() => {
-    const model = PostModel()
     try {
-        const res = await model.UploadPost( postData )
-        console.log("REPONSES : ", res)
+      const model = PostModel()
+      const response =  await  model.UploadPostData( postData )
+      console.log("REPONSE : ", response)
     }
-    catch (error) {
-      console.error("Erreur lors de la création du post :", error)
+    catch(error) {
+      alert('Check console logs !!!')
+      console.log("UNE ERREUR S' EST PRODUITE !! :", error)
     }
   }
   

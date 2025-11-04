@@ -1,20 +1,20 @@
-import multer from "multer";
-import path from "node:path";
+import multer from "multer"
+import path from "path"
 import { fileURLToPath } from "url"
+import { generateUniqueFilename } from "../utils/fileManager.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Configuration du stockage
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const tempDir = path.join(__dirname, '..', 'Users', 'publications');
-        cb(null, tempDir);    },
-    filename: (req, file, cb) => {
-        const uniqueName = `pub_${Date.now()}${path.extname(file.originalname)}`;
-        cb(null, uniqueName);
+    destination: function (req, file, cb) {
+        const dest = path.join(__dirname, '..', 'Users', 'Posts')
+        cb(null, dest);
     },
-});
+    filename: function (req, file, cb) {
+        const uniqueFilename = generateUniqueFilename(file.originalname, "pub")
+        cb(null, uniqueFilename)
+    }
+})
 
-const upload = multer({ storage });
-export default upload;
+export const upload = multer({ storage })

@@ -5,6 +5,7 @@ export const verifyToken = (req, res) => {
     console.log('verifying token...')
     const authHeader = req.headers["authorization"];
     const token =  authHeader && authHeader.split(" ")[1];
+    console.log("token : ", token)
 
     if(!token){
         return res.status(401).json({message:"Aucun token recu"});

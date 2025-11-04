@@ -12,7 +12,7 @@ const ListOfDomain = ({data, postData, setPostData}) => {
 
   return (
     <div 
-        className='flex gap-2' >
+        className='flex gap-2 flex-wrap' >
         
         {
             data.map(

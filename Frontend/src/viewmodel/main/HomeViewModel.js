@@ -20,8 +20,7 @@ export const HomeViewModel = () => {
             const res = await getAccountInfo()
             setUserInfo(res.data)
             const res2 = await getUserDomains()
-            const rawPath = `http://localhost:3000/static/users/${res.data.photo_profil}`
-            const image_path = rawPath.replace(/Users\//, '') //enlever la repetition de "Users" dans la chemin 
+            const image_path = `http://localhost:3000/static/users/${res.data.photo_profil}`
             setUserInfo({...res.data, photo_profil: image_path, domains:res2.data})
         }
         catch (e) {
