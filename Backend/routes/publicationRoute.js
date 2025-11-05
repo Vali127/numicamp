@@ -10,9 +10,9 @@ import { postImageController } from '../controllers/postImageController.js';
 const router = express.Router();
 
 //upload de l' image de publication
-router.post('/uploadPostImage', upload.single('image'), postImageController)
+router.post('/uploadPostImage', upload.single('image'), postImageController);
 //upload des données d publication
-router.post('/sendPost', sendPubDescriptionController)
+router.post('/sendPost', sendPubDescriptionController);
 //recup info pub user
 router.get('/pubDescriptionUser', verifyToken,getPubDescriptionUserController);
 //recuperer info pub org
