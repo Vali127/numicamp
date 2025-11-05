@@ -4,14 +4,19 @@ import { SuggestionModel } from "../../model/SuggestionModel"
 
 export const OrgSuggestionViewModel = () => {
 
-    const [ suggestedOrganisation, setSuggestedOrganisation ] = useState([''])
+    const [ suggestedOrganisation, setSuggestedOrganisation ] = useState([])
     const [ isEmpty, setIsEmpty ] = useState(true)
 
     const HandleSuggestion = async() => {
         try {
             const model = SuggestionModel()
             const result = await model.getOrganisationSuggestion()
-            setIsEmpty(false)
+            
+            if ( result.length == 0 ) 
+                setIsEmpty(true)
+            else
+                setIsEmpty(false)
+            
             setSuggestedOrganisation(result)
             console.log(result)
         }
