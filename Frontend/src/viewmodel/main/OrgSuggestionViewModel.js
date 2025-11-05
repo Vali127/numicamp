@@ -1,0 +1,38 @@
+import { useEffect, useState } from "react"
+import { SuggestionModel } from "../../model/SuggestionModel"
+
+
+export const OrgSuggestionViewModel = () => {
+
+    const [ suggestedOrganisation, setSuggestedOrganisation ] = useState([])
+    const [ isEmpty, setIsEmpty ] = useState(true)
+
+    const HandleSuggestion = async() => {
+        try {
+            const model = SuggestionModel()
+            const result = await model.getOrganisationSuggestion()
+            
+            if ( result.length == 0 ) 
+                setIsEmpty(true)
+            else
+                setIsEmpty(false)
+            
+            setSuggestedOrganisation(result)
+            console.log(result)
+        }
+        catch(error) {
+            setIsEmpty(true)
+            console.log("ERREUR DE RECUP :", error)
+        }
+    }
+
+    useEffect(
+        () => { HandleSuggestion() }, []
+    )
+
+    return {
+        isEmpty,
+        suggestedOrganisation
+    }
+
+}
