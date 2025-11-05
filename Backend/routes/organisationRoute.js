@@ -4,6 +4,6 @@ import { getOrganisationController } from "../controllers/organisationController
 
 const router = express.Router();
 
-router.get('/orgDomain',verifyToken,getOrganisationController);
+router.get('/orgDomain',getOrganisationController);
 
 export default router;

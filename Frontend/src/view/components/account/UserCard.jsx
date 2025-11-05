@@ -26,7 +26,7 @@ export const UserCard = ({ profile, name, firstname, user, postModalIsVisible}) 
             <div>
                 <button 
                     onClick={() => { postModalIsVisible(true) }}  
-                    className="border border-slate-800 w-full  text-slate-800 text-[14px]  px-5 py-1 rounded "> 
+                    className="bg-green-500 w-full  text-white text-[14px]  px-5 py-1 rounded "> 
                     + Publication
                 </button>
             </div
