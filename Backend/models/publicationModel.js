@@ -1,7 +1,6 @@
 import { pool } from "../config/db.js";
 
 /**
-les /**
  * param : titre,description,nom_profil (auteur) de la publication, photopath
  * traitement : insertion pub, insertion association comprendre mot cle, insertion association concener domaine
  * retour : succes ou echec
