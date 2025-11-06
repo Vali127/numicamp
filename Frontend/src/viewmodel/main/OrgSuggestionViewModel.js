@@ -18,7 +18,6 @@ export const OrgSuggestionViewModel = () => {
                 setIsEmpty(false)
             
             setSuggestedOrganisation(result)
-            console.log(result)
         }
         catch(error) {
             setIsEmpty(true)
@@ -26,13 +25,40 @@ export const OrgSuggestionViewModel = () => {
         }
     }
 
-    useEffect(
-        () => { HandleSuggestion() }, []
-    )
+    useEffect( () => { HandleSuggestion() }, [] )
+
+
+    const Follow = async(data) => {
+        try {
+            const model = SuggestionModel()
+            const res = await model.followModel(data)
+
+            return res.ok
+        }
+        catch(error) {
+            console.log("An error occured : ", error)
+            return false
+        }
+    }
+
+    const Unfollow = async(data) => {
+        try {
+            const model = SuggestionModel()
+            const res = await model.unFollowModel(data)
+
+            return res.ok
+        }
+        catch(error) {
+            console.log("An error occured : ", error)
+            return false
+        }
+    }
 
     return {
         isEmpty,
-        suggestedOrganisation
+        suggestedOrganisation,
+        Follow,
+        Unfollow,
     }
 
 }

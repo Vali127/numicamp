@@ -1,5 +1,6 @@
 import {InfoIcon} from "lucide-react";
 import { OrgSuggestionViewModel } from "../../../viewmodel/main/OrgSuggestionViewModel";
+import { OrgSuggestionListViewModel } from "../../../viewmodel/components/OrgSuggestionListViewModel";
 
 const UserEmptySuggestion = () => {
     return (
@@ -13,7 +14,14 @@ const UserEmptySuggestion = () => {
     )
 }
 
-const UserSuggestionList = ({id, name, username, description, photo }) => {
+const UserSuggestionList = ({id, name, username, description, photo, FollowEvent, UnfollowEvent}) => {
+    
+    const {
+        followState,
+        HandleFollow,
+        HandleUnfollow
+    } = OrgSuggestionListViewModel(FollowEvent, UnfollowEvent)
+
     return (
         <div className="card_suggestion grid gap-2 mb-1">
             <div className={'grid grid-cols-4'} >
@@ -33,20 +41,52 @@ const UserSuggestionList = ({id, name, username, description, photo }) => {
                 {description}
             </div>
             <div className=" flex justify-end">
-                <button
-                    id={id} 
-                    className="bg-green-600 text-white rounded-lg  px-8 py-1 text-[13px] font-bold" >
-                    + suivre
-                </button>
+                {
+                    ( followState == "unfollowed" ) &&
+                    <button 
+                        onClick={ async(e) => { await HandleFollow(e) } } 
+                        id={id} 
+                        className="bg-green-600 text-white rounded-lg  px-8 py-1 text-[13px] font-bold" >
+                        + suivre
+                    </button> 
+                }
+                {
+                    ( followState == "followed" ) &&
+                    <button 
+                        onClick={ async(e) => { await HandleUnfollow(e) } } 
+                        id={id} 
+                        className="border border-green-600 text-green-600 rounded-lg  px-8 py-1 text-[13px] font-bold" >
+                        ne plus suivre
+                    </button> 
+                }
+                {
+                    ( followState == "error" ) &&
+                    <button  
+                        id={id} 
+                        className="bg-red-600/25 text-red-600 rounded-lg  px-8 py-1 text-[13px] font-bold" >
+                        erreur
+                    </button> 
+                }
+               
             </div>
         </div>
     )
 }
 
+
+
+
+
+
+
+
+
 export const UserOrgSuggestion = () => {
     let { 
         isEmpty,
-        suggestedOrganisation 
+        suggestedOrganisation,
+        Follow,
+        Unfollow 
     } = OrgSuggestionViewModel()
     return (
         <div>
@@ -55,14 +95,16 @@ export const UserOrgSuggestion = () => {
                 <UserEmptySuggestion/>
                 :
                 (
-                    suggestedOrganisation.map( data => (
-                        <div>
+                    suggestedOrganisation.map( (data, index) => (
+                        <div key={index} >
                             <UserSuggestionList
                                 id={data.id_profil}
                                 name={data.nom_organisation}
                                 username={data.nom_profil}
                                 description={data.description_profil}
-                                photo={data.photo_profil} />
+                                photo={data.photo_profil}
+                                FollowEvent={Follow}
+                                UnfollowEvent={Unfollow} />
                         </div>
                     ) )
                 )
