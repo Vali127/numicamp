@@ -10,10 +10,10 @@ export async function getOrganisation(idProfil) {
         const sqlOrg = `SELECT DISTINCT o.* FROM organisation o
                         JOIN orienter_org oo ON o.id_profil = oo.id_profil
                         WHERE oo.id_domaine IN (
-                        SELECT id_domaine FROM orienter_pers WHERE id_profil = 'PF-96055c43b8ed'
+                        SELECT id_domaine FROM orienter_pers WHERE id_profil = ?
                         )
                         AND o.id_profil NOT IN (
-                        SELECT id_profil_org FROM abonner WHERE id_profil_pers = 'PF-96055c43b8ed'
+                        SELECT id_profil_org FROM abonner WHERE id_profil_pers = ?
                         );`
 
         const rows = await pool.query(sqlOrg, [idProfil,idProfil]);
