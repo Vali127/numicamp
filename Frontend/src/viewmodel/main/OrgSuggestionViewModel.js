@@ -32,8 +32,8 @@ export const OrgSuggestionViewModel = () => {
         try {
             const model = SuggestionModel()
             const res = await model.followModel(data)
-
-            return res.ok
+            
+            return res.data.ok
         }
         catch(error) {
             console.log("An error occured : ", error)
@@ -46,7 +46,7 @@ export const OrgSuggestionViewModel = () => {
             const model = SuggestionModel()
             const res = await model.unFollowModel(data)
 
-            return res.ok
+            return res.data.ok
         }
         catch(error) {
             console.log("An error occured : ", error)
