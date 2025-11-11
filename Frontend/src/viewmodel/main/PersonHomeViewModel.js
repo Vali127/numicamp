@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {HomeModel} from "../../model/HomeModel.js";
 
-export const HomeViewModel = () => {
+export const PersonHomeViewModel = () => {
 
     const { getAccountInfo, getUserDomains } = HomeModel()
 

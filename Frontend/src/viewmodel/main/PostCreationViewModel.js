@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { HomeModel } from '../../model/HomeModel'
+import { HomeModel } from '../../model/HomeModel.js'
 import { PostModel } from '../../model/PostModel'
 import { ImageServices } from '../../services/ImageServices'
 

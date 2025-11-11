@@ -36,11 +36,11 @@ export async function getPubDescriptionUserController(req, res) {
 export async function getPubDescriptionOrgController(req,res) {
     try {
         //recuperer les publications des organisations ou l utilisateur est abonne
-        const result = await getPubDescriptionOrgService(req.user.id);
+        const result = await getPubDescriptionOrgService(req);
         if(result.ok){
-            res.status(200).json({message: result.message, rows: result.rows });
+            res.status(200).json({message: result.message, rows: result.rows, ok: result.ok });
         }
     } catch (err) {
-        res.status(err.status||500).json({ message: err.message });
+        res.status(err.status||500).json({ message: err.message , ok: false });
     }
 }

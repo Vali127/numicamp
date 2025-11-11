@@ -16,6 +16,17 @@
     --main-color : #1ACD2F;
 }
 
+@layer utilities {
+    .scrollbar-none ::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 @font-face {
     font-family: "ubuntu";
     font-style: normal;
@@ -48,21 +59,21 @@
 }
 
 @font-face {
-    font-family: "googleSansCode";
+    font-family: "Nunito";
     src: url("./assets/fonts/Nunito/static/Nunito-Light.ttf") format("truetype");
     font-style: normal;
     font-weight: 300;
 }
 
 @font-face {
-    font-family: "googleSansCode";
+    font-family: "Nunito";
     src: url("./assets/fonts/Nunito/static/Nunito-Medium.ttf") format("truetype");
     font-style: normal;
     font-weight: 400;
 }
 
 @font-face {
-    font-family: "googleSansCode";
+    font-family: "Nunito";
     src: url("./assets/fonts/Nunito/static/Nunito-Bold.ttf") format("truetype");
     font-style: normal;
     font-weight: 700;
@@ -78,7 +89,7 @@ body {
   min-height: 100vh;
     background-color: #f9f9fa;
     @apply text-slate-700;
-    font-family: 'googleSansCode';
+    font-family: 'Nunito';
 }
 
 span { color : var(--main-color) }
@@ -152,6 +163,11 @@ input[type=radio] { outline: none; }
 .card_suggestion {
     @apply bg-white rounded-lg p-2;
     box-shadow: inset 0 0 2px rgba(153, 153, 153, 0.527);
+}
+
+.card_feed-shadow {
+    @apply bg-white rounded-lg p-2;
+    box-shadow: 0 0 5px rgba(153, 153, 153, 0.281);
 }
 
 .empty_feeds {

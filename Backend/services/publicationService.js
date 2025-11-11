@@ -1,4 +1,5 @@
 //appel insertPubDescriptionModel
+import { verifyToken } from "../middleware/verifyToken.js";
 import {getPubDescriptionUser,getPubDescriptionOrg, insertPublication} from "../models/publicationModel.js";
 
 export async function sendPubDescriptionService(data){
@@ -11,7 +12,9 @@ export async function getPubDescriptionUserService(idProfil){
     return result;
 }
 
-export async function getPubDescriptionOrgService(idProfil){
+export async function getPubDescriptionOrgService(req){
+    verifyToken(req)
+    const idProfil = req.user.id
     const result = await getPubDescriptionOrg(idProfil);
     return result;
 }

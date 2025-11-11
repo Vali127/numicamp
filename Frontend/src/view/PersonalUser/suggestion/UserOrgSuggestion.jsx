@@ -1,6 +1,6 @@
 import {InfoIcon} from "lucide-react";
-import { OrgSuggestionViewModel } from "../../../viewmodel/main/OrgSuggestionViewModel";
-import { OrgSuggestionListViewModel } from "../../../viewmodel/components/OrgSuggestionListViewModel";
+import { OrgSuggestionViewModel } from "../../../viewmodel/main/OrgSuggestionViewModel.js";
+import { OrgSuggestionListViewModel } from "../../../viewmodel/components/OrgSuggestionListViewModel.js";
 
 const UserEmptySuggestion = () => {
     return (

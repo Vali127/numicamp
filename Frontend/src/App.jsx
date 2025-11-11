@@ -1,7 +1,7 @@
 import './App.css'
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import {Presentation} from "./view/pages/Presentation.jsx";
-import {MainApp} from "./view/pages/MainApp.jsx";
+import {Presentation} from "./view/main/Presentation.jsx";
+import {MainApp} from "./view/main/MainApp.jsx";
 
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/*" element={<Presentation/>} />
-                <Route path="/home/*" element={<MainApp/>} />
+                <Route path="/Main/*" element={<MainApp/>} />
             </Routes>
         </BrowserRouter>
     </div>

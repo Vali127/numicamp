@@ -1,14 +1,14 @@
-import {HomeViewModel} from "../../../viewmodel/main/HomeViewModel.js";
-import {AlertCard} from "../lower_components/AlertCard.jsx";
-import {UserCard} from "../account/UserCard.jsx";
-import {UserMenu} from "../menu/UserMenu.jsx";
-import {UserLogout} from "./UserLogout.jsx";
-import {LogoutModal} from "../logout/LogoutModal.jsx";
-import numicamp from "../../../assets/images/numicamp.png"
+import {PersonHomeViewModel} from "../../viewmodel/main/PersonHomeViewModel.js";
+import {AlertCard} from "../components/AlertCard.jsx";
+import {UserCard} from "../components/account/UserCard.jsx";
+import {UserMenu} from "./menu/UserMenu.jsx";
+import {UserLogout} from "../main/logout/UserLogout.jsx";
+import {LogoutModal} from "../main/logout/LogoutModal.jsx";
+import numicamp from "../../assets/images/numicamp.png"
 import {Search} from "lucide-react";
-import {UserOrgSuggestion} from "../suggestion/UserOrgSuggestion.jsx";
-import {Feeds} from "../feed/Feeds.jsx";
-import PostModal from "../post_form/PostModal.jsx";
+import {UserOrgSuggestion} from "./suggestion/UserOrgSuggestion.jsx";
+import {Feeds} from "./feed/Feeds.jsx";
+import PostModal from "../components/postform/PostModal.jsx";
 
 
 
@@ -20,10 +20,10 @@ const HomeContents = () => {
         userInfo, 
         postModalVisibility, 
         setPostModalVisibility 
-    } = HomeViewModel()
+    } = PersonHomeViewModel()
 
     return (
-        <div className={" w-full h-screen flex px-0 "}>
+        <div className={" w-full h-screen flex px-5 "}>
             
             {
                 postModalVisibility 
@@ -62,11 +62,11 @@ const HomeContents = () => {
             <div className={"flex flex-col w-[58vw] mt-3 h-auto gap-8"} >
                 
                 <div className={"flex h-10 w-auto gap-2 mx-3 "} >
-                    <img src={numicamp} alt="numicamp" />
+                    <img src={numicamp} alt="numicamp" className="w-10" />
                     <div className={"font-bold text-green-400 text-[34px]"} >Numicamp</div>
                 </div>
 
-                <div className={" overflow-scroll h-[81vh] "}>
+                <div className={" overflow-y-scroll h-[81vh] scrollbar-none"}>
                     <Feeds/>
                 </div>
 
@@ -74,7 +74,7 @@ const HomeContents = () => {
 
 
 
-            <div className={"flex flex-col w-[26vw] h-auto mt-3 text-left overflow-scroll"} >
+            <div className={"flex flex-col w-[26vw] h-auto mt-3 text-left overflow-scroll scrollbar-none"} >
                 
                 <div className={"relative"} >
                     <input 
@@ -98,8 +98,8 @@ const HomeContents = () => {
 
 
 
-export const Home = () => {
-    const { authenticated } = HomeViewModel()
+export const PersonHome = () => {
+    const { authenticated } = PersonHomeViewModel()
     return (
         <div>
             {

@@ -18,6 +18,7 @@ export const  LogInValidationModalViewModel = () => {
             if (response.data.ok) {
                 setResult('success')
                 localStorage.setItem('token', response.data.token)
+                localStorage.setItem('usage', response.data.usage)
                 localStorage.setItem('isLoggedIn', true )
             }
             else {

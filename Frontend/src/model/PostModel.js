@@ -1,13 +1,14 @@
+import { AccountApi } from "../api/AccountApi"
 import { PostApi } from "../api/PostApi"
+import { DateShortFormat } from "../utils/DisplayFormat"
 
 
 export function PostModel () {
-
-    const UploadPostImage = async ( data ) => {
-        
-        const api = PostApi()
-        return api.uploadPostImageApi(data)
     
+    const api = PostApi()
+    
+    const UploadPostImage = async ( data ) => {
+        return await api.uploadPostImageApi(data)
     }
 
     const UploadPostData = async ( data ) => {
@@ -18,14 +19,31 @@ export function PostModel () {
         keywords : data.keywords,
         domains : data.domains
        }
-       const api = PostApi()
+       
        return await  api.uploadPostApi(obj)
+    }
+
+    const GetPostFromOrg = async () => {
+        const foo = await api.getPostsFromOrg()
+        const datas = foo.data.rows
+        const res = datas.map( item => ( { ...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) )
+        return res
+        
+    }
+
+    const GetPostingOrgData = async (id) => {
+        const foo =  await AccountApi().organisationDataApi(id)
+        const data = foo.data
+        data.photo_profil = `http://localhost:3000/static/users/${data.photo_profil}`
+        return data
     }
 
 
     return {
         UploadPostImage,
-        UploadPostData
+        UploadPostData,
+        GetPostFromOrg,
+        GetPostingOrgData
     }
 
 }

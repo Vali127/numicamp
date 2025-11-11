@@ -9,7 +9,7 @@ export async function checkInfoLoginController(req,res){
     try {
         const result = await checkInfoLoginService(req.body);
         if (result.ok) {
-            res.status(200).json({message: result.message, ok : result.ok, token: result.token });
+            res.status(200).json({message: result.message, ok : result.ok, token: result.token, usage: result.usage });
         } else {
             res.status(200).json({ message: result.message,  ok : result.ok, });
         }
