@@ -11,6 +11,7 @@ export const OrgSuggestionListViewModel = (FollowEvent, UnfollowEvent) => {
         const data = { org_id : e.target.id }
         try {
             const result = await FollowEvent(data)
+            console.log(result)
             if( result ) {
                 setFollowState("followed")
             }
@@ -28,6 +29,7 @@ export const OrgSuggestionListViewModel = (FollowEvent, UnfollowEvent) => {
         const data = { org_id : e.target.id }
         try {
             const result = await UnfollowEvent(data)
+            console.log(result)
             if( result ) {
                 setFollowState("unfollowed")
             }

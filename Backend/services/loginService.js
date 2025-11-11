@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { getLoginInfo } from '../models/loginModel.js';
+import {getAccountUsage, getLoginInfo} from '../models/loginModel.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -8,7 +8,7 @@ dotenv.config();
 export async function checkInfoLoginService(data) {
     try {
         const res = await getLoginInfo(data.username)
-
+        const usage = await  getAccountUsage(data.username);
         //si resultat obtenu => comparaison
          if(res) {
             const isMatch = await bcrypt.compare(data.password, res.mot_de_passe);
@@ -30,6 +30,7 @@ export async function checkInfoLoginService(data) {
             return {
                 ok: true,
                 message: 'Connexion réussie',
+                usage: usage,
                 token
             };
         }

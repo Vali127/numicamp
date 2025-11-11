@@ -16,6 +16,6 @@ router.post('/sendPost', sendPubDescriptionController);
 //recup info pub user
 router.get('/pubDescriptionUser', verifyToken,getPubDescriptionUserController);
 //recuperer info pub org
-router.get('/pubDescriptionOrg', verifyToken,getPubDescriptionOrgController);
+router.get('/pubDescriptionOrg',getPubDescriptionOrgController);
 
 export default router;

@@ -20,3 +20,29 @@ export async function getLoginInfo(username){
         throw new Error("Erreur dans le model :"+error.message);
     }
 }
+
+export async function getAccountUsage(username) {
+    let connection
+    try {
+        const connection = await pool.getConnection()
+        await connection.beginTransaction()
+
+        const sql = ` SELECT id_profil FROM personne WHERE nom_profil = ? `
+
+        const result = await  connection.query(sql, [username])
+        await connection.commit()
+
+        const res = result[0]
+
+        if (res.length === 0 )
+            return "organisational"
+        return "personal"
+    }
+    catch(error) {
+        if (connection) await connection.rollback()
+        console.log(error)
+    }
+    finally {
+        if (connection)  connection.release()
+    }
+}

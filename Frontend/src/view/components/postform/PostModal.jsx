@@ -1,5 +1,5 @@
 import React from 'react'
-import { LargeModal } from '../lower_components/LargeModal.jsx'
+import { LargeModal } from '../LargeModal.jsx'
 import ListOfInterest from './ListOfInterest.jsx'
 import PostModalHeader from './PostModalHeader.jsx'
 import PostForm from './PostForm.jsx'
@@ -86,7 +86,7 @@ const PostModal = ({profil, name, firstname, username, setModalVisibility, domai
           ( uploadState === "" ) &&
           <div>
             <div 
-              className='w-full p-3 bg-gradient-to-b from-blue-100 from-0%  to-blue-100/10%  to-100%  h-20' >
+              className='w-full p-3 bg-gradient-to-b from-blue-100 from-0%  to-blue-100/10%  to-100%  h-20 scrollbar-none' >
             
               <PostModalHeader
                   profil={profil}

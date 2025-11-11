@@ -1,5 +1,5 @@
-import numicamp from '../../../assets/images/numicamp.png'
-import numicampRed from '../../../assets/images/numicamp-red.png'
+import numicamp from '../../assets/images/numicamp.png'
+import numicampRed from '../../assets/images/numicamp-red.png'
 import { Portal } from './Portal.jsx'
 
 export const Modal = ({children, Type = null }) => {

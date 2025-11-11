@@ -1,14 +1,19 @@
 import { pool } from "../config/db.js";
 
 
-export async function getAccountInfo(user_id) {
+export async function getAccountInfo(user_id, usage ) {
     let connection
     try {
 
         connection = await pool.getConnection()
         await connection.beginTransaction()
 
-        const sql = `SELECT * FROM personne WHERE id_profil = ?`
+        let  sql
+        if ( usage === "personal" )
+            sql = `SELECT * FROM personne WHERE id_profil = ?`
+        else
+            sql = `SELECT * FROM organisation WHERE id_profil = ?`
+
         const [rows] = await connection.query( sql, [user_id] )
 
         if ( rows.length <= 0 )
@@ -29,7 +34,7 @@ export async function getAccountInfo(user_id) {
 }
 
 
-export async function getUserDomains(id_user) {
+export async function getUserDomains(id_user, usage) {
 
     let connection
 
@@ -38,20 +43,21 @@ export async function getUserDomains(id_user) {
         const connection = await pool.getConnection()
         await connection.beginTransaction()
 
-        const usage = await accountPurpose(id_user)
-
-        const sql = ( usage === "personal" ) ? `
+        let sql
+        if ( usage === "personal" ) {
+            sql = `
             SELECT design_domaine 
             FROM domaine, orienter_pers 
             WHERE domaine.id_domaine = orienter_pers.id_domaine 
-            AND orienter_pers.id_profil = ? ` 
-            : 
-            `
+            AND orienter_pers.id_profil = ? `
+        } else {
+            sql = `
             SELECT design_domaine 
             FROM domaine, orienter_org 
             WHERE domaine.id_domaine = orienter_org.id_domaine 
-            AND orienter_org.id_profil = ?
-            `
+            AND orienter_org.id_profil = ? `
+        }
+
         const result = await connection.query(sql, [id_user])
         //await connection.commit()
 
@@ -65,28 +71,4 @@ export async function getUserDomains(id_user) {
         if (connection) connection.release()
     }
 
-}
-
-async function accountPurpose(id_user) {
-    let connection
-    try {
-        const connection = await pool.getConnection()
-        await connection.beginTransaction()
-
-        const sql = ` SELECT * FROM personne WHERE id_profil = ? `
-
-        const result = await  connection.query(sql, [id_user])
-        await connection.commit()
-
-        if (result.length <= 0 )
-            return "organisational"
-        return "personal"
-    }
-    catch(error) {
-        if (connection) await connection.rollback()
-        console.log(error)
-    }
-    finally {
-       if (connection)  connection.release()
-    }
 }

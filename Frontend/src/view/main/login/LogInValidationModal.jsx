@@ -1,6 +1,6 @@
 import {LogInValidationModalViewModel} from "../../../viewmodel/login/LogInValidationModalViewModel.js";
 import {ThreeDots} from "react-loader-spinner";
-import {Modal} from "../lower_components/Modal.jsx";
+import {Modal} from "../../components/Modal.jsx";
 import Lottie from "lottie-react";
 import successAnimation from "../../../assets/animations/system-solid-31-check-in-reveal.json"
 import rejectAnimation from "../../../assets/animations/system-solid-55-error-in-error.json"
@@ -27,7 +27,7 @@ const LogInValidationLoading = () => {
 const LogInValidationVerified = ({message}) => {
     const navigate = useNavigate()
 
-    useEffect( () => { setTimeout( () => { navigate('/home') }, 2500 ) } , [])
+    useEffect( () => { setTimeout( () => { navigate('/Main') }, 2500 ) } , [])
 
     return (
         <div className={"text-center"}>

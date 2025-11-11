@@ -1,5 +1,5 @@
-import {Modal} from "../lower_components/Modal.jsx";
-import {HomeViewModel} from "../../../viewmodel/main/HomeViewModel.js";
+import {Modal} from "../../components/Modal.jsx";
+import {PersonHomeViewModel} from "../../../viewmodel/main/PersonHomeViewModel.js";
 import {useNavigate} from "react-router-dom";
 
 export const LogoutModal = ({SetLogout, Type}) => {
