@@ -2,6 +2,7 @@
 
 import { FeedsViewModel } from '../../../viewmodel/main/FeedsViewModel'
 import { FeedVM } from '../../../viewmodel/main/FeedVM'
+import Comments from './Comments'
 
 const Feed = ( {date, title, description, illustration, owner, postId, feedOf} ) => {
     const {
@@ -9,7 +10,9 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
         Follow,
         Unfollow,
         followState,
-        org
+        org,
+        commentSectionShown,
+        setCommentSectionShown
     } = FeedVM(owner, feedOf)
 
     console.log("is organisation : ", org)
@@ -53,10 +56,9 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
 
         
         <div className='w-full flex justify-end pt-2' >
-            <button className='px-2 py-1 rounded-lg border border-gray-600' id={postId}  > commenter </button>
+            <button className='px-2 py-1 rounded-lg border border-gray-600' onClick={() => { setCommentSectionShown(true) } } > commenter </button>
         </div>
-
-
+        { commentSectionShown && <Comments open={setCommentSectionShown} postId={postId} /> }
 
     </div>
   )

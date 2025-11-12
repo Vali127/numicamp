@@ -8,6 +8,7 @@ export const FeedVM = (owner, feedOf) => {
     const [editor, setEditor] = useState({})
     const [followState, setFollowState] = useState("followed")
     const [org, setOrg] = useState(false)
+    const [ commentSectionShown, setCommentSectionShown ] = useState(false)
 
     const MODEL = PostModel()
 
@@ -70,7 +71,9 @@ export const FeedVM = (owner, feedOf) => {
         Follow,
         Unfollow,
         followState,
-        org
+        org,
+        commentSectionShown,
+        setCommentSectionShown
     }
     
 }
