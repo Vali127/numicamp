@@ -15,11 +15,11 @@ export const Feeds = () => {
             <div 
                 className={"font-bold text-lg flex gap-2 "} >
                 <Newspaper/>
-                <label>Actualités</label>
+                <label className="big-title">Actualités</label>
             </div>
 
             <div 
-                className={ "h-auto"} >
+                className={ "h-[81vh] overflow-y-scroll scrollbar-none"} >
                 
                 {
                     isEmpty ?

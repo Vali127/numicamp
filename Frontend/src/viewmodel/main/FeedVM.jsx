@@ -27,6 +27,7 @@ export const FeedVM = (owner, feedOf) => {
             const model = SuggestionModel()
             const foo = await model.followModel(data)
             const res = foo.data
+            
             if(res.ok)
                 setFollowState("followed")
             else

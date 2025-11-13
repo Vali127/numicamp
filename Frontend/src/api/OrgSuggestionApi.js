@@ -15,6 +15,7 @@ export const OrgSuggestionApi = () => {
     }
 
     const FollowApi = async(data) => {
+        console.log("Data : ", data)
         const response = await axios.post(`${BASE_URL}follow`, data, {
             headers: {
                 'Authorization' : `Bearer ${token}`

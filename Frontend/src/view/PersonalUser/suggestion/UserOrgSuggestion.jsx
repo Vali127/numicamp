@@ -46,8 +46,9 @@ const UserSuggestionList = ({id, name, username, description, photo, FollowEvent
                     <button 
                         onClick={ async(e) => { await HandleFollow(e) } } 
                         id={id} 
-                        className="bg-green-600 text-white rounded-lg  px-8 py-1 text-[13px] font-bold" >
-                        + suivre
+                        className="bg-green-600 border border-green-600 text-white rounded  px-8 py-1 text-[13px] font-bold flex items-center gap-1" >
+                        <div className="icon_btn font-bold">&#xE5E8;</div>
+                        <div>suivre</div>
                     </button> 
                 }
                 {
@@ -55,15 +56,16 @@ const UserSuggestionList = ({id, name, username, description, photo, FollowEvent
                     <button 
                         onClick={ async(e) => { await HandleUnfollow(e) } } 
                         id={id} 
-                        className="border border-green-600 text-green-600 rounded-lg  px-8 py-1 text-[13px] font-bold" >
-                        ne plus suivre
+                        className="border border-green-600 text-green-600 rounded-lg  px-8 py-1 text-[13px] font-bold flex items-center gap-1" >
+                        <div className="icon_btn font-bold">&#xE0D4;</div>
+                        <div>ne plus suivre</div>
                     </button> 
                 }
                 {
                     ( followState == "error" ) &&
                     <button  
                         id={id} 
-                        className="bg-red-600/25 text-red-600 rounded-lg  px-8 py-1 text-[13px] font-bold" >
+                        className="bg-red-600/25 border border-red-600/25 text-red-600  rounded-lg  px-8 py-1 text-[13px] font-bold" >
                         erreur
                     </button> 
                 }

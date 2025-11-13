@@ -8,7 +8,7 @@ export const OrgSuggestionListViewModel = (FollowEvent, UnfollowEvent) => {
 
 
     const HandleFollow = async(e) => {
-        const data = { org_id : e.target.id }
+        const data = { org_id : e.currentTarget.id }
         try {
             const result = await FollowEvent(data)
             console.log(result)
@@ -26,7 +26,7 @@ export const OrgSuggestionListViewModel = (FollowEvent, UnfollowEvent) => {
     }
 
     const HandleUnfollow = async(e) => {
-        const data = { org_id : e.target.id }
+        const data = { org_id : e.currentTarget.id }
         try {
             const result = await UnfollowEvent(data)
             console.log(result)
