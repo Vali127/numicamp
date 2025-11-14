@@ -3,13 +3,13 @@ export const UserCard = ({ profile, name, firstname, user, postModalIsVisible}) 
 
     return (
         <div 
-            className="bg-white flex flex-col gap-2 rounded-lg shadow p-3" >
+            className="flex flex-col gap-2 py-3 border-b border-b-neutral-500/20" >
             
             <div 
                 className={ "flex gap-2" } >
                 
                 <div 
-                    className={"w-12 h-12 rounded-full bg-gray-500 overflow-hidden"} >
+                    className={"w-12 h-12 rounded-[14px] bg-gray-500 overflow-hidden"} >
                     <img 
                         src={profile} 
                         alt="image" 
@@ -26,8 +26,9 @@ export const UserCard = ({ profile, name, firstname, user, postModalIsVisible}) 
             <div>
                 <button 
                     onClick={() => { postModalIsVisible(true) }}  
-                    className="bg-green-500 w-full  text-white text-[14px]  px-5 py-1 rounded "> 
-                    + Publication
+                    className="bg-slate-950 w-full  text-white text-[14px]  px-5 py-1 rounded flex justify-center items-center gap-2"> 
+                    <div className="icon_btn text-lg font-bold ">&#xE34C;</div> 
+                    <div className="flex items-center">Publication</div>
                 </button>
             </div
             >

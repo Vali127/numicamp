@@ -3,6 +3,6 @@ import {sendCommentController,getCommentController} from "../controllers/comment
 const router = express.Router();
 
 router.post('/sendComment',sendCommentController);
-router.get('getComment',getCommentController);
+router.get('/getComment',getCommentController);
 
 export default router;

@@ -7,7 +7,7 @@ import {LogoutModal} from "../main/logout/LogoutModal.jsx";
 import numicamp from "../../assets/images/numicamp.png"
 import {Search} from "lucide-react";
 import {UserOrgSuggestion} from "./suggestion/UserOrgSuggestion.jsx";
-import {Feeds} from "./feed/Feeds.jsx";
+import {Feeds} from "../main/feed/Feeds.jsx";
 import PostModal from "../components/postform/PostModal.jsx";
 
 
@@ -63,10 +63,10 @@ const HomeContents = () => {
                 
                 <div className={"flex h-10 w-auto gap-2 mx-3 "} >
                     <img src={numicamp} alt="numicamp" className="w-10" />
-                    <div className={"font-bold text-green-400 text-[34px]"} >Numicamp</div>
+                    <div className={"font-bold text-green-500 text-[34px] big-title"} >Numicamp</div>
                 </div>
 
-                <div className={" overflow-y-scroll h-[81vh] scrollbar-none"}>
+                <div className={"h-[81vh]"}>
                     <Feeds/>
                 </div>
 
