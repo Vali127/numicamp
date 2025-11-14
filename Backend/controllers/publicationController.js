@@ -26,7 +26,7 @@ export async function getPubDescriptionUserController(req, res) {
         //recuperer les publications de l user
         const result = await getPubDescriptionUserService(req.user.id);
         if(result.ok){
-            res.status(200).json({message: result.message, rows: result.rows });
+            res.status(200).json({message: result.message, rows: result.publications });
         }
     }catch (err){
         res.status(err.status||500).json({ message: err.message });
