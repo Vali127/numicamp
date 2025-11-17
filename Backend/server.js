@@ -8,6 +8,7 @@ import uploadRoute from "./routes/uploadRoute.js";
 import accountInfoRoute from "./routes/accountInfoRoute.js";
 import publicationRoute from "./routes/publicationRoute.js";
 import organisationRoute from "./routes/organisationRoute.js";
+import profileRoute from "./routes/profileRouter.js"
 import {fileURLToPath} from 'url';
 import path from 'path';
 import commentRoute from "./routes/commentRoute.js";
@@ -46,6 +47,7 @@ app.use('/api/account', accountInfoRoute );
 app.use('/api/publication',publicationRoute);
 app.use('/api/organisation',organisationRoute);
 app.use('/api/comment',commentRoute)
+app.use('/api/profile', profileRoute )
 // Servir les fichiers statiques (images utilisateurs)
 app.use('/static/users', express.static(path.join(__dirname, 'Users')));
 
