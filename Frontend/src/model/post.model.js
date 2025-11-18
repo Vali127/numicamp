@@ -38,12 +38,20 @@ export function PostModel () {
         return data
     }
 
+    const GetPostingPersonData = async (id) => {
+        const foo =  await AccountApi().personDataApi(id)
+        const data = foo.data
+        data.photo_profil = `http://localhost:3000/static/users/${data.photo_profil}`
+        return data
+    }
+
 
     return {
         UploadPostImage,
         UploadPostData,
         GetPostFromOrg,
-        GetPostingOrgData
+        GetPostingOrgData,
+        GetPostingPersonData
     }
 
 }

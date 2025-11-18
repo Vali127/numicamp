@@ -36,9 +36,19 @@ export const PostApi = () => {
         return response
     }
 
+    const getUserPostsApi = async (obj, user_type) => {
+        const URL = (user_type === "personal") ? `${BASE_URL}/person` : `${BASE_URL}/org`
+        const response = await axios.get(URL, {
+            headers : { Authorization : `Bearer ${token}` },
+            params : obj
+        })
+        return response.data
+    }
+
     return {
         uploadPostApi,
         uploadPostImageApi,
-        getPostsFromOrg
+        getPostsFromOrg,
+        getUserPostsApi
     }
 }

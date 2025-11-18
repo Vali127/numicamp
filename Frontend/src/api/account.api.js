@@ -27,6 +27,13 @@ export const AccountApi = () => {
         return response.data
     }
 
+    const personDataApi = async (id) => {
+        const response = await axios.get(`${BASE_URL}/personInfo`, {
+            params : { id_person : id }
+        })
+        return response.data
+    }
+
     const userDomainApi = async () => {
         const response = await axios.get(`${BASE_URL}/userDomains`, {
             headers: {
@@ -37,9 +44,12 @@ export const AccountApi = () => {
         return response.data
     }
 
+    
+
     return {
         accountInfoApi,
         userDomainApi,
-        organisationDataApi
+        organisationDataApi,
+        personDataApi
     }
 }

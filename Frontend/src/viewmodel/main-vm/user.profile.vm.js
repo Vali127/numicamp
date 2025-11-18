@@ -1,23 +1,53 @@
-import {useEffect} from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import {useEffect, useState} from "react";
+import {profileModel} from "../../model/profile.model.js";
 
 
-export const userProfileViewModel = (owner, id) => {
+export const userProfileViewModel = (id) => {
 
-    const fetchData = () => {
-        const data = {
-            owner : owner,
-            user_id : id
+    const model = profileModel()
+
+    const [ profileData, setProfileData ] = useState({})
+    const [ posts, setPosts ] = useState([])
+    const [ loaded, setLoaded ] = useState(false)
+
+    const fetchData = async() => {
+        const data = { profil_id : id }
+        try {
+            setLoaded(false)
+            const response = await model.getProfilData(data)
+            setProfileData(response)
+            console.log(response)
         }
-
-        console.log("Data to send", data)
+        catch(e) {
+            console.error(e)
+        }
     }
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const fetchPosts = async() => {
+        const data = { user_id : id }
+        const type = localStorage.getItem('usage')
+        try {
+            const response = await model.getProfilePostData(data, type)
+            setPosts(response)
+            console.log("POSTS FROM VM : ",response)
+            setLoaded(true)
+        }
+        catch(e) {
+            console.error(e)
+        }
+    }
+
     useEffect(
-        () => { fetchData() }, []
+        () => { 
+            fetchData()
+            fetchPosts() 
+        }, []
     )
 
     return {
-
+        profileData,
+        loaded,
+        posts
     }
 }

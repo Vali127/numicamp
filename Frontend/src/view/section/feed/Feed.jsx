@@ -31,7 +31,7 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
             <div>
                 
                 {  
-                    (org) && (followState === "followed") &&  
+                    (feedOf === "organisation") && (org) && (followState === "followed") &&  
                     <button 
                         id={owner} 
                         onClick={ async(e) => { await Unfollow({ org_id : e.currentTarget.id }) }} 
@@ -42,7 +42,7 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
                 }
                 
                 { 
-                    (org) && (followState === "unfollowed") &&  
+                    (feedOf === "organisation ") && (org) && (followState === "unfollowed") &&  
                     <button 
                         id={owner} 
                         onClick={ async(e) => { await Follow({ org_id : e.currentTarget.id }) }} 
@@ -53,7 +53,7 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
                 }
                 
                 { 
-                    (org) && (followState === "error") &&  
+                    (feedOf === "organisation ") && (org) && (followState === "error") &&  
                     <button className='rounded-lg bg-red-800 text-white p-2 text-[14px] font-bold' > erreur </button> 
                 }
 
