@@ -6,9 +6,9 @@ export async function getProfileController(req, res) {
         const result = await profileInfoService(req)
 
         if (result.ok)
-            res.status(200).json({ok : result.ok, data : result})
+            res.status(200).json({data : result})
         else
-            res.status(500).json({ok: false, data : " _ an error occured"})
+            res.status(500).json({data : {...result , ok : false}})
 
     }
     catch(error) {

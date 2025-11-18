@@ -116,15 +116,32 @@ export async function insertPublication({ title, description,photoPath=null,keyw
 
 
 //pour recuperer les publications de l' utilisateur
-export async function getPubDescriptionUser(idProfil){
+export async function getPersonPub(idProfil){
 
     const sql = 'SELECT * FROM publication WHERE id_profil_pers = ?';
     try{
-        const [rowsPub] = await pool.query(sql, [idProfil]);
+        const [rows] = await pool.query(sql, [idProfil]);
         return {
             ok:true,
             message:"Publications récupérées avec succès",
-            rowsPub
+            rows
+        };
+    }catch (err){
+        throw new Error("Erreur dans le model :"+err.message);
+    }
+
+}
+
+//pour recuperer les publications de l' utilisateur
+export async function getOrgPub(idProfil){
+
+    const sql = 'SELECT * FROM publication WHERE id_profil_org = ?';
+    try{
+        const [rows] = await pool.query(sql, [idProfil]);
+        return {
+            ok:true,
+            message:"Publications récupérées avec succès",
+            rows
         };
     }catch (err){
         throw new Error("Erreur dans le model :"+err.message);

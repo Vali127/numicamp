@@ -1,5 +1,5 @@
 import {verifyToken} from "../middleware/verifyToken.js";
-import {accountInfoService, userDomainsService, organisationInfoService} from "../services/accountInfoService.js";
+import {accountInfoService, userDomainsService, organisationInfoService, personInfoService} from "../services/accountInfoService.js";
 
 
 export async function accountInfoController(req, res) {
@@ -58,6 +58,30 @@ export async function organisationInfoController(req, res) {
         else {
             return res.status(404).json({
                 message: "request for organisation data failed",
+                ok : false
+            })
+        }
+
+    }
+    catch(error) {
+        res.status(error.status||500).json({ message: error.message })
+    }
+}
+
+export async function personInfoController(req, res) {
+    try {
+
+        const result = await personInfoService(req)
+        if (result.ok) {
+            return res.status(200).json({
+                message : "person info got !",
+                ok: true,
+                data : result.data
+            })
+        }
+        else {
+            return res.status(404).json({
+                message: "request for person data failed",
                 ok : false
             })
         }
