@@ -3,7 +3,7 @@
  * retour : res
  */
 import { verifyToken } from "../middleware/verifyToken.js";
-import {getPubDescriptionUserService,getPubDescriptionOrgService, sendPubDescriptionService} from "../services/publicationService.js";
+import {getPersonPubService,getOrgPubService,getPubDescriptionOrgService, sendPubDescriptionService} from "../services/publicationService.js";
 
 export async function sendPubDescriptionController(req, res) {
     try{
@@ -21,10 +21,22 @@ export async function sendPubDescriptionController(req, res) {
     }
 }
 
-export async function getPubDescriptionUserController(req, res) {
+export async function getPersonPubcontroller(req, res) {
     try{
         //recuperer les publications de l user
-        const result = await getPubDescriptionUserService(req.user.id);
+        const result = await getPersonPubService(req, res);
+        if(result.ok){
+            res.status(200).json({message: result.message, rows: result.rows });
+        }
+    }catch (err){
+        res.status(err.status||500).json({ message: err.message });
+    }
+}
+
+export async function getOrgPubController(req, res) {
+    try{
+        //recuperer les publications de l user
+        const result = await getOrgPubService(req, res);
         if(result.ok){
             res.status(200).json({message: result.message, rows: result.publications });
         }
@@ -36,7 +48,7 @@ export async function getPubDescriptionUserController(req, res) {
 export async function getPubDescriptionOrgController(req,res) {
     try {
         //recuperer les publications des organisations ou l utilisateur est abonne
-        const result = await getPubDescriptionOrgService(req);
+        const result = await getPubDescriptionOrgService(req,res);
         if(result.ok){
             res.status(200).json({message: result.message, rows: result.rows, ok: result.ok });
         }

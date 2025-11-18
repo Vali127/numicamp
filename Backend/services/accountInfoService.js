@@ -41,3 +41,16 @@ export async function organisationInfoService(data) {
         throw error;
     }
 }
+
+export async function personInfoService(data) {
+    const id_person = data.query.id_person
+    try {
+        const res = await getAccountInfo( id_person, "personal" )
+        return res
+    }
+    catch (error) {
+        console.log(error)
+        throw error;
+    }
+}
+
