@@ -26,9 +26,9 @@ export async function searchModel(data) {
 
 //recherche par nom_user ex: samantha
  async function findUsername(username){
-    const sql = `SELECT * FROM personne WHERE nom_user LIKE '%${username}%'`;
+    const sql = `SELECT * FROM personne WHERE nom_profil LIKE '%${username}%'`;
     try{
-        const [rows] =pool.query(sql) ;
+        const [rows] = await pool.query(sql) ;
         return {
             message : "Recherche par username Effectue",
             rows

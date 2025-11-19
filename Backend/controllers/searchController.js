@@ -3,6 +3,7 @@ import {searchService} from "../services/searchService.js";
 
 export async function searchController(req, res) {
     try{
+        console.log("Controller for search...")
         //recuperer les profils correspondant au recherche
         verifyToken(req, res);
         const result = await searchService(req.query.keywords);

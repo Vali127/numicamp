@@ -1,6 +1,6 @@
 import {InfoIcon} from "lucide-react";
-import { OrgSuggestionVm } from "../../../../viewmodel/main-vm/org.suggestion.vm.js";
-import { UniqueOrgSuggestionVm } from "../../../../viewmodel/main-vm/unique.org.suggestion.vm.js";
+import { OrgSuggestionVm } from "../../../../viewmodel/section-vm/org.suggestion.vm.js";
+import { UniqueOrgSuggestionVm } from "../../../../viewmodel/section-vm/unique.org.suggestion.vm.js";
 
 const UserEmptySuggestion = () => {
     return (

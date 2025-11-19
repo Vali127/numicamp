@@ -14,6 +14,7 @@ import {Resources} from "../../section/ressources/resources.jsx";
 import {Schools} from "../../section/school/Schools.jsx";
 import {Setting} from "../../section/setting/setting.jsx";
 import {Profile} from "../../section/profile/Profile.jsx";
+import SearchSection from "../../section/search/search.section.jsx";
 
 
 const HomeContents = () => {
@@ -25,7 +26,9 @@ const HomeContents = () => {
         setSection,
         userInfo, 
         postModalVisibility, 
-        setPostModalVisibility 
+        setPostModalVisibility,
+        searchContent,
+        setSearchContent 
     } = PersonUiVm()
 
     return (
@@ -83,6 +86,7 @@ const HomeContents = () => {
                     { (section === "schools") && <Schools/> }
                     { (section === "settings") && <Setting/> }
                     { (section === "profile") && <Profile owner={true} id={userInfo.id_profil} /> }
+                    { (section === "search" && <SearchSection prompt={searchContent} />) }
                 </div>
 
             </div>
@@ -91,13 +95,17 @@ const HomeContents = () => {
 
             <div className={"flex flex-col w-[26vw] h-auto mt-3 text-left overflow-scroll scrollbar-none"} >
                 
-                <div className={"relative"} >
-                    <input 
+                <div className={"relative p-2"} >
+                    <input
+                        value={searchContent}
+                        onChange={(e) => setSearchContent(e.target.value)} 
                         type={"text"} 
                         className={"text_input input__shadow rounded-2xl relative w-full pr-8"} 
                         placeholder={"rechercher ici ..."} />
 
-                    <Search className={"text-gray-700 scale-90 absolute right-1 top-1"} />
+                    <Search 
+                        onClick={() => { ( searchContent !== "" ) && setSection("search")  }} 
+                        className={"text-gray-700 scale-90 absolute right-3 top-3"} />
                 
                 </div>
                 

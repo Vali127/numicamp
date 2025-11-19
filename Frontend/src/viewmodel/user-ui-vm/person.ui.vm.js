@@ -10,6 +10,7 @@ export const PersonUiVm = () => {
     useEffect(() => { setAuthenticated(isUserAuthenticated()) }, [authenticated])
 
     const [section, setSection] = useState("feeds")
+    const [searchContent, setSearchContent] = useState("")
 
     const [logout, setLogout] = useState(false)
     const [ postModalVisibility, setPostModalVisibility  ] = useState(false)
@@ -38,7 +39,9 @@ export const PersonUiVm = () => {
         setLogout,
         userInfo,
         postModalVisibility,
-        setPostModalVisibility
+        setPostModalVisibility,
+        searchContent,
+        setSearchContent
     }
 }
 

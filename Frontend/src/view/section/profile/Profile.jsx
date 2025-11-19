@@ -1,4 +1,4 @@
-import {userProfileViewModel} from "../../../viewmodel/main-vm/user.profile.vm.js";
+import {userProfileViewModel} from "../../../viewmodel/section-vm/user.profile.vm.js";
 import ProfilePosts from "./ProfilePosts.jsx";
 
 
