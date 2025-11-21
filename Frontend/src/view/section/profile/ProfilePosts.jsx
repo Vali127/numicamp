@@ -18,7 +18,7 @@ const ProfilePosts = ({data, isEmpty}) => {
                                     illustration={data.photo_pub}
                                     owner={ data.id_profil_org || data.id_profil_pers }
                                     postId={data.id_pub}
-                                    feedOf="person"
+                                    feedOf={ localStorage.getItem('usage') === "personal" ? "person" : "organisation" }
                                 />
                             </div>
                         )

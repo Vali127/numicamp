@@ -2,7 +2,7 @@ import {AlertCard} from "./components/AlertCard.jsx";
 import {PersonHome} from "./user-ui/personal-ui/person.home.jsx";
 import {Routes, Route} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {OrgHome} from "./user-ui/organisational-ui/OrgHome.jsx";
+import {OrgHome} from "./user-ui/organisational-ui/org.home.jsx";
 
 export const MainEntry = () => {
     const [ usage, setUsage ] = useState( )

@@ -42,6 +42,7 @@ export const PostApi = () => {
             headers : { Authorization : `Bearer ${token}` },
             params : obj
         })
+        console.log("API RESPONSE : ", response.data)
         return response.data
     }
 

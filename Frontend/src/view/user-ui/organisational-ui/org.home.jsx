@@ -1,6 +1,8 @@
 import {UserCard} from "../../components/account/UserCard.jsx";
 import PostModal from "../../components/post-form/PostModal.jsx";
 import {OrgUiVm} from "../../../viewmodel/user-ui-vm/org.ui.vm.js";
+import OrgMenu from "./menu/org.menu.jsx";
+import {Profile} from "../../section/profile/Profile.jsx";
 
 
 export const OrgHome = () => {
@@ -9,7 +11,9 @@ export const OrgHome = () => {
         userData,
         userDomains,
         postModalVisibility,
-        setPostModalVisibility
+        setPostModalVisibility,
+        section,
+        setSection
     } = OrgUiVm()
 
     return (
@@ -27,7 +31,7 @@ export const OrgHome = () => {
                         setModalVisibility={setPostModalVisibility} />
                 }
 
-                <div className={"w-[23vw] px-2"} >
+                <div className={"w-[23vw] px-2 flex flex-col gap-10"} >
                     <UserCard
                         profile={userData.photo_profil}
                         name={userData.nom_organisation}
@@ -35,10 +39,16 @@ export const OrgHome = () => {
                         user={userData.nom_profil}
                         postModalIsVisible={setPostModalVisibility}
                     />
+                    <OrgMenu
+                        section={section}
+                        setSection={setSection}
+                    />
                 </div>
-                <div className={"w-[50vw]"} >
 
+                <div className={"w-[50vw]"} >
+                    { (userData.id_profil) && (section === "profile") && <Profile id={userData.id_profil} /> }
                 </div>
+                
                 <div className={"w-[23vw]"}>
 
                 </div>

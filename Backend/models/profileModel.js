@@ -3,6 +3,8 @@ import {pool} from "../config/db.js";
 
 export async function  getProfileData(user_id) {
 
+        console.log("MODEL : ID = ", user_id)
+
       try {
         
         const user_type = await getUserType(user_id)
@@ -29,7 +31,8 @@ async  function getUserType(id) {
     const sql = `SELECT nom_personne FROM personne WHERE id_profil = ?`
     try {
         const res = await pool.query(sql, [id])
-        return ( res.length > 0 ) ? "personal" : "organisational"
+        console.log("searching for usage .... ")
+        return ( res[0].length > 0 ) ? "personal" : "organisational"
     }
     catch (e) {
         throw new  Error("Error getting profile usage : " + e)
@@ -76,18 +79,18 @@ async function getUserDomain(id, usage) {
 async function getUserFollowNumber(id, usage) {
     const sql = (usage === "personal") ?
         ` 
-            SELECT COUNT(*) as following 
+            SELECT COUNT(*) as follow 
             FROM abonner, personne 
             WHERE ( id_profil_pers = id_profil ) AND ( id_profil_pers = ? )
         ` :
         `
-            SELECT COUNT(*) as follower
+            SELECT COUNT(*) as follow
             FROM abonner, organisation
             WHERE ( id_profil_org = id_profil ) AND ( id_profil_org = ? )
         `
     try {
         const [res] = await pool.query(sql, [id])
-        return res[0].following
+        return res[0].follow
     }
     catch (e) {
         throw new  Error("Error getting follower/following number : " + e)
