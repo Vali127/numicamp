@@ -17,7 +17,7 @@ export const userProfileViewModel = (id) => {
             setLoaded(false)
             const response = await model.getProfilData(data)
             setProfileData(response)
-            console.log(response)
+            console.log("PROFILE DATA : ",response)
         }
         catch(e) {
             console.error(e)
@@ -30,7 +30,6 @@ export const userProfileViewModel = (id) => {
         try {
             const response = await model.getProfilePostData(data, type)
             setPosts(response)
-            console.log("POSTS FROM VM : ",response)
             setLoaded(true)
         }
         catch(e) {

@@ -38,7 +38,7 @@ export async function getOrgPubController(req, res) {
         //recuperer les publications de l user
         const result = await getOrgPubService(req, res);
         if(result.ok){
-            res.status(200).json({message: result.message, rows: result.publications });
+            res.status(200).json({message: result.message, rows: result.rows });
         }
     }catch (err){
         res.status(err.status||500).json({ message: err.message });

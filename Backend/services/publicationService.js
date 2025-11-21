@@ -22,6 +22,7 @@ export async function getOrgPubService(req, res){
     verifyToken(req, res)
     const owner = ( req.user.id === req.query.user_id )
     const result = await getOrgPub(req.query.user_id);
+    
     return {
         ...result,
         owner : owner

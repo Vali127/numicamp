@@ -18,7 +18,7 @@ export const Profile = ({id}) => {
                 name={profileData.user_data?.nom_personne || profileData.user_data?.nom_organisation || ""}
                 firstname={profileData.user_data?.prenom_personne || ""}
                 date={profileData.user_data?.datenais || profileData.user_data?.date_creation || ""}
-                follow={profileData.follow || 0}
+                follow={profileData?.follow || 0}
                 domains={profileData?.domains || []}
                 bio={profileData.user_data?.description_profil || ""}
                 type={profileData.user_type || ""}

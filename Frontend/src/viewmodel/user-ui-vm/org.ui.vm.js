@@ -10,6 +10,7 @@ export const OrgUiVm = () => {
     const [ userData, setUserData ] = useState({})
     const [ userDomains , setUserDomains ] = useState({})
     const [ postModalVisibility, setPostModalVisibility ] = useState(false)
+    const [ section, setSection ] = useState("profile")
 
 
     const HandleUserAccountInformation = async() => {
@@ -34,7 +35,9 @@ export const OrgUiVm = () => {
         userData,
         userDomains,
         postModalVisibility,
-        setPostModalVisibility
+        setPostModalVisibility,
+        section,
+        setSection
     }
 }
 
