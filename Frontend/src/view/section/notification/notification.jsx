@@ -1,4 +1,3 @@
-import {UnderDev} from "../../temp/UnderDev.jsx";
 import EmptyNotification from "./empty.notification.jsx";
 
 export const Notification = () => {

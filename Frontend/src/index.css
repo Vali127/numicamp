@@ -200,6 +200,27 @@ input[type=radio] { outline: none; }
 .feed {
     box-shadow: inset 0 0 2px rgba(64, 65, 66, 0.349);
 }
+.tab {
+    @apply border border-neutral-200 text-neutral-700 py-1 px-5 rounded-2xl
+}
+.tab-active {
+    @apply text-white font-bold bg-black/25 py-1 px-5 rounded-2xl
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .animate-rotate {

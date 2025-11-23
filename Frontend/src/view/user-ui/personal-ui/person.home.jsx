@@ -79,7 +79,7 @@ const HomeContents = () => {
                     <div className={"font-bold text-green-500 text-[34px] big-title"} >Numicamp</div>
                 </div>
 
-                <div className={"h-[81vh]"}>
+                <div className={"h-[85vh]"}>
                     { (section === "feeds") && <Feeds /> }
                     { (section === "notifications") && <Notification/> }
                     { (section === "resources") && <Resources /> }

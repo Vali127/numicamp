@@ -1,4 +1,4 @@
-import {UnderDev} from "../../temp/UnderDev.jsx";
+import {UnderDev} from "../../tempComponent/UnderDev.jsx";
 
 export const Resources = () => {
     return (
