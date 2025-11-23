@@ -1,12 +1,14 @@
 
 import React from 'react'
 import AccountIndex from '../../components/account/account.index'
+import NotFound from './not.found'
 
 const UserTab = ({users}) => {
     console.log("USERS : ", users)
   return (
     <div className='my-2 p-3' >
         {
+            ( users.length > 0 ) ?
             users.map(
                 user => (
                     <div key={user.id_profil}>
@@ -21,6 +23,8 @@ const UserTab = ({users}) => {
                     </div>
                 )
             )
+            :
+            <NotFound/>
         }
     </div>
   )

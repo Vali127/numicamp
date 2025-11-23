@@ -5,7 +5,7 @@ import { searchModel } from "../../model/search.model"
 export const SearchViewModel = (prompt) => {
 
     const model = searchModel()
-    const [data, setData] = useState({})
+    const [data, setData] = useState(null)
 
     const [ currentTab, setCurrentTab ] = useState("posts")
 
@@ -13,7 +13,6 @@ export const SearchViewModel = (prompt) => {
         const data_to_send = { keywords : prompt }
         try {
             const received_data = await model.search(data_to_send)
-            console.log("DATA VIEW : ", received_data)
             setData(received_data)
         }
         catch (err) {   

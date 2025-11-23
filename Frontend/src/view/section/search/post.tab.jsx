@@ -1,12 +1,13 @@
 
 import React from 'react'
 import Feed from '../feed/Feed'
+import NotFound from './not.found'
 
 const PostTab = ({feeds}) => {
   return (
     <div className='my-2'>
         {
-            feeds ?
+            ( feeds.length > 0 ) ?
             feeds.map(
                 feed => (
                     <div key={feed.id_pub}>
@@ -21,7 +22,9 @@ const PostTab = ({feeds}) => {
                         />
                     </div>
                 )
-            ) : <div>No Posts</div>
+            )
+            : 
+            <NotFound/>
         }
     </div>
   )

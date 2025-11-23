@@ -1,5 +1,6 @@
 import {searchApi} from "../api/search.api.js"
 import { Combine, UniqueValue } from "../utils/data.js"
+import { DateShortFormat } from "../utils/display.format.js"
 
 export const searchModel = () => {
     
@@ -12,7 +13,7 @@ export const searchModel = () => {
             ...foo,
             org : foo.org.map( item => ({ ...item, photo_profil : `http://localhost:3000/static/users/${item.photo_profil}` }) ),
             orgName : foo.orgName.map( item => ({ ...item, photo_profil : `http://localhost:3000/static/users/${item.photo_profil}` }) ),
-            posts : foo.posts.map( item => ({ ...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}` }) ),
+            posts : foo.posts.map( item => ({ ...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) }) ),
             users : foo.user.map( item => ({ ...item, photo_profil : `http://localhost:3000/static/users/${item.photo_profil}` }) ),
             username : foo.username.map( item => ({ ...item, photo_profil : `http://localhost:3000/static/users/${item.photo_profil}` }) )
         }
