@@ -1,5 +1,3 @@
-import {Newspaper} from "lucide-react";
-import {UserEmptyFeeds} from "./UserEmptyFeeds.jsx";
 import { FeedsVm } from "../../../viewmodel/feeds-vm/feeds.vm.js";
 import Feed from "./Feed.jsx";
 

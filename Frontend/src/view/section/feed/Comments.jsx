@@ -32,6 +32,7 @@ const Comments = ({open, postId}) => {
         </div>
         <div className='h-20 relative'>
             
+            
             <textarea
               onChange={(e) => { setContent(e.target.value) } }
               value={content} 

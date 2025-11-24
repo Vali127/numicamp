@@ -28,7 +28,8 @@ export const SearchViewModel = (prompt) => {
     return {
         currentTab,
         setCurrentTab,
-        data
+        data,
+        FetchPrompt
     }
 
 }

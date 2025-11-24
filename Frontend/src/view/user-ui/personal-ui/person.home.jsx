@@ -28,7 +28,9 @@ const HomeContents = () => {
         postModalVisibility, 
         setPostModalVisibility,
         searchContent,
-        setSearchContent 
+        setSearchContent,
+        searched,
+        setSearched 
     } = PersonUiVm()
 
     return (
@@ -86,7 +88,7 @@ const HomeContents = () => {
                     { (section === "schools") && <Schools/> }
                     { (section === "settings") && <Setting/> }
                     { (section === "profile") && <Profile owner={true} id={userInfo.id_profil} /> }
-                    { (section === "search" && <SearchSection prompt={searchContent} />) }
+                    { (section === "search" && <SearchSection prompt={searchContent} refresh ={searched} />) }
                 </div>
 
             </div>
@@ -98,13 +100,13 @@ const HomeContents = () => {
                 <div className={"relative p-2"} >
                     <input
                         value={searchContent}
-                        onChange={(e) => setSearchContent(e.target.value)} 
+                        onChange={(e) => {setSearchContent(e.target.value)}} 
                         type={"text"} 
                         className={"text_input input__shadow rounded-2xl relative w-full pr-8"} 
                         placeholder={"rechercher ici ..."} />
 
                     <Search 
-                        onClick={() => { ( searchContent !== "" ) && setSection("search")  }} 
+                        onClick={() => { ( searchContent !== "" ) && setSection("search"); setSearched(!searched) }} 
                         className={"text-gray-700 scale-90 absolute right-3 top-3"} />
                 
                 </div>

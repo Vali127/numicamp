@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SearchViewModel } from '../../../viewmodel/section-vm/search.vm'
 import SearchTab from './search.tab'
 import PostTab from './post.tab'
 import UserTab from './user.tab'
 import OrgTab from './org.tab'
 
-const SearchSection = ({prompt}) => {
+const SearchSection = ({prompt, refresh}) => {
   
   const {
     currentTab,
     setCurrentTab,
-    data
+    data,
+    FetchPrompt
   } = SearchViewModel(prompt)
+
+  useEffect(
+    () => { FetchPrompt() }, [refresh]
+  )
   
   return (
     <div className='mx-2 h-full flex flex-col gap-2'>

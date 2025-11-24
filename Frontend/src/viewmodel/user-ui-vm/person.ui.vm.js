@@ -11,6 +11,7 @@ export const PersonUiVm = () => {
 
     const [section, setSection] = useState("feeds")
     const [searchContent, setSearchContent] = useState("")
+    const [searched, setSearched] = useState(false)
 
     const [logout, setLogout] = useState(false)
     const [ postModalVisibility, setPostModalVisibility  ] = useState(false)
@@ -30,6 +31,14 @@ export const PersonUiVm = () => {
         }
     }
     useEffect(()=> { HandleAccountInformation() }, [])
+    // useEffect pour la recherche, vider le champs dans d autre section
+    useEffect(
+        () => {
+            if ( section !== "search" ) {
+                setSearchContent("")
+            }
+        }, [section]
+    )
 
     return {
         authenticated,
@@ -41,7 +50,9 @@ export const PersonUiVm = () => {
         postModalVisibility,
         setPostModalVisibility,
         searchContent,
-        setSearchContent
+        setSearchContent,
+        searched,
+        setSearched
     }
 }
 
