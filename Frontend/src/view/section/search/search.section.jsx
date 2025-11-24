@@ -15,6 +15,7 @@ const SearchSection = ({prompt}) => {
   
   return (
     <div className='mx-2 h-full flex flex-col gap-2'>
+      <div className="flex items-center gap-2 text-lg mb-4"><label className="icon_btn text-2xl">&#xE30C;</label><label>Resultat pour : <b className='text-2xl'>{prompt}</b></label></div>  
       <SearchTab
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}/>

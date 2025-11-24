@@ -12,11 +12,7 @@ export const Feeds = () => {
         <div 
             className={"w-full grid gap-3 text-left px-3"} >
             
-            <div 
-                className={"font-bold text-lg flex gap-2 "} >
-                <Newspaper/>
-                <label className="big-title">Actualités</label>
-            </div>
+            <div className="flex items-center gap-3 text-2xl font-bold mb-4"><label className="icon_btn">&#xE0A8;</label><label>Actualités</label></div>
 
             <div 
                 className={ "h-[81vh] overflow-y-scroll scrollbar-none"} >

@@ -5,7 +5,7 @@ export const UserMenu = ({ section, setSection}) => {
             <button
                 onClick={() => setSection("feeds")}
                 className={( section === "feeds" ) ? " menu menu-active" : "menu" } >
-                <div className="icon_btn text-lg">&#xE344;</div> 
+                <div className="icon_btn text-lg">&#xE0A8;</div> 
                 <div>Feeds</div> 
             </button>
 
