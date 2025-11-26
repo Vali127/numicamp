@@ -9,7 +9,7 @@ const SignInValidationLoading = () => {
 
     return (
         <div className={"text-center"}>
-            <h2 className={"font-bold text-[20px] md:text-2xl"}>Veuillez <span>patientez !!</span> </h2>
+            <h2 className={"font-bold text-[20px] md:text-2xl"}>Veuillez <span className="span">patientez !!</span> </h2>
             <p className={"text-[12px]"}>entrain de soumettre votre incription !</p>
 
             <div className={" flex justify-around"}>
@@ -27,7 +27,7 @@ const SignInValidationAccepted = () => {
 
     return (
         <div className={"text-center"}>
-            <h2 className={"font-bold text-[20px] md:text-2xl"}>Inscription <span>acceptée !!</span> </h2>
+            <h2 className={"font-bold text-[20px] md:text-2xl"}>Inscription <span className="span">acceptée !!</span> </h2>
             <p className={"text-[12px] mb-10"}>votre inscription est tériminé avec succèes !!</p>
 
             <button

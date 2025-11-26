@@ -25,7 +25,7 @@ const Loading = ({setModalVisibility}) => {
         <div>
           <ThreeDots color="#1ACD2F"/>
         </div>
-        <p>Entrain de <span>soumettre votre publication</span></p>
+        <p>Entrain de <span className="span" >soumettre votre publication</span></p>
         <b>Veuillez patienter !!!</b>
       </div>
     </div>
@@ -42,7 +42,7 @@ const Success = () => {
             <Lottie className={" h-20 md:h-30 mb-4"} animationData={successAnimation} loop={false} />
         </div>
         <p className='text-[11px]'>Succes de l' operation</p>
-        <b>Publication<span> Postée</span></b>
+        <b>Publication<span className="span"> Postée</span></b>
       </div>
     </div>
   )

@@ -26,7 +26,7 @@ const LoginContent = () => {
         <div>
             
             <h2 className={'font-bold text-[20px] md:text-2xl'}>
-                Bienvenue Sur <span>NumiCamp</span>
+                Bienvenue Sur <span className="span">NumiCamp</span>
             </h2>
 
             <div

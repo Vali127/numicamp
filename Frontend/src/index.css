@@ -102,7 +102,7 @@ body {
     font-family: 'Roboto';
 }
 
-span { color : var(--main-color) }
+.span { color : var(--main-color) }
 
 a { font-weight: bold; color: var(--main-color); cursor: pointer }
 
@@ -209,7 +209,6 @@ input[type=radio] { outline: none; }
 .btn-entry {
     @apply border-b border-b-neutral-400 py-2 px-3
 }
-
 
 
 

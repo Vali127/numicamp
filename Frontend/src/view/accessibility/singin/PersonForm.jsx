@@ -20,7 +20,7 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
 
     return (
         <div className={"text-left mx-8 md:mx-20"}>
-            <h2 className={"font-bold text-[20px] md:text-2xl mb-4"}><span>Information</span> personnelles</h2>
+            <h2 className={"font-bold text-[20px] md:text-2xl mb-4"}><span className="span">Information</span> personnelles</h2>
 
             <div>
                 <div className={"flex flex-col gap-4"}>

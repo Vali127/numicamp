@@ -13,7 +13,7 @@ const LogInValidationLoading = () => {
 
     return (
         <div className={"text-center"}>
-            <h2 className={"font-bold text-[20px] md:text-2xl"}>Veuillez <span>patientez !!</span> </h2>
+            <h2 className={"font-bold text-[20px] md:text-2xl"}>Veuillez <span className="span">patientez !!</span> </h2>
             <p className={"text-[12px]"}>entrain de verifier votre informations !</p>
 
             <div className={" flex justify-around"}>
@@ -31,7 +31,7 @@ const LogInValidationVerified = ({message}) => {
 
     return (
         <div className={"text-center"}>
-            <h2 className={"font-bold text-[20px] md:text-2xl"}>Connexion <span>acceptée !!</span> </h2>
+            <h2 className={"font-bold text-[20px] md:text-2xl"}>Connexion <span className="span">acceptée !!</span> </h2>
             <p className={"text-[12px] mb-2"}>{message}</p>
             <div>
                 <Lottie className={" h-20 md:h-30 mb-4"} animationData={successAnimation} loop={false} />

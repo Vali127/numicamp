@@ -15,7 +15,7 @@ export const PasswordForm = ({CurrentPage, isButtonNextDisabled}) => {
 
     return (
         <div className={" text-left mx-8 md:mx-20"}>
-            <p className={"font-bold text-[20px] md:text-2xl"}>Choisissez un <span>mot de passe</span></p>
+            <p className={"font-bold text-[20px] md:text-2xl"}>Choisissez un <span className="span">mot de passe</span></p>
             <p className={"text-[12px] mb-5"}>Veuillez choisir une mot de passe fiable et fort pour votre compte</p>
 
             <div className={"flex flex-col gap-2 mb-5"}>

@@ -1,5 +1,6 @@
 import { UniqueFeedVm } from '../../../viewmodel/feeds-vm/unique.feed.vm.js'
 import Comments from './Comments.jsx'
+import ShowMoreText from 'react-show-more-text'
 
 const Feed = ( {date, title, description, illustration, owner, postId, feedOf} ) => {
     const {
@@ -66,7 +67,14 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
             <div className='font-bold text-lg'>{title}</div>
             
             <div className='font-light text-[14px]' >
-                {description}
+                <ShowMoreText
+                    lines={3}
+                    more="voir plus"
+                    less="voir moins"
+                    anchorClass="!font-bold !text-[14px] text-gray-500 cursor-pointer underline-none"
+                    expanded={false}>
+                    {description}
+                </ShowMoreText>
             </div>
 
             <div className='h-120 bg-slate-700/25 flex justify-around overflow-hidden rounded-lg' >

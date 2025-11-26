@@ -73,10 +73,9 @@ const Domain = ({data}) => {
 
 const AvatarHeader = ({avatar="", username="", name="", firstname="", type="", follow=0, owner=false}) => {
     return (
-        <div className={"bg-gray-950 h-25 my-2 rounded-md relative"}>
+        <div className={" bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% h-25 my-2 rounded-md relative"}>
             <button
-                className={"text-purple-400 bg-purple-600/50 px-3 py-1 rounded-2xl absolute right-2 top-2"}
-                disabled>
+                className={"bg-white/40 backdrop-blur-sm text-white px-3 py-1 rounded-2xl absolute right-2 top-2"}>
                 {type}
             </button>
             {owner && <button className={" text-white text-lg font-bold absolute bottom-2 right-5 icon_btn"}> &#xE434; </button>}

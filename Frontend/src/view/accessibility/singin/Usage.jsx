@@ -13,7 +13,7 @@ export const Usage = ({CurrentPage, isButtonNextDisabled }) => {
     return (
         <div className={'mx-8 md:mx-20 text-left flex flex-col gap-15 md:gap-10'}>
             <div className={'relative text-wrap'}>
-                <h2 className={'font-bold text-[20px] md:text-2xl'}>Bienvenue sur  <span>NumiCamp</span></h2>
+                <h2 className={'font-bold text-[20px] md:text-2xl'}>Bienvenue sur  <span className="span">NumiCamp</span></h2>
                 <p className={'text-[12px]'}>plateforme dédié à une orientation des jeunes dans le domaine du numérique et pour la visibilité des entreprises .</p>
             </div>
             <div className={'text-wrap'}>

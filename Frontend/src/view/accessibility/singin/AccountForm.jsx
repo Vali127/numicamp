@@ -39,7 +39,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
 
     return (
         <div className={"text-left mx-8 md:mx-20"}>
-            <h2 className={" text-[20px] md:text-2xl font-bold mb-5"}>Créez votre <span>Profil</span></h2>
+            <h2 className={" text-[20px] md:text-2xl font-bold mb-5"}>Créez votre <span className="span">Profil</span></h2>
             <div className={"flex flex-col md:flex-row gap-5 md:gap-25"}>
                 <div className={"flex md:flex-col md:w-30 gap-5 md:gap-2"}>
                     <div className={"bg-gray-200 border-2 border-gray-300  w-25 h-25 md:w-30 md:h-30 rounded-full relative flex items-center justify-center overflow-hidden"}>
