@@ -1,12 +1,15 @@
-
+import { useGlobalUiContext } from "../../../context/uiContext.jsx";
 import React from 'react'
 
 const SettingEntries = () => {
+  const { setCurrentSection } = useGlobalUiContext();
   return (
     <div className='flex flex-col'>
         
         
-        <button className='btn-entry text-left flex flex-col w-full'>
+        <button 
+          className='btn-entry text-left flex flex-col w-full'
+          onClick={() => setCurrentSection("setting_info")}>
             <b className='flex items-center gap-2'><label className='icon_btn font-normal'>&#xE2CE;</label><label>Informations personnelles</label></b>
             <label className='text-[12px]'>Gerez vos informations personnelles</label>
         </button>

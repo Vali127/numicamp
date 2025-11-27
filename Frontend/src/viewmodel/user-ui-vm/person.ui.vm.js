@@ -9,7 +9,6 @@ export const PersonUiVm = () => {
     const [authenticated, setAuthenticated] = useState(false)
     useEffect(() => { setAuthenticated(isUserAuthenticated()) }, [authenticated])
 
-    const [section, setSection] = useState("feeds")
     const [searchContent, setSearchContent] = useState("")
     const [searched, setSearched] = useState(false)
 
@@ -31,19 +30,9 @@ export const PersonUiVm = () => {
         }
     }
     useEffect(()=> { HandleAccountInformation() }, [])
-    // useEffect pour la recherche, vider le champs dans d autre section
-    useEffect(
-        () => {
-            if ( section !== "search" ) {
-                setSearchContent("")
-            }
-        }, [section]
-    )
 
     return {
         authenticated,
-        section,
-        setSection,
         logout,
         setLogout,
         userInfo,
