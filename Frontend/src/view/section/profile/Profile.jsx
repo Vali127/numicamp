@@ -1,5 +1,6 @@
 import {userProfileViewModel} from "../../../viewmodel/section-vm/user.profile.vm.js";
 import ProfilePosts from "./ProfilePosts.jsx";
+import {useGlobalUiContext} from "../../../context/uiContext.jsx";
 
 
 export const Profile = ({id}) => {
@@ -72,13 +73,14 @@ const Domain = ({data}) => {
 }
 
 const AvatarHeader = ({avatar="", username="", name="", firstname="", type="", follow=0, owner=false}) => {
+    const { setCurrentSection } = useGlobalUiContext()
     return (
         <div className={" bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% h-25 my-2 rounded-md relative"}>
             <button
                 className={"bg-white/40 backdrop-blur-sm text-white px-3 py-1 rounded-2xl absolute right-2 top-2"}>
                 {type}
             </button>
-            {owner && <button className={" text-white text-lg font-bold absolute bottom-2 right-5 icon_btn"}> &#xE434; </button>}
+            {owner && <button onClick={ () => setCurrentSection('settings') } className={" text-white hover:bg-gray-950/25 hover:font-bold px-2 rounded-full text-lg font-bold absolute bottom-2 right-5 icon_btn"}> &#xE434; </button>}
             <div className={"w-full h-full flex"}>
                 <div className={"w-32 relative"}>
                     <div className={"flex flex-col justify-around items-center gap-1 w-full absolute bottom-[-82%]"}>

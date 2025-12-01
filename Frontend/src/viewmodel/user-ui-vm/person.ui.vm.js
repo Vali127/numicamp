@@ -7,7 +7,7 @@ export const PersonUiVm = () => {
 
     //Acces sur la page d' acceuil
     const [authenticated, setAuthenticated] = useState(false)
-    useEffect(() => { setAuthenticated(isUserAuthenticated()) }, [authenticated])
+    useEffect(() => { setAuthenticated(isUserAuthenticated())}, [])
 
     const [searchContent, setSearchContent] = useState("")
     const [searched, setSearched] = useState(false)
@@ -20,10 +20,9 @@ export const PersonUiVm = () => {
     const HandleAccountInformation = async () => {
         try {
             const res = await getAccountInfo()
-            setUserInfo(res.data)
+            setUserInfo(res)
             const res2 = await getUserDomains()
-            const image_path = `http://localhost:3000/static/users/${res.data.photo_profil}`
-            setUserInfo({...res.data, photo_profil: image_path, domains:res2.data})
+            setUserInfo({...res, domains:res2.data})
         }
         catch (e) {
             console.log(e)
@@ -47,5 +46,5 @@ export const PersonUiVm = () => {
 
 
 const isUserAuthenticated = () => {
-    return !!localStorage.getItem("token")
+    return localStorage.getItem("token")
 }

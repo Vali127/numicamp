@@ -14,7 +14,6 @@ export const FeedsVm = () => {
         try {
             const response = await MODEL.GetPostFromOrg()
             setPostData(response)
-            console.log("REPONSES : ",response)
             setIsEmpty(false)
         }
         catch(error) {

@@ -1,4 +1,4 @@
-import { Children, createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 //Context
 const UiGlobalUiContext = createContext(null)
@@ -7,12 +7,18 @@ const UiGlobalUiContext = createContext(null)
 export const GlobalUiContextProvider = ({children}) => {
 
 
+    const [userId, setUserId] = useState('')
+    const [userType, setUserType] = useState('')
     const [currentSection, setCurrentSection] = useState('feeds')
 
 
     const value = {
         currentSection,
-        setCurrentSection
+        setCurrentSection,
+        userId,
+        setUserId,
+        userType,
+        setUserType
     }
 
     return (

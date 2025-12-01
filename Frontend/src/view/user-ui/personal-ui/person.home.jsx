@@ -33,7 +33,7 @@ const HomeContents = () => {
         setSearched 
     } = PersonUiVm()
 
-    const { currentSection: section, setCurrentSection: setSection } = useGlobalUiContext()
+    const { currentSection: section, setCurrentSection: setSection, setUserType } = useGlobalUiContext()
 
     // vider les bar de recherche quand on change de section
     useEffect( () => {
@@ -42,6 +42,13 @@ const HomeContents = () => {
             setSearched(false)
         }
     }, [section, setSearchContent, setSearched])
+
+    // Info dont on a besoin dans le contexte
+    useEffect( () => { 
+        if( userInfo.sexe ) { 
+        setUserType( (userInfo.sexe) ? "personal" : "organisational" ) 
+    } }, [userInfo] )
+
     return (
         <div className={" w-full h-screen flex px-5 "}>
             

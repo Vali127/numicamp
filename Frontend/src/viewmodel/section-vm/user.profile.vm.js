@@ -17,7 +17,6 @@ export const userProfileViewModel = (id) => {
             setLoaded(false)
             const response = await model.getProfilData(data)
             setProfileData(response)
-            console.log("PROFILE DATA : ",response)
         }
         catch(e) {
             console.error(e)

@@ -16,7 +16,15 @@ export const profileApi = () => {
         return res.data
     }
 
+    const updateProfileDataApi = async(obj) => {
+        const res = await  axios.post(`${BASE_URL}/update`, obj, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        return res.data
+    }
+
     return {
-        getProfileDataApi
+        getProfileDataApi,
+        updateProfileDataApi,
     }
 }

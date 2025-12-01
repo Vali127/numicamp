@@ -1,15 +1,14 @@
-import {UnderDev} from "../../tempComponent/UnderDev.jsx";
 import SettingEntries from "./setting.entries.jsx";
-import { useGlobalUiContext } from "../../../context/uiContext.jsx";
 import PersonalInfo from "./submenu/personal.info.jsx";
+import { SettingVm } from "../../../viewmodel/section-vm/setting.vm.js";
 
 export const Setting = () => {
-    const { currentSection } = useGlobalUiContext();
+    const { subSetting, setSubSetting } = SettingVm()
     return (
         <div className={"h-full px-3 py-2"}>
-            <div className="flex items-center gap-3 text-2xl font-bold mb-4"><label className="icon_btn">&#xE270;</label><label>Paramètres</label></div>
-            { ( currentSection === "settings" )  && <SettingEntries/> }
-            { ( currentSection === "setting_info" )  && < PersonalInfo /> }
+            <div className="flex items-center gap-3 text-2xl font-bold"><label className="icon_btn">&#xE270;</label><label>Paramètres</label></div>
+            { ( subSetting === "" )  && <SettingEntries setSubSetting={setSubSetting} /> }
+            { ( subSetting === "info" ) && < PersonalInfo setSubSetting={setSubSetting} /> }
         </div>
     )
 }
