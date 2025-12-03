@@ -6,11 +6,11 @@ export async function searchModel(data) {
 
     try{
         let res = {
-            username:await findUsername(data),
-            user:await findUser(data),
-            orgName:await findOrgName(data),
-            org:await findOrg(data),
-            posts:await findPost(data)
+            username: (await findUsername(data)).rows,
+            user: (await findUser(data)).rows,
+            orgName: (await findOrgName(data)).rows,
+            org: (await findOrg(data)).rows,
+            posts: await findPost(data)
         };
 
         return {

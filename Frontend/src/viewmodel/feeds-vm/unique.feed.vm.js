@@ -14,7 +14,6 @@ export const UniqueFeedVm = (owner, feedOf) => {
 
     const GetPostEditorInfo = async() => {
             try {
-                console.log("feed of ", feedOf)
                 const response = (feedOf === "organisation") ? await MODEL.GetPostingOrgData(owner) : await MODEL.GetPostingPersonData(owner)
                 setEditor(response)
             }

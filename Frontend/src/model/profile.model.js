@@ -19,12 +19,19 @@ export const  profileModel = () => {
     const getProfilePostData = async (obj, type) => {
         const foo = await PostApi().getUserPostsApi(obj, type)
         const data = foo.rows
-        return data.map((item) => ({...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}`}))
+        return data.map((item) => ({...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}` , date_pub : DateShortFormat(item.date_pub) }))
+    }
+
+    const  updateProfile = async (obj) => {
+        obj.photo_profil = obj.photo_profil.replace('http://localhost:3000/static/users/','')
+        const data = await api.updateProfileDataApi(obj)
+        console.log(data)
     }
 
 
     return {
         getProfilData,
-        getProfilePostData
+        getProfilePostData,
+        updateProfile,
     }
 }

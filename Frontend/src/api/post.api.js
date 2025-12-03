@@ -7,42 +7,30 @@ export const PostApi = () => {
     const token = localStorage.getItem('token')
 
     const uploadPostApi = async ( dataPost ) => {
-        const response = await axios.post(`${BASE_URL}/sendPost`, dataPost, {
-            headers: {
-                'Authorization' : `Bearer ${token}`
-            }
+        return await axios.post( BASE_URL + "/sendPost", dataPost, {
+            headers: { 'Authorization' : "Bearer " + token }
         })
-        return response
     }
 
     const uploadPostImageApi = async ( file ) => {
-
-        const formData = new FormData() //Natif a JS
+        const formData = new FormData()
         formData.append('image', file)
-        const response = await axios.post(`${BASE_URL}/uploadPostImage`, formData)
-
-        return response
+        return await axios.post( BASE_URL + "/uploadPostImage", formData)
     }
 
     const getPostsFromOrg = async () => {
-        const response = await axios.get(`${BASE_URL}/pubDescriptionOrg`,
-            {
-                headers : {
-                    'Authorization' : `Bearer ${token}`
-                }
-            }
-        )
-
-        return response
+        const response = await axios.get( BASE_URL + "/pubDescriptionOrg", {
+                headers : { 'Authorization' : "Bearer " + token }
+            })
+        return response.data
     }
 
     const getUserPostsApi = async (obj, user_type) => {
-        const URL = (user_type === "personal") ? `${BASE_URL}/person` : `${BASE_URL}/org`
-        const response = await axios.get(URL, {
-            headers : { Authorization : `Bearer ${token}` },
+        const URL = (user_type === "personal") ? BASE_URL + "/person" : BASE_URL + "/org"
+        const response = await axios.get( URL, {
+            headers : { Authorization : "Bearer " + token },
             params : obj
         })
-        console.log("API RESPONSE : ", response.data)
         return response.data
     }
 

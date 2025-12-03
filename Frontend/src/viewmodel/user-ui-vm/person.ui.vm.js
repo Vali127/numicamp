@@ -7,10 +7,10 @@ export const PersonUiVm = () => {
 
     //Acces sur la page d' acceuil
     const [authenticated, setAuthenticated] = useState(false)
-    useEffect(() => { setAuthenticated(isUserAuthenticated()) }, [authenticated])
+    useEffect(() => { setAuthenticated(isUserAuthenticated())}, [])
 
-    const [section, setSection] = useState("feeds")
     const [searchContent, setSearchContent] = useState("")
+    const [searched, setSearched] = useState(false)
 
     const [logout, setLogout] = useState(false)
     const [ postModalVisibility, setPostModalVisibility  ] = useState(false)
@@ -20,10 +20,9 @@ export const PersonUiVm = () => {
     const HandleAccountInformation = async () => {
         try {
             const res = await getAccountInfo()
-            setUserInfo(res.data)
+            setUserInfo(res)
             const res2 = await getUserDomains()
-            const image_path = `http://localhost:3000/static/users/${res.data.photo_profil}`
-            setUserInfo({...res.data, photo_profil: image_path, domains:res2.data})
+            setUserInfo({...res, domains:res2.data})
         }
         catch (e) {
             console.log(e)
@@ -33,19 +32,19 @@ export const PersonUiVm = () => {
 
     return {
         authenticated,
-        section,
-        setSection,
         logout,
         setLogout,
         userInfo,
         postModalVisibility,
         setPostModalVisibility,
         searchContent,
-        setSearchContent
+        setSearchContent,
+        searched,
+        setSearched
     }
 }
 
 
 const isUserAuthenticated = () => {
-    return !!localStorage.getItem("token")
+    return localStorage.getItem("token")
 }

@@ -4,10 +4,10 @@ import {LoginApi} from "../api/login.api.js"
 export const LoginModel = () => {
 
     const { loginData } = useLoginContext()
-    const { SubmitLogin } = LoginApi()
+    const { submitLogin } = LoginApi()
 
     const SubmitForm = async() => {
-        return await SubmitLogin(loginData)
+        return await submitLogin(loginData)
     }
 
     return { SubmitForm }

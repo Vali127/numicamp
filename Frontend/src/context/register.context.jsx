@@ -6,10 +6,7 @@ const RegisterContext = createContext(null)
 //PROVIDER
 export const SignInContextProvider = ({children}) => {
 
-    // données à remplir sur le composant Usage
     const [typeOfUsage, setTypeOfUsage] = useState('')
-
-    //données à remplir sur le composant PersonForm
     const [personForm, setPersonForm] = useState({
         name : '',
         firstname : '',
@@ -17,15 +14,11 @@ export const SignInContextProvider = ({children}) => {
         place : 'Alaotra Mangoro',
         sex : ''
     })
-
-    //données à remplir sur le composant OrganisationForm
     const [organisationForm, setOrganisationForm] = useState({
         name : '',
         creation_date : '',
         place : 'Alaotra Mangoro',
     })
-
-    //données à remplir sur AccountForm
     const [accountForm, setAccountForm] = useState({
         username : '',
         image : null,
@@ -34,8 +27,6 @@ export const SignInContextProvider = ({children}) => {
         password : '',
     })
     const  [ domain, setDomain ] = useState([])
-
-    // État pour le modal de validation
     const [showSignInValidationModal, setShowSignInValidationModal] = useState(false)
 
     const SetTypeOfUsage = (newTypeOfUsage) => { setTypeOfUsage(newTypeOfUsage) }

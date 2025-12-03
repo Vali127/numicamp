@@ -1,14 +1,15 @@
 import {createContext, useContext, useState} from "react";
 
-
+//CONTEXT
 const LoginContext = createContext(null)
 
+//PROVIDER
 export const LoginContextProvider = ({children}) => {
+    
     const [ loginData, setLoginData ] = useState({ username: "", password: "" });
+    const [showLogInValidationModal, setShowLogInValidationModal] = useState(false)
 
     const SetLoginData = (data) => { setLoginData(data) }
-
-    const [showLogInValidationModal, setShowLogInValidationModal] = useState(false)
 
     const values = {
         loginData,
@@ -24,5 +25,6 @@ export const LoginContextProvider = ({children}) => {
     )
 }
 
+//HOOKS
 // eslint-disable-next-line react-refresh/only-export-components
 export const useLoginContext = () => { return useContext(LoginContext) }

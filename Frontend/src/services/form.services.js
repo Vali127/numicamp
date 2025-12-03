@@ -1,72 +1,60 @@
 import { useSignInContext } from "../context/register.context.jsx";
 
-//_____________________USAGEFORM__________________________________________________________
 
 export const usageFormValidation = () => {
-
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { typeOfUsage } = useSignInContext()
 
-    const  isAllUsageFormFulFilled = () => {
-        return ( typeOfUsage !== '')
-    }
-
-    return {
-        isAllUsageFormFulFilled
-    }
+    const  isAllUsageFormFulFilled = () => { return ( typeOfUsage !== '') }
+    return { isAllUsageFormFulFilled }
 
 }
 
 
-
-
-//_____________________PERSONFORM__________________________________________________________
 
 export const personFormValidation = ( ) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { personForm } = useSignInContext()
 
     const isAllPersonFormFulFilled = () => { return !Object.values(personForm).includes("") }
-
+    
+    let regex = /^[a-zA-Z\s]+$/
+    
     const name = {
+        
         checkExpression : (text) => {
-            let regex = /^[a-zA-Z\s]+$/
-            if ( text === '' )
-                return { type: "warning", message : "* champs obligatoire !" }
-            if ( text.match(regex) )
-                return { type: null, message : null }
+            if ( text === '' ) return { type: "warning", message : "* champs obligatoire !" }
+            if ( text.match(regex) ) return { type: null, message : null }
             return { type: "alert", message : "Nom invalide !( pas de caractère spéciaux )" }
         },
+
         checkLength : () => {
-            if ( personForm.name.length >= 60  )
-                return { type : "alert", message : "Votre nom est trop long !" }
+            if ( personForm.name.length >= 60  ) return { type : "alert", message : "Votre nom est trop long !" }
             return { type: null, message : null }
         },
     }
 
     const firstname = {
+        
         checkExpression : (text) => {
-            let regex = /^[a-zA-Z\s]+$/
-            if ( text === '' )
-                return { type: "warning", message : "* champs obligatoire !" }
-            if ( text.match(regex) )
-                return { type: null, message : null }
+            if ( text === '' ) return { type: "warning", message : "* champs obligatoire !" }
+            if ( text.match(regex) ) return { type: null, message : null }
             return { type: "alert", message : "Prénom invalide !( pas de caractère spéciaux )" }
         },
+
         checkLength : () => {
-            if ( personForm.firstname.length >= 60  )
-                return { type : "alert", message : "Votre prénom est trop long !" }
+            if ( personForm.firstname.length >= 60  ) return { type : "alert", message : "Votre prénom est trop long !" }
             return { type: null, message : null }
         },
     }
 
     const birthDate = {
+        
         checkValidity : (text) => {
             const current_date = new Date()
             const date = new Date(text)
             const age = current_date.getFullYear() - date.getFullYear()
-            if ( age < 16 )
-                return { type : "alert", message : "Vous devez avoir aumoins 16 ans !" }
+            if ( age < 16 ) return { type : "alert", message : "Vous devez avoir aumoins 16 ans !" }
             return { type: null, message : null }
         }
     }

@@ -1,11 +1,12 @@
 import React from 'react'
 
-const OrgMenu = () => {
+const OrgMenu = ({section, setSection}) => {
   return (
     <div className={"flex flex-col gap-0 border-b border-b-neutral-400/30"} >
 
         <button
-          className={ "menu" } >
+            onClick={ () => setSection('profil') }
+            className={( section === 'profil' ) ? " menu menu-active" : "menu" } >
           <div className="icon_btn text-lg">&#xE4C2;</div> 
           <div>Profil</div> 
         </button>
@@ -23,7 +24,8 @@ const OrgMenu = () => {
         </button>
 
         <button
-          className={ "menu" } >
+            onClick={ () => setSection('settings') }
+            className={( section === 'settings' ) ? " menu menu-active" : "menu" }>
           <div className="icon_btn text-lg">&#xE434;</div> 
           <div>Paramètres</div> 
         </button>

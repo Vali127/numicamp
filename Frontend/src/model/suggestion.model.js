@@ -6,15 +6,14 @@ export const SuggestionModel = () => {
 
     const getOrganisationSuggestion = async() => {
         
-        let foo = await api.GetOrganisationSuggestionApi()
+        let foo = await api.getOrganisationSuggestionApi()
         let res = foo.data
-        let data = res.map( item => ( { ...item, photo_profil : `http://localhost:3000/static/users/${item.photo_profil}` } ) )
-        return data
+        return res.map( item => ( { ...item, photo_profil : `http://localhost:3000/static/users/${item.photo_profil}` } ) )
 
     }
 
-    const followModel = async(data) => { return await api.FollowApi(data) }
-    const unFollowModel = async(data) => { return await api.UnfollowApi(data) }
+    const followModel = async(data) => { return await api.followApi(data) }
+    const unFollowModel = async(data) => { return await api.unfollowApi(data) }
 
     return {
         getOrganisationSuggestion,

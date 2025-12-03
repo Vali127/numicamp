@@ -11,7 +11,6 @@ export const UniqueOrgSuggestionVm = (FollowEvent, UnfollowEvent) => {
         const data = { org_id : e.currentTarget.id }
         try {
             const result = await FollowEvent(data)
-            console.log(result)
             if( result ) {
                 setFollowState("followed")
             }
@@ -29,7 +28,6 @@ export const UniqueOrgSuggestionVm = (FollowEvent, UnfollowEvent) => {
         const data = { org_id : e.currentTarget.id }
         try {
             const result = await UnfollowEvent(data)
-            console.log(result)
             if( result ) {
                 setFollowState("unfollowed")
             }

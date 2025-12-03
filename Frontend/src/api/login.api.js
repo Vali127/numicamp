@@ -2,9 +2,11 @@ import axios from "axios";
 
 
 export const  LoginApi = () => {
-    const SubmitLogin = async (obj) => {
+    const submitLogin = async (obj) => {
         return await axios.post("http://localhost:3000/api/login/checkLoginInfo", obj)
     }
 
-    return { SubmitLogin }
+    return { 
+        submitLogin 
+    }
 }

@@ -1,20 +1,22 @@
+import {useEffect} from "react";
 import {PersonUiVm} from "../../../viewmodel/user-ui-vm/person.ui.vm.js";
-import {AlertCard} from "../../components/AlertCard.jsx";
+import {AlertCard} from "../../components/alert.card.jsx";
 import {UserCard} from "../../components/account/UserCard.jsx";
 import {UserMenu} from "./menu/user.menu.jsx";
-import {UserLogout} from "../../accessibility/logout/UserLogout.jsx";
-import {LogoutModal} from "../../accessibility/logout/LogoutModal.jsx";
+import {UserLogout} from "../../accessibility/logout/user.logout.jsx";
+import {LogoutModal} from "../../accessibility/logout/logout.modal.jsx";
 import numicamp from "../../../assets/images/numicamp.png"
 import {Search} from "lucide-react";
-import {UserOrgSuggestion} from "./suggestion/UserOrgSuggestion.jsx";
-import {Feeds} from "../../section/feed/Feeds.jsx";
-import PostModal from "../../components/post-form/PostModal.jsx";
+import {OrgSuggestion} from "./suggestion/org.suggestion.jsx";
+import {Feeds} from "../../section/feed/feeds.jsx";
+import PostModal from "../../components/post-form/post.modal.jsx";
 import {Notification} from "../../section/notification/notification.jsx";
 import {Resources} from "../../section/ressources/resources.jsx";
-import {Schools} from "../../section/school/Schools.jsx";
+import {Schools} from "../../section/school/schools.jsx";
 import {Setting} from "../../section/setting/setting.jsx";
-import {Profile} from "../../section/profile/Profile.jsx";
+import {Profile} from "../../section/profile/profile.jsx";
 import SearchSection from "../../section/search/search.section.jsx";
+import { GlobalUiContextProvider, useGlobalUiContext } from "../../../context/ui.context.jsx";
 
 
 const HomeContents = () => {
@@ -22,14 +24,30 @@ const HomeContents = () => {
     const { 
         logout, 
         setLogout,
-        section,
-        setSection,
         userInfo, 
         postModalVisibility, 
         setPostModalVisibility,
         searchContent,
-        setSearchContent 
+        setSearchContent,
+        searched,
+        setSearched 
     } = PersonUiVm()
+
+    const { currentSection: section, setCurrentSection: setSection, setUserType } = useGlobalUiContext()
+
+    // vider les bar de recherche quand on change de section
+    useEffect( () => {
+        if (section !== 'search') {
+            setSearchContent("")
+            setSearched(false)
+        }
+    }, [section, setSearchContent, setSearched])
+
+    // Info dont on a besoin dans le contexte
+    useEffect( () => { 
+        if( userInfo.sexe ) { 
+        setUserType( (userInfo.sexe) ? "personal" : "organisational" ) 
+    } }, [userInfo] )
 
     return (
         <div className={" w-full h-screen flex px-5 "}>
@@ -79,14 +97,14 @@ const HomeContents = () => {
                     <div className={"font-bold text-green-500 text-[34px] big-title"} >Numicamp</div>
                 </div>
 
-                <div className={"h-[81vh]"}>
+                <div className={"h-[85vh]"}>
                     { (section === "feeds") && <Feeds /> }
                     { (section === "notifications") && <Notification/> }
                     { (section === "resources") && <Resources /> }
                     { (section === "schools") && <Schools/> }
                     { (section === "settings") && <Setting/> }
                     { (section === "profile") && <Profile owner={true} id={userInfo.id_profil} /> }
-                    { (section === "search" && <SearchSection prompt={searchContent} />) }
+                    { (section === "search" && <SearchSection prompt={searchContent} refresh ={searched} />) }
                 </div>
 
             </div>
@@ -96,22 +114,27 @@ const HomeContents = () => {
             <div className={"flex flex-col w-[26vw] h-auto mt-3 text-left overflow-scroll scrollbar-none"} >
                 
                 <div className={"relative p-2"} >
-                    <input
-                        value={searchContent}
-                        onChange={(e) => setSearchContent(e.target.value)} 
-                        type={"text"} 
-                        className={"text_input input__shadow rounded-2xl relative w-full pr-8"} 
-                        placeholder={"rechercher ici ..."} />
+                    <form>
+                        <input
+                            value={searchContent}
+                            onChange={(e) => {setSearchContent(e.target.value)}} 
+                            type={"text"} 
+                            className={"text_input input__shadow rounded-2xl relative w-full pr-8"} 
+                            placeholder={"rechercher ici ..."} />
 
-                    <Search 
-                        onClick={() => { ( searchContent !== "" ) && setSection("search")  }} 
-                        className={"text-gray-700 scale-90 absolute right-3 top-3"} />
+                        <button 
+                            type={"submit"}
+                            onClick={(e) => {e.preventDefault();( searchContent !== "" ) && setSection("search"); setSearched(!searched) }}>
+                            <Search  
+                                className={"text-gray-700 scale-90 absolute right-3 top-3"} />
+                        </button>
+                    </form>
                 
                 </div>
                 
                 <div className={'font-bold text-lg mt-15 mb-3'} >Suggestions</div>
                 
-                <UserOrgSuggestion/>
+                <OrgSuggestion/>
             
             </div>
         
@@ -127,7 +150,9 @@ export const PersonHome = () => {
         <div>
             {
                 authenticated ?
-                    <HomeContents/>
+                    <GlobalUiContextProvider>
+                        <HomeContents/>
+                    </GlobalUiContextProvider>
                     :
                     <AlertCard
                         type="error"
