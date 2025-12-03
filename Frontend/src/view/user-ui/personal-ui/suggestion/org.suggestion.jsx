@@ -23,7 +23,7 @@ const UserSuggestionList = ({id, name, username, description, photo, FollowEvent
     } = UniqueOrgSuggestionVm(FollowEvent, UnfollowEvent)
 
     return (
-        <div className="card_suggestion grid gap-2 mb-1">
+        <div className="card_suggestion grid gap-2 mb-1 ">
             <div className={'grid grid-cols-4'} >
                 <div className=" flex col-span-1 justify-items-start pt-1" >
                     <div className="bg-slate-900/40 h-13 w-13 rounded-lg overflow-hidden">

@@ -13,7 +13,7 @@ export const Feeds = () => {
             <div className="flex items-center gap-3 text-2xl font-bold mb-4"><label className="icon_btn">&#xE0A8;</label><label>Actualités</label></div>
 
             <div 
-                className={ "h-[81vh] overflow-y-scroll scrollbar-none"} >
+                className={ "h-[75vh] overflow-y-scroll scrollbar-none"} >
                 
                 {
                     isEmpty ?

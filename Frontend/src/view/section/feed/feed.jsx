@@ -14,85 +14,89 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
     } = UniqueFeedVm(owner, feedOf)
 
   return (
-    <div className='w-full h-auto px-3 flex flex-col rounded-sm feed bg-white card_feed-shadow py-2 mb-3c text-justify' >
-        
-        
-        <div  className='h-16 flex justify-between items-center border-b border-b-gray-800/8'>
-            
-                <div className='flex gap-2'>
-                    <div className='h-12 w-12 rounded-full bg-gray-600 overflow-hidden flex justify-center items-center'>
-                        <img src={editor.photo_profil} alt="img" className='w-12 h-12' id={editor.id_profil}  />
-                    </div>
-                    <div className='flexflex-col'>
-                        <div className='font-bold text-slate-600' >{ editor.nom_organisation || editor.nom_personne } { (editor.prenom_personne) && editor.prenom_personne }<b className='text-[12px] text-green-400' >[ {editor.nom_profil} ]</b> </div>
-                        <div className='text-[12px] text-gray-500' >{date}</div>
-                    </div>
-                </div>
-            
-            <div>
-                
-                {  
-                    (feedOf === "organisation") && (org) && (followState === "followed") &&  
-                    <button 
-                        id={owner} 
-                        onClick={ async(e) => { await Unfollow({ org_id : e.currentTarget.id }) }} 
-                        className='rounded-sm bg-slate-950 text-white p-2 text-[14px] font-bold flex items-center gap-2' >
-                            <div className='font-bold icon_btn'>&#xE0D4;</div> 
-                            <div>ne plus suivre</div> 
-                    </button>
-                }
-                
-                { 
-                    (feedOf === "organisation ") && (org) && (followState === "unfollowed") &&  
-                    <button 
-                        id={owner} 
-                        onClick={ async(e) => { await Follow({ org_id : e.currentTarget.id }) }} 
-                        className='rounded-sm bg-green-700 text-white p-2 text-[14px] font-bold flex items-center gap-2' > 
-                        <div className='font-bold icon_btn'>&#xE5EA;</div>
-                        <div>suivre</div> 
-                    </button> 
-                }
-                
-                { 
-                    (feedOf === "organisation ") && (org) && (followState === "error") &&  
-                    <button className='rounded-lg bg-red-800 text-white p-2 text-[14px] font-bold' > erreur </button> 
-                }
+    <div className='relative bg-neutral-100 p-4 rounded-lg flex flex-col gap-3 mb-3 text-left border border-neutral-300/40 shadow-sm'>
+      
+      {/* Photo de profil en haut à gauche */}
+      <div className='h-13 w-13 rounded-full bg-gray-600 overflow-hidden flex justify-center items-center absolute top-3 left-3 border-2 border-white shadow-md'>
+        <img src={editor.photo_profil} alt="profil" className='w-full h-full object-cover' id={editor.id_profil} />
+      </div>
 
-            </div>
+      {/* Header avec nom et date */}
+      <div className='flex items-center justify-between pl-15'>
+        <div className='flex flex-col'>
+          <div className='font-bold text-slate-700 text-base'>
+            {editor.nom_organisation || editor.nom_personne} {editor.prenom_personne && editor.prenom_personne}
+            <span className='text-xs text-green-600 font-semibold ml-2'>[{editor.nom_profil}]</span>
+          </div>
+          <div className='flex items-center gap-1 text-gray-400 text-sm'>
+            <label className='icon_btn'>&#xE19A;</label>
+            <label>{date}</label>
+          </div>
         </div>
 
-
-        <div className='border-b border-b-gray-800/8 py-3' >
-            
-            <div className='font-bold text-lg'>{title}</div>
-            
-            <div className='font-light text-[14px]' >
-                <ShowMoreText
-                    lines={3}
-                    more="voir plus"
-                    less="voir moins"
-                    anchorClass="!font-bold !text-[14px] text-gray-500 cursor-pointer underline-none"
-                    expanded={false}>
-                    {description}
-                </ShowMoreText>
-            </div>
-
-            <div className='h-120 bg-slate-700/25 flex justify-around overflow-hidden rounded-lg' >
-                    <img src={illustration} className='h-full w-auto' alt="image" />
-            </div>
-        </div>
-
-        
-        <div className='w-full flex justify-end pt-2' >
-            <button
-                className='px-2 py-1 bg-gray-200 text-gray-600 rounded-2xl border  border-gray-500/10 flex items-center gap-1'
-                onClick={() => { setCommentSectionShown(true) } } >
-                <div className='icon_btn text-lg '>&#xE168;</div>
-                <div>commenter</div>
+        {/* Bouton Follow/Unfollow */}
+        <div>
+          {(feedOf === "organisation") && (org) && (followState === "followed") && (
+            <button 
+              id={owner} 
+              onClick={async(e) => { await Unfollow({ org_id : e.currentTarget.id }) }} 
+              className='bg-slate-900 hover:bg-slate-800 text-white px-3 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-colors'>
+              <span className='icon_btn text-base'>&#xE0D4;</span>
+              <span>Ne plus suivre</span>
             </button>
+          )}
+          
+          {(feedOf === "organisation") && (org) && (followState === "unfollowed") && (
+            <button 
+              id={owner} 
+              onClick={async(e) => { await Follow({ org_id : e.currentTarget.id }) }} 
+              className='bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-colors'>
+              <span className='icon_btn text-base'>&#xE5EA;</span>
+              <span>Suivre</span>
+            </button>
+          )}
+          
+          {(feedOf === "organisation") && (org) && (followState === "error") && (
+            <button className='bg-red-600 text-white px-3 py-2 rounded-lg text-sm font-medium'>
+              Erreur
+            </button>
+          )}
         </div>
-        { commentSectionShown && <Comments open={setCommentSectionShown} postId={postId} /> }
+      </div>
 
+      {/* Titre */}
+      <div className='font-bold text-xl leading-tight px-0'>{title}</div>
+      
+      {/* Description */}
+      <div className='text-justify font-light text-sm leading-relaxed px-0'>
+        <ShowMoreText
+          lines={3}
+          more="voir plus"
+          less="voir moins"
+          anchorClass="!font-bold !text-[14px] text-gray-500 cursor-pointer underline-none"
+          expanded={false}>
+          {description}
+        </ShowMoreText>
+      </div>
+
+      {/* Image avec gradient en grand format */}
+      <div className='relative bg-neutral-300 h-80 w-full rounded-md flex items-center justify-center overflow-hidden'>
+        <img src={illustration} className='h-full w-full object-cover' alt="illustration" />
+        <div className='absolute inset-0 bg-gradient-to-t from-black/30 to-transparent'></div>
+      </div>
+
+      {/* Footer avec bouton commenter */}
+      <div className='flex justify-end pt-2 border-t border-neutral-200'>
+        <button
+          className='bg-neutral-200 hover:bg-neutral-300 text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-medium'
+          onClick={() => { setCommentSectionShown(true) }}>
+          <span className='icon_btn text-lg'>&#xE168;</span>
+          <span>Commenter</span>
+        </button>
+      </div>
+
+      {/* Section commentaires */}
+      {commentSectionShown && <Comments open={setCommentSectionShown} postId={postId} />}
     </div>
   )
 }
