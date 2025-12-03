@@ -1,5 +1,5 @@
 import { UniqueFeedVm } from '../../../viewmodel/feeds-vm/unique.feed.vm.js'
-import Comments from './Comments.jsx'
+import Comments from './comments.jsx'
 import ShowMoreText from 'react-show-more-text'
 
 const Feed = ( {date, title, description, illustration, owner, postId, feedOf} ) => {

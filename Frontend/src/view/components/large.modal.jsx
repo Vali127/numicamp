@@ -1,5 +1,5 @@
 import React from 'react'
-import { Portal } from './Portal.jsx'
+import { Portal } from './portal.jsx'
 
 export const LargeModal = ({children}) => {
   return (

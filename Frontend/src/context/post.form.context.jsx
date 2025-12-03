@@ -1,9 +1,11 @@
 
 
-import React, { Children, createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
+//CONTEXT
 const  PostFormContext = createContext(null)
 
+//PROVIDER
 export const PostCreationContextProvider = ({Children}) => {
 
     const [ interest, setInterest ] = useState([])
@@ -22,6 +24,7 @@ export const PostCreationContextProvider = ({Children}) => {
   )
 }
 
+//HOOKS
 // eslint-disable-next-line react-refresh/only-export-components
 export const usePostCreationContext = () => {
     return useContext(PostFormContext)

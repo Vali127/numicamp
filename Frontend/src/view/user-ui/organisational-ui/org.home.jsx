@@ -1,11 +1,11 @@
 import {useEffect} from "react";
 import {UserCard} from "../../components/account/UserCard.jsx";
-import PostModal from "../../components/post-form/PostModal.jsx";
+import PostModal from "../../components/post-form/post.modal.jsx";
 import {OrgUiVm} from "../../../viewmodel/user-ui-vm/org.ui.vm.js";
 import OrgMenu from "./menu/org.menu.jsx";
-import {Profile} from "../../section/profile/Profile.jsx";
-import {GlobalUiContextProvider, useGlobalUiContext} from "../../../context/uiContext.jsx";
-import {AlertCard} from "../../components/AlertCard.jsx";
+import {Profile} from "../../section/profile/profile.jsx";
+import {GlobalUiContextProvider, useGlobalUiContext} from "../../../context/ui.context.jsx";
+import {AlertCard} from "../../components/alert.card.jsx";
 import numicamp from "../../../assets/images/numicamp.png";
 import {Setting} from "../../section/setting/setting.jsx";
 

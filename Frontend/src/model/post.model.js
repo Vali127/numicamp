@@ -25,21 +25,20 @@ export function PostModel () {
 
     const GetPostFromOrg = async () => {
         const foo = await api.getPostsFromOrg()
-        const datas = foo.data.rows
-        const res = datas.map( item => ( { ...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) )
-        return res
+        const data = foo.rows
+        return data.map( item => ( { ...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) )
         
     }
 
     const GetPostingOrgData = async (id) => {
-        const foo =  await AccountApi().organisationDataApi(id)
+        const foo =  await AccountApi().getOrganisationDataApi(id)
         const data = foo.data
         data.photo_profil = `http://localhost:3000/static/users/${data.photo_profil}`
         return data
     }
 
     const GetPostingPersonData = async (id) => {
-        const foo =  await AccountApi().personDataApi(id)
+        const foo =  await AccountApi().getPersonDataApi(id)
         const data = foo.data
         data.photo_profil = `http://localhost:3000/static/users/${data.photo_profil}`
         return data

@@ -2,7 +2,7 @@ import  {loginVm} from "../../../viewmodel/login-vm/login.vm.js"
 import {Link} from "react-router-dom"
 import {LoginContextProvider, useLoginContext} from "../../../context/login.context.jsx"
 import {useEffect} from "react";
-import {LogInValidationModal} from "./LogInValidationModal.jsx";
+import {LoginValidationModal} from "./login.validation.modal.jsx";
 
 const LoginContent = () => {
     const loginContext = useLoginContext()
@@ -100,7 +100,7 @@ const LoginContent = () => {
 
                 </form>
             </div>
-            { loginContext.showLogInValidationModal && <LogInValidationModal/> }
+            { loginContext.showLogInValidationModal && <LoginValidationModal/> }
         </div>
     )
 }

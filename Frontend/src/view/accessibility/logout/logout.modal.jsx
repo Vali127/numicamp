@@ -1,4 +1,4 @@
-import {Modal} from "../../components/Modal.jsx";
+import {Modal} from "../../components/modal.jsx";
 import {PersonUiVm} from "../../../viewmodel/user-ui-vm/person.ui.vm.js";
 import {useNavigate} from "react-router-dom";
 

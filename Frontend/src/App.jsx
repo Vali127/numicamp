@@ -1,6 +1,6 @@
 import './App.css'
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import {Presentation} from "./view/accessibility/Presentation.jsx";
+import {Presentation} from "./view/accessibility/presentation.jsx";
 import {MainEntry} from "./view/main.entry.jsx";
 
 

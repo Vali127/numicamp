@@ -1,7 +1,7 @@
-import { useGlobalUiContext } from '../../../../context/uiContext'
+import { useGlobalUiContext } from '../../../../context/ui.context.jsx'
 import { InfoSettingVm } from '../../../../viewmodel/section-vm/info.setting.vm'
 import {OrderedListOfPlace} from "../../../../context/register.context.jsx";
-import {Spinning} from "../../../components/Spining.jsx";
+import {Spinning} from "../../../components/spinning.jsx";
 import {EditIcon} from "lucide-react";
 import {useEffect} from "react";
 

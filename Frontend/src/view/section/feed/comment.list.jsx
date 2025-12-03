@@ -1,11 +1,11 @@
-import {UserComment} from "./UserComment.jsx";
+import {UserUniqueComment} from "./user.unique.comment.jsx";
 import {CommentVm} from "../../../viewmodel/feeds-vm/comment.vm.js";
 import {useEffect} from "react";
-import {EmptyComment} from "./EmptyComment.jsx";
+import {EmptyComment} from "./empty.comment.jsx";
 
 
 
-export function CommentsList({ postId, refresh }) {
+export function CommentList({ postId, refresh }) {
 
     const {
         commentData,
@@ -26,7 +26,7 @@ export function CommentsList({ postId, refresh }) {
                         {
                             commentData.map((comment, index) => (
                                 <div key={index}>
-                                    <UserComment
+                                    <UserUniqueComment
                                         profil={comment.photo_profil}
                                         name={comment.nom_personne}
                                         firstname={comment.prenom_personne || " "}

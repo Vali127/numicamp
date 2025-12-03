@@ -6,8 +6,8 @@ export const searchApi = () => {
     const token = localStorage.getItem('token')
 
     const searchValueApi = async (obj) => {
-        return axios.get(`${BASE_URL}/everything`,{
-            headers : { Authorization : `Bearer ${token}` },
+        return axios.get( BASE_URL + "/everything", {
+            headers : { Authorization : "Bearer " + token },
             params : obj
         } )
     }

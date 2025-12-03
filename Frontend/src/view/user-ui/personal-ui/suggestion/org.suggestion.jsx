@@ -83,7 +83,7 @@ const UserSuggestionList = ({id, name, username, description, photo, FollowEvent
 
 
 
-export const UserOrgSuggestion = () => {
+export const OrgSuggestion = () => {
     let { 
         isEmpty,
         suggestedOrganisation,

@@ -1,8 +1,8 @@
 import React from 'react'
-import { CommentModal } from '../../components/commentModal.jsx'
+import { CommentModal } from '../../components/comment.modal.jsx'
 import { X } from 'lucide-react'
 import { CommentVm } from '../../../viewmodel/feeds-vm/comment.vm.js'
-import { CommentsList } from './CommentsList.jsx'
+import { CommentList } from './comment.list.jsx'
 
 const Comments = ({open, postId}) => {
 
@@ -28,7 +28,7 @@ const Comments = ({open, postId}) => {
         
         {/* The COMMENTS SECTION */}
         <div className='h-full flex flex-col my-2 overflow-y-scroll scrollbar-none' >
-            <CommentsList postId={postId} refresh={comment} />
+            <CommentList postId={postId} refresh={comment} />
         </div>
         <div className='h-20 relative'>
             

@@ -1,6 +1,6 @@
 import {LucideAccessibility, LucideActivity, LucideAntenna, RefreshCcw} from "lucide-react";
 
-export const UserEmptyFeeds = () => {
+export const EmptyFeeds = () => {
     return (
         <div 
             

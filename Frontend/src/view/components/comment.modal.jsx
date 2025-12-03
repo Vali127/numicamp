@@ -1,5 +1,5 @@
 
-import { Portal } from './Portal.jsx'
+import { Portal } from './portal.jsx'
 
 export const CommentModal = ({children}) => {
     return (

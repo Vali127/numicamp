@@ -1,4 +1,4 @@
-import {AlertCard} from "./components/AlertCard.jsx";
+import {AlertCard} from "./components/alert.card.jsx";
 import {PersonHome} from "./user-ui/personal-ui/person.home.jsx";
 import {Routes, Route} from "react-router-dom";
 import {useEffect, useState} from "react";

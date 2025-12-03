@@ -1,6 +1,6 @@
 import {userProfileViewModel} from "../../../viewmodel/section-vm/user.profile.vm.js";
-import ProfilePosts from "./ProfilePosts.jsx";
-import {useGlobalUiContext} from "../../../context/uiContext.jsx";
+import ProfilePosts from "./profile.posts.jsx";
+import {useGlobalUiContext} from "../../../context/ui.context.jsx";
 
 
 export const Profile = ({id}) => {

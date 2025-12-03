@@ -1,4 +1,4 @@
-import {Modal} from "../../components/Modal.jsx";
+import {Modal} from "../../components/modal.jsx";
 import { ThreeDots } from "react-loader-spinner";
 import {RegisterValidationVm} from "../../../viewmodel/registration-vm/register.validation.vm.js";
 import {useNavigate} from "react-router-dom";

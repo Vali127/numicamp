@@ -1,44 +1,39 @@
 import axios from "axios";
 
 export const AccountApi = () => {
-    /*
-    * @param { usage } spécifie si le compte est personnelle ou organisationnelle.
-    */
+    
 
     const BASE_URL = 'http://localhost:3000/api/account'
     const token = localStorage.getItem('token')
-    const usage = localStorage.getItem('usage')
-    const data = { usage : usage }
+    const type_of_user = localStorage.getItem('usage')
+    const data = { usage : type_of_user }
 
-    const accountInfoApi = async () => {
-        const response = await axios.get(`${BASE_URL}/accountInfo`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
+
+    const getUserAccountDataApi = async () => {
+        const response = await axios.get( BASE_URL + "/accountInfo", {
+            headers: { 'Authorization': "Bearer " + token },
             params : data
         })
         return response.data
     }
 
-    const organisationDataApi = async (id) => {
-        const response = await axios.get(`${BASE_URL}/orgInfo`, {
+    const getOrganisationDataApi = async (id) => {
+        const response = await axios.get( BASE_URL + "/orgInfo", {
             params : { id_org : id }
         })
         return response.data
     }
 
-    const personDataApi = async (id) => {
-        const response = await axios.get(`${BASE_URL}/personInfo`, {
+    const getPersonDataApi = async (id) => {
+        const response = await axios.get( BASE_URL + "/personInfo", {
             params : { id_person : id }
         })
         return response.data
     }
 
-    const userDomainApi = async () => {
-        const response = await axios.get(`${BASE_URL}/userDomains`, {
-            headers: {
-                'Authorization' : `Bearer ${token}`
-            },
+    const getUserDomainApi = async () => {
+        const response = await axios.get( BASE_URL + "/userDomains", {
+            headers: { 'Authorization' : "Bearer " + token },
             params : data
         })
         return response.data
@@ -47,9 +42,9 @@ export const AccountApi = () => {
     
 
     return {
-        accountInfoApi,
-        userDomainApi,
-        organisationDataApi,
-        personDataApi
+        getUserAccountDataApi,
+        getUserDomainApi,
+        getOrganisationDataApi,
+        getPersonDataApi
     }
 }

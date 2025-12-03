@@ -1,14 +1,24 @@
+import { FeedsVm } from "../../../viewmodel/feeds-vm/feeds.vm.js";
+import Feed from "./feed.jsx";
 
-import React from 'react'
-import Feed from '../feed/Feed'
+export const Feeds = () => {
+    const {
+        PostData,
+        isEmpty
+    } =  FeedsVm()
+    return (
+        <div 
+            className={"w-full grid gap-3 text-left px-3"} >
+            
+            <div className="flex items-center gap-3 text-2xl font-bold mb-4"><label className="icon_btn">&#xE0A8;</label><label>Actualités</label></div>
 
-const ProfilePosts = ({data, isEmpty}) => {
-  return (
-    <div className='px-2 pt-3'>
-        {
+            <div 
+                className={ "h-[81vh] overflow-y-scroll scrollbar-none"} >
+                
+                {
                     isEmpty ?
                     <div>No post</div> :
-                    data.map(
+                    PostData.map(
                         (data,index) => (
                             <div key={index} className="mb-3" >
                                 <Feed
@@ -18,14 +28,15 @@ const ProfilePosts = ({data, isEmpty}) => {
                                     illustration={data.photo_pub}
                                     owner={ data.id_profil_org || data.id_profil_pers }
                                     postId={data.id_pub}
-                                    feedOf={ localStorage.getItem('usage') === "personal" ? "person" : "organisation" }
+                                    feedOf="organisation"
                                 />
                             </div>
                         )
                     )
                 }
-    </div>
-  )
-}
 
-export default ProfilePosts
+            </div>
+            
+        </div>
+    )
+}

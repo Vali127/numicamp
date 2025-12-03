@@ -1,22 +1,22 @@
 import {useEffect} from "react";
 import {PersonUiVm} from "../../../viewmodel/user-ui-vm/person.ui.vm.js";
-import {AlertCard} from "../../components/AlertCard.jsx";
+import {AlertCard} from "../../components/alert.card.jsx";
 import {UserCard} from "../../components/account/UserCard.jsx";
 import {UserMenu} from "./menu/user.menu.jsx";
-import {UserLogout} from "../../accessibility/logout/UserLogout.jsx";
-import {LogoutModal} from "../../accessibility/logout/LogoutModal.jsx";
+import {UserLogout} from "../../accessibility/logout/user.logout.jsx";
+import {LogoutModal} from "../../accessibility/logout/logout.modal.jsx";
 import numicamp from "../../../assets/images/numicamp.png"
 import {Search} from "lucide-react";
-import {UserOrgSuggestion} from "./suggestion/UserOrgSuggestion.jsx";
-import {Feeds} from "../../section/feed/Feeds.jsx";
-import PostModal from "../../components/post-form/PostModal.jsx";
+import {OrgSuggestion} from "./suggestion/org.suggestion.jsx";
+import {Feeds} from "../../section/feed/feeds.jsx";
+import PostModal from "../../components/post-form/post.modal.jsx";
 import {Notification} from "../../section/notification/notification.jsx";
 import {Resources} from "../../section/ressources/resources.jsx";
-import {Schools} from "../../section/school/Schools.jsx";
+import {Schools} from "../../section/school/schools.jsx";
 import {Setting} from "../../section/setting/setting.jsx";
-import {Profile} from "../../section/profile/Profile.jsx";
+import {Profile} from "../../section/profile/profile.jsx";
 import SearchSection from "../../section/search/search.section.jsx";
-import { GlobalUiContextProvider, useGlobalUiContext } from "../../../context/uiContext.jsx";
+import { GlobalUiContextProvider, useGlobalUiContext } from "../../../context/ui.context.jsx";
 
 
 const HomeContents = () => {
@@ -134,7 +134,7 @@ const HomeContents = () => {
                 
                 <div className={'font-bold text-lg mt-15 mb-3'} >Suggestions</div>
                 
-                <UserOrgSuggestion/>
+                <OrgSuggestion/>
             
             </div>
         

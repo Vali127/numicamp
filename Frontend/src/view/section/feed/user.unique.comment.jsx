@@ -1,6 +1,6 @@
 import { EllipsisVertical } from "lucide-react";
 
-export const UserComment = ({profil, name, firstname, username, id, value, duration}) => {
+export const UserUniqueComment = ({profil, name, firstname, username, id, value, duration}) => {
     return (
         <div id={id} className={" flex flex-col gap-2 mb-2 bg-neutral-300/20 border border-neutral-200/50 p-2 rounded-md"}>
             <div className={"flex gap-2"}>

@@ -1,6 +1,6 @@
 import {LoginValidationVm} from "../../../viewmodel/login-vm/login.validation.vm.js";
 import {ThreeDots} from "react-loader-spinner";
-import {Modal} from "../../components/Modal.jsx";
+import {Modal} from "../../components/modal.jsx";
 import Lottie from "lottie-react";
 import successAnimation from "../../../assets/animations/system-solid-31-check-in-reveal.json"
 import rejectAnimation from "../../../assets/animations/system-solid-55-error-in-error.json"
@@ -75,7 +75,7 @@ const LogInValidationError = () => {
 }
 
 
-export const LogInValidationModal = () => {
+export const LoginValidationModal = () => {
     const { message, result, formUploaded,} = LoginValidationVm()
     return (
         <Modal>

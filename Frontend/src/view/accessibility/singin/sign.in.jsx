@@ -1,14 +1,14 @@
 import {Routes, Route, Link} from "react-router-dom";
 import  { SignInContextProvider } from "../../../context/register.context.jsx";
-import {Usage} from "./Usage.jsx";
-import {PersonForm} from "./PersonForm.jsx";
+import {Usage} from "./usage.jsx";
+import {PersonForm} from "./person.form.jsx";
 import {Sign_inFormVm} from "../../../viewmodel/registration-vm/sign_in.form.vm.js";
-import {OrganisationForm} from "./OrganisationForm.jsx";
-import {AccountForm} from "./AccountForm.jsx";
-import {PasswordForm} from "./PasswordForm.jsx";
-import {SignInValidationModal} from "./SignInValidationModal.jsx";
+import {OrganisationForm} from "./organisation.form.jsx";
+import {AccountForm} from "./account.form.jsx";
+import {PasswordForm} from "./password.form.jsx";
+import {SignInValidationModal} from "./sign.in.validation.modal.jsx";
 import {useSignInContext} from "../../../context/register.context.jsx";
-import {DomainForm} from "./DomainForm.jsx";
+import {DomainForm} from "./domain.form.jsx";
 
 const SignInContent = () => {
 

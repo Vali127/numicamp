@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Feed from '../feed/Feed'
+import Feed from '../feed/feed.jsx'
 import NotFound from './not.found'
 
 const PostTab = ({feeds}) => {
