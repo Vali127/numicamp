@@ -14,7 +14,17 @@ export const RessourcesApi = () => {
         return res.data
     }
 
+    const getSitesApi = async () => {
+        
+        const res = await axios.get( BASE_URL + "/sites", {
+            headers : { 'Authorization' : "Bearer " + token }
+        } )
+        
+        return res.data
+    }
+
     return {
-        getNewsApi
+        getNewsApi,
+        getSitesApi
     }
 }
