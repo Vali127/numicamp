@@ -6,10 +6,15 @@ export const ressourcesModel = () => {
 
     const getNews = async() => {
         return await api.getNewsApi()
-    } 
+    }
+    
+    const getSites = async() => {
+        return await api.getSitesApi()
+    }
 
     return {
-        getNews
+        getNews,
+        getSites
     }
 
 }

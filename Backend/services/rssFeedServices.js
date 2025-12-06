@@ -1,10 +1,25 @@
 import { verifyToken } from "../middleware/verifyToken.js";
-import { getUserRSSLinkList } from "../models/RSSModel.js";
+import { getUserRSSLinkList, getUserRessourcePages } from "../models/RSSModel.js";
 import Parser from "rss-parser";
 import fetch from "node-fetch";
 import he from "he";
 
 const parser = new Parser()
+
+
+export async function getSiteServices(req, res) {
+    try {
+        verifyToken(req, res)
+        const id_user = req.user.id
+
+        const result = await getUserRessourcePages(id_user)
+        return result.map( item => ({...item, favicon : getSiteFavIcon(item.lien)}) )
+
+    } catch (error) {
+        console.log(" /api/ressources/pages 's SERVICE ENDPOINT ERROR : \n", error)
+        throw new Error(" /api/ressources/pages 's SERVICE ENDPOINT ERROR")
+    }
+}
 
 export async function getRssFeedServices(req, res) {
     try {
@@ -80,10 +95,10 @@ async function parseRSS(url) {
     }
 }
 
-function getSiteFavIcon(rss) {
-    if (!rss) return null
+function getSiteFavIcon(link) {
+    if (!link) return null
     try {
-        const withoutProtocol = rss.split("://")[1]
+        const withoutProtocol = link.split("://")[1]
         const domain = withoutProtocol.split("/")[0]
         return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`
     } catch {
@@ -91,14 +106,13 @@ function getSiteFavIcon(rss) {
     }
 }
 
-function getDomainName(rss) {
-    if (!rss) return null
+function getDomainName(link) {
+    if (!link) return null
     try {
-        const withoutProtocol = rss.split("://")[1]
+        const withoutProtocol = link.split("://")[1]
         const domain = withoutProtocol.split("/")[0]
         return `https://${domain}`
     } catch {
         return null
     }
 }
-
