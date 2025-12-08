@@ -1,4 +1,5 @@
 import { FeedsVm } from "../../../viewmodel/feeds-vm/feeds.vm.js";
+import EmptyFeeds from "./empty.feed.jsx";
 import Feed from "./feed.jsx";
 
 export const Feeds = () => {
@@ -17,7 +18,7 @@ export const Feeds = () => {
                 
                 {
                     isEmpty ?
-                    <div>No post</div> :
+                    <EmptyFeeds/> :
                     PostData.map(
                         (data,index) => (
                             <div key={index} className="mb-3" >

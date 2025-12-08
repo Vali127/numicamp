@@ -1,13 +1,14 @@
 import {userProfileViewModel} from "../../../viewmodel/section-vm/user.profile.vm.js";
 import ProfilePosts from "./profile.posts.jsx";
 import {useGlobalUiContext} from "../../../context/ui.context.jsx";
+import Loading from "../../components/loading.jsx";
 
 
 export const Profile = ({id}) => {
 
     const { profileData, loaded, posts } = userProfileViewModel(id)
 
-    if (!loaded) return <div>Loading...</div>
+    if (!loaded) return <div className="my-2 mx-3"><Loading/></div>
     
     if (!profileData?.user_data) return <div>Erreur: données non disponibles</div>
 
@@ -26,7 +27,7 @@ export const Profile = ({id}) => {
                 owner={profileData.owner || false}
                 mail={profileData.user_data?.mail || ""}
                 address={profileData.user_data?.localisation || "" }/>
-            <div className="font-bold text-lg bg-white rounded shadow-md mt-2 mx-2 text-left pl-3 flex items-center gap-1"><b className="icon_btn">&#xe344;</b>Publication</div>
+            <div className="font-bold text-lg bg-neutral-100 rounded shadow-md mt-2 mx-2 text-left pl-3 flex items-center gap-1"><b className="icon_btn">&#xe344;</b>Publication</div>
             <ProfilePosts
                 data={posts}
                 isEmpty={(posts.length === 0 )}/>
@@ -42,7 +43,7 @@ const ProfileContent = (props) => {
     } = props
 
     return (
-        <div className=" bg-white shadow-md rounded mx-2 px-3 py-2 text-left ">
+        <div className=" bg-neutral-100 border border-neutral-200 rounded mx-2 px-3 py-2 text-left ">
             <AvatarHeader
                 avatar={avatar}
                 username={username}
@@ -87,7 +88,7 @@ const AvatarHeader = ({avatar="", username="", name="", firstname="", type="", f
                         <div className={" bg-gray-500 w-20 h-20 rounded-full overflow-hidden flex items-center justify-around"}>
                             <img src={avatar || ""} alt="avatar" className="h-full w-full" />
                         </div>
-                        <div className={"w-20 h-[42px] text-left"}>
+                        <div className={" h-[42px] text-left"}>
                             <div className={"font-bold"}>{name} {firstname}</div>
                             <div className={"text-[12px]"} >@{username}</div>
                         </div>

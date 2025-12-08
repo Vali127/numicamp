@@ -57,15 +57,17 @@ export const UniqueFeedVm = (owner, feedOf) => {
         }
     }
     
-        useEffect(
-            () => {
-                if (feedOf === "organisation")
-                    setOrg(true)
-                else
-                    setOrg(false)
-                GetPostEditorInfo() 
-            }, []
-        )
+
+
+    useEffect(
+        () => {
+            if (feedOf === "organisation")
+                setOrg(true)
+            else
+                setOrg(false)
+            GetPostEditorInfo() 
+        }, []
+    )
 
     return {
         editor,
@@ -74,7 +76,7 @@ export const UniqueFeedVm = (owner, feedOf) => {
         followState,
         org,
         commentSectionShown,
-        setCommentSectionShown
+        setCommentSectionShown,
     }
     
 }

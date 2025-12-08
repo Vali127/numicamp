@@ -1,6 +1,7 @@
 import {InfoIcon} from "lucide-react";
 import { OrgSuggestionVm } from "../../../../viewmodel/section-vm/org.suggestion.vm.js";
 import { UniqueOrgSuggestionVm } from "../../../../viewmodel/section-vm/unique.org.suggestion.vm.js";
+import { useGlobalUiContext } from "../../../../context/ui.context.jsx";
 
 const UserEmptySuggestion = () => {
     return (
@@ -19,8 +20,10 @@ const UserSuggestionList = ({id, name, username, description, photo, FollowEvent
     const {
         followState,
         HandleFollow,
-        HandleUnfollow
+        HandleUnfollow,
     } = UniqueOrgSuggestionVm(FollowEvent, UnfollowEvent)
+
+    const { GoToProfile } = useGlobalUiContext()
 
     return (
         <div className="card_suggestion grid gap-2 mb-1 ">
@@ -33,7 +36,7 @@ const UserSuggestionList = ({id, name, username, description, photo, FollowEvent
                 <div className="col-span-3">
                     <div className="flex flex-col relative h-10 justify-between" >
                         <div className="font-bold text-[16px]" >{name}</div>
-                        <div className="text-[11px] text-gray-500">@{username}</div>
+                        <div onClick={() => { GoToProfile(id) }} className="text-[11px] text-gray-500 cursor-pointer">@{username}</div>
                     </div>
                 </div>
             </div>

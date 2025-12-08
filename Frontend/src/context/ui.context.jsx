@@ -10,6 +10,12 @@ export const GlobalUiContextProvider = ({children}) => {
     const [userId, setUserId] = useState('')
     const [userType, setUserType] = useState('')
     const [currentSection, setCurrentSection] = useState('feeds')
+    const [userProfilId, setUserProfilId] = useState("")
+
+    const GoToProfile = (id) => {
+        setUserProfilId(id)
+        setCurrentSection("profileVisit")
+    }
 
 
     const value = {
@@ -18,7 +24,9 @@ export const GlobalUiContextProvider = ({children}) => {
         userId,
         setUserId,
         userType,
-        setUserType
+        setUserType,
+        GoToProfile,
+        userProfilId
     }
 
     return (

@@ -1,6 +1,7 @@
 import { UniqueFeedVm } from '../../../viewmodel/feeds-vm/unique.feed.vm.js'
 import Comments from './comments.jsx'
 import ShowMoreText from 'react-show-more-text'
+import { useGlobalUiContext } from '../../../context/ui.context.jsx'
 
 const Feed = ( {date, title, description, illustration, owner, postId, feedOf} ) => {
     const {
@@ -10,8 +11,10 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
         followState,
         org,
         commentSectionShown,
-        setCommentSectionShown
+        setCommentSectionShown,
     } = UniqueFeedVm(owner, feedOf)
+
+    const {GoToProfile} = useGlobalUiContext()
 
   return (
     <div className='relative bg-neutral-100 p-4 rounded-lg flex flex-col gap-3 mb-3 text-left border border-neutral-300/40 shadow-sm'>
@@ -26,7 +29,7 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
         <div className='flex flex-col'>
           <div className='font-bold text-slate-700 text-base'>
             {editor.nom_organisation || editor.nom_personne} {editor.prenom_personne && editor.prenom_personne}
-            <span className='text-xs text-green-600 font-semibold ml-2'>[{editor.nom_profil}]</span>
+            <span onClick={() => { GoToProfile(editor.id_profil) }} className='text-xs text-green-600 font-semibold ml-2 cursor-pointer'>[{editor.nom_profil}]</span>
           </div>
           <div className='flex items-center gap-1 text-gray-400 text-sm'>
             <label className='icon_btn'>&#xE19A;</label>
@@ -96,7 +99,7 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
       </div>
 
       {/* Section commentaires */}
-      {commentSectionShown && <Comments open={setCommentSectionShown} postId={postId} />}
+      {commentSectionShown && <Comments open={setCommentSectionShown} GoToProfile={GoToProfile} postId={postId} />}
     </div>
   )
 }
