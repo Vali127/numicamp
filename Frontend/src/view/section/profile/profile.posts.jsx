@@ -1,13 +1,14 @@
 
 import React from 'react'
 import Feed from '../feed/feed.jsx'
+import EmptyFeeds from '../feed/empty.feed.jsx'
 
 const ProfilePosts = ({data, isEmpty}) => {
   return (
     <div className='px-2 pt-3'>
         {
                     isEmpty ?
-                    <div>No post</div> :
+                    <EmptyFeeds/> :
                     data.map(
                         (data,index) => (
                             <div key={index} className="mb-3" >
@@ -18,7 +19,7 @@ const ProfilePosts = ({data, isEmpty}) => {
                                     illustration={data.photo_pub}
                                     owner={ data.id_profil_org || data.id_profil_pers }
                                     postId={data.id_pub}
-                                    feedOf={ localStorage.getItem('usage') === "personal" ? "person" : "organisation" }
+                                    feedOf={ (data.id_profil_org === null ) ? "person" : "organisation" }
                                 />
                             </div>
                         )

@@ -5,7 +5,7 @@ import {EmptyComment} from "./empty.comment.jsx";
 
 
 
-export function CommentList({ postId, refresh }) {
+export function CommentList({ postId, refresh,GoToProfile }) {
 
     const {
         commentData,
@@ -29,11 +29,13 @@ export function CommentList({ postId, refresh }) {
                                     <UserUniqueComment
                                         profil={comment.photo_profil}
                                         name={comment.nom_personne}
+                                        owner={comment.id_profil}
                                         firstname={comment.prenom_personne || " "}
                                         username={comment.nom_profil}
                                         id={comment.id_pub}
                                         value={comment.contenue}
                                         duration={comment.date_creation_com}
+                                        GoToProfile={GoToProfile}
                                     />
                                 </div>
                             ))

@@ -3,8 +3,12 @@
 import React from 'react'
 import AccountIndex from '../../components/account/account.index'
 import NotFound from './not.found.jsx'
+import {useGlobalUiContext} from "../../../context/ui.context.jsx"
 
 const OrgTab = ({organisations}) => {
+
+    const {GoToProfile} = useGlobalUiContext()
+
   return (
     <div className='my-2 p-3'>
         {
@@ -20,6 +24,7 @@ const OrgTab = ({organisations}) => {
                             description={org.description_profil}
                             id={org.id_profil}
                             type="organisation"
+                            GoToProfile={GoToProfile}
                         />
                     </div>
                 )

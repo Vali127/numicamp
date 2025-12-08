@@ -1,8 +1,6 @@
 import { useState } from "react"
 
-
 export const UniqueOrgSuggestionVm = (FollowEvent, UnfollowEvent) => {
-
 
     const [followState, setFollowState] = useState("unfollowed")
 
@@ -45,7 +43,7 @@ export const UniqueOrgSuggestionVm = (FollowEvent, UnfollowEvent) => {
     return {
         followState,
         HandleFollow,
-        HandleUnfollow
+        HandleUnfollow,
     }
 
 }

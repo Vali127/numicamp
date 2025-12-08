@@ -1,9 +1,10 @@
 
-import React from 'react'
-
-const AccountIndex = ({name, firstname = "", username, profile, description, id, type}) => {
+const AccountIndex = ({name, firstname = "", username, profile, description, id, type, GoToProfile}) => {
+    
   return (
-    <div className='my-1 p-1 bg-white/60 flex text-left gap-3 border border-neutral-200/80 rounded-lg'>
+    <div
+        onClick={() => { GoToProfile(id) }}
+         className='my-1 p-1 bg-neutral-100 flex text-left gap-3 border border-neutral-200/80 rounded-lg hover:bg-neutral-200 cursor-pointer'>
         <div className='flex items-center justify-around'>
             <div className='w-13 h-13 bg-neutral-300 rounded-2xl overflow-hidden flex items-center'>
                 <img src={profile} alt="pfp" className='w-full h-full' />

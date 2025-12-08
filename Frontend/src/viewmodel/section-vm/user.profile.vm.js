@@ -16,18 +16,20 @@ export const userProfileViewModel = (id) => {
         try {
             setLoaded(false)
             const response = await model.getProfilData(data)
+            let usage = response.user_type
             setProfileData(response)
+            await fetchPosts(usage)
         }
         catch(e) {
             console.error(e)
         }
     }
 
-    const fetchPosts = async() => {
+    const fetchPosts = async(usage) => {
         const data = { user_id : id }
-        const type = localStorage.getItem('usage')
+        console.log("USAGE : ", usage)
         try {
-            const response = await model.getProfilePostData(data, type)
+            const response = await model.getProfilePostData(data, usage)
             setPosts(response)
             setLoaded(true)
         }
@@ -39,7 +41,6 @@ export const userProfileViewModel = (id) => {
     useEffect(
         () => { 
             fetchData()
-            fetchPosts() 
         }, []
     )
 

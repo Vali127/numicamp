@@ -3,7 +3,7 @@ import { InfoSettingVm } from '../../../../viewmodel/section-vm/info.setting.vm'
 import {OrderedListOfPlace} from "../../../../context/register.context.jsx";
 import {Spinning} from "../../../components/spinning.jsx";
 import {EditIcon} from "lucide-react";
-import {useEffect} from "react";
+import Loading from "../../../components/loading.jsx"
 
 const PersonalInfo = ({setSubSetting}) => {
   
@@ -17,7 +17,7 @@ const PersonalInfo = ({setSubSetting}) => {
           {
           (loaded) ? 
           ( (userType === "organisational") ? <OrganisationForm data={userData} uploadFile={ManageFileUploading} update={UpdateNewAccountData} status={status} modify={setUserData}/> : <PersonalForm data={userData} uploadFile={ManageFileUploading} update={UpdateNewAccountData} status={status} modify={setUserData}/> ) :
-          <div>loading...</div>
+          <Loading/>
           }
         </div>
     </div>

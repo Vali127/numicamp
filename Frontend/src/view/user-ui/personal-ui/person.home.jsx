@@ -33,7 +33,7 @@ const HomeContents = () => {
         setSearched 
     } = PersonUiVm()
 
-    const { currentSection: section, setCurrentSection: setSection, setUserType } = useGlobalUiContext()
+    const { currentSection: section, setCurrentSection: setSection, setUserType, userProfilId } = useGlobalUiContext()
 
     // vider les bar de recherche quand on change de section
     useEffect( () => {
@@ -104,6 +104,7 @@ const HomeContents = () => {
                     { (section === "schools") && <Schools/> }
                     { (section === "settings") && <Setting/> }
                     { (section === "profile") && <Profile owner={true} id={userInfo.id_profil} /> }
+                    { (section === "profileVisit") && <Profile owner={false} id={userProfilId} /> }
                     { (section === "search" && <SearchSection prompt={searchContent} refresh ={searched} />) }
                 </div>
 
