@@ -65,7 +65,7 @@ const PersonalForm = ({data,modify,status, update, uploadFile}) => {
           <div className='flex justify-around flex-1'>
             
             <div className='flex flex-col'>
-              <label className='font-bold'>Nom  <label className={"text-[13px] font-bold text-green-500"}>[ @{data.nom_profil} ]</label></label>
+              <label className='font-bold'>Nom  <label className={"text-[13px] font-bold text-violet-600"}>[ @{data.nom_profil} ]</label></label>
               <input
                 value={data.nom_personne}
                 onChange={(e) => { modify({...data, nom_personne : e.target.value}) }} 
@@ -169,9 +169,9 @@ const PersonalForm = ({data,modify,status, update, uploadFile}) => {
 
 
       <div>
-          { (status === "fetching") && <button className='bg-green-600 text-white px-3 py-1 font-bold rounded-md flex gap-3 items-center'><Spinning size={5}/>Chargement...</button>}
+          { (status === "fetching") && <button className='bg-indigo-500 text-white px-3 py-1 font-bold rounded-md flex gap-3 items-center'><Spinning size={5}/>Chargement...</button>}
           { (status === "fetched") && <button className='bg-purple-950 text-white px-3 py-1 font-bold rounded-md flex gap-3 items-center' disabled>Modifié</button>}
-          { (status === "normal") && <button onClick={async () => { await update() }} className='bg-green-600 text-white px-3 py-1 font-bold rounded-md flex gap-3 items-center'>Confirmer</button>}
+          { (status === "normal") && <button onClick={async () => { await update() }} className='bg-indigo-600 text-white px-3 py-1 font-bold rounded-md flex gap-3 items-center'>Confirmer</button>}
       </div>
 
     </div>

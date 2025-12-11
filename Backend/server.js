@@ -12,6 +12,7 @@ import profileRoute from "./routes/profileRouter.js"
 import commentRoute from "./routes/commentRoute.js";
 import searchRoute from "./routes/searchRoute.js";
 import ressourcesRoute from "./routes/ressourcesRoute.js"
+import statsRoute from "./routes/administration/statsRoute.js"
 import {fileURLToPath} from 'url';
 import path from 'path';
 
@@ -52,6 +53,7 @@ app.use('/api/comment',commentRoute)
 app.use('/api/profile', profileRoute )
 app.use('/api/search',searchRoute);
 app.use('/api/ressources', ressourcesRoute)
+app.use('/api/stats', statsRoute)
 // Servir les fichiers statiques (images utilisateurs)
 app.use('/static/users', express.static(path.join(__dirname, 'Users')));
 

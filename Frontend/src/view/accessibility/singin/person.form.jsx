@@ -25,7 +25,7 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
             <div>
                 <div className={"flex flex-col gap-4"}>
                     <div className={"flex flex-col gap-1"}>
-                        <p className={"text-[12px]"}><b>Votre nom et prénom</b></p>
+                        <p className={"text-[14px]"}><b>Votre nom et prénom</b></p>
                         <div className={'flex flex-col md:flex-row gap-3 md:gap-10'}>
                             <div>
                                 <input
@@ -48,7 +48,7 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                         </div>
                     </div>
                     <div className={"flex flex-col gap-1"}>
-                        <p className={"text-[12px]"}><b>Date de naissance</b></p>
+                        <p className={"text-[14px]"}><b>Date de naissance</b></p>
                         <div>
                             <input type={"date"}
                                    value={personForm.birth_date || ''}
@@ -59,7 +59,7 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                     </div>
                     <div>
                         <div className={'text-wrap flex flex-col gap-1'}>
-                            <p className={"text-[12px]"}><b>Votre sexe</b></p>
+                            <p className={"text-[14px]"}><b>Votre sexe</b></p>
                             <div className={'text-[12px] pt-2 flex gap-2'}>
                                 <p><input
                                     checked={ personForm.sex === "F" }
@@ -79,11 +79,11 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                         </div>
                     </div>
                     <div className={"flex flex-col gap-1"}>
-                        <p className={'text-[12px]'}><b>Lieu actuel</b></p>
+                        <p className={'text-[14px]'}><b>Lieu actuel</b></p>
                         <select
                             value={personForm.place}
                             onChange={(e) => { SetPersonForm({...personForm, place : e.target.value }) }}
-                            className={'text_input input__shadow w-full md:w-60'}
+                            className={'text_input input__shadow w-full md:w-60 !text-[13px]'}
                             id={'place'}
                             name={'place'}>
                             {

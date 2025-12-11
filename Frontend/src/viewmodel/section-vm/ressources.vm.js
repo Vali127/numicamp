@@ -16,6 +16,7 @@ export const RessourcesViewModel = () => {
         try {
             setNewsStatus("loading")
             const response = await model.getNews()
+            console.log("NEWS : \n",response.data)
             if (response.ok) {
                 setNews(response.data)
                 setNewsStatus("loaded") 

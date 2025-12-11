@@ -25,7 +25,7 @@ export const AccountFormVm = () => {
 
         // Validation du fichier
         const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
-        const maxSize = 5 * 1024 * 1024; // 5MB
+        const maxSize = 10 * 1024 * 1024; // 5MB
         
         // Vérification du type de fichier
         if (!validTypes.includes(file.type)) {
@@ -36,7 +36,7 @@ export const AccountFormVm = () => {
         
         // Vérification de la taille du fichier
         if (file.size > maxSize) {
-            setImageError('La taille du fichier dépasse 5MB. Veuillez choisir une image plus petite.')
+            setImageError('La taille du fichier dépasse 10MB. Veuillez choisir une image plus petite.')
             SetAccountForm({...accountForm, image: null, tempPhotoFilename: null})
             return
         }

@@ -26,9 +26,14 @@ export async function getAccountUsage(username) {
     try {
         const connection = await pool.getConnection()
         await connection.beginTransaction()
+        //Voir si admin
+        const stmt = `SELECT nom_profil FROM personne WHERE id_role = "admin" AND nom_profil = ? `
+        const [res_1] = await connection.query(stmt, [username]);
+        if ( res_1.length > 0 && res_1[0].nom_profil === username ){
+            return "admin"
+        }
 
         const sql = ` SELECT id_profil FROM personne WHERE nom_profil = ? `
-
         const result = await  connection.query(sql, [username])
         await connection.commit()
 

@@ -42,7 +42,7 @@ export async function getRssFeedServices(req, res) {
                 description: item.contentSnippet || item.description || "",
                 pubDate: item.pubDate || "",
                 source: feed.title || "",
-                image: item.enclosure?.url || item.image?.url || item.media?.thumbnail?.url || item['media:thumbnail']?.$ || item['media:content']?.$?.url || item.thumbnail || item.itunes?.image || null,
+                image: extractImageFromItem(item),
                 favicon: getSiteFavIcon(rss),
                 domainName: getDomainName(rss)
             }))
@@ -115,4 +115,46 @@ function getDomainName(link) {
     } catch {
         return null
     }
+}
+
+
+
+
+// Fonction pour extraire l'image de différentes sources
+function extractImageFromItem(item) {
+    // 1. Enclosure (podcast/media RSS)
+    if (item.enclosure?.url) return item.enclosure.url;
+    
+    // 2. Media RSS namespace
+    if (item['media:content']?.$ && item['media:content'].$.url) {
+        return item['media:content'].$.url;
+    }
+    if (item['media:thumbnail']?.$ && item['media:thumbnail'].$.url) {
+        return item['media:thumbnail'].$.url;
+    }
+    
+    // 3. iTunes namespace
+    if (item.itunes?.image) return item.itunes.image;
+    
+    // 4. Image directe
+    if (item.image?.url) return item.image.url;
+    if (item.thumbnail) return item.thumbnail;
+    
+    // 5. Parser le contenu HTML pour trouver la première image
+    if (item.content || item['content:encoded']) {
+        const content = item.content || item['content:encoded'];
+        const imgMatch = content.match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (imgMatch && imgMatch[1]) return imgMatch[1];
+    }
+    
+    // 6. Parser la description HTML
+    if (item.description) {
+        const imgMatch = item.description.match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (imgMatch && imgMatch[1]) return imgMatch[1];
+    }
+    
+    // 7. Open Graph dans le lien (nécessite un fetch)
+    // Cette partie nécessiterait de fetcher le lien pour extraire les meta tags
+    
+    return null;
 }

@@ -14,7 +14,7 @@ export const Resources = () => {
     return (
         <div className="flex h-full flex-col">
 
-            <div className=" mx-3 flex items-center gap-3 text-2xl font-bold"><label className="icon_btn">&#xE28C;</label><label>Ressources</label></div>
+            <div className=" mx-3 flex items-center gap-3 text-lg font-bold"><label className="icon_btn">&#xE28C;</label><label>Ressources</label></div>
             
             <RessourceNavBar section={section} setSection={setSection} />
             
