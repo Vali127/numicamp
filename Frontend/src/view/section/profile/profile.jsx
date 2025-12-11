@@ -13,7 +13,7 @@ export const Profile = ({id}) => {
     if (!profileData?.user_data) return <div>Erreur: données non disponibles</div>
 
     return (
-        <div className="h-full overflow-scroll scrollbar-none">
+        <div className="h-full overflow-y-auto scrollbar-none bg-gradient-to-b from-gray-50 to-white">
             <ProfileContent
                 avatar={profileData.user_data?.photo_profil || ""}
                 username={profileData.user_data?.nom_profil || ""}
@@ -27,7 +27,12 @@ export const Profile = ({id}) => {
                 owner={profileData.owner || false}
                 mail={profileData.user_data?.mail || ""}
                 address={profileData.user_data?.localisation || "" }/>
-            <div className="font-bold text-lg bg-neutral-100 rounded shadow-md mt-2 mx-2 text-left pl-3 flex items-center gap-1"><b className="icon_btn">&#xe344;</b>Publication</div>
+            <div className="mx-3 mt-4">
+                <div className="font-semibold text-base px-4 rounded py-1 bg-violet-500/20 text-violet-600 flex items-center gap-2 w-fit">
+                    <span className="icon_btn text-xl">&#xe344;</span>
+                    <span>Publications</span>
+                </div>
+            </div>
             <ProfilePosts
                 data={posts}
                 isEmpty={(posts.length === 0 )}/>
@@ -43,21 +48,24 @@ const ProfileContent = (props) => {
     } = props
 
     return (
-        <div className=" bg-neutral-100 border border-neutral-200 rounded mx-2 px-3 py-2 text-left ">
+        <div className="mx-3 mt-3 text-left">
             <AvatarHeader
                 avatar={avatar}
                 username={username}
-                name={name}
-                firstname={firstname}
                 type={type}
                 follow={follow}
                 owner={owner}
             />
-            <div className={"h-18"}></div>
-            <DomainList domains={domains} />
-            <BioBlock bio={bio} />
-            <InfoBlock mail={mail} address={address} />
-            <OwnerFooter owner={owner} type={type} date={date} />
+            <div className="bg-white shadow-lg border border-gray-100 overflow-hidden -mt-10 relative z-10">
+                <div className="pt-5 px-4 pb-4">
+                    <FollowBlock type={type} follow={follow} />
+                    <NameBlock name={name} firstname={firstname} username={username} />
+                    <DomainList domains={domains} />
+                    <BioBlock bio={bio} />
+                    <InfoBlock mail={mail} address={address} />
+                    <OwnerFooter owner={owner} type={type} date={date} />
+                </div>
+            </div>
         </div>
     )
 }
@@ -66,37 +74,72 @@ const ProfileContent = (props) => {
 
 const Domain = ({data}) => {
     return (
-        <button 
-            className={"text-gray-500 text-md bg-gray-200 px-3 py-0 rounded font-light"} >
+        <span className="inline-flex items-center bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 text-xs font-medium px-3 py-1.5 rounded-lg border border-indigo-100 hover:shadow-sm transition-all">
             {data}
-        </button>
+        </span>
     )
 }
 
-const AvatarHeader = ({avatar="", username="", name="", firstname="", type="", follow=0, owner=false}) => {
-    const { setCurrentSection } = useGlobalUiContext()
+const NameBlock = ({name = "", firstname = "", username = ""}) => {
+    const fullName = `${name} ${firstname}`.trim()
+    if (!fullName) return null
+    
     return (
-        <div className={" bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% h-25 my-2 rounded-md relative"}>
-            <button
-                className={"bg-white/40 backdrop-blur-sm text-white px-3 py-1 rounded-2xl absolute right-2 top-2"}>
-                {type}
-            </button>
-            {owner && <button onClick={ () => setCurrentSection('settings') } className={" text-white hover:bg-gray-950/25 hover:font-bold px-2 rounded-full text-lg font-bold absolute bottom-2 right-5 icon_btn"}> &#xE434; </button>}
-            <div className={"w-full h-full flex"}>
-                <div className={"w-32 relative"}>
-                    <div className={"flex flex-col justify-around items-center gap-1 w-full absolute bottom-[-82%]"}>
-                        <div className={" bg-gray-500 w-20 h-20 rounded-full overflow-hidden flex items-center justify-around"}>
-                            <img src={avatar || ""} alt="avatar" className="h-full w-full" />
-                        </div>
-                        <div className={" h-[42px] text-left"}>
-                            <div className={"font-bold"}>{name} {firstname}</div>
-                            <div className={"text-[12px]"} >@{username}</div>
-                        </div>
-                    </div>
+        <div className="pb-2 mb-4 border-b-2 border-gray-100">
+            <h2 className="font-bold text-2xl text-gray-900 break-words leading-tight" title={fullName}>
+                {fullName}
+            </h2>
+            <div className="text-sm font-bold text-violet-500">@{username}</div>
+        </div>
+    )
+}
+
+const AvatarHeader = ({avatar="", username="", type="", owner=false}) => {
+    const { setCurrentSection } = useGlobalUiContext()
+    
+    return (
+        <div className="relative">
+            {/* Cover background avec pattern */}
+            <div className="h-40 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 relative rounded-2xl shadow-xl">
+                {/* Pattern overlay */}
+                <div className="absolute inset-0 opacity-20 rounded-2xl" style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+                }}></div>
+                
+                {/* Type badge */}
+                <div className="absolute right-3 top-3 z-10">
+                    <span className="inline-block bg-white/25 backdrop-blur-lg text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg border border-white/30 capitalize">
+                        {type}
+                    </span>
                 </div>
-                <div className={"flex-1 flex flex-col justify-end my-2 ml-2"}>
-                    <div className={"text-left text-white text-[12px]"}>
-                        { (type === "personal") ? "following : " : "follower(s) : " } <b>{follow}</b>
+                
+                {/* Settings button */}
+                {owner && (
+                    <button 
+                        onClick={() => setCurrentSection('settings')} 
+                        className="absolute bottom-12 right-3 z-10 bg-white/25 backdrop-blur-lg text-white hover:bg-white/40 transition-all px-2 py-1 rounded-full shadow-lg border border-white/30 icon_btn text-lg"
+                        title="Paramètres"
+                    >
+                        &#xE434;
+                    </button>
+                )}
+            </div>
+            
+            {/* Avatar card floating */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 top-18 z-20">
+                <div className="flex flex-col items-center gap-2">
+                    {/* Avatar with gradient border */}
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur-md opacity-50"></div>
+                        <div className="relative bg-white p-0.5 rounded-full shadow-2xl">
+                            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                                {avatar ? (
+                                    <img src={avatar} alt={username} className="h-full w-full object-cover" />
+                                ) : (
+                                    <span className="text-gray-400 text-4xl icon_btn">&#xe7fd;</span>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -105,45 +148,91 @@ const AvatarHeader = ({avatar="", username="", name="", firstname="", type="", f
 }
 
 const DomainList = ({domains = []}) => {
+    if (!Array.isArray(domains) || domains.length === 0) return null
+    
     return (
-        <div className={"flex flex-wrap gap-2 py-2"}>
-            {
-                Array.isArray(domains) && domains.length > 0 ?
-                domains.map((item, index) => (
-                    <div key={item?.design_domaine || index}>
-                        <Domain data={item?.design_domaine || "—"} />
-                    </div>
-                ))
-                :
-                <div className="text-gray-400 text-sm">Aucun domaine</div>
-            }
+        <div className="mb-4">
+            <div className="flex flex-wrap gap-2">
+                {domains.map((item, index) => (
+                    <Domain key={item?.design_domaine || index} data={item?.design_domaine || "—"} />
+                ))}
+            </div>
         </div>
     )
 }
 
-const BioBlock = ({bio = ""}) => (
-    <div className={"border-b border-b-neutral-300 py-2"}>
-        <h3 className="flex items-center gap-1"><b className="icon_btn">&#xe4c4;</b><b>bio</b></h3>
-        <div className={"text-sm text-justify font-light bg-neutral-100/30 rounded-md p-2 pl-2"}>{bio}</div>
-    </div>
-)
-
-const InfoBlock = ({mail = "", address = ""}) => (
-    <div className={"border-b border-b-neutral-300 py-2"}>
-        <h3 className="flex items-center gap-1"><b className="icon_btn">&#xe2ce;</b><b>Information</b></h3>
-        <div className={"text-sm text-justify font-light pl-2"}>
-            <div className="flex items-center gap-1"><label className="icon_btn">&#xe218;</label>{mail || "—"}</div>
-            <div className="flex items-center gap-1"><label className="icon_btn">&#xe316;</label>{address || "—"}</div>
+const BioBlock = ({bio = ""}) => {
+    if (!bio) return null
+    
+    return (
+        <div className="mb-4 border-b border-gray-100">
+            <div className="flex items-center gap-2 mb-0">
+                <div className="w-8 h-8 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-lg flex items-center justify-center">
+                    <span className="icon_btn text-indigo-600 text-sm">&#xe4c4;</span>
+                </div>
+                <h3 className="text-sm font-bold text-gray-800">Biographie</h3>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed pl-10 whitespace-pre-wrap">
+                {bio}
+            </p>
         </div>
-    </div>
-)
+    )
+}
+
+const InfoBlock = ({mail = "", address = ""}) => {
+    if (!mail && !address) return null
+    
+    return (
+        <div className="mb-2 border-b border-gray-100">
+            <div className="flex items-center gap-2 ">
+                <div className="w-8 h-8 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-lg flex items-center justify-center">
+                    <span className="icon_btn text-indigo-600 text-sm">&#xe2ce;</span>
+                </div>
+                <h3 className="text-sm font-bold text-gray-800">Informations</h3>
+            </div>
+            <div className="space-y-0.5 pl-10">
+                {mail && (
+                    <div className="flex items-center gap-2 text-sm text-gray-600 group">
+                        <span className="icon_btn text-gray-400 group-hover:text-indigo-500 transition-colors">&#xe218;</span>
+                        <span className="truncate" title={mail}>{mail}</span>
+                    </div>
+                )}
+                {address && (
+                    <div className="flex items-center gap-2 text-sm text-gray-600 group">
+                        <span className="icon_btn text-gray-400 group-hover:text-indigo-500 transition-colors">&#xe316;</span>
+                        <span className="truncate" title={address}>{address}</span>
+                    </div>
+                )}
+            </div>
+        </div>
+    )
+}
 
 const OwnerFooter = ({owner=false, type="", date=""}) => {
     if (!owner) return null
+    
     return (
-        <div className={"py-2 flex gap-2 items-center"}>
-            <div className={"text-sm flex gap-1 items-center"}><label className="icon_btn">&#xe780;</label>{(type === "personal") ? "né(e) le " : "créé le "}{date || "—"}</div>
-            <div className={"text-[12px] text-purple-700 flex gap-1"}><b className="icon_btn">&#xe40c;</b>cette information est privée</div>
+        <div className="pt-4 flex flex-wrap gap-3 items-center">
+            <div className="flex gap-2 items-center text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-lg">
+                <span className="icon_btn text-indigo-500">&#xe780;</span>
+                <span>{type === "personal" ? "Né(e) le" : "Créé le"}</span>
+                <span className="font-semibold text-gray-700">{date || "—"}</span>
+            </div>
+            <div className="flex gap-2 items-center text-xs bg-purple-50 text-purple-700 px-3 py-2 rounded-lg border border-purple-200">
+                <span className="icon_btn">&#xe40c;</span>
+                <span className="font-medium">Information privée</span>
+            </div>
+        </div>
+    )
+}
+
+const FollowBlock = ({type, follow}) => {
+    return (
+        <div className="mt-10">
+            <div className="text-xs text-gray-600">
+                <span className="font-normal">{type === "personal" ? "Abonnements" : "Abonnés"}</span>
+                <span className="font-bold text-indigo-600 ml-1.5">{follow}</span>
+            </div>
         </div>
     )
 }

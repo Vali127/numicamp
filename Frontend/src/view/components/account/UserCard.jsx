@@ -1,5 +1,5 @@
 
-export const UserCard = ({ setSection,profile, name, firstname, user, postModalIsVisible}) => {
+export const UserCard = ({ setSection,profile, user, postModalIsVisible}) => {
 
     return (
         <div 
@@ -17,9 +17,9 @@ export const UserCard = ({ setSection,profile, name, firstname, user, postModalI
                         className="w-full h-full"  />
                 </div>
 
-                <div className={"text-left"} >
-                    <b className={"text-[20px]"} >{name} {firstname}</b>
-                    <div className={"text-[12px] font-light text-gray-500"} >@{user}</div>
+                <div className={"text-left text-wrap  flex-wrap break-words w-[70%]"} >
+                    <b className={"text-[20px]"} >Votre compte</b>
+                    <div className={"text-[12px] font-light text-violet-600"} >@{user}</div>
                 </div>
         
             </div>

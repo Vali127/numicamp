@@ -17,7 +17,7 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
     const {GoToProfile} = useGlobalUiContext()
 
   return (
-    <div className='relative bg-neutral-100 p-4 rounded-lg flex flex-col gap-3 mb-3 text-left border border-neutral-300/40 shadow-sm'>
+    <div className='relative bg-white shadow-lg border border-gray-200 p-4 rounded-lg flex flex-col gap-3 mx-3 mb-3 text-left'>
       
       {/* Photo de profil en haut à gauche */}
       <div className='h-13 w-13 rounded-full bg-gray-600 overflow-hidden flex justify-center items-center absolute top-3 left-3 border-2 border-white shadow-md'>
@@ -29,7 +29,7 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
         <div className='flex flex-col'>
           <div className='font-bold text-slate-700 text-base'>
             {editor.nom_organisation || editor.nom_personne} {editor.prenom_personne && editor.prenom_personne}
-            <span onClick={() => { GoToProfile(editor.id_profil) }} className='text-xs text-green-600 font-semibold ml-2 cursor-pointer'>[{editor.nom_profil}]</span>
+            <span onClick={() => { GoToProfile(editor.id_profil) }} className='text-xs text-violet-600 font-semibold ml-2 cursor-pointer'>[{editor.nom_profil}]</span>
           </div>
           <div className='flex items-center gap-1 text-gray-400 text-sm'>
             <label className='icon_btn'>&#xE19A;</label>
@@ -43,7 +43,7 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
             <button 
               id={owner} 
               onClick={async(e) => { await Unfollow({ org_id : e.currentTarget.id }) }} 
-              className='bg-slate-900 hover:bg-slate-800 text-white px-3 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-colors'>
+              className='bg-indigo-500 hover:bg-indigo-500 text-white px-3 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-colors'>
               <span className='icon_btn text-base'>&#xE0D4;</span>
               <span>Ne plus suivre</span>
             </button>
@@ -53,7 +53,7 @@ const Feed = ( {date, title, description, illustration, owner, postId, feedOf} )
             <button 
               id={owner} 
               onClick={async(e) => { await Follow({ org_id : e.currentTarget.id }) }} 
-              className='bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-colors'>
+              className='bg-indigo-500 hover:bg-idigo-600 text-white px-3 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-colors'>
               <span className='icon_btn text-base'>&#xE5EA;</span>
               <span>Suivre</span>
             </button>

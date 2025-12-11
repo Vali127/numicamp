@@ -42,7 +42,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
             <h2 className={" text-[20px] md:text-2xl font-bold mb-5"}>Créez votre <span className="span">Profil</span></h2>
             <div className={"flex flex-col md:flex-row gap-5 md:gap-25"}>
                 <div className={"flex md:flex-col md:w-30 gap-5 md:gap-2"}>
-                    <div className={"bg-gray-200 border-2 border-gray-300  w-25 h-25 md:w-30 md:h-30 rounded-full relative flex items-center justify-center overflow-hidden"}>
+                    <div className={"bg-gray-200  w-25 h-25 md:w-30 md:h-30 rounded-full relative flex items-center justify-center overflow-hidden"}>
                         <input 
                             id="imageInput" 
                             type="file" 
@@ -57,13 +57,13 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                     <div className={"flex items-end gap-2"}>
                         <button 
                             onClick={() => document.getElementById('imageInput').click()}
-                            className={" h-8 text-[12px] px-2 pl-1 font-bold border-2 border-slate-800 rounded-2xl flex items-center justify-center cursor-pointer"}
+                            className={" h-8 text-[14px] px-2 pl-1 font-bold bg-black/20 rounded-2xl flex items-center justify-center cursor-pointer"}
                         >
                             <Pencil className={"scale-65"}/>
                             <label className="cursor-pointer">Modifier</label>
                         </button>
                         <button onClick={resetImage}>
-                            <Trash className={"scale-90 mb-1 text-red-500"}/>
+                            <Trash className={"scale-90 mb-1 text-violet-500"}/>
                         </button>
                     </div>
                     {imageError && (
@@ -80,7 +80,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                             <div className={"w-full"}>
                                 <input
                                     type={"text"}
-                                    className={'text_input input__shadow w-full md:w-60'}
+                                    className={'text_input input__shadow w-full'}
                                     placeholder={"nom d' utilisateur ici..."}
                                     value={accountForm.username}
                                     onChange={HandleInputUsernameChange}
@@ -109,7 +109,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                             <div className={"w-full"}>
                                 <input
                                     type={"email"}
-                                    className={'text_input input__shadow w-full md:w-60'}
+                                    className={'text_input input__shadow w-full'}
                                     placeholder={"votre email ici..."}
                                     value={accountForm.mail}
                                     onChange={HandleInputEmailChange}

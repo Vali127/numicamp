@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import globe from "../../../assets/images/globe.png"
-import noPhoto from "../../../assets/images/no-photo.png"
 import ShowMoreText from 'react-show-more-text'
 import { DateShortFormat } from '../../../utils/display.format'
 
@@ -9,7 +8,7 @@ const UniqueRessource = ({illustration, title, description, date, favicon, link,
   const [imageError, setImageError] = useState(false)
 
   return (
-    <div className='relative bg-neutral-100 p-4 rounded-lg flex flex-col gap-3 mb-3 text-left border border-neutral-300/40'>
+    <div className='relative bg-white p-4 rounded-lg flex flex-col gap-3 mb-1 mx-3 text-left bg-gradient-to-b from-gray-50 to-white shadow-lg border border-gray-200'>
       {/* Favicon en haut à gauche */}
       <div className='w-6 h-6 rounded-full flex items-center justify-center overflow-hidden absolute top-2 left-2 bg-white border border-neutral-200'>
         <img 
@@ -35,12 +34,14 @@ const UniqueRessource = ({illustration, title, description, date, favicon, link,
 
         {/* Image avec gradient */}
         <div className='relative bg-neutral-300 h-32 rounded-md flex items-center justify-center overflow-hidden flex-shrink-0'>
-          <img 
-            src={!imageError && illustration ? illustration : noPhoto} 
-            className='h-full w-full object-cover' 
-            alt="illustration"
-            onError={() => setImageError(true)}
-          />
+          {(!imageError && illustration) && 
+            <img 
+              src={illustration} 
+              className='h-full w-full object-cover' 
+              alt="illustration"
+              onError={() => setImageError(true)}
+            />
+          }
           <div className='absolute inset-0 bg-gradient-to-t from-black/30 to-transparent'></div>
         </div>
       </div>
@@ -77,8 +78,8 @@ const UniqueRessource = ({illustration, title, description, date, favicon, link,
           target="_blank"
           rel="noopener noreferrer"
           className='bg-slate-600/0 !text-slate-600 px-2 py-1 rounded-2xl flex items-center gap-2 transition-colors duration-200 text-sm font-medium'>
-          <label className='icon_btn'>&#xE0A8;</label>
-          <span>Visiter l'article</span>
+          <label className='icon_btn text-violet-600'>&#xE0A8;</label>
+          <span className='text-violet-600'>Visiter l'article</span>
         </a>
       </div>
     </div>

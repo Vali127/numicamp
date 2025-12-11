@@ -1,4 +1,5 @@
 import {useEffect} from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import {PersonUiVm} from "../../../viewmodel/user-ui-vm/person.ui.vm.js";
 import {AlertCard} from "../../components/alert.card.jsx";
 import {UserCard} from "../../components/account/UserCard.jsx";
@@ -34,6 +35,8 @@ const HomeContents = () => {
     } = PersonUiVm()
 
     const { currentSection: section, setCurrentSection: setSection, setUserType, userProfilId } = useGlobalUiContext()
+    //Section par défaut
+    useEffect(() => { setSection("feeds") }, [])
 
     // vider les bar de recherche quand on change de section
     useEffect( () => {
@@ -94,18 +97,20 @@ const HomeContents = () => {
                 
                 <div className={"flex h-10 w-auto gap-2 mx-3 "} >
                     <img src={numicamp} alt="numicamp" className="w-10" />
-                    <div className={"font-bold text-green-500 text-[34px] big-title"} >Numicamp</div>
+                    <div className={"font-bold text-indigo-500 text-[34px] big-title"} >Numicamp</div>
                 </div>
 
                 <div className={"h-[85vh]"}>
-                    { (section === "feeds") && <Feeds /> }
-                    { (section === "notifications") && <Notification/> }
-                    { (section === "resources") && <Resources /> }
-                    { (section === "schools") && <Schools/> }
-                    { (section === "settings") && <Setting/> }
-                    { (section === "profile") && <Profile owner={true} id={userInfo.id_profil} /> }
-                    { (section === "profileVisit") && <Profile owner={false} id={userProfilId} /> }
-                    { (section === "search" && <SearchSection prompt={searchContent} refresh ={searched} />) }
+                    <Routes>
+                        <Route path="feeds" element={<Feeds />} />
+                        <Route path="notifications" element={<Notification />} />
+                        <Route path="ressources" element={<Resources />} />
+                        <Route path="schools" element={<Schools />} />
+                        <Route path="settings" element={<Setting />} />
+                        <Route path="profile" element={<Profile owner={true} id={userInfo.id_profil} />} />
+                        <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
+                        <Route path="search" element={<SearchSection prompt={searchContent} refresh={searched} />} />
+                    </Routes>
                 </div>
 
             </div>
