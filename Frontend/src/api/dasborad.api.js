@@ -20,10 +20,18 @@ export const dashBoardApi = () => {
         return response.data
     }
 
+    const getPostsStatsApi = async () => {
+        const response = await axios.get(BASE_URL + "/postsStats", {
+            headers: { Authorization: "Bearer " + token }
+        })
+        return response.data
+    }
+
 
     return {
         getUsersStats,
         getDomainStats,
+        getPostsStatsApi,
     }
 
 }

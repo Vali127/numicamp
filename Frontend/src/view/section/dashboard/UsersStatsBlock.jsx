@@ -1,56 +1,80 @@
-import {UserStatsViewModel} from "../../../viewmodel/section-vm/dasboard.vm.js";
+import { UserStatsViewModel } from "../../../viewmodel/section-vm/dasboard.vm.js";
 
-
-export const UsersStatsBlock = () => {
-
-    const  {userStats, error} = UserStatsViewModel()
+export function UsersStatsBlock() {
+    const { userStats, error } = UserStatsViewModel();
 
     return (
-        <div className={"rounded"}>
-            <div className="">Users</div>
-                {
-                    error ?
-                        <div>...An error occured</div> :
-                        <StatsBlock
-                            user={userStats.number_of_person || 0 }
-                            org={userStats.number_of_organization || 0 }
-                            admin={userStats.number_of_admin || 0 }
-                            user_p={userStats.percentage_of_person || 0 }
-                            org_p={userStats.percentage_of_organization || 0 }
-                            admin_p={userStats.percentage_of_admin || 0 }
+        <div className="space-y-4">
+            <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-gray-800">Statistiques utilisateurs</h2>
+                <span className="text-sm text-gray-500">Vue d'ensemble</span>
+            </div>
+
+            {error ? (
+                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-red-600 text-sm">Une erreur est survenue</p>
+                </div>
+            ) : (
+                <StatsBlock
+                    user={userStats.number_of_person || 0}
+                    org={userStats.number_of_organization || 0}
+                    admin={userStats.number_of_admin || 0}
+                    user_p={userStats.percentage_of_person || 0}
+                    org_p={userStats.percentage_of_organization || 0}
+                    admin_p={userStats.percentage_of_admin || 0}
+                />
+            )}
+        </div>
+    );
+}
+
+const StatsBlock = ({ user, org, admin, user_p, org_p, admin_p }) => {
+    const stats = [
+        {
+            icon: "&#xE4D6;",
+            label: "Personnes",
+            value: user,
+            percentage: user_p
+        },
+        {
+            icon: "&#xE67C;",
+            label: "Organisations",
+            value: org,
+            percentage: org_p
+        },
+        {
+            icon: "&#xEAFA;",
+            label: "Administrateurs",
+            value: admin,
+            percentage: admin_p
+        }
+    ];
+
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {stats.map((stat, index) => (
+                <div
+                    key={index}
+                    className="relative overflow-hidden bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 p-3"
+                >
+                    <div className="flex items-start justify-between mb-1">
+                        <span
+                            className="icon_btn text-purple-600 text-2xl"
+                            dangerouslySetInnerHTML={{ __html: stat.icon }}
                         />
-                }
+                        <div className="text-purple-600 bg-purple-400/20 px-3 py-1.5 rounded-full text-sm font-semibold">
+                            {stat.percentage}%
+                        </div>
+                    </div>
+
+                    <div className="space-y-1">
+                        <p className="text-sm font-medium text-gray-600">{stat.label}</p>
+                        <div className="text-4xl font-bold text-indigo-500">
+                            {stat.value}
+                        </div>
+                    </div>
+                </div>
+            ))}
         </div>
-    )
-}
-
-
-const StatsBlock = ({user, org, admin, user_p, org_p, admin_p}) => {
-    return (
-        <div className="flex gap-5">
-            <div className="p-3 bg-white rounded-lg shadow-md border border-gray-300/50 min-w-45 flex flex-col justify-between min-h-22">
-                <div className="flex gap-2 font-bold"><label className="icon_btn text-purple-600">&#xE4D6;</label><label>Personnes</label></div>
-                <div className="flex justify-between">
-                    <div className="big-title font-bold text-2xl text-indigo-500">{user}</div>
-                    <div className="text-orange-500 bg-orange-400/20 w-fit py-1 px-2 rounded-full">{user_p}%</div>
-                </div>
-            </div>
-
-            <div className="p-3 bg-white rounded-lg shadow-md border border-gray-300/50 min-w-45 flex flex-col justify-between min-h-22">
-                <div className="flex gap-2 font-bold"><label className="icon_btn text-purple-600">&#xE67C;</label><label>Organisations</label></div>
-                <div className="flex justify-between">
-                    <div className="big-title font-bold text-2xl text-indigo-500">{org}</div>
-                    <div className="text-orange-500 bg-orange-400/20 w-fit py-1 px-2 rounded-full">{org_p}%</div>
-                </div>
-            </div>
-
-            <div className="p-3 bg-white rounded-lg shadow-md border border-gray-300/50 min-w-45 flex flex-col justify-between min-h-22">
-                <div className="flex gap-2 font-bold"><label className="icon_btn text-purple-600">&#xEAFA;</label><label>Administrateurs</label></div>
-                <div className="flex justify-between">
-                    <div className="big-title font-bold text-2xl text-indigo-500">{admin}</div>
-                    <div className="text-orange-500 bg-orange-400/20 w-fit py-1 px-2 rounded-full">{admin_p}%</div>
-                </div>
-            </div>
-        </div>
-    )
-}
+    );
+};

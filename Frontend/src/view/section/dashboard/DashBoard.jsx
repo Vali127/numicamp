@@ -1,5 +1,6 @@
 import {UsersStatsBlock} from "./UsersStatsBlock.jsx";
 import {DomainCharts} from "./DomainCharts.jsx";
+import {PostCharts} from "./PostCharts.jsx";
 
 export const DashBoard = () => {
     return (
@@ -7,6 +8,7 @@ export const DashBoard = () => {
             <DashBoardHeader/>
             <div className="mt-6 flex-1 overflow-scroll scrollbar-none">
                 <UsersStatsBlock/>
+                <PostCharts/>
                 <DomainCharts/>
             </div>
         </div>

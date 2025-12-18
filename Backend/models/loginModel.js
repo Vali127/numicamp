@@ -51,3 +51,35 @@ export async function getAccountUsage(username) {
         if (connection)  connection.release()
     }
 }
+
+
+
+
+export async function getAccountUsageById(id) {
+    let connection
+    try {
+        const connection = await pool.getConnection()
+        await connection.beginTransaction()
+        //Voir si admin
+        const stmt = `SELECT id_profil FROM personne WHERE id_role = "admin" AND id_profil = ? `
+        const [res_1] = await connection.query(stmt, [id]);
+        if ( res_1.length > 0 && res_1[0].id_profil === id ){ return "admin" }
+
+        const sql = ` SELECT id_profil FROM personne WHERE id_profil = ? `
+        const result = await  connection.query(sql, [id])
+        await connection.commit()
+
+        const res = result[0]
+
+        if (res.length === 0 )
+            return "organisational"
+        return "personal"
+    }
+    catch(error) {
+        if (connection) await connection.rollback()
+        console.log(error)
+    }
+    finally {
+        if (connection)  connection.release()
+    }
+}

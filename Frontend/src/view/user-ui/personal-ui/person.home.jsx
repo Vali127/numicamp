@@ -100,7 +100,7 @@ const HomeContents = () => {
                     <div className={"font-bold text-indigo-500 text-[34px] big-title"} >Numicamp</div>
                 </div>
 
-                <div className={"h-[85vh]"}>
+                <div className={"h-[87vh]"}>
                     <Routes>
                         <Route path="feeds" element={<Feeds />} />
                         <Route path="notifications" element={<Notification />} />
