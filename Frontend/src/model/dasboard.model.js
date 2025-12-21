@@ -13,8 +13,13 @@ export const DashBoardModel = () => {
         return await api.getDomainStats()
     }
 
+    const getPostsStats = async () => {
+        return await api.getPostsStatsApi()
+    }
+
     return {
         getUserStats,
         getDomainStats,
+        getPostsStats,
     }
 }

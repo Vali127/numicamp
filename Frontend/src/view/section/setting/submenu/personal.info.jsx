@@ -4,6 +4,7 @@ import {OrderedListOfPlace} from "../../../../context/register.context.jsx";
 import {Spinning} from "../../../components/spinning.jsx";
 import {EditIcon} from "lucide-react";
 import Loading from "../../../components/loading.jsx"
+import {SubSettingHeader} from "./SubSettingHeader.jsx";
 
 const PersonalInfo = ({setSubSetting}) => {
   
@@ -11,9 +12,9 @@ const PersonalInfo = ({setSubSetting}) => {
   const { userData, setUserData, loaded, status, UpdateNewAccountData, ManageFileUploading } = InfoSettingVm()
 
   return (
-    <div className='text-left flex flex-col h-full'>
-        <Header setSubSetting={setSubSetting} />
-        <div className='flex-1 overflow-scroll scrollbar-none'>
+    <div className='text-left h-[92%] flex flex-col'>
+        <SubSettingHeader setSubSetting={setSubSetting} subsetting="personal_info" />
+        <div className=' flex-1 overflow-scroll scrollbar-none'>
           {
           (loaded) ? 
           ( (userType === "organisational") ? <OrganisationForm data={userData} uploadFile={ManageFileUploading} update={UpdateNewAccountData} status={status} modify={setUserData}/> : <PersonalForm data={userData} uploadFile={ManageFileUploading} update={UpdateNewAccountData} status={status} modify={setUserData}/> ) :
@@ -27,22 +28,6 @@ const PersonalInfo = ({setSubSetting}) => {
 export default PersonalInfo
 
 
-
-
-
-const Header = ({setSubSetting}) => {
-    return (
-        <div>
-            <div className='font-bold text-2xl flex items-center gap-3'> 
-              <button
-                onClick={() => {setSubSetting("")}} 
-                className='icon_btn font-normal hover:scale-130 cursor-pointer'>
-                &#xE138;
-              </button>
-              <span className='span'>Modifier</span>vos informations personnelles</div>
-        </div>
-    )
-}
 
 const PersonalForm = ({data,modify,status, update, uploadFile}) => {
     const  places = OrderedListOfPlace()

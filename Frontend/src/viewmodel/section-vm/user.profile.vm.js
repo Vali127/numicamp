@@ -9,6 +9,7 @@ export const userProfileViewModel = (id) => {
 
     const [ profileData, setProfileData ] = useState({})
     const [ posts, setPosts ] = useState([])
+    const [ ownership, setOwnership ] = useState(false)
     const [ loaded, setLoaded ] = useState(false)
 
     const fetchData = async() => {
@@ -30,7 +31,8 @@ export const userProfileViewModel = (id) => {
         console.log("USAGE : ", usage)
         try {
             const response = await model.getProfilePostData(data, usage)
-            setPosts(response)
+            setPosts(response.rows)
+            setOwnership(response.ownership)
             setLoaded(true)
         }
         catch(e) {
@@ -47,6 +49,7 @@ export const userProfileViewModel = (id) => {
     return {
         profileData,
         loaded,
-        posts
+        posts,
+        ownership,
     }
 }

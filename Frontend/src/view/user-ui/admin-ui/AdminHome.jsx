@@ -4,6 +4,8 @@ import {Header} from "../../components/Header.jsx";
 import {useEffect} from "react";
 import {Route, Routes} from "react-router-dom";
 import {DashBoard} from "../../section/dashboard/DashBoard.jsx";
+import {Feedback} from "../../section/setting/submenu/feedback.jsx";
+import {Profile} from "../../section/profile/profile.jsx";
 
 
 const AdminHomeContent = () => {
@@ -21,6 +23,8 @@ const AdminHomeContent = () => {
             <div className={"flex-1 h-full pt-10 pb-3 px-5"}>
                 <Routes>
                     <Route path="dashboard" element={<DashBoard/>} />
+                    <Route path="feedback" element={<Feedback/>} />
+                    <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
                 </Routes>
             </div>
         </div>

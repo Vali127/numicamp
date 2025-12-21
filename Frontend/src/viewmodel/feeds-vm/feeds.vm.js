@@ -7,13 +7,15 @@ export const FeedsVm = () => {
     const MODEL = PostModel()
 
     const [ PostData, setPostData ] = useState([])
+    const [ ownership, setOwnership ] = useState(false)
     const [ isEmpty, setIsEmpty ] = useState(true)
 
 
     const GetFeeds = async() => {
         try {
             const response = await MODEL.GetPostFromOrg()
-            setPostData(response)
+            setOwnership(response.ownership)
+            setPostData(response.rows)
             setIsEmpty(false)
         }
         catch(error) {
@@ -32,6 +34,7 @@ export const FeedsVm = () => {
 
     return {
         PostData,
+        ownership,
         isEmpty,
     }
 

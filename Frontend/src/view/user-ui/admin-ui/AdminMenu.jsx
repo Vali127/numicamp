@@ -12,10 +12,10 @@ export const AdminMenu = ({section, setSection}) => {
             </button>
 
             <button
-                onClick={() => setSection("notifications")}
-                className={( section === "notifications" ) ? " menu menu-active" : "menu" } >
-                <div className="icon_btn text-lg">&#xE0D0;</div>
-                <div>Notifications</div>
+                onClick={() => setSection("feedback")}
+                className={( section === "feedback" ) ? " menu menu-active" : "menu" } >
+                <div className="icon_btn text-lg">&#xEC1E;</div>
+                <div>FeedBacks</div>
             </button>
 
             <button

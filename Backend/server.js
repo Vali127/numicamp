@@ -15,6 +15,7 @@ import ressourcesRoute from "./routes/ressourcesRoute.js"
 import statsRoute from "./routes/administration/statsRoute.js"
 import {fileURLToPath} from 'url';
 import path from 'path';
+import feedbackRoute from "./routes/feedbackRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -51,7 +52,8 @@ app.use('/api/publication',publicationRoute);
 app.use('/api/organisation',organisationRoute);
 app.use('/api/comment',commentRoute)
 app.use('/api/profile', profileRoute )
-app.use('/api/search',searchRoute);
+app.use('/api/search',searchRoute)
+app.use('/api/feedback', feedbackRoute)
 app.use('/api/ressources', ressourcesRoute)
 app.use('/api/stats', statsRoute)
 // Servir les fichiers statiques (images utilisateurs)

@@ -177,3 +177,15 @@ export async function getPubDescriptionOrg(idProfil) {
 }
 
 
+export async function deletePost(idPost) {
+    try {
+
+        const sql = `DELETE FROM publication WHERE id_pub = ?`;
+        const [res] = await pool.query(sql, [idPost]);
+        return res.affectedRows > 0
+
+    } catch (err) {
+        throw Error()
+    }
+}
+

@@ -1,31 +1,61 @@
-import React from 'react'
+import React from 'react';
+import { User, MessageSquare, Trash2, ChevronRight } from 'lucide-react';
 
 const SettingEntries = ({setSubSetting}) => {
+    const options = [
+        {
+            id: 'info',
+            icon: User,
+            title: 'Informations personnelles',
+            description: 'Gérez vos informations personnelles',
+        },
+        {
+            id: 'feedback',
+            icon: MessageSquare,
+            title: 'Feedbacks',
+            description: "Envoyez des feedbacks à l'admin pour améliorer la plateforme",
+        },
+        {
+            id: 'delete',
+            icon: Trash2,
+            title: 'Suppression',
+            description: 'Suppression de votre compte et de vos données',
+            danger: true
+        }
+    ];
 
-  return (
-    <div className='flex flex-col pt-5'>
-        
-        
-        <button 
-          className='btn-entry text-left flex flex-col w-full'
-          onClick={() => setSubSetting("info")}>
-            <b className='flex items-center gap-2'><label className='icon_btn font-normal'>&#xE2CE;</label><label>Informations personnelles</label></b>
-            <label className='text-[12px]'>Gerez vos informations personnelles</label>
-        </button>
+    return (
+        <div className="divide-y divide-gray-200">
+            {options.map((option) => {
+                const Icon = option.icon;
+                return (
+                    <button
+                        key={option.id}
+                        onClick={() => option.id !== 'delete' && setSubSetting(option.id)}
+                        className={`group w-full text-left px-4 py-4 flex items-center gap-4 
+                        ${option.danger ? 'hover:bg-red-50' : 'hover:bg-gray-50'} 
+                        transition-colors duration-150 active:bg-gray-100`}>
 
-        <button className='btn-entry text-left flex flex-col w-full'>
-            <b className='flex items-center gap-2'><label className='icon_btn font-normal'>&#xE63C;</label><label>FeedBacks</label></b>
-            <label className='text-[12px]'>Envoyez des feedbacks à l' admin pour ameliorer la plateformes</label>
-        </button>
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0
+                            ${option.danger ? 'bg-red-100' : 'bg-gray-100'}`}>
+                            <Icon className={`w-6 h-6 ${option.danger ? 'text-red-600' : 'text-gray-700'}`} />
+                        </div>
 
-        <button className='btn-entry text-left flex flex-col w-full'>
-            <b className='flex items-center gap-2 text-red-500'><label className='icon_btn font-normal'>&#xE4A6;</label><label>Suppressions</label></b>
-            <label className='text-[12px]'>Suppréssion de votre compte et de vos données</label>
-        </button>
+                        <div className="flex-1 min-w-0">
+                            <h3 className={`font-semibold text-[15px] mb-0.5 ${option.danger ? 'text-red-600' : 'text-gray-900'}`}>
+                                {option.title}
+                            </h3>
+                            <p className="text-[13px] text-gray-500 leading-relaxed">
+                                {option.description}
+                            </p>
+                        </div>
 
+                        <ChevronRight className="w-5 h-5 text-gray-400 shrink-0" />
+                    </button>
+                );
+            })}
+        </div>
+    );
+};
 
-    </div>
-  )
-}
-
-export default SettingEntries
+export default SettingEntries;

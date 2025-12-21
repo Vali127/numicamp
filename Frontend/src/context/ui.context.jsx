@@ -35,6 +35,7 @@ export const GlobalUiContextProvider = ({children}) => {
                 case 'profileVisit' : navigate("/Main/profileVisit") ; break
                 case 'search' : navigate("/Main/search") ; break
                 case 'dashboard' : navigate("/Main/dashboard") ; break
+                case 'feedback' : navigate('/Main/feedback') ; break
                 default : break
             }
         }
