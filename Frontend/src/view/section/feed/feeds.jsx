@@ -5,6 +5,7 @@ import Feed from "./feed.jsx";
 export const Feeds = () => {
     const {
         PostData,
+        ownership,
         isEmpty
     } =  FeedsVm()
     return (
@@ -28,6 +29,7 @@ export const Feeds = () => {
                                         description={data.description_pub}
                                         illustration={data.photo_pub}
                                         owner={ data.id_profil_org || data.id_profil_pers }
+                                        ownership={ownership}
                                         postId={data.id_pub}
                                         feedOf="organisation"
                                     />

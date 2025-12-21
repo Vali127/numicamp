@@ -9,6 +9,7 @@ export const UniqueFeedVm = (owner, feedOf) => {
     const [followState, setFollowState] = useState("followed")
     const [org, setOrg] = useState(false)
     const [ commentSectionShown, setCommentSectionShown ] = useState(false)
+    const [deletionModalVisibility, setDeletionModalVisibility] = useState(false)
 
     const MODEL = PostModel()
 
@@ -35,7 +36,7 @@ export const UniqueFeedVm = (owner, feedOf) => {
 
         }
         catch(error) {
-            console.log("An error occured : ", error)
+            console.log("An error occurred : ", error)
             setFollowState("error")
         }
     }
@@ -77,6 +78,36 @@ export const UniqueFeedVm = (owner, feedOf) => {
         org,
         commentSectionShown,
         setCommentSectionShown,
+        deletionModalVisibility,
+        setDeletionModalVisibility,
     }
     
+}
+
+
+
+export const DeletionViewModel = (postId) => {
+    const [status, setStatus] = useState("loading")
+
+
+    const DeletePost = async () => {
+        try {
+            const response = await PostModel().DeletePost(postId)
+            if (response.ok)
+                setStatus("success")
+            else setStatus("error")
+            console.log("Response : ", response)
+        } catch (err) {
+            console.error(err)
+            setStatus("error")
+        }
+    }
+
+    useEffect( () => {
+        DeletePost()
+    } , [] )
+
+    return {
+        status
+    }
 }

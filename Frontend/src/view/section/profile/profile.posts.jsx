@@ -3,7 +3,7 @@ import React from 'react'
 import Feed from '../feed/feed.jsx'
 import EmptyFeeds from '../feed/empty.feed.jsx'
 
-const ProfilePosts = ({data, isEmpty}) => {
+const ProfilePosts = ({data, isEmpty, ownership}) => {
   return (
     <div className='px-2 pt-3'>
         {
@@ -19,6 +19,7 @@ const ProfilePosts = ({data, isEmpty}) => {
                                     illustration={data.photo_pub}
                                     owner={ data.id_profil_org || data.id_profil_pers }
                                     postId={data.id_pub}
+                                    ownership={ownership}
                                     feedOf={ (data.id_profil_org === null ) ? "person" : "organisation" }
                                 />
                             </div>

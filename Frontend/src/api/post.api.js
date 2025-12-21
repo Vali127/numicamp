@@ -34,10 +34,21 @@ export const PostApi = () => {
         return response.data
     }
 
+    const deletePostApi = async (postId) => {
+        console.log("DATA to Delete : ", postId)
+        const response = await axios.delete( BASE_URL + "/delete",
+            {
+                headers : { Authorization : "Bearer " + token },
+                params : {id_post : postId}
+            })
+        return response.data
+    }
+
     return {
         uploadPostApi,
         uploadPostImageApi,
         getPostsFromOrg,
-        getUserPostsApi
+        getUserPostsApi,
+        deletePostApi,
     }
 }

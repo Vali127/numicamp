@@ -25,9 +25,12 @@ export function PostModel () {
 
     const GetPostFromOrg = async () => {
         const foo = await api.getPostsFromOrg()
+        console.log("FOO : ",foo)
         const data = foo.rows
-        return data.map( item => ( { ...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) )
-        
+        return {
+            rows : data.map( item => ( { ...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) ),
+            ownership : foo.owner
+        }
     }
 
     const GetPostingOrgData = async (id) => {
@@ -44,13 +47,18 @@ export function PostModel () {
         return data
     }
 
+    const DeletePost = async (id) => {
+        return await api.deletePostApi(id)
+    }
+
 
     return {
         UploadPostImage,
         UploadPostData,
         GetPostFromOrg,
         GetPostingOrgData,
-        GetPostingPersonData
+        GetPostingPersonData,
+        DeletePost
     }
 
 }
