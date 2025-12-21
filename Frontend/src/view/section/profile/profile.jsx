@@ -6,7 +6,7 @@ import Loading from "../../components/loading.jsx";
 
 export const Profile = ({id}) => {
 
-    const { profileData, loaded, posts } = userProfileViewModel(id)
+    const { profileData, loaded, posts, ownership } = userProfileViewModel(id)
 
     if (!loaded) return <div className="my-2 mx-3"><Loading/></div>
     
@@ -35,6 +35,7 @@ export const Profile = ({id}) => {
             </div>
             <ProfilePosts
                 data={posts}
+                ownership={ownership}
                 isEmpty={(posts.length === 0 )}/>
         </div>
     )
@@ -56,7 +57,7 @@ const ProfileContent = (props) => {
                 follow={follow}
                 owner={owner}
             />
-            <div className="bg-white shadow-lg border border-gray-100 overflow-hidden -mt-10 relative z-10">
+            <div className="bg-white shadow-lg border border-gray-100 overflow-hidden -mt-10  z-10">
                 <div className="pt-5 px-4 pb-4">
                     <FollowBlock type={type} follow={follow} />
                     <NameBlock name={name} firstname={firstname} username={username} />

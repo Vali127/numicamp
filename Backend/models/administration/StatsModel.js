@@ -45,9 +45,45 @@ export function StatsModel() {
         }
     }
 
+    async function getPostsStatsData() {
+        try {
+            const sql = `
+                SELECT 
+                    'personne' as user, 
+                    COUNT(*) as number 
+                FROM publication p
+                INNER JOIN personne ps ON p.id_profil_pers = ps.id_profil
+                WHERE ps.id_role != 'admin' OR ps.id_role IS NULL
+      
+                UNION ALL
+      
+                SELECT 
+                    'organisation' as user, 
+                    COUNT(*) as number 
+                FROM publication p
+                INNER JOIN organisation o ON p.id_profil_org = o.id_profil
+      
+                UNION ALL
+      
+                SELECT 
+                    'admin' as user, 
+                    COUNT(*) as number 
+                FROM publication p
+                INNER JOIN personne ps ON p.id_profil_pers = ps.id_profil
+                WHERE ps.id_role = 'admin'`
+
+            const [res] = await pool.query( sql )
+            return res
+
+        } catch (err) {
+            throw Error()
+        }
+    }
+
     return {
         UsersStatsData,
-        getDomainStatsData
+        getDomainStatsData,
+        getPostsStatsData,
     }
 
 }

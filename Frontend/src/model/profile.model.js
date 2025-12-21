@@ -19,7 +19,10 @@ export const  profileModel = () => {
     const getProfilePostData = async (obj, type) => {
         const foo = await PostApi().getUserPostsApi(obj, type)
         const data = foo.rows
-        return data.map((item) => ({...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}` , date_pub : DateShortFormat(item.date_pub) }))
+        return {
+            rows : data.map((item) => ({...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}` , date_pub : DateShortFormat(item.date_pub) })),
+            ownership : foo.owner
+        }
     }
 
     const  updateProfile = async (obj) => {

@@ -30,7 +30,7 @@ const RSSNews = ({news, status}) => {
 
 
     return (
-        <div className={"h-full mx-3 flex flex-col"}>
+        <div className={"flex-1 mx-3 flex flex-col"}>
             
             <div className="flex-1 overflow-scroll scrollbar-none">
                 {
@@ -74,7 +74,7 @@ const RSSNews = ({news, status}) => {
 
 const SitesSection = ({status, data}) => {
     return (
-        <div>
+        <div className="h-100">
             { (status === "loading") && (
                 <div>
                     <LoadingSitesRessources/>
