@@ -10,7 +10,7 @@ export const Feeds = () => {
     } =  FeedsVm()
     return (
         <div 
-            className={"w-full h-full flex flex-col gap-3 text-left px-3 "} >
+            className={"w-full h-full flex flex-col gap-3 text-left md:px-3 "} >
             
             <div className="flex items-center gap-3 text-2xl font-bold mb-4"><label className="icon_btn">&#xE0A8;</label><label>Actualités</label></div>
 

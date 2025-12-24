@@ -5,7 +5,7 @@ import EmptyFeeds from '../feed/empty.feed.jsx'
 
 const ProfilePosts = ({data, isEmpty, ownership}) => {
   return (
-    <div className='px-2 pt-3'>
+    <div className='md:px-2 pt-3'>
         {
                     isEmpty ?
                     <EmptyFeeds/> :

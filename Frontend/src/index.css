@@ -163,7 +163,7 @@ input[type=radio] { outline: none; }
 }
 .alert__card { background-color: rgba(255, 0, 0, 0.08); }
 .warning__card { background-color: rgba(255, 196, 0, 0.08); }
-.menu { @apply w-full text-left px-2 py-0 my-1 text-[14px] flex gap-2 items-center hover:bg-indigo-200/20 rounded-md }
+.menu { @apply w-full text-left px-2 py-0 my-1 text-[14px] flex md:flex-row flex-col md:gap-2 items-center hover:bg-indigo-200/20 rounded-md }
 .menu-active { @apply font-bold bg-indigo-500 hover:scale-102 hover:bg-indigo-600 text-white rounded-md }
 .logout {
     @apply w-full rounded-sm text-red-500 font-bold text-left px-5 py-2 text-[14px] bg-red-950/20;

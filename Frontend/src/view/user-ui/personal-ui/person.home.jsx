@@ -18,6 +18,8 @@ import {Setting} from "../../section/setting/setting.jsx";
 import {Profile} from "../../section/profile/profile.jsx";
 import SearchSection from "../../section/search/search.section.jsx";
 import { GlobalUiContextProvider, useGlobalUiContext } from "../../../context/ui.context.jsx";
+import {MobileMenu} from "./menu/MobileMenu.jsx";
+import {UserProfile} from "../../components/account/UserProfile.jsx";
 
 
 const HomeContents = () => {
@@ -53,7 +55,7 @@ const HomeContents = () => {
     } }, [userInfo] )
 
     return (
-        <div className={" w-full h-screen flex px-5 "}>
+        <div className={" w-full h-screen flex md:px-5 px-2 "}>
             
             {
                 postModalVisibility 
@@ -67,7 +69,7 @@ const HomeContents = () => {
                     setModalVisibility={setPostModalVisibility} />
             }
 
-            <div className={"relative flex flex-col w-[16vw] h-auto mt-3 gap-10"} >
+            <div className={"relative hidden md:flex flex-col w-[16vw] h-auto mt-3 gap-10 "} >
                 
                 <UserCard
                     setSection={setSection}
@@ -93,20 +95,27 @@ const HomeContents = () => {
             
             </div>
 
-            <div className={"flex flex-col w-[58vw] mt-3 h-auto gap-8"} >
-                
-                <div className={"flex h-10 w-auto gap-2 mx-3 "} >
-                    <img src={numicamp} alt="numicamp" className="w-10" />
-                    <div className={"font-bold text-indigo-500 text-[34px] big-title"} >Numicamp</div>
+            <div className={"flex flex-col flex-1 mt-3 h-auto md:gap-8 gap-2 "} >
+
+                <div className="flex h-10 w-auto gap-2 items-center md:mx-3">
+                    <UserProfile profile={userInfo.photo_profil} setSection={setSection} />
+                    <img src={numicamp} alt="numicamp" className="w-8 sm:w-10" />
+                    <div className="font-bold text-indigo-500 text-2xl sm:text-3xl md:text-[34px] big-title whitespace-nowrap">
+                        Numicamp
+                    </div>
                 </div>
 
-                <div className={"h-[87vh]"}>
+                <div className="block md:hidden">
+                    <MobileMenu section={section} setSection={setSection} />
+                </div>
+
+                <div className={"md:h-[87vh] h-[78vh]"}>
                     <Routes>
                         <Route path="feeds" element={<Feeds />} />
                         <Route path="notifications" element={<Notification />} />
                         <Route path="ressources" element={<Resources />} />
                         <Route path="schools" element={<Schools />} />
-                        <Route path="settings" element={<Setting />} />
+                        <Route path="settings" element={<Setting setLogout={setLogout} />} />
                         <Route path="profile" element={<Profile owner={true} id={userInfo.id_profil} />} />
                         <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
                         <Route path="search" element={<SearchSection prompt={searchContent} refresh={searched} />} />
@@ -117,7 +126,7 @@ const HomeContents = () => {
 
 
 
-            <div className={"flex flex-col w-[26vw] h-auto mt-3 text-left overflow-scroll scrollbar-none"} >
+            <div className={"hidden md:flex flex-col w-[26vw] h-auto mt-3 text-left overflow-scroll scrollbar-none"} >
                 
                 <div className={"relative p-2"} >
                     <form>
