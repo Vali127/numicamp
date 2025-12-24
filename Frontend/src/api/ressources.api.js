@@ -1,8 +1,9 @@
 import axios from "axios"
+import { API_CONFIG } from '../config.js'
 
 export const RessourcesApi = () => {
 
-    const BASE_URL = "http://localhost:3000/api/ressources"
+    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/ressources`
     const token = localStorage.getItem('token')
 
     const getNewsApi = async () => {

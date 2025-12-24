@@ -1,4 +1,5 @@
 import { OrgSuggestionApi } from "../api/org.suggestion.api.js"
+import { API_CONFIG } from "../config.js"
 
 export const SuggestionModel = () => {
 
@@ -8,7 +9,7 @@ export const SuggestionModel = () => {
         
         let foo = await api.getOrganisationSuggestionApi()
         let res = foo.data
-        return res.map( item => ( { ...item, photo_profil : `http://localhost:3000/static/users/${item.photo_profil}` } ) )
+        return res.map( item => ( { ...item, photo_profil : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_profil}` } ) )
 
     }
 

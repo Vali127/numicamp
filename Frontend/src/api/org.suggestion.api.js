@@ -1,8 +1,9 @@
 import axios from "axios"
+import { API_CONFIG } from '../config.js'
 
 export const OrgSuggestionApi = () => {
 
-    const BASE_URL = 'http://localhost:3000/api/organisation'
+    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/organisation`
     const token = localStorage.getItem('token')
 
     const getOrganisationSuggestionApi = async() => {
