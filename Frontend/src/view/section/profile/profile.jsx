@@ -2,18 +2,27 @@ import {userProfileViewModel} from "../../../viewmodel/section-vm/user.profile.v
 import ProfilePosts from "./profile.posts.jsx";
 import {useGlobalUiContext} from "../../../context/ui.context.jsx";
 import Loading from "../../components/loading.jsx";
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+import {useEffect} from "react";
 
 
-export const Profile = ({id}) => {
+export const    Profile = ({id}) => {
 
-    const { profileData, loaded, posts, ownership } = userProfileViewModel(id)
+    const { profileData, loaded, posts, ownership, fetchData, fetchPosts } = userProfileViewModel(id)
+    const { refresh } = useGlobalUiContext();
+
+    useEffect(() => {
+        fetchData()
+        fetchPosts()
+    }, [refresh])
 
     if (!loaded) return <div className="my-2 mx-2 sm:mx-3"><Loading/></div>
 
     if (!profileData?.user_data) return <div className="mx-2 sm:mx-3">Erreur: données non disponibles</div>
 
     return (
-        <div className="h-full overflow-y-auto scrollbar-none bg-gradient-to-b from-gray-50 to-white">
+        <div className="h-full pt-3 overflow-y-auto scrollbar-none bg-gradient-to-b from-gray-50 to-white">
             <ProfileContent
                 avatar={profileData.user_data?.photo_profil || ""}
                 username={profileData.user_data?.nom_profil || ""}
@@ -57,7 +66,7 @@ const ProfileContent = (props) => {
                 follow={follow}
                 owner={owner}
             />
-            <div className="bg-white shadow-lg border border-gray-100 overflow-hidden relative md:-mt-10 z-10 -mt-8 rounded-b-2xl">
+            <div className="bg-white shadow-lg border border-gray-100 overflow-hidden relative md:-mt-10 z-5 -mt-8 rounded-b-2xl">
                 <div className="pt-5 px-3 sm:px-4 pb-4">
                     <FollowBlock type={type} follow={follow} />
                     <NameBlock name={name} firstname={firstname} username={username} />
@@ -127,19 +136,21 @@ const AvatarHeader = ({avatar="", username="", type="", owner=false}) => {
             </div>
 
             {/* Avatar card floating */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 top-14 sm:top-18 z-20">
+            <div className="absolute left-1/2 transform -translate-x-1/2 top-14 sm:top-18 z-6">
                 <div className="flex flex-col items-center gap-2">
-                    {/* Avatar with gradient border */}
-                    <div className="relative">
+                    {/* Avatar with gradient border + Zoom */}
+                    <div className="relative z-5">
                         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur-md opacity-50"></div>
-                        <div className="relative bg-white p-0.5 rounded-full shadow-2xl">
-                            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                                {avatar ? (
-                                    <img src={avatar} alt={username} className="h-full w-full object-cover" />
-                                ) : (
-                                    <span className="text-gray-400 text-3xl sm:text-4xl icon_btn">&#xe7fd;</span>
-                                )}
-                            </div>
+                        <div className="relative bg-white p-0.5 rounded-full shadow-2xl z-5">
+                            <Zoom zoomMargin={40}>
+                                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center z-5 cursor-zoom-in">
+                                    {avatar ? (
+                                        <img src={avatar} alt={username} className="h-full w-full object-cover" />
+                                    ) : (
+                                        <span className="text-gray-400 text-3xl sm:text-4xl icon_btn">&#xe7fd;</span>
+                                    )}
+                                </div>
+                            </Zoom>
                         </div>
                     </div>
                 </div>

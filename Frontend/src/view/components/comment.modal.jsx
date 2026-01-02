@@ -1,14 +1,23 @@
 import { Portal } from './portal.jsx'
+import { useEffect } from 'react'
 
 export const CommentModal = ({children}) => {
+    // Prevent body scroll when modal is open
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = 'unset' };
+    }, []);
+
     return (
         <Portal>
-            <div
-                className={"absolute flex justify-around top-0 left-0 w-screen h-screen z-50 bg-black/50 backdrop-blur-[3px]"}>
-                <div className={"relative"}>
-                    <div className={"relative flex flex-col w-[95vw] md:w-[70vw] lg:w-[50vw] h-[85vh] md:h-[90vh] m-auto mt-[10vh] md:mt-[8vh] p-2 md:p-3 bg-neutral-50 rounded-lg"}>
-                        {children}
-                    </div>
+            <div className="fixed inset-0 flex items-end sm:items-center justify-center z-50 bg-black/50 backdrop-blur-[3px] overflow-hidden">
+                <div className="relative w-[95vw] sm:w-[90vw] md:w-[70vw] lg:w-[50vw]
+                                h-[85vh] sm:h-[88vh] md:h-[90vh]
+                                flex flex-col p-2 sm:p-3 md:p-4 bg-neutral-50
+                                rounded-lg shadow-2xl
+                                max-h-screen overflow-hidden
+                                mb-1 sm:mb-0">
+                    {children}
                 </div>
             </div>
         </Portal>

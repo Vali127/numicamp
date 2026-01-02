@@ -10,7 +10,7 @@ export async function getAccountInfo(user_id, usage ) {
         await connection.beginTransaction()
 
         let  sql
-        if ( usage === "personal" )
+        if ( usage === "personal" || usage === "admin" )
             sql = `SELECT * FROM personne WHERE id_profil = ?`
         else
             sql = `SELECT * FROM organisation WHERE id_profil = ?`

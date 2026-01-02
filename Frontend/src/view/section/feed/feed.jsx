@@ -4,7 +4,9 @@ import ShowMoreText from 'react-show-more-text'
 import { useGlobalUiContext } from '../../../context/ui.context.jsx'
 import { useState } from 'react'
 import { EllipsisVertical, Trash2 } from 'lucide-react'
-import {FeedDeletionModal} from "./FeedDeletionModal.jsx";
+import { FeedDeletionModal } from "./FeedDeletionModal.jsx"
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 const Feed = ( {date, title, description, illustration, owner, ownership, postId, feedOf} ) => {
     const {
@@ -19,11 +21,11 @@ const Feed = ( {date, title, description, illustration, owner, ownership, postId
         setDeletionModalVisibility,
     } = UniqueFeedVm(owner, feedOf)
 
-    const {GoToProfile} = useGlobalUiContext()
+    const {GoToProfile, userType, refresh , setRefresh} = useGlobalUiContext()
     const [menuOpen, setMenuOpen] = useState(false)
 
     return (
-        <div className='relative bg-white shadow-lg border border-gray-200 p-3 md:p-4 rounded-lg flex flex-col gap-3 md:mx-3 mb-3 text-left'>
+        <div className='relative bg-white shadow-lg border border-gray-200 p-3 md:p-4 rounded-lg flex flex-col gap-3 mb-2 text-left'>
 
             {/* Photo de profil en haut à gauche */}
             <div className='h-10 w-10 md:h-13 md:w-13 rounded-full bg-gray-600 overflow-hidden flex justify-center items-center absolute top-3 left-3 border-2 border-white shadow-md'>
@@ -45,7 +47,7 @@ const Feed = ( {date, title, description, illustration, owner, ownership, postId
 
                 {/* Bouton Follow/Unfollow et Menu */}
                 <div className='flex items-center gap-1 md:gap-2 flex-shrink-0'>
-                    {(feedOf === "organisation") && (org) && (followState === "followed") && (
+                    {(feedOf === "organisation") && (userType !== "organisational") && (org) && (followState === "followed") && (
                         <button
                             id={owner}
                             onClick={async(e) => { await Unfollow({ org_id : e.currentTarget.id }) }}
@@ -55,7 +57,7 @@ const Feed = ( {date, title, description, illustration, owner, ownership, postId
                         </button>
                     )}
 
-                    {(feedOf === "organisation") && (org) && (followState === "unfollowed") && (
+                    {(feedOf === "organisation") && (userType !== "organisational") && (org) && (followState === "unfollowed") && (
                         <button
                             id={owner}
                             onClick={async(e) => { await Follow({ org_id : e.currentTarget.id }) }}
@@ -65,7 +67,7 @@ const Feed = ( {date, title, description, illustration, owner, ownership, postId
                         </button>
                     )}
 
-                    {(feedOf === "organisation") && (org) && (followState === "error") && (
+                    {(feedOf === "organisation") && (userType !== "organisational") && (org) && (followState === "error") && (
                         <button className='bg-red-600 text-white px-2 py-1.5 md:px-3 md:py-2 rounded-lg text-xs md:text-sm font-medium'>
                             Erreur
                         </button>
@@ -111,11 +113,13 @@ const Feed = ( {date, title, description, illustration, owner, ownership, postId
                 </ShowMoreText>
             </div>
 
-            {/* Image avec gradient en grand format */}
-            <div className='relative bg-neutral-300 h-48 sm:h-64 md:h-80 w-full rounded-md flex items-center justify-center overflow-hidden'>
-                <img src={illustration} className='h-full w-full object-cover' alt="illustration" />
-                <div className='absolute inset-0 bg-gradient-to-t from-black/30 to-transparent'></div>
-            </div>
+            {/* Image avec gradient en grand format + Zoom */}
+            <Zoom zoomMargin={20} >
+                <div className='relative bg-neutral-300 h-48 sm:h-64 md:h-80 w-full rounded-md flex items-center justify-center overflow-hidden cursor-zoom-in'>
+                    <img src={illustration} className='h-full w-full object-cover' alt="illustration" />
+                    <div className='absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none'></div>
+                </div>
+            </Zoom>
 
             {/* Footer avec bouton commenter */}
             <div className='flex justify-end pt-2 border-t border-neutral-200'>
@@ -129,7 +133,7 @@ const Feed = ( {date, title, description, illustration, owner, ownership, postId
 
             {/* Section commentaires */}
             {commentSectionShown && <Comments open={setCommentSectionShown} GoToProfile={GoToProfile} postId={postId} />}
-            { deletionModalVisibility && <FeedDeletionModal postId={postId} setModalVisibility={setDeletionModalVisibility} /> }
+            { deletionModalVisibility && <FeedDeletionModal postId={postId} setModalVisibility={setDeletionModalVisibility} refresh={refresh} setRefresh={setRefresh} /> }
         </div>
     )
 }

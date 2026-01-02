@@ -6,14 +6,14 @@ import Lottie from "lottie-react";
 import successAnimation from "../../../assets/animations/system-solid-31-check-in-reveal.json";
 import rejectAnimation from "../../../assets/animations/system-solid-55-error-in-error.json";
 
-export const FeedDeletionModal = ({postId, setModalVisibility}) => {
+export const FeedDeletionModal = ({postId, setModalVisibility, refresh, setRefresh}) => {
 
     const { status } = DeletionViewModel(postId)
 
     return (
         <Modal>
             { status === "loading" && <DeletionLoading/> }
-            { status === "success" && <DeletionSuccess setVisibility={setModalVisibility}/> }
+            { status === "success" && <DeletionSuccess setVisibility={setModalVisibility} refresh={refresh} setRefresh={setRefresh} /> }
             { status === "error" && <DeletionFailure setVisibility={setModalVisibility}/> }
         </Modal>
     )
@@ -31,10 +31,10 @@ const DeletionLoading = () => {
     )
 }
 
-const DeletionSuccess = ({setVisibility}) => {
+const DeletionSuccess = ({setVisibility, refresh, setRefresh}) => {
 
     useEffect(() => {
-        setTimeout( () => { setVisibility(false) }, 2000 )
+        setTimeout( () => { setVisibility(false); setRefresh(!refresh) }, 2000 )
     }, []);
 
     return (
@@ -43,7 +43,7 @@ const DeletionSuccess = ({setVisibility}) => {
                 <Lottie className={" h-10 md:h-12"} animationData={successAnimation} loop={false} />
             </div>
             <div>
-                <h2 className={"font-bold text-[20px] md:text-2xl"}>Supression <span className="span">effectué !!</span> </h2>
+                <h2 className={"font-bold text-[16px] md:text-2xl"}>Supression <span className="span">effectué !!</span> </h2>
                 <p className={"text-[12px]"}>rafraichir la page</p>
             </div>
         </div>

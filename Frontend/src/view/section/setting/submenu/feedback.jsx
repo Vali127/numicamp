@@ -7,9 +7,9 @@ export const Feedback = ({setSubSetting}) => {
     const { history, feedback, setFeedback, DispatchFeedback, typeOfUser } = FeedbackViewModel()
 
     return (
-        <div className='text-left flex flex-col h-[92%]' >
+        <div className='text-left flex flex-col h-full' >
             { ( typeOfUser !== "admin" ) && <SubSettingHeader setSubSetting={setSubSetting} subsetting="feedback"/>}
-            <div className='flex-1 overflow-scroll scrollbar-none md:px-2 sm:px-0'>
+            <div className='flex-1 md:px-2 sm:px-0'>
                 { ( typeOfUser !== "admin" ) && <FeedBackInput content={feedback} setContent={setFeedback} submit={DispatchFeedback}/>}
                 <FeedBackLists lists={history} />
             </div>

@@ -18,7 +18,7 @@ export const Resources = () => {
 
             <RessourceNavBar section={section} setSection={setSection} />
 
-            <div className="flex-1 overflow-scroll scrollbar-none">
+            <div className="flex-1">
                 { ( section === "news" ) && <RSSNews status={newsStatus} news={news} /> }
                 { ( section === "sites" ) && <SitesSection status={siteStatus} data={sites} /> }
             </div>
@@ -32,7 +32,7 @@ const RSSNews = ({news, status}) => {
     return (
         <div className="flex-1 flex flex-col">
 
-            <div className="flex-1 overflow-scroll scrollbar-none">
+            <div className="flex-1 ">
                 {
                     (status === "loading") &&
                     <div>

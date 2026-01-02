@@ -51,5 +51,7 @@ export const userProfileViewModel = (id) => {
         loaded,
         posts,
         ownership,
+        fetchData,
+        fetchPosts,
     }
 }

@@ -9,13 +9,15 @@ export const Feeds = () => {
         isEmpty
     } =  FeedsVm()
     return (
-        <div 
-            className={"w-full h-full flex flex-col gap-3 text-left md:px-3 "} >
-            
-            <div className="flex items-center gap-3 text-2xl font-bold mb-4"><label className="icon_btn">&#xE0A8;</label><label>Actualités</label></div>
+        <div
+            className={"w-full h-full flex flex-col gap-1 text-left"} >
 
-            <div
-                className={ " w-full flex-1 overflow-scroll scrollbar-none"} >
+            <div className="sticky md:top-12 top-25 bg-neutral-50 shadow-neutral-50 shadow-2xl z-30 flex items-center gap-3 text-lg font-bold py-2">
+                <label className="icon_btn">&#xE0A8;</label>
+                <label>Actualités</label>
+            </div>
+
+            <div>
 
                 {
                     isEmpty ?
@@ -39,7 +41,7 @@ export const Feeds = () => {
                 }
 
             </div>
-            
+
         </div>
     )
 }

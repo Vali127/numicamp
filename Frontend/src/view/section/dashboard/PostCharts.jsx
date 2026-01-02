@@ -10,17 +10,17 @@ export function PostCharts() {
 
     const CustomLegend = ({ payload }) => {
         return (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 md:gap-3">
                 {payload.map((entry, index) => (
                     <div key={`legend-${index}`} className="flex items-center gap-2">
                         <div
-                            className="w-3 h-3 rounded-full"
+                            className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full flex-shrink-0"
                             style={{ backgroundColor: entry.color }}
                         />
-                        <span className="text-sm text-gray-700 font-medium">
+                        <span className="text-xs md:text-sm text-gray-700 font-medium truncate">
                             {entry.value}
                         </span>
-                        <span className="text-sm text-gray-500 ml-auto">
+                        <span className="text-xs md:text-sm text-gray-500 ml-auto flex-shrink-0">
                             {postsStats[index].number} posts
                         </span>
                     </div>
@@ -32,12 +32,12 @@ export function PostCharts() {
     if (error) {
         return (
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm mt-2 flex-1">
-                <div className="p-6">
-                    <div className="flex items-center gap-3 text-red-600 bg-red-50 border border-red-200 rounded-lg p-4">
-                        <span className="text-2xl">⚠️</span>
+                <div className="p-3 md:p-6">
+                    <div className="flex items-center gap-2 md:gap-3 text-red-600 bg-red-50 border border-red-200 rounded-lg p-3 md:p-4">
+                        <span className="text-xl md:text-2xl">⚠️</span>
                         <div>
-                            <h4 className="font-semibold text-sm">Erreur de chargement</h4>
-                            <p className="text-sm text-red-500">Impossible de charger les statistiques des publications</p>
+                            <h4 className="font-semibold text-xs md:text-sm">Erreur de chargement</h4>
+                            <p className="text-xs md:text-sm text-red-500">Impossible de charger les statistiques des publications</p>
                         </div>
                     </div>
                 </div>
@@ -46,19 +46,19 @@ export function PostCharts() {
     }
 
     return (
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm mt-2    flex-1">
-            <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-1 flex items-center gap-2">
-                    <span className="icon_btn text-indigo-600 text-xl">&#xE0A8;</span>
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm mt-2 flex-1">
+            <div className="p-3 md:p-6">
+                <h3 className="text-base md:text-lg font-semibold text-gray-800 mb-1 flex items-center gap-2">
+                    <span className="icon_btn text-indigo-600 text-lg md:text-xl">&#xE0A8;</span>
                     Publications par utilisateur
                 </h3>
-                <p className="text-sm text-gray-500 mb-6">
+                <p className="text-xs md:text-sm text-gray-500 mb-4 md:mb-6">
                     Répartition des publications
                 </p>
 
-                <div className="flex items-center gap-8">
-                    <div className="w-48">
-                        <ResponsiveContainer width="100%" height={120}>
+                <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+                    <div className="w-32 md:w-48 flex-shrink-0">
+                        <ResponsiveContainer width="100%" height={100} className="md:h-[120px]">
                             <PieChart>
                                 <Pie
                                     data={postsStats}
@@ -94,7 +94,7 @@ export function PostCharts() {
                         </ResponsiveContainer>
                     </div>
 
-                    <div className="flex-1">
+                    <div className="flex-1 w-full">
                         <CustomLegend payload={postsStats.map((item, index) => ({
                             value: item.user,
                             color: COLORS[index]
@@ -102,8 +102,8 @@ export function PostCharts() {
                     </div>
                 </div>
 
-                <div className="mt-2 pt-2 border-t border-gray-100">
-                    <div className="flex items-center justify-between text-sm">
+                <div className="mt-3 md:mt-2 pt-3 md:pt-2 border-t border-gray-100">
+                    <div className="flex items-center justify-between text-xs md:text-sm">
                         <span className="text-gray-500">Total</span>
                         <span className="font-semibold text-gray-800">
                             {postsStats.reduce((acc, item) => acc + item.number, 0)} publications

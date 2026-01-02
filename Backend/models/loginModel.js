@@ -63,6 +63,7 @@ export async function getAccountUsageById(id) {
         //Voir si admin
         const stmt = `SELECT id_profil FROM personne WHERE id_role = "admin" AND id_profil = ? `
         const [res_1] = await connection.query(stmt, [id]);
+        await connection.commit()
         if ( res_1.length > 0 && res_1[0].id_profil === id ){ return "admin" }
 
         const sql = ` SELECT id_profil FROM personne WHERE id_profil = ? `
