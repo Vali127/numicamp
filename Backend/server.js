@@ -16,6 +16,7 @@ import statsRoute from "./routes/administration/statsRoute.js"
 import userRoute from "./routes/administration/userRoute.js"
 import {fileURLToPath} from 'url';
 import path from 'path';
+import etablishmentRoute from "./routes/etablishmentRoute.js";
 import feedbackRoute from "./routes/feedbackRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -61,6 +62,7 @@ app.use('/api/feedback', feedbackRoute)
 app.use('/api/ressources', ressourcesRoute)
 app.use('/api/stats', statsRoute)
 app.use('/api/users', userRoute)
+app.use('/api/etablishment', etablishmentRoute())
 // Servir les fichiers statiques (images utilisateurs)
 app.use('/static/users', express.static(path.join(__dirname, 'Users')));
 
