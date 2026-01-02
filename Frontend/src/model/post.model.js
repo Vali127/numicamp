@@ -1,6 +1,7 @@
 import { AccountApi } from "../api/account.api.js"
 import { PostApi } from "../api/post.api.js"
 import { DateShortFormat } from "../utils/display.format.js"
+import { API_CONFIG } from "../config.js"
 
 
 export function PostModel () {
@@ -28,7 +29,7 @@ export function PostModel () {
         console.log("FOO : ",foo)
         const data = foo.rows
         return {
-            rows : data.map( item => ( { ...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) ),
+            rows : data.map( item => ( { ...item, photo_pub : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) ),
             ownership : foo.owner
         }
     }
@@ -36,14 +37,14 @@ export function PostModel () {
     const GetPostingOrgData = async (id) => {
         const foo =  await AccountApi().getOrganisationDataApi(id)
         const data = foo.data
-        data.photo_profil = `http://localhost:3000/static/users/${data.photo_profil}`
+        data.photo_profil = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${data.photo_profil}`
         return data
     }
 
     const GetPostingPersonData = async (id) => {
         const foo =  await AccountApi().getPersonDataApi(id)
         const data = foo.data
-        data.photo_profil = `http://localhost:3000/static/users/${data.photo_profil}`
+        data.photo_profil = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${data.photo_profil}`
         return data
     }
 

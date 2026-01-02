@@ -5,6 +5,7 @@ export async function accountInfoService(data) {
 
     const id_profil = data.user.id || data.user.id_profil
     const usage = data.query.usage
+
     try {
         const res = await getAccountInfo(id_profil, usage);
         return res

@@ -7,7 +7,6 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #c95c5c;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,6 +24,17 @@
 .scrollbar-none {
     scrollbar-width: none;
     -ms-overflow-style: none;
+}
+
+/* Masquer scrollbar pour Chrome, Safari et Opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Masquer scrollbar pour IE, Edge et Firefox */
+body {
+    -ms-overflow-style: none;  /* IE et Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 @font-face {
@@ -163,7 +173,7 @@ input[type=radio] { outline: none; }
 }
 .alert__card { background-color: rgba(255, 0, 0, 0.08); }
 .warning__card { background-color: rgba(255, 196, 0, 0.08); }
-.menu { @apply w-full text-left px-2 py-0 my-1 text-[14px] flex gap-2 items-center hover:bg-indigo-200/20 rounded-md }
+.menu { @apply w-full text-left px-2 py-0 my-1 text-[14px] flex md:flex-row flex-col md:gap-2 items-center hover:bg-indigo-200/20 rounded-md }
 .menu-active { @apply font-bold bg-indigo-500 hover:scale-102 hover:bg-indigo-600 text-white rounded-md }
 .logout {
     @apply w-full rounded-sm text-red-500 font-bold text-left px-5 py-2 text-[14px] bg-red-950/20;
@@ -205,10 +215,27 @@ input[type=radio] { outline: none; }
     box-shadow: inset 0 0 2px rgba(64, 65, 66, 0.349);
 }
 .tab {
-    @apply text-neutral-700 py-1 px-5 rounded-md bg-neutral-100 hover:bg-neutral-200
+    @apply text-neutral-700
+    py-1 sm:py-1.5
+    px-3 sm:px-4 md:px-5
+    rounded-md
+    bg-neutral-100
+    hover:bg-neutral-200
+    text-[12px] sm:text-base
+    transition-colors
+    duration-200
 }
+
 .tab-active {
-    @apply text-white font-bold bg-slate-800/80 py-1 px-5 rounded-md
+    @apply text-white
+    font-bold
+    bg-slate-800/80
+    py-1 sm:py-1.5
+    px-3 sm:px-4 md:px-5
+    rounded-md
+    text-[12px] sm:text-base
+    transition-colors
+    duration-200
 }
 .btn-entry {
     @apply bg-neutral-100 hover:bg-neutral-200 mb-2 py-2 px-3

@@ -8,7 +8,10 @@ export const OrgUiVm = () => {
     //STATE
     const [authenticated, setAuthenticated] = useState(false)
     const [userInfo, setUserInfo] = useState({})
+    const [logout, setLogout] = useState(false)
     const [postModalVisibility, setPostModalVisibility] = useState(false)
+    const [searchContent, setSearchContent] = useState("")
+    const [searched, setSearched] = useState(false)
 
 
     //FUNCTION
@@ -34,6 +37,12 @@ export const OrgUiVm = () => {
         postModalVisibility,
         setPostModalVisibility,
         userInfo,
+        logout,
+        setLogout,
+        searched,
+        setSearched,
+        searchContent,
+        setSearchContent,
     }
 
 }

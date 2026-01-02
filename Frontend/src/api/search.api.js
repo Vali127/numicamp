@@ -1,8 +1,9 @@
 import axios from "axios"
+import { API_CONFIG } from '../config.js'
 
 
 export const searchApi = () => {
-    const BASE_URL = "http://localhost:3000/api/search"
+    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/search`
     const token = localStorage.getItem('token')
 
     const searchValueApi = async (obj) => {

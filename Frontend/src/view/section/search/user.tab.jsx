@@ -9,7 +9,7 @@ const UserTab = ({users}) => {
     const {GoToProfile} = useGlobalUiContext()
 
   return (
-    <div className='my-2 p-3' >
+    <div className='my-2' >
         {
             ( users.length > 0 ) ?
             users.map(

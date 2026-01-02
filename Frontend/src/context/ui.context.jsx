@@ -9,15 +9,17 @@ export const GlobalUiContextProvider = ({children}) => {
 
     const navigate = useNavigate()
 
-
+    const [refresh, setRefresh] = useState(false)
     const [userId, setUserId] = useState('')
     const [userType, setUserType] = useState('')
     const [currentSection, setCurrentSection] = useState('')
     const [userProfilId, setUserProfilId] = useState("")
+    const [searchExpanded, setSearchExpanded] = useState(false)
 
     const GoToProfile = (id) => {
         setUserProfilId(id)
         setCurrentSection("profileVisit")
+        setRefresh(!refresh)
     }
 
     // Solution 1 : Chemins absolus
@@ -26,16 +28,17 @@ export const GlobalUiContextProvider = ({children}) => {
 
         if (currentSection && currentPath !== currentSection) {
             switch (currentSection) {
-                case 'feeds': navigate("/Main/feeds") ; break
-                case 'notifications': navigate("/Main/notifications") ; break
-                case 'resources': navigate("/Main/ressources") ; break
-                case 'schools': navigate("/Main/schools") ; break
-                case 'settings': navigate("/Main/settings") ; break
-                case 'profile' : navigate("/Main/profile") ; break
-                case 'profileVisit' : navigate("/Main/profileVisit") ; break
-                case 'search' : navigate("/Main/search") ; break
-                case 'dashboard' : navigate("/Main/dashboard") ; break
-                case 'feedback' : navigate('/Main/feedback') ; break
+                case 'feeds': navigate("/Main/feeds"); setRefresh(!refresh) ; break
+                case 'notifications': navigate("/Main/notifications"); setRefresh(!refresh) ; break
+                case 'resources': navigate("/Main/ressources"); setRefresh(!refresh) ; break
+                case 'schools': navigate("/Main/schools"); setRefresh(!refresh) ; break
+                case 'settings': navigate("/Main/settings"); setRefresh(!refresh) ; break
+                case 'profile' : navigate("/Main/profile"); setRefresh(!refresh) ; break
+                case 'profileVisit' : navigate("/Main/profileVisit"); setRefresh(!refresh) ; break
+                case 'search' : navigate("/Main/search"); setRefresh(!refresh) ; break
+                case 'dashboard' : navigate("/Main/dashboard"); setRefresh(!refresh) ; break
+                case 'feedback' : navigate('/Main/feedback'); setRefresh(!refresh) ; break
+                case 'users' : navigate('/Main/users'); setRefresh(!refresh) ; break
                 default : break
             }
         }
@@ -50,7 +53,11 @@ export const GlobalUiContextProvider = ({children}) => {
         userType,
         setUserType,
         GoToProfile,
-        userProfilId
+        userProfilId,
+        searchExpanded,
+        setSearchExpanded,
+        refresh,
+        setRefresh
     }
 
     return (

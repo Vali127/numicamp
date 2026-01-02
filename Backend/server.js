@@ -13,6 +13,7 @@ import commentRoute from "./routes/commentRoute.js";
 import searchRoute from "./routes/searchRoute.js";
 import ressourcesRoute from "./routes/ressourcesRoute.js"
 import statsRoute from "./routes/administration/statsRoute.js"
+import userRoute from "./routes/administration/userRoute.js"
 import {fileURLToPath} from 'url';
 import path from 'path';
 import etablishmentRoute from "./routes/etablishmentRoute.js";
@@ -38,7 +39,10 @@ app.get('/test/db', async  (req, res) => {
 //autoriser react a envoyer des requetes
 app.use(cors(
     {
-        origin: 'http://localhost:5173',
+        origin: [
+            process.env.FRONTEND_URL,
+            'http://localhost:5173'
+        ],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true
     }
@@ -57,6 +61,7 @@ app.use('/api/search',searchRoute)
 app.use('/api/feedback', feedbackRoute)
 app.use('/api/ressources', ressourcesRoute)
 app.use('/api/stats', statsRoute)
+app.use('/api/users', userRoute)
 app.use('/api/etablishment', etablishmentRoute())
 // Servir les fichiers statiques (images utilisateurs)
 app.use('/static/users', express.static(path.join(__dirname, 'Users')));

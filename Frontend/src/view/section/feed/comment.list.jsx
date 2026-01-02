@@ -13,9 +13,8 @@ export function CommentList({ postId, refresh,GoToProfile }) {
     } = CommentVm(postId)
 
     useEffect(() => {
-        // fetchComments should request comments for postId and update local state
         fetchComments()
-    }, [postId, refresh]) // <-- add refresh here so it runs after SendComment changes it
+    }, [postId, refresh]) // <-- rafraichir les listes de commentaire
 
   return (
     <div className={" flex-1 py-2 my-1 bg-neutral-50"}>

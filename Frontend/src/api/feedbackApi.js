@@ -1,8 +1,9 @@
 import axios from "axios";
+import { API_CONFIG } from '../config.js'
 
 
 export const feedbackApi = () => {
-    const BASE_URL = 'http://localhost:3000/api/feedback';
+    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/feedback`;
     const token = localStorage.getItem('token');
 
     const getFeedback = async () => {

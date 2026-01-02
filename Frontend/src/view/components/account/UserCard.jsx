@@ -3,7 +3,7 @@ export const UserCard = ({ setSection,profile, user, postModalIsVisible}) => {
 
     return (
         <div 
-            className="flex flex-col gap-2 py-3 border-b border-b-neutral-500/20" >
+            className="flex flex-col gap-2 border-b border-b-neutral-500/20" >
             
             <div
                 onClick={() => setSection("profile")}

@@ -6,7 +6,7 @@ export const DashBoard = () => {
     return (
         <div className={"text-left h-full flex flex-col"}>
             <DashBoardHeader/>
-            <div className="mt-6 flex-1 overflow-scroll scrollbar-none">
+            <div className="mt-6 flex-1">
                 <UsersStatsBlock/>
                 <PostCharts/>
                 <DomainCharts/>

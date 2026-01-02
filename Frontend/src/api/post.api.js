@@ -1,9 +1,10 @@
 import axios from "axios"
+import { API_CONFIG } from '../config.js'
 
 
 export const PostApi = () => {
 
-    const BASE_URL = "http://localhost:3000/api/publication"
+    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/publication`
     const token = localStorage.getItem('token')
 
     const uploadPostApi = async ( dataPost ) => {

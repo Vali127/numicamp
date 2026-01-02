@@ -1,11 +1,11 @@
 import {profileApi} from "../api/profile.api.js";
 import { PostApi } from "../api/post.api.js";
 import { DateShortFormat } from "../utils/display.format.js";
-
+import { API_CONFIG } from "../config.js"
 
 export const  profileModel = () => {
     const api = profileApi()
-    const file_api = `http://localhost:3000/static/users`
+    const file_api = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users`
 
     const getProfilData = async (obj) => {
         const foo = await api.getProfileDataApi(obj)
@@ -20,13 +20,13 @@ export const  profileModel = () => {
         const foo = await PostApi().getUserPostsApi(obj, type)
         const data = foo.rows
         return {
-            rows : data.map((item) => ({...item, photo_pub : `http://localhost:3000/static/users/${item.photo_pub}` , date_pub : DateShortFormat(item.date_pub) })),
+            rows : data.map((item) => ({...item, photo_pub : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_pub}` , date_pub : DateShortFormat(item.date_pub) })),
             ownership : foo.owner
         }
     }
 
     const  updateProfile = async (obj) => {
-        obj.photo_profil = obj.photo_profil.replace('http://localhost:3000/static/users/','')
+        obj.photo_profil = obj.photo_profil.replace(`http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/`,'')
         const data = await api.updateProfileDataApi(obj)
         console.log(data)
     }

@@ -1,9 +1,10 @@
 import axios from "axios";
+import { API_CONFIG } from '../config.js'
 
 
 export const profileApi = () => {
 
-    const  BASE_URL = "http://localhost:3000/api/profile"
+    const  BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/profile`
     const  token = localStorage.getItem("token")
 
     const getProfileDataApi = async(obj) => {

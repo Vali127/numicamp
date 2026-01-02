@@ -1,8 +1,9 @@
 import axios from 'axios'
+import { API_CONFIG } from '../config.js'
 
 export const commentApi = () => {
 
-    const BASE_URL = "http://localhost:3000/api/comment"
+    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/comment`
     const token = localStorage.getItem('token')
 
     const postCommentApi = async (data) => {
@@ -23,7 +24,7 @@ export const commentApi = () => {
 
     return {
         postCommentApi,
-        getCommentsApi  
+        getCommentsApi
     }
 
 }

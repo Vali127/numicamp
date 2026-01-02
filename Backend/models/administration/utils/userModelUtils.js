@@ -30,3 +30,41 @@ export function deletionResult(result) {
         }
     }
 }
+
+export function blockageResult(result) {
+
+    const [ data, metadata ] = result
+
+    if ( result.affectedRows < 0 ) {
+        return {
+            ok : false,
+            message : "Utilisateur non bloqué,un problème s'est produit ! ",
+            state : "unblocked"
+        }
+    } else {
+        return {
+            ok : true,
+            message : "Utilisateur bloqué !",
+            state : "blocked"
+        }
+    }
+}
+
+export function deblockageResult(result) {
+
+    const [ data, metadata ] = result
+
+    if ( result.affectedRows < 0 ) {
+        return {
+            ok : false,
+            message : "Utilisateur non débloqué,un problème s'est produit ! ",
+            state : "blocked"
+        }
+    } else {
+        return {
+            ok : true,
+            message : "Utilisateur débloqué !",
+            state : "unblocked"
+        }
+    }
+}

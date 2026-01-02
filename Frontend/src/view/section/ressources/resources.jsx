@@ -14,11 +14,11 @@ export const Resources = () => {
     return (
         <div className="flex h-full flex-col">
 
-            <div className=" mx-3 flex items-center gap-3 text-lg font-bold"><label className="icon_btn">&#xE28C;</label><label>Ressources</label></div>
-            
+            <div className="mx-2 sm:mx-3 flex items-center gap-2 sm:gap-3 text-base sm:text-lg font-bold"><label className="icon_btn">&#xE28C;</label><label>Ressources</label></div>
+
             <RessourceNavBar section={section} setSection={setSection} />
-            
-            <div className="flex-1 overflow-scroll scrollbar-none">
+
+            <div className="flex-1">
                 { ( section === "news" ) && <RSSNews status={newsStatus} news={news} /> }
                 { ( section === "sites" ) && <SitesSection status={siteStatus} data={sites} /> }
             </div>
@@ -30,16 +30,16 @@ const RSSNews = ({news, status}) => {
 
 
     return (
-        <div className={"flex-1 mx-3 flex flex-col"}>
-            
-            <div className="flex-1 overflow-scroll scrollbar-none">
+        <div className="flex-1 flex flex-col">
+
+            <div className="flex-1 ">
                 {
                     (status === "loading") &&
                     <div>
                         <LoadingRessources/>
                         <LoadingRessources/>
                         <LoadingRessources/>
-                    </div> 
+                    </div>
                 }
                 {
                     (status === "loaded") &&
@@ -55,7 +55,7 @@ const RSSNews = ({news, status}) => {
                                         favicon={data.favicon || ""}
                                         link={data.link || ""}
                                         domainName={data.domainName || ""}
-                                        source={data.source || ""} 
+                                        source={data.source || ""}
                                     />
                                 </div>
                             )
