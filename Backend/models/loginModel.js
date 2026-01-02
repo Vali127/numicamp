@@ -84,3 +84,15 @@ export async function getAccountUsageById(id) {
         if (connection)  connection.release()
     }
 }
+
+export async function isUserBlocked(username) {
+    try {
+        const usage = await getAccountUsage(username);
+        const table = ( usage === "organisational" ) ? "organisation" : "personne"
+        const stmt = `SELECT etat_profil FROM ?? WHERE nom_profil = ? `
+        const [result] = await pool.query( stmt, [table,username]);
+        return result[0].etat_profil === "bloque"
+    } catch (error) {
+        throw Error("Erreur dans le model :"+error.message);
+    }
+}
