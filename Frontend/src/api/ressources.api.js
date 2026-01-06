@@ -6,6 +6,13 @@ export const RessourcesApi = () => {
     const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/ressources`
     const token = localStorage.getItem('token')
 
+    const getListApi = async () => {
+        const response = await axios.get(BASE_URL + "/lists", {
+            headers : { Authorization: `Bearer ${token}` },
+        })
+        return response.data
+    }
+
     const getNewsApi = async () => {
         
         const res = await axios.get( BASE_URL + "/news", {
@@ -26,6 +33,7 @@ export const RessourcesApi = () => {
 
     return {
         getNewsApi,
-        getSitesApi
+        getSitesApi,
+        getListApi
     }
 }

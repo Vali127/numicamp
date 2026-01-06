@@ -1,4 +1,62 @@
 import { pool } from "../config/db.js"
+import {deletionResult, insertionResult} from "./administration/utils/resourceModelUtils.js";
+
+
+
+export async function registerResource (data) {
+    const insertion_query = `INSERT INTO ?? (lien, design_res, description_res) VALUES (?,?,?)`
+    const table = (data.type === "news" ) ? "ressource" : "ressoure_2";
+    try {
+        const [result] = await pool.query(insertion_query, [table, data.link, data.name, data.description])
+        return insertionResult(result)
+    } catch (error) {
+        throw Error(error);
+    }
+}
+
+export async function deleteResource (link, type) {
+    const deletion_query = `DELETE from ?? WHERE lien = ?`
+    const table = (type === "news" ) ? "ressource" : "ressoure_2";
+    try {
+        const [result] = await pool.query(deletion_query, [table, link])
+        return deletionResult(result)
+    } catch (error) {
+        throw Error(error);
+    }
+}
+
+export async function getResourceList() {
+    try {
+        const selection_query = `
+            SELECT
+                r.lien,
+                r.design_res,
+                r.description_res,
+                d.design_domaine,
+                'news' AS type
+            FROM ressource r
+                     INNER JOIN posseder p ON r.lien = p.lien
+                     INNER JOIN domaine d ON p.id_domaine = d.id_domaine
+
+            UNION ALL
+
+            SELECT
+                r2.lien,
+                r2.design_res,
+                r2.description_res,
+                d.design_domaine,
+                'site' AS type
+            FROM ressource_2 r2
+                     INNER JOIN posseder_2 p2 ON r2.lien = p2.lien
+                     INNER JOIN domaine d ON p2.id_domaine = d.id_domaine
+        `
+        const [result] = await pool.query(selection_query)
+        return result
+    } catch (error) {
+        console.error(error)
+        throw Error(error)
+    }
+}
 
 
 export async function getUserRessourcePages(user_id) {

@@ -26,15 +26,15 @@ export const AdminMenu = ({section, setSection}) => {
             </button>
 
             <button
-                onClick={() => setSection("resources")}
-                className={( section === "resources" ) ? " menu menu-active" : "menu" } >
+                onClick={() => setSection("resourceAdmin")}
+                className={( section === "resourceAdmin" ) ? " menu menu-active" : "menu" } >
                 <div className="icon_btn text-lg">&#xE28C;</div>
                 <div className="hidden md:block" >Ressources</div>
             </button>
 
             <button
-                onClick={() => setSection("schools")}
-                className={( section === "schools" ) ? " menu menu-active" : "menu" } >
+                onClick={() => setSection("adminSchoolSection")}
+                className={( section === "adminSchoolSection" ) ? " menu menu-active" : "menu" } >
                 <div className="icon_btn text-lg">&#xE62C;</div>
                 <div className="hidden md:block" >Établissements</div>
             </button>

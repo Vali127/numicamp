@@ -12,9 +12,14 @@ export const ressourcesModel = () => {
         return await api.getSitesApi()
     }
 
+    const getList = async() => {
+        return await api.getListApi()
+    }
+
     return {
         getNews,
-        getSites
+        getSites,
+        getList,
     }
 
 }

@@ -18,7 +18,7 @@ export function deletionResult(result) {
     
     const [ data, metadata ] = result
 
-    if ( result.affectedRows < 0 ) {
+    if ( result.affectedRows <= 0 ) {
         return {
             ok : false,
             message : "Utilisateur non trouvé dans la base de données ! "
@@ -35,7 +35,7 @@ export function blockageResult(result) {
 
     const [ data, metadata ] = result
 
-    if ( result.affectedRows < 0 ) {
+    if ( result.affectedRows <= 0 ) {
         return {
             ok : false,
             message : "Utilisateur non bloqué,un problème s'est produit ! ",
@@ -54,7 +54,7 @@ export function deblockageResult(result) {
 
     const [ data, metadata ] = result
 
-    if ( result.affectedRows < 0 ) {
+    if ( result.affectedRows <= 0 ) {
         return {
             ok : false,
             message : "Utilisateur non débloqué,un problème s'est produit ! ",
