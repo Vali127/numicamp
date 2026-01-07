@@ -5,14 +5,14 @@ import {ResourceList} from "./ResourceList.jsx";
 
 export const AdminResource = () => {
 
-    const { currentTab, setCurrentTab, data, setData, message, status, list } = AdminRessourceViewModel()
+    const { currentTab, setCurrentTab, data, setData, message, status, list, deletionModal, setDeletionModal } = AdminRessourceViewModel()
 
     return (
         <div className="text-left">
             <ResourceTab currentTab={currentTab} setCurrentTab={setCurrentTab} />
             <div>
                 { (currentTab === "form") && <ResourceForm data={data} setData={setData} status={status} message={message} /> }
-                { (currentTab === "list") && <ResourceList list={list}/> }
+                { (currentTab === "list") && <ResourceList list={list} deletionModal={deletionModal} setDeletionModal={setDeletionModal} /> }
             </div>
         </div>
     )

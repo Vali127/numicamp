@@ -15,6 +15,7 @@ export const AdminRessourceViewModel = () => {
         type: "",
         description: "",
     });
+    const [deletionModal, setDeletionModal] = React.useState(false);
 
     const fetchResources = async () => {
         try {
@@ -40,5 +41,39 @@ export const AdminRessourceViewModel = () => {
         status,
         message,
         list,
+        deletionModal,
+        setDeletionModal,
+    }
+}
+
+
+
+
+
+
+export const ResourceDeletionModalVM = () => {
+
+    const MODEL = ressourcesModel()
+
+    const [status, setStatus] = React.useState("normal")
+    const [message, setMessage] = React.useState("")
+
+    const DeleteResource = async (id, type) => {
+        try {
+            setStatus("loading")
+            const result = await MODEL.deleteResource(id, type)
+            setMessage(result.message)
+            setStatus((result.ok) ? "success" : "error")
+        } catch (err) {
+            console.log(err)
+            setStatus("error")
+            setMessage("Something went wrong")
+        }
+    }
+
+    return {
+        status,
+        message,
+        DeleteResource
     }
 }

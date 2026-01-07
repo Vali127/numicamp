@@ -72,7 +72,7 @@ export async function ResourceDeletionService(req, res) {
         console.log("is admin : ",isAdmin)
         if (!isAdmin) { return { ok : false, message : "Accès non authorisé ! vous devez être un administrateur" } }
 
-        const result = await deleteResource(req.query.data.link, req.query.data.type)
+        const result = await deleteResource(req.query.link, req.query.type)
         return {
             ok : result.ok,
             message : result.message

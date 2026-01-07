@@ -1,19 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {DeletionModal} from "./DeletionModal.jsx";
 
 
-export const ResourceList = ({ list }) => {
+export const ResourceList = ({ list, deletionModal, setDeletionModal }) => {
+    const [selectedResource, setSelectedResource] = useState(null);
+
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {list.map((resource, index) => (
-                <ResourceCard key={index} resource={resource} />
-            ))}
-        </div>
+        <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {list.map((resource, index) => (
+                    <ResourceCard
+                        key={index}
+                        resource={resource}
+                        setDeletionModal={setDeletionModal}
+                        setSelectedResource={setSelectedResource}
+                    />
+                ))}
+            </div>
+
+            {deletionModal && selectedResource && (
+                <DeletionModal
+                    id={selectedResource.lien}
+                    type={selectedResource.type}
+                    modalVisibility={setDeletionModal}
+                />
+            )}
+        </>
     );
 };
 
-const ResourceCard = ({ resource }) => {
+const ResourceCard = ({ resource, setDeletionModal, setSelectedResource }) => {
     const handleDelete = () => {
-        alert(resource.lien);
+        setSelectedResource(resource);
+        setDeletionModal(true);
     };
 
     return (
@@ -62,11 +81,11 @@ const ResourceCard = ({ resource }) => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
             >
-                <span>Visiter le lien</span>
-                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                </svg>
-            </a>
-        </div>
-    );
+            <span>Visiter le lien</span>
+            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+        </a>
+</div>
+);
 };

@@ -16,7 +16,7 @@ export async function registerResource (data) {
 
 export async function deleteResource (link, type) {
     const deletion_query = `DELETE from ?? WHERE lien = ?`
-    const table = (type === "news" ) ? "ressource" : "ressoure_2";
+    const table = (type === "news" ) ? "ressource" : "ressource_2";
     try {
         const [result] = await pool.query(deletion_query, [table, link])
         return deletionResult(result)
