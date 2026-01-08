@@ -13,6 +13,13 @@ export const RessourcesApi = () => {
         return response.data
     }
 
+    const registerApi = async (data) => {
+        const response = await axios.post(BASE_URL + "/register", data, {
+            headers : { Authorization: `Bearer ${token}` },
+        })
+        return response.data
+    }
+
     const deleteApi = async (id, type) => {
         const result = await axios.delete(BASE_URL + "/remove", {
             headers : { Authorization: `Bearer ${token}` },
@@ -43,6 +50,7 @@ export const RessourcesApi = () => {
         getNewsApi,
         deleteApi,
         getSitesApi,
-        getListApi
+        getListApi,
+        registerApi,
     }
 }

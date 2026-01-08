@@ -12,11 +12,14 @@ export const ressourcesModel = () => {
 
     const getList = async() => { return await api.getListApi() }
 
+    const createResource = async (data) => { return await api.registerApi(data) }
+
     return {
         getNews,
         deleteResource,
         getSites,
         getList,
+        createResource,
     }
 
 }

@@ -1,17 +1,18 @@
 import { useState } from "react"
 import { ressourcesModel } from "../../model/ressources.model"
 import { useEffect } from "react"
+import {statsModel} from "../../model/stats.model.js";
 
 
 export const RessourcesViewModel = () => {
     const model = ressourcesModel()
-    
+
     const [section, setSection] = useState("news")
     const [news, setNews] = useState([])  // Changed to array
     const [sites, setSites] = useState([]) // Changed to array
     const [newsStatus, setNewsStatus] = useState("loading")
     const [siteStatus, setSiteStatus] = useState("loading") // Fixed setter name
-    
+
     const FetchNews = async() => {
         try {
             setNewsStatus("loading")

@@ -1,4 +1,4 @@
-import {userStatsService, domainStatsService, postStatsService} from "../../services/administration/statsService.js";
+import {userStatsService, domainStatsService, postStatsService, domainListService} from "../../services/administration/statsService.js";
 
 
 export async function userStatsController(req, res) {
@@ -39,6 +39,16 @@ export async function postStatsController(req, res) {
         }
     } catch (err) {
         console.error(" USER STATS ERROR : ",err)
+        res.status(500).send({ message: err.message, ok : false });
+    }
+}
+
+export async function domainListController(req, res) {
+    try {
+        const result = await domainListService(req, res)
+        res.status(200).json({ message: result.message , data: result.data || null, ok : result.ok })
+    } catch (err) {
+        console.error(err)
         res.status(500).send({ message: err.message, ok : false });
     }
 }

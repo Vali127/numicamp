@@ -80,10 +80,21 @@ export function StatsModel() {
         }
     }
 
+    async function getDomainList() {
+        try {
+            const selection_query = ` SELECT id_domaine,design_domaine FROM domaine `
+            const [result] = await pool.query(selection_query)
+            return result
+        }  catch (err) {
+            throw Error(err)
+        }
+    }
+
     return {
         UsersStatsData,
         getDomainStatsData,
         getPostsStatsData,
+        getDomainList
     }
 
 }

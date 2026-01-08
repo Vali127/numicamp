@@ -1,21 +1,32 @@
 import React, {useEffect} from "react";
 import {ressourcesModel} from "../../model/ressources.model.js";
+import {statsModel} from "../../model/stats.model.js";
 
 export const AdminRessourceViewModel = () => {
 
     const MODEL = ressourcesModel()
 
     const [currentTab, setCurrentTab] = React.useState("form")
-    const [status, setStatus] = React.useState("normal")
-    const [message, setMessage] = React.useState("")
+    const [domains, setDomains] = React.useState([])
+    const [formResult, setFormResult] = React.useState({ message : "", status : "normal" })
     const [list, setList] = React.useState([])
     const [data, setData] = React.useState({
         link: "",
         name: "",
         type: "",
         description: "",
+        domain : ""
     });
     const [deletionModal, setDeletionModal] = React.useState(false);
+
+    const FetchDomains = async () => {
+        try {
+            const result = await statsModel().getDomains()
+            setDomains(result.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const fetchResources = async () => {
         try {
@@ -24,6 +35,20 @@ export const AdminRessourceViewModel = () => {
         } catch (error) {
             console.log(error)
             setList([])
+        }
+    }
+
+    const sendData = async () => {
+        try {
+            setFormResult({...formResult, status: "loading"})
+            const result = await MODEL.createResource(data)
+            setFormResult({
+                status: (result.ok) ? "success" : "failed",
+                message: result.message,
+            })
+        } catch (error) {
+            console.log(error)
+            setFormResult({ status: "error", message: error.message || "Something went wrong" })
         }
     }
 
@@ -38,11 +63,13 @@ export const AdminRessourceViewModel = () => {
         setCurrentTab,
         data,
         setData,
-        status,
-        message,
         list,
         deletionModal,
         setDeletionModal,
+        sendData,
+        formResult,
+        FetchDomains,
+        domains
     }
 }
 

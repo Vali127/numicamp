@@ -5,9 +5,11 @@ import {deletionResult, insertionResult} from "./administration/utils/resourceMo
 
 export async function registerResource (data) {
     const insertion_query = `INSERT INTO ?? (lien, design_res, description_res) VALUES (?,?,?)`
-    const table = (data.type === "news" ) ? "ressource" : "ressoure_2";
+    const table = (data.type === "news" ) ? "ressource" : "ressource_2";
     try {
         const [result] = await pool.query(insertion_query, [table, data.link, data.name, data.description])
+        const domainInsertion = await manageResourceDomain(data.type, data.domain, data.link)
+        if (!domainInsertion) { return { ok : false, message : "Problème d' insertion du domaine du resource" } }
         return insertionResult(result)
     } catch (error) {
         throw Error(error);
@@ -97,6 +99,9 @@ export async function getUserRSSLinkList(user_id) {
 }
 
 
+
+
+//FUNCTIONS FOR REFACTORING
 async function getUserDomain(id) {
     
     const sql = `
@@ -145,5 +150,18 @@ async function getDomainsResources(id) {
 
     } catch (error) {
         console.log("Error on getting domains ressources : ", error)
+    }
+}
+
+async function manageResourceDomain(type, domain_id, link) {
+    try {
+        const sql = `INSERT INTO ?? (id_domaine, lien) VALUES(?,?)`
+        const table = (type === "news") ? "posseder" : "posseder_2";
+
+        const [result] = await pool.query(sql, [ table, domain_id, link])
+        return result.affectedRows > 0
+    } catch (error) {
+        console.log(error)
+        throw Error(error)
     }
 }

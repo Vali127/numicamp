@@ -54,7 +54,7 @@ export async function ResourceRegistrationService(req, res) {
         console.log("is admin : ",isAdmin)
         if (!isAdmin) { return { ok : false, message : "Accès non authorisé ! vous devez être un administrateur" } }
 
-        const result = await registerResource(req.body.data)
+        const result = await registerResource(req.body)
         return {
             ok : result.ok,
             message : result.message
