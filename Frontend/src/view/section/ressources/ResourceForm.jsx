@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 import {FormModal} from "./FormModal.jsx";
+import {useGlobalUiContext} from "../../../context/ui.context.jsx";
 
 export const ResourceForm = ({data, setData, action = null, result, domains, getDomains}) => {
 
     const [formModalVisibility, setFormModalVisibility] = React.useState(false);
+    const { refresh, setRefresh } = useGlobalUiContext()
 
     useEffect(() => { getDomains() }, []);
 
@@ -121,7 +123,7 @@ export const ResourceForm = ({data, setData, action = null, result, domains, get
                     </button>
                 </div>
             </div>
-            { (formModalVisibility) && <FormModal result={result} action={action} modalVisibility={setFormModalVisibility} /> }
+            { (formModalVisibility) && <FormModal result={result} action={action} modalVisibility={setFormModalVisibility} refresh={refresh} setRefresh={setRefresh} /> }
         </div>
     );
 };

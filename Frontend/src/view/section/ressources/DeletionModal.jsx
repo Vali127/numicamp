@@ -5,13 +5,15 @@ import successAnimation from "../../../assets/animations/system-solid-31-check-i
 import errorAnimation from "../../../assets/animations/system-regular-56-red-warning-in-warning.json";
 import {ThreeDots} from "react-loader-spinner";
 
-export const DeletionModal = ({id, type, modalVisibility}) => {
+export const DeletionModal = ({id, type, modalVisibility, Refresh}) => {
     const { message, status, DeleteResource } = ResourceDeletionModalVM()
+
+
     return (
         <Modal>
             { status === "normal" && <Confirmation modalVisibility={modalVisibility} id={id} type={type} action={DeleteResource}/>}
             { status === "loading" && <Loading /> }
-            { status === "success" && <DeletionSuccess message={message} modalVisibility={modalVisibility} /> }
+            { status === "success" && <DeletionSuccess message={message} modalVisibility={modalVisibility} Refresh={Refresh} /> }
             { status === "error" && <DeletionFail message={message} modalVisibility={modalVisibility} /> }
         </Modal>
     )
@@ -48,8 +50,12 @@ const Loading = () => {
     )
 }
 
-const DeletionSuccess = ({message, modalVisibility}) => {
-    setTimeout( () => { modalVisibility(false) }, 2000 )
+const DeletionSuccess = ({message, modalVisibility, Refresh}) => {
+
+    setTimeout( () => {
+        Refresh();
+        modalVisibility(false) }, 2000 )
+
     return (
         <div className="flex gap-1 items-center justify-center" >
             <Lottie animationData={successAnimation} className="h-12" loop={false} />

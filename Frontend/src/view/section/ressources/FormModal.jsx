@@ -5,7 +5,9 @@ import successAnimation from "../../../assets/animations/system-solid-31-check-i
 import errorAnimation from "../../../assets/animations/system-regular-56-red-warning-in-warning.json";
 import {useEffect} from "react";
 
-export const FormModal = ({result, action, modalVisibility}) => {
+export const FormModal = ({result, action, modalVisibility, refresh, setRefresh}) => {
+
+    const RefreshList = () => setRefresh(!refresh)
 
     useEffect(() => { action() }, []);
 
@@ -13,7 +15,7 @@ export const FormModal = ({result, action, modalVisibility}) => {
         <Modal>
             { (result.status === "loading") && <Loading/> }
             { (result.status === "error") && <RegistrationFail message={result.message} modalVisibility={modalVisibility} /> }
-            { (result.status === "success") && <RegistrationSuccess message={result.message} modalVisibility={modalVisibility} /> }
+            { (result.status === "success") && <RegistrationSuccess message={result.message} modalVisibility={modalVisibility} refresh={RefreshList} /> }
         </Modal>
     )
 }
@@ -27,8 +29,8 @@ const Loading = () => {
     )
 }
 
-const RegistrationSuccess = ({message, modalVisibility}) => {
-    setTimeout( () => { modalVisibility(false) }, 2000 )
+const RegistrationSuccess = ({message, modalVisibility, refresh}) => {
+    setTimeout( () => { refresh() ;modalVisibility(false) }, 2000 )
     return (
         <div className="flex gap-1 items-center justify-center" >
             <Lottie animationData={successAnimation} className="h-12" loop={false} />

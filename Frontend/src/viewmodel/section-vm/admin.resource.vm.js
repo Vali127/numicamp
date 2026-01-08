@@ -69,6 +69,7 @@ export const AdminRessourceViewModel = () => {
         sendData,
         formResult,
         FetchDomains,
+        fetchResources,
         domains
     }
 }
