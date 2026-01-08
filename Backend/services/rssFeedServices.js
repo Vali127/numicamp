@@ -1,11 +1,37 @@
 import { verifyToken } from "../middleware/verifyToken.js";
-import { getUserRSSLinkList, getUserRessourcePages } from "../models/RSSModel.js";
+import {
+    getUserRSSLinkList,
+    getUserRessourcePages,
+    getResourceList,
+    registerResource,
+    deleteResource
+} from "../models/RSSModel.js";
 import Parser from "rss-parser";
 import fetch from "node-fetch";
 import he from "he";
+import {verifyAdmin} from "../models/administration/verifyAdmin.js";
 
 const parser = new Parser()
 
+
+export async function getResourceListService(req, res) {
+    try {
+        verifyToken(req, res)
+        const isAdmin = await verifyAdmin(req.user.id)
+        console.log("is admin : ",isAdmin)
+        if (!isAdmin) { return { ok : false, message : "Accès interdit , vous devez être un administrateur" } }
+
+        const rows = await getResourceList();
+
+        return {
+            ok : true,
+            message : "Liste des resources obténue",
+            rows : rows
+        }
+    } catch (err) {
+        throw Error(err);
+    }
+}
 
 export async function getSiteServices(req, res) {
     try {
@@ -18,6 +44,42 @@ export async function getSiteServices(req, res) {
     } catch (error) {
         console.log(" /api/ressources/pages 's SERVICE ENDPOINT ERROR : \n", error)
         throw new Error(" /api/ressources/pages 's SERVICE ENDPOINT ERROR")
+    }
+}
+
+export async function ResourceRegistrationService(req, res) {
+    try {
+        verifyToken(req, res)
+        const isAdmin = await verifyAdmin(req.user.id)
+        console.log("is admin : ",isAdmin)
+        if (!isAdmin) { return { ok : false, message : "Accès non authorisé ! vous devez être un administrateur" } }
+
+        const result = await registerResource(req.body)
+        return {
+            ok : result.ok,
+            message : result.message
+        }
+    } catch (error) {
+        console.log("Error : ", error)
+        throw Error(error);
+    }
+}
+
+export async function ResourceDeletionService(req, res) {
+    try {
+        verifyToken(req, res)
+        const isAdmin = await verifyAdmin(req.user.id)
+        console.log("is admin : ",isAdmin)
+        if (!isAdmin) { return { ok : false, message : "Accès non authorisé ! vous devez être un administrateur" } }
+
+        const result = await deleteResource(req.query.link, req.query.type)
+        return {
+            ok : result.ok,
+            message : result.message
+        }
+    } catch (error) {
+        console.log("Error : ", error)
+        throw Error(error);
     }
 }
 

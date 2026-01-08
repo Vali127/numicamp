@@ -1,12 +1,21 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import {getAccountUsage, getLoginInfo} from '../models/loginModel.js';
+import {getAccountUsage, getLoginInfo, isUserBlocked} from '../models/loginModel.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 export async function checkInfoLoginService(data) {
     try {
+
+        const userIsBlocked = await isUserBlocked(data.username)
+        if (userIsBlocked) {
+            return {
+                ok : false,
+                message : "Vous avez été bloquer par l' administrateur !",
+            }
+        }
+
         const res = await getLoginInfo(data.username)
         const usage = await  getAccountUsage(data.username);
         //si resultat obtenu => comparaison

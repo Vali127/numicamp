@@ -6,6 +6,28 @@ export const RessourcesApi = () => {
     const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/ressources`
     const token = localStorage.getItem('token')
 
+    const getListApi = async () => {
+        const response = await axios.get(BASE_URL + "/lists", {
+            headers : { Authorization: `Bearer ${token}` },
+        })
+        return response.data
+    }
+
+    const registerApi = async (data) => {
+        const response = await axios.post(BASE_URL + "/register", data, {
+            headers : { Authorization: `Bearer ${token}` },
+        })
+        return response.data
+    }
+
+    const deleteApi = async (id, type) => {
+        const result = await axios.delete(BASE_URL + "/remove", {
+            headers : { Authorization: `Bearer ${token}` },
+            params : { link : id, type : type }
+        })
+        return result.data
+    }
+
     const getNewsApi = async () => {
         
         const res = await axios.get( BASE_URL + "/news", {
@@ -26,6 +48,9 @@ export const RessourcesApi = () => {
 
     return {
         getNewsApi,
-        getSitesApi
+        deleteApi,
+        getSitesApi,
+        getListApi,
+        registerApi,
     }
 }

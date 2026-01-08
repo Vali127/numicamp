@@ -11,6 +11,8 @@ import {AdminHomeViewModel} from "../../../viewmodel/user-ui-vm/admin.ui.vm.js";
 import {AlertCard} from "../../components/alert.card.jsx";
 import {LogoutModal} from "../../accessibility/logout/logout.modal.jsx";
 import {Users} from "../../section/users/Users.jsx";
+import AdminSchoolSection from "../../section/school/admin.school.section.jsx";
+import {AdminResource} from "../../section/ressources/AdminResource.jsx";
 
 
 export const AdminHome = () => {
@@ -69,6 +71,8 @@ const MainContent = ({userProfilId, setLogout}) => {
             <Routes>
                 <Route path="dashboard" element={<DashBoard/>} />
                 <Route path="feedback" element={<Feedback/>} />
+                <Route path="schoolAdmin" element={<AdminSchoolSection/>} />
+                <Route path="resourceAdmin" element={<AdminResource/>} />
                 <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
                 <Route path="settings" element={<Setting setLogout={setLogout} />} />
                 <Route path="users" element={<Users/>} />
@@ -76,18 +80,3 @@ const MainContent = ({userProfilId, setLogout}) => {
         </div>
     )
 }
-
-/*
-* <div className={"flex h-screen"} >
-            <div className={"w-[20vw] h-full px-4 pt-3 gap-6 flex flex-col bg-white shadow-md"}>
-                <Header/>
-                <AdminMenu section={section} setSection={setSection} />
-            </div>
-            <div className={"flex-1 h-full pt-10 pb-3 px-5"}>
-                <Routes>
-                    <Route path="dashboard" element={<DashBoard/>} />
-                    <Route path="feedback" element={<Feedback/>} />
-                    <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
-                </Routes>
-            </div>
-        </div>*/

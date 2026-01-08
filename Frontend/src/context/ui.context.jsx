@@ -31,6 +31,7 @@ export const GlobalUiContextProvider = ({children}) => {
                 case 'feeds': navigate("/Main/feeds"); setRefresh(!refresh) ; break
                 case 'notifications': navigate("/Main/notifications"); setRefresh(!refresh) ; break
                 case 'resources': navigate("/Main/ressources"); setRefresh(!refresh) ; break
+                case 'resourceAdmin' : navigate("/Main/resourceAdmin"); setRefresh(!refresh) ; break
                 case 'schools': navigate("/Main/schools"); setRefresh(!refresh) ; break
                 case 'settings': navigate("/Main/settings"); setRefresh(!refresh) ; break
                 case 'profile' : navigate("/Main/profile"); setRefresh(!refresh) ; break
@@ -39,6 +40,7 @@ export const GlobalUiContextProvider = ({children}) => {
                 case 'dashboard' : navigate("/Main/dashboard"); setRefresh(!refresh) ; break
                 case 'feedback' : navigate('/Main/feedback'); setRefresh(!refresh) ; break
                 case 'users' : navigate('/Main/users'); setRefresh(!refresh) ; break
+                case 'adminSchoolSection' : navigate('/Main/schoolAdmin'); setRefresh(!refresh) ; break
                 default : break
             }
         }

@@ -62,7 +62,7 @@ app.use('/api/feedback', feedbackRoute)
 app.use('/api/ressources', ressourcesRoute)
 app.use('/api/stats', statsRoute)
 app.use('/api/users', userRoute)
-app.use('/api/etablishment', etablishmentRoute())
+app.use('/api/etablishment', etablishmentRoute )
 // Servir les fichiers statiques (images utilisateurs)
 app.use('/static/users', express.static(path.join(__dirname, 'Users')));
 

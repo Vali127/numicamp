@@ -2,9 +2,7 @@ import { Camera, Trash } from 'lucide-react'
 import React from 'react'
 
 const ImageInput = ({image, HandleImage, resetImage }) => {
-    const HandleClick =() => {
-        alert("clicked")
-    }
+
   return (
     <div 
         className='w-full h-25 my-2' >

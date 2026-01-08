@@ -1,5 +1,6 @@
 import {verifyToken} from "../../middleware/verifyToken.js";
 import {StatsModel} from "../../models/administration/StatsModel.js";
+import {verifyAdmin} from "../../models/administration/verifyAdmin.js";
 
 const MODEL = StatsModel()
 
@@ -40,5 +41,23 @@ export async function postStatsService(req, res) {
         }
     } catch (err) {
         throw Error();
+    }
+}
+
+export async function domainListService(req, res) {
+    try {
+        verifyToken(req, res)
+        const isAdmin = await verifyAdmin(req.user.id)
+        if (!isAdmin) { return { message : "Accés non autorisé ! ", ok : false } }
+
+        const result = await MODEL.getDomainList()
+        return {
+            data: result,
+            ok : true,
+            message : "liste des domaines récupérés !"
+        }
+
+    } catch (err) {
+        throw Error(err);
     }
 }
