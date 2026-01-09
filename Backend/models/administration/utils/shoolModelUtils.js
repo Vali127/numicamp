@@ -1,7 +1,6 @@
 
 
 export function schoolInsertionResult(result) {
-    const [data, meta] = result;
 
     if (result.affectedRows === 0) {
         return {

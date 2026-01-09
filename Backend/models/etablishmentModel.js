@@ -34,7 +34,7 @@ export async function insertNewEtablishment(data) {
 
         return schoolInsertionResult(result);
     } catch (err) {
-        throw Error();
+        throw Error(err);
     }
 }
 

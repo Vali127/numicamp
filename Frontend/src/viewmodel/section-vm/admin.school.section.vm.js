@@ -2,6 +2,7 @@ import {useState} from "react";
 import {ImageServices} from "../../services/image.services.js";
 import {PostModel} from "../../model/post.model.js";
 import {SchoolModel} from "../../model/shool.model.js";
+import error from "../../view/section/ressources/Error.jsx";
 
 
 export const AdminSchoolViewModel = () => {
@@ -80,6 +81,8 @@ export const AdminSchoolViewModel = () => {
             setMessage(response.message);
         } catch (e) {
             console.error(e)
+            setStatus("error")
+            setMessage("Something went wrong.")
         }
     }
 
