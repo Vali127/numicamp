@@ -24,8 +24,16 @@ export const schoolApi = () => {
         return response.data;
     }
 
+    const getSchools = async () => {
+        const response = await axios.get( BASE_URL + "/getEtablishment", {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        return response.data;
+    }
+
     return {
         uploadSchoolImage,
-        registerSchool
+        registerSchool,
+        getSchools,
     }
 }

@@ -86,6 +86,7 @@ export const AdminSchoolViewModel = () => {
         }
     }
 
+
     return {
         currentTab,
         setCurrentTab,
@@ -98,5 +99,30 @@ export const AdminSchoolViewModel = () => {
         status,
         sendData,
         message
+    }
+}
+
+export const schoolListVm = () => {
+
+    const MODEL = SchoolModel()
+
+    const [status, setStatus] = useState("loading");
+    const [list, setList] = useState([]);
+
+    const FetchSchool = async () => {
+        try {
+            const result = await MODEL.getSchools()
+            setList(result)
+            setStatus((result.ok) ? "error" : "success")
+        } catch (e) {
+            console.error(e)
+            setStatus("error")
+        }
+    }
+
+    return {
+        FetchSchool,
+        status,
+        list,
     }
 }

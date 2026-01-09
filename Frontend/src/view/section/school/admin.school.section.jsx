@@ -2,6 +2,7 @@ import React from 'react'
 import { SchoolAdminHeader } from './school.admin.Header'
 import { SchoolForm } from './school.form'
 import {AdminSchoolViewModel} from "../../../viewmodel/section-vm/admin.school.section.vm.js";
+import {SchoolList} from "./SchoolList.jsx";
 
 const AdminSchoolSection = () => {
     const {
@@ -30,7 +31,7 @@ const AdminSchoolSection = () => {
                     HandleImage={HandleImage}
                     imagePreview={imagePreview}
                     resetImage={resetImage}/>}
-            { (currentTab === "list") && <div className=''>Hello</div>}
+            { (currentTab === "list") && <SchoolList/> }
         </div>
     </div>
   )
