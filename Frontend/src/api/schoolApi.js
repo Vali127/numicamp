@@ -31,9 +31,18 @@ export const schoolApi = () => {
         return response.data;
     }
 
+    const deleteSchool = async (id) => {
+        const response = await axios.delete( BASE_URL + "/remove", {
+            headers: { Authorization: `Bearer ${token}` },
+            params : { id : id }
+        })
+        return response.data;
+    }
+
     return {
         uploadSchoolImage,
         registerSchool,
         getSchools,
+        deleteSchool
     }
 }

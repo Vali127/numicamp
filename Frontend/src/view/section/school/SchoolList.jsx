@@ -1,17 +1,18 @@
 import {schoolListVm} from "../../../viewmodel/section-vm/admin.school.section.vm.js";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {SchoolCard} from "./school.card.jsx";
 import {ThreeDots} from "react-loader-spinner";
 import {AlertCircle} from "lucide-react";
-
+import {SchoolDeletionModal} from "./SchoolDeletionModal.jsx";
+import {useGlobalUiContext} from "../../../context/ui.context.jsx";
 
 
 export const SchoolList = () => {
     const { list, status, FetchSchool } = schoolListVm()
-
+    const { refresh } = useGlobalUiContext();
     useEffect(() => {
         FetchSchool()
-    }, []);
+    }, [refresh]);
 
     return (
         <>
@@ -42,14 +43,26 @@ const ErrorState = () => (
     </div>
 )
 
-const SchoolListContent = ({ list }) => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-2" >
-        {list.map((school) => (
-            <SchoolCard
-                key={school.id}
-                school={school}
-                isAdmin={true}
-            />
-        ))}
-    </div>
-)
+const SchoolListContent = ({ list }) =>
+{
+    const [ showDeletionModal, setShowDeletionModal ] = useState(false)
+    const [ element, setElement ] = useState({ id : "", name : "" });
+
+    const { refresh, setRefresh } = useGlobalUiContext()
+    const Refresh = () => { setRefresh(!refresh) }
+
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {list.map((school) => (
+                <SchoolCard
+                    key={school.id}
+                    school={school}
+                    isAdmin={true}
+                    setElement={setElement}
+                    setShowDeletionModal={setShowDeletionModal}
+                />
+            ))}
+            { showDeletionModal && <SchoolDeletionModal Refresh={Refresh} element={element} setShowDeletionModal={setShowDeletionModal} /> }
+        </div>
+    )
+}

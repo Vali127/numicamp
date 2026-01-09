@@ -62,7 +62,7 @@ export const SchoolForm = ({HandleImage, resetImage, imagePreview, setSchoolData
                             <input
                                 type="text"
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
-                                placeholder="Analamanga"
+                                placeholder="exemple : Antananarivo"
                                 value={schoolData.province}
                                 onChange={ (e) => { setSchoolData({...schoolData, province: e.target.value}) } }
                             />
@@ -75,7 +75,7 @@ export const SchoolForm = ({HandleImage, resetImage, imagePreview, setSchoolData
                             <input
                                 type="text"
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
-                                placeholder="Antananarivo"
+                                placeholder="exemple : Analamanga"
                                 value={schoolData.city}
                                 onChange={ (e) => { setSchoolData({...schoolData, city: e.target.value}) } }
                             />
@@ -90,7 +90,7 @@ export const SchoolForm = ({HandleImage, resetImage, imagePreview, setSchoolData
                         <input
                             type="text"
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
-                            placeholder="Ambohipo"
+                            placeholder="exemple : Tanjombato"
                             value={schoolData.neighbourhood}
                             onChange={ (e) => { setSchoolData({...schoolData, neighbourhood: e.target.value}) } }
                         />

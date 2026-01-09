@@ -106,7 +106,9 @@ export const schoolListVm = () => {
 
     const MODEL = SchoolModel()
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [status, setStatus] = useState("loading");
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [list, setList] = useState([]);
 
     const FetchSchool = async () => {
@@ -120,9 +122,34 @@ export const schoolListVm = () => {
         }
     }
 
+
     return {
         FetchSchool,
         status,
         list,
+    }
+}
+
+export const SchoolDeletionVM = () => {
+    const MODEL = SchoolModel()
+    const [status, setStatus] = useState("normal");
+    const [message, setMessage] = useState("")
+
+    const DeleteSchool = async (id) => {
+        try {
+            const result = await MODEL.deleteSchool(id)
+            setStatus((result.ok) ? "success" : "error")
+            setMessage(result.message)
+        } catch (e) {
+            console.error(e)
+            setStatus("error")
+            setMessage( e.message || "Something went wrong.")
+        }
+    }
+
+    return {
+        DeleteSchool,
+        status,
+        message,
     }
 }

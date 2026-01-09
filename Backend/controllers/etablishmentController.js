@@ -1,4 +1,4 @@
-import {getEtablishmentService, addEtablishmentService} from "../services/etablishmentService.js";
+import {getEtablishmentService, addEtablishmentService, DeletionService} from "../services/etablishmentService.js";
 
 /**
  *
@@ -21,6 +21,15 @@ export async function getEtablishmentController(req,res){
 export async function addEtablishmentController(req,res){
     try {
         const result = await addEtablishmentService(req,res);
+        res.status(200).json({ok:result.ok, message : result.message});
+    } catch (error) {
+        res.status(error.status||500).json({ message: error.message });
+    }
+}
+
+export async function deletionController(req,res){
+    try {
+        const result = await DeletionService(req,res);
         res.status(200).json({ok:result.ok, message : result.message});
     } catch (error) {
         res.status(error.status||500).json({ message: error.message });

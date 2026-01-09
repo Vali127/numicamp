@@ -1,8 +1,9 @@
 import React from 'react';
 import { Pencil, Trash2 } from 'lucide-react';
 
-export const SchoolCard = ({ school, isAdmin = false }) => {
+export const SchoolCard = ({ school, isAdmin = false, setElement = null, setShowDeletionModal }) => {
     const {
+        code_etab = 'N/A',
         site_etablissement = 'inconnu',
         nom_etab = 'École sans nom',
         description_etab = 'Aucune description disponible',
@@ -11,6 +12,11 @@ export const SchoolCard = ({ school, isAdmin = false }) => {
         quartier = 'inconnu',
         photo_etab = null
     } = school || {};
+
+    const handleDelete = () => {
+        setElement({ id: code_etab, name: nom_etab });
+        setShowDeletionModal(true);
+    };
 
     return (
         <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -41,7 +47,7 @@ export const SchoolCard = ({ school, isAdmin = false }) => {
                         </button>
                         <button
                             className="backdrop-blur-md bg-white/30 hover:bg-white/50 p-2 rounded-lg shadow-md transition-all hover:scale-110"
-                            onClick={() => console.log('Delete', school)}
+                            onClick={handleDelete}
                         >
                             <Trash2 size={18} className="text-red-600" />
                         </button>

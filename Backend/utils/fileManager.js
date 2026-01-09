@@ -75,3 +75,21 @@ export function generateUniqueFilename(originalName, type) {
     
     return `${header}_${timestamp}_${random}${extension}`
 }
+
+export function deleteFile(filepath, directoryName) {
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname = path.dirname(__filename)
+    const directory = path.join(__dirname, '..', 'Users', directoryName)
+
+    const parts = filepath.split('/')
+    const filename = parts[parts.length - 1]
+    const filePath = path.join(directory, filename)
+
+    try {
+        fs.unlinkSync(filePath);
+        return true;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+}
