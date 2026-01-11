@@ -17,7 +17,7 @@ const Comments = ({open, postId, GoToProfile}) => {
         <CommentModal>
 
 
-            <div className='flex justify-between items-center border-b border-slate-500/25 bg-neutral-50 p-3 md:p-4'>
+            <div className='flex justify-between items-center border-b border-slate-500/25 bg-neutral-50 '>
                 <div
                     className='font-bold text-lg md:text-2xl text-center flex-1'>Commentaires
                 </div>
