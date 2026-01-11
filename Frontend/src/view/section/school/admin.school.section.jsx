@@ -31,7 +31,7 @@ const AdminSchoolSection = () => {
                     HandleImage={HandleImage}
                     imagePreview={imagePreview}
                     resetImage={resetImage}/>}
-            { (currentTab === "list") && <SchoolList/> }
+            { (currentTab === "list") && <SchoolList isAdmin={true} /> }
         </div>
     </div>
   )

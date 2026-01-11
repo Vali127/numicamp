@@ -7,7 +7,7 @@ import {SchoolDeletionModal} from "./SchoolDeletionModal.jsx";
 import {useGlobalUiContext} from "../../../context/ui.context.jsx";
 
 
-export const SchoolList = () => {
+export const SchoolList = ({isAdmin = false }) => {
     const { list, status, FetchSchool } = schoolListVm()
     const { refresh } = useGlobalUiContext();
     useEffect(() => {
@@ -18,7 +18,7 @@ export const SchoolList = () => {
         <>
             {status === 'loading' && <LoadingState />}
             {status === 'error' && <ErrorState />}
-            {status === 'success' && <SchoolListContent list={list} />}
+            {status === 'success' && <SchoolListContent list={list} isAdmin={isAdmin} />}
         </>
     )
 }
@@ -43,7 +43,7 @@ const ErrorState = () => (
     </div>
 )
 
-const SchoolListContent = ({ list }) =>
+const SchoolListContent = ({ list, isAdmin }) =>
 {
     const [ showDeletionModal, setShowDeletionModal ] = useState(false)
     const [ element, setElement ] = useState({ id : "", name : "" });
@@ -57,7 +57,7 @@ const SchoolListContent = ({ list }) =>
                 <SchoolCard
                     key={school.id}
                     school={school}
-                    isAdmin={true}
+                    isAdmin={isAdmin}
                     setElement={setElement}
                     setShowDeletionModal={setShowDeletionModal}
                 />
