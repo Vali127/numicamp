@@ -3,10 +3,10 @@ import { API_CONFIG } from "../config.js";
 
 export const AccountApi = () => {
 
-    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/account`
-    const token = localStorage.getItem('token')
-    const type_of_user = localStorage.getItem('usage')
-    const data = { usage : type_of_user }
+    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/account`;
+    const token = localStorage.getItem('token');
+    const type_of_user = localStorage.getItem('usage');
+    const data = { usage : type_of_user };
 
 
     const getUserAccountDataApi = async () => {

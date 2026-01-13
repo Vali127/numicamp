@@ -1,6 +1,6 @@
 import { UniqueFeedVm } from '../../../viewmodel/feeds-vm/unique.feed.vm.js'
 import Comments from './comments.jsx'
-import ShowMoreText from 'react-show-more-text'
+import ShowMoreText from '../../../lib/show-more-text.jsx'
 import { useGlobalUiContext } from '../../../context/ui.context.jsx'
 import { useState } from 'react'
 import { EllipsisVertical, Trash2 } from 'lucide-react'
@@ -105,9 +105,9 @@ const Feed = ( {date, title, description, illustration, owner, ownership, postId
             <div className='text-justify font-light text-xs md:text-sm leading-relaxed px-0'>
                 <ShowMoreText
                     lines={3}
-                    more="voir plus"
-                    less="voir moins"
-                    anchorClass="!font-bold !text-[12px] md:!text-[14px] text-gray-500 cursor-pointer underline-none"
+                    textForMore="voir plus"
+                    textForLess="voir moins"
+                    anchorStyle="!font-bold !text-[12px] md:!text-[14px] text-gray-500 cursor-pointer underline-none"
                     expanded={false}>
                     {description}
                 </ShowMoreText>

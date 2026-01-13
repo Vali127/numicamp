@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import globe from "../../../assets/images/globe.png"
 import photo from "../../../assets/images/news.jpg"
-import ShowMoreText from 'react-show-more-text'
+import ShowMoreText from '../../../lib/show-more-text.jsx'
 import { DateShortFormat } from '../../../utils/display.format'
 
 const UniqueRessource = ({illustration, title, description, date, favicon, link, domainName, source}) => {
@@ -51,9 +51,9 @@ const UniqueRessource = ({illustration, title, description, date, favicon, link,
             <div className='text-justify font-light text-xs sm:text-sm leading-relaxed px-1 sm:px-2'>
                 <ShowMoreText
                     lines={3}
-                    more="voir plus"
-                    less="voir moins"
-                    anchorClass="!font-bold !text-[12px] sm:!text-[14px] text-gray-500 cursor-pointer underline-none"
+                    textForMore="voir plus"
+                    textForLess="voir moins"
+                    anchorStyle="!font-bold !text-[12px] sm:!text-[14px] text-gray-500 cursor-pointer underline-none"
                     expanded={false}>
                     {description}
                 </ShowMoreText>
