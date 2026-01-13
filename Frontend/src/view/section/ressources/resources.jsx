@@ -3,9 +3,9 @@ import {UnderDev} from "../../tempComponent/UnderDev.jsx";
 import Error from "./Error.jsx";
 import{ LoadingRessources,LoadingSitesRessources } from "./loading.ressources.jsx";
 import NoInternet from "./no.internet.jsx";
-import RessourceNavBar from "./ressource.navbar.jsx";
+import ResourceNavBar from "./ressource.navbar.jsx";
 import Sites from "./sites.jsx";
-import UniqueRessource from "./unique.ressources.jsx";
+import UniqueResource from "./unique.ressources.jsx";
 
 export const Resources = () => {
 
@@ -14,9 +14,7 @@ export const Resources = () => {
     return (
         <div className="flex h-full flex-col">
 
-            <div className="mx-2 sm:mx-3 flex items-center gap-2 sm:gap-3 text-base sm:text-lg font-bold"><label className="icon_btn">&#xE28C;</label><label>Ressources</label></div>
-
-            <RessourceNavBar section={section} setSection={setSection} />
+            <ResourceNavBar section={section} setSection={setSection} />
 
             <div className="flex-1">
                 { ( section === "news" ) && <RSSNews status={newsStatus} news={news} /> }
@@ -47,7 +45,7 @@ const RSSNews = ({news, status}) => {
                         news.map(
                             data => (
                                 <div key={data.link}>
-                                    < UniqueRessource
+                                    < UniqueResource
                                         illustration={data.image}
                                         title={data.title || ""}
                                         description={data.description || ""}

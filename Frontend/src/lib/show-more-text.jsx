@@ -11,7 +11,7 @@ const ShowMoreText = ({
     const [isExpanded, setIsExpanded] = useState(expanded)
     const [isClamped, setIsClamped] = useState(false)
     const textRef = useRef(null)
-
+    
     useEffect(() => {
         if (textRef.current) {
         setIsClamped(textRef.current.scrollHeight > textRef.current.clientHeight)

@@ -4,7 +4,7 @@ import photo from "../../../assets/images/news.jpg"
 import ShowMoreText from '../../../lib/show-more-text.jsx'
 import { DateShortFormat } from '../../../utils/display.format'
 
-const UniqueRessource = ({illustration, title, description, date, favicon, link, domainName, source}) => {
+const UniqueResource = ({illustration, title, description, date, favicon, link, domainName, source}) => {
     const [faviconError, setFaviconError] = useState(false)
     const [imageError, setImageError] = useState(false)
 
@@ -87,4 +87,4 @@ const UniqueRessource = ({illustration, title, description, date, favicon, link,
 )
 }
 
-export default UniqueRessource
+export default UniqueResource
