@@ -65,3 +65,13 @@ async function getFilePath(id) {
         throw Error(err);
     }
 }
+
+export async function getSchoolName(code) {
+    try {
+        const sql = `SELECT nom_etab FROM etablissement WHERE code_etab = ?`;
+        const [result] = await pool.query(sql, [code]);
+        return result[0].nom_etab
+    } catch(err) {
+        throw Error(err);
+    }
+}

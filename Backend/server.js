@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from "cors";
 import registerRoute from "./routes/registerRoute.js";
 import loginRoute from "./routes/loginRoute.js";
+import LogoutRoute from "./routes/logoutRoute.js";
 import uploadRoute from "./routes/uploadRoute.js";
 import accountInfoRoute from "./routes/accountInfoRoute.js";
 import publicationRoute from "./routes/publicationRoute.js";
@@ -51,6 +52,7 @@ app.use(cors(
 //definition des fichiers de routage(redirige les req)
 app.use('/api/register',registerRoute);
 app.use('/api/login',loginRoute);
+app.use('/api/logout', LogoutRoute )
 app.use('/api/upload', uploadRoute);
 app.use('/api/account', accountInfoRoute );
 app.use('/api/publication',publicationRoute);

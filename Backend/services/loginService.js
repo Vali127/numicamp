@@ -2,11 +2,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {getAccountUsage, getLoginInfo, isUserBlocked} from '../models/loginModel.js';
 import dotenv from 'dotenv';
+import {createLogger} from "../utils/logger.js";
 
 dotenv.config();
 
 export async function checkInfoLoginService(data) {
     try {
+
+        const LOG = createLogger()
 
         const userIsBlocked = await isUserBlocked(data.username)
         if (userIsBlocked) {
@@ -18,6 +21,9 @@ export async function checkInfoLoginService(data) {
 
         const res = await getLoginInfo(data.username)
         const usage = await  getAccountUsage(data.username);
+
+        if ( usage ===  "admin" ) { LOG.logIn(data.username) }
+
         //si resultat obtenu => comparaison
          if(res) {
             const isMatch = await bcrypt.compare(data.password, res.mot_de_passe);

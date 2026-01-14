@@ -10,6 +10,8 @@ import Parser from "rss-parser";
 import fetch from "node-fetch";
 import he from "he";
 import {verifyAdmin} from "../models/administration/verifyAdmin.js";
+import {createLogger} from "../utils/logger.js";
+import {getUsername} from "../models/administration/mailModel.js";
 
 const parser = new Parser()
 
@@ -49,12 +51,23 @@ export async function getSiteServices(req, res) {
 
 export async function ResourceRegistrationService(req, res) {
     try {
+
+        const LOG = createLogger();
+
         verifyToken(req, res)
         const isAdmin = await verifyAdmin(req.user.id)
         console.log("is admin : ",isAdmin)
         if (!isAdmin) { return { ok : false, message : "Accès non authorisé ! vous devez être un administrateur" } }
 
         const result = await registerResource(req.body)
+
+        //log
+        if( result.ok ){
+            const adminName = await getUsername(req.user.id)
+            const resource = req.body.link
+            LOG.addResource(adminName, resource)
+        }
+
         return {
             ok : result.ok,
             message : result.message
@@ -67,12 +80,21 @@ export async function ResourceRegistrationService(req, res) {
 
 export async function ResourceDeletionService(req, res) {
     try {
+        const LOG = createLogger()
         verifyToken(req, res)
         const isAdmin = await verifyAdmin(req.user.id)
         console.log("is admin : ",isAdmin)
         if (!isAdmin) { return { ok : false, message : "Accès non authorisé ! vous devez être un administrateur" } }
 
+        const resource = req.query.link // recup avant suppression
         const result = await deleteResource(req.query.link, req.query.type)
+
+        //log
+        if( result.ok ){
+            const adminName = await getUsername(req.user.id)
+            LOG.removeResource(adminName, resource)
+        }
+
         return {
             ok : result.ok,
             message : result.message
