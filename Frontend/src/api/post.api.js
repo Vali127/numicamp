@@ -45,11 +45,19 @@ export const PostApi = () => {
         return response.data
     }
 
+    const getApplierPostsApi = async () => {
+        const response = await axios.get( BASE_URL + "/applier", {
+            headers : { Authorization : "Bearer " + token },
+        })
+        return response.data
+    }
+
     return {
         uploadPostApi,
         uploadPostImageApi,
         getPostsFromOrg,
         getUserPostsApi,
         deletePostApi,
+        getApplierPostsApi,
     }
 }

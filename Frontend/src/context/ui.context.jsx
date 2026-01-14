@@ -43,6 +43,7 @@ export const GlobalUiContextProvider = ({children}) => {
                 case 'feedback' :           navigate('/Main/feedback');         setRefresh(!refresh) ; break
                 case 'users' :              navigate('/Main/users');            setRefresh(!refresh) ; break
                 case 'adminSchoolSection' : navigate('/Main/schoolAdmin');      setRefresh(!refresh) ; break
+                case 'applier'            : navigate('/Main/applier');          setRefresh(!refresh) ; break
                 default : break
             }
         }

@@ -18,6 +18,13 @@ export const OrgMobileMenu = ({section, setSection}) => {
             </button>
 
             <button
+                onClick={() => setSection("applier")}
+                className={( section === "applier" ) ? " menu menu-active" : "menu" } >
+                <div className="icon_btn text-lg">&#xED0C;</div>
+                <div>Candidats</div>
+            </button>
+
+            <button
                 onClick={() => setSection("settings")}
                 className={( section === "settings" ) ? " menu menu-active" : "menu" } >
                 <div className="icon_btn text-lg">&#xE434;</div>

@@ -6,19 +6,15 @@ import OrgMenu from "./menu/org.menu.jsx";
 import {Profile} from "../../section/profile/profile.jsx";
 import {GlobalUiContextProvider, useGlobalUiContext} from "../../../context/ui.context.jsx";
 import {AlertCard} from "../../components/alert.card.jsx";
-import numicamp from "../../../assets/images/numicamp.png";
 import {Setting} from "../../section/setting/setting.jsx";
 import {OrgMobileMenu} from "./menu/org.mobile.menu.jsx";
 import {UserLogout} from "../../accessibility/logout/user.logout.jsx";
 import {LogoutModal} from "../../accessibility/logout/logout.modal.jsx";
 import {AppHeader} from "../../components/AppHeader.jsx";
-import {MobileMenu} from "../personal-ui/menu/MobileMenu.jsx";
 import {Route, Routes} from "react-router-dom";
-import {Feeds} from "../../section/feed/feeds.jsx";
 import {Notification} from "../../section/notification/notification.jsx";
-import {Resources} from "../../section/ressources/resources.jsx";
-import {Schools} from "../../section/school/schools.jsx";
 import SearchSection from "../../section/search/search.section.jsx";
+import {ApplierFeed} from "../../section/applier/Applierfeed.jsx";
 
 
 export  const OrgHome = () => {
@@ -143,6 +139,7 @@ const MainContent = ({
                 { userInfo.id_profil && <Route path="profile" element={<Profile owner={true} id={userInfo.id_profil}/>}/>}
                 <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
                 <Route path="search" element={<SearchSection prompt={searchContent} refresh={searched} />} />
+                <Route path="applier" element={<ApplierFeed/>} />
             </Routes>
         </div>
     </div>

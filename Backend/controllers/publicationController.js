@@ -3,7 +3,10 @@
  * retour : res
  */
 import { verifyToken } from "../middleware/verifyToken.js";
-import {getPersonPubService,getOrgPubService,getPubDescriptionOrgService, sendPubDescriptionService, postDeletionService} from "../services/publicationService.js";
+import {
+    getPersonPubService, getOrgPubService, getPubDescriptionOrgService, sendPubDescriptionService, postDeletionService,
+    postForOrgService
+} from "../services/publicationService.js";
 
 export async function sendPubDescriptionController(req, res) {
     try{
@@ -63,5 +66,14 @@ export async  function postDeletionController(req, res) {
     } catch (err) {
         res.status(err.status||500).json({ message: err.message });
         console.log("ERROR \n", err)
+    }
+}
+
+export async function postsForOrgController(req, res) {
+    try {
+        const result = await postForOrgService(req, res)
+        res.status(200).json({message: result.message, ok : result.ok, owner : false, rows : result.rows});
+    } catch (err) {
+        res.status(err.status||500).json({ message: err.message });
     }
 }
