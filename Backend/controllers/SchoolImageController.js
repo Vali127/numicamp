@@ -17,7 +17,7 @@ export const schoolImageController = (req, res) => {
         const __dirname = path.dirname(__filename); //current dir
         const absolute_path = path.join(__dirname, '..', 'Users', 'SchoolImages', req.file.filename);
         const parts = absolute_path.split(path.sep);
-        const head = parts.indexOf('USers')
+        const head = parts.indexOf('Users')
         const data = parts.slice(head+1).join(path.sep);
         console.log("path : ", data);
         console.log("File Uploaded !");

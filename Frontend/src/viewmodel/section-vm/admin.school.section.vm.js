@@ -2,6 +2,7 @@ import {useState} from "react";
 import {ImageServices} from "../../services/image.services.js";
 import {PostModel} from "../../model/post.model.js";
 import {SchoolModel} from "../../model/shool.model.js";
+import error from "../../view/section/ressources/Error.jsx";
 
 
 export const AdminSchoolViewModel = () => {
@@ -80,8 +81,11 @@ export const AdminSchoolViewModel = () => {
             setMessage(response.message);
         } catch (e) {
             console.error(e)
+            setStatus("error")
+            setMessage("Something went wrong.")
         }
     }
+
 
     return {
         currentTab,
@@ -95,5 +99,57 @@ export const AdminSchoolViewModel = () => {
         status,
         sendData,
         message
+    }
+}
+
+export const schoolListVm = () => {
+
+    const MODEL = SchoolModel()
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [status, setStatus] = useState("loading");
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [list, setList] = useState([]);
+
+    const FetchSchool = async () => {
+        try {
+            const result = await MODEL.getSchools()
+            setList(result)
+            setStatus((result.ok) ? "error" : "success")
+        } catch (e) {
+            console.error(e)
+            setStatus("error")
+        }
+    }
+
+
+    return {
+        FetchSchool,
+        status,
+        list,
+    }
+}
+
+export const SchoolDeletionVM = () => {
+    const MODEL = SchoolModel()
+    const [status, setStatus] = useState("normal");
+    const [message, setMessage] = useState("")
+
+    const DeleteSchool = async (id) => {
+        try {
+            const result = await MODEL.deleteSchool(id)
+            setStatus((result.ok) ? "success" : "error")
+            setMessage(result.message)
+        } catch (e) {
+            console.error(e)
+            setStatus("error")
+            setMessage( e.message || "Something went wrong.")
+        }
+    }
+
+    return {
+        DeleteSchool,
+        status,
+        message,
     }
 }

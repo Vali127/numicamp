@@ -16,10 +16,10 @@
     "lucide-react": "^0.545.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-framer": "^0.0.2",
     "react-loader-spinner": "^7.0.3",
     "react-medium-image-zoom": "^5.4.0",
     "react-router-dom": "^7.6.3",
-    "react-show-more-text": "^1.7.1",
     "recharts": "^3.5.1",
     "tailwindcss": "^4.1.14"
   },

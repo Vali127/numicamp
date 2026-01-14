@@ -1,10 +1,15 @@
 import { Modal } from "../../components/modal.jsx";
 import { useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
+import { LogoutModel } from "../../../model/logout.model.js";
 
 export const LogoutModal = ({SetLogout}) => {
     const navigate = useNavigate();
-    const HandleLogout = () => {
+    const MODEL = LogoutModel()
+
+    const HandleLogout = async () => {
+        const token = localStorage.getItem('token');
+        await MODEL.logout(token)
         navigate("/");
         localStorage.clear('token')
     }

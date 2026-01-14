@@ -1,3 +1,4 @@
+import { SendMailForFeedBackNotification } from "../middleware/feedBackMailNotification.js";
 import {verifyToken} from "../middleware/verifyToken.js";
 import {FeedbackModel} from "../models/feedbackModel.js";
 
@@ -8,6 +9,11 @@ export async function sendFeedBackService (req, res) {
         const MODEL = FeedbackModel()
         verifyToken( req, res )
         const result = await MODEL.registerFeedback(req.user.id, req.body.content)
+        
+        
+        SendMailForFeedBackNotification(req).catch(err => 
+            console.error('Erreur envoi email:', err)
+        )
 
         return {
             ok: result,
