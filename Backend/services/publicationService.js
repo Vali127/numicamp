@@ -3,7 +3,7 @@ import {verifyToken} from "../middleware/verifyToken.js";
 import {
     deletePost,
     getOrgPub,
-    getPersonPub,
+    getPersonPub, GetPostsForOrganisation,
     getPubDescriptionOrg,
     insertPublication
 } from "../models/publicationModel.js";
@@ -60,5 +60,16 @@ export async function postDeletionService(req, res){
     } catch (err) {
         console.log(err);
         throw Error(err);
+    }
+}
+
+
+export async function postForOrgService(req, res){
+    try {
+        verifyToken(req, res)
+        return await GetPostsForOrganisation(req.user.id)
+    } catch (error) {
+        console.log(error);
+        throw Error(error);
     }
 }

@@ -18,6 +18,14 @@ const OrgMenu = ({section, setSection}) => {
         </button>
 
         <button
+            onClick={() => setSection("applier")}
+            className={( section === "applier" ) ? " menu menu-active" : "menu" } >
+            <div className="icon_btn text-lg">&#xED0C;</div>
+            <div>Candidats</div>
+        </button>
+
+
+        <button
           className={ "menu" } >
           <div className="icon_btn text-lg">&#xEAA6;</div> 
           <div>Dashboard</div> 

@@ -189,3 +189,28 @@ export async function deletePost(idPost) {
     }
 }
 
+
+
+
+export async function GetPostsForOrganisation(id_Org) {
+    const sql = `
+        SELECT DISTINCT p.*
+        FROM publication p
+        INNER JOIN comprendre c ON p.id_pub = c.id_pub
+        INNER JOIN abonner a ON p.id_profil_pers = a.id_profil_pers
+        WHERE a.id_profil_org = ?
+        AND c.id_mot_cle = 'MCL-c1656b82bf96'
+        ORDER BY p.date_pub DESC;
+    `;
+
+    try {
+        const [rows] = await pool.query(sql, [id_Org]);
+        return {
+            ok: true,
+            message: "Publications récupérées avec succès",
+            rows : rows
+        };
+    } catch (err) {
+        throw new Error("Erreur dans le modèle : " + err.message);
+    }
+}

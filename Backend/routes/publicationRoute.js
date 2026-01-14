@@ -4,7 +4,7 @@ import {
     getPersonPubcontroller,
     getOrgPubController,
     getPubDescriptionOrgController,
-    postDeletionController
+    postDeletionController, postsForOrgController
 } from "../controllers/publicationController.js";
 import {upload} from "../middleware/UploadPubPicture.js";
 import { postImageController } from '../controllers/postImageController.js';
@@ -20,5 +20,7 @@ router.get('/org', getOrgPubController )
 //recuperer info pub org
 router.get('/pubDescriptionOrg',getPubDescriptionOrgController);
 router.delete('/delete', postDeletionController);
+
+router.get("/applier", postsForOrgController );
 
 export default router;

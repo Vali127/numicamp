@@ -26,7 +26,6 @@ export function PostModel () {
 
     const GetPostFromOrg = async () => {
         const foo = await api.getPostsFromOrg()
-        console.log("FOO : ",foo)
         const data = foo.rows
         return {
             rows : data.map( item => ( { ...item, photo_pub : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) ),
@@ -52,6 +51,15 @@ export function PostModel () {
         return await api.deletePostApi(id)
     }
 
+    const getApplierPosts = async () => {
+        const foo = await api.getApplierPostsApi()
+        const data = foo.rows
+        return {
+            rows : data.map( item => ( { ...item, photo_pub : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) ),
+            ownership : foo.owner
+        }
+    }
+
 
     return {
         UploadPostImage,
@@ -59,7 +67,8 @@ export function PostModel () {
         GetPostFromOrg,
         GetPostingOrgData,
         GetPostingPersonData,
-        DeletePost
+        DeletePost,
+        getApplierPosts
     }
 
 }
