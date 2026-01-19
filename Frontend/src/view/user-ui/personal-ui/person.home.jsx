@@ -58,7 +58,7 @@ const MainContent = ({
                      }) => (
 
     <div className="flex-1 md:px-0 px-2">
-        <div className="bg-neutral-50 shadow-neutral-50 shadow-2xl pt-2 sticky top-0 z-20">
+        <div className="bg-neutral-50 shadow-[20px_0_20px_-20px_rgba(115, 115, 115)] pt-2 sticky top-0 z-20">
             <AppHeader
                 setSection={setSection}
                 userInfo={userInfo}

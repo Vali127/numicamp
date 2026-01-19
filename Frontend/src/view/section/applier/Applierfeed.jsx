@@ -32,8 +32,7 @@ export const ApplierFeed = () => {
                                         owner={ data.id_profil_org || data.id_profil_pers }
                                         ownership={ownership}
                                         postId={data.id_pub}
-                                        feedOf="person"
-                                    />
+                                        feedOf="person" />
                                 </div>
                             )
                         )

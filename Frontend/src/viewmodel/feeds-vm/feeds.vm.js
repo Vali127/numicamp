@@ -16,7 +16,7 @@ export const FeedsVm = () => {
             const response = await MODEL.GetPostFromOrg()
             setOwnership(response.ownership)
             setPostData(response.rows)
-            setIsEmpty(false)
+            setIsEmpty(response.rows.length === 0)
         }
         catch(error) {
             console.log("ERREUR DE RECUPERATION DE PUBLICATION : ", error)

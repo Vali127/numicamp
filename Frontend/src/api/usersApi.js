@@ -35,10 +35,5 @@ export const usersApi = () => {
         return res.data
     }
 
-    return {
-        getListApi,
-        deleteUserApi,
-        blockUserApi,
-        unblockUserApi,
-    }
+    return { getListApi, deleteUserApi, blockUserApi, unblockUserApi, }
 }
