@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import {getAccountUsage, getLoginInfo, isUserBlocked} from '../models/loginModel.js';
 import dotenv from 'dotenv';
 import {createLogger} from "../utils/logger.js";
+import { reCAPTCHA } from './recaptchaCheck.js';
 
 dotenv.config();
 
@@ -10,12 +11,21 @@ export async function checkInfoLoginService(data) {
     try {
 
         const LOG = createLogger()
-
+        //blocage checker
         const userIsBlocked = await isUserBlocked(data.username)
         if (userIsBlocked) {
             return {
                 ok : false,
                 message : "Vous avez été bloquer par l' administrateur !",
+            }
+        }
+    
+        //recaptcha
+        const reCAPTCHAResponse = await reCAPTCHA(data)
+        if (!reCAPTCHAResponse.ok) {
+            return {
+                ok : reCAPTCHAResponse.ok,
+                message : reCAPTCHAResponse.text
             }
         }
 
