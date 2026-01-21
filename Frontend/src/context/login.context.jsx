@@ -8,6 +8,7 @@ export const LoginContextProvider = ({children}) => {
     
     const [ loginData, setLoginData ] = useState({ username: "", password: "" });
     const [showLogInValidationModal, setShowLogInValidationModal] = useState(false)
+    const [recaptchaToken, setRecaptchaToken] = useState(null)
 
     const SetLoginData = (data) => { setLoginData(data) }
 
@@ -15,7 +16,9 @@ export const LoginContextProvider = ({children}) => {
         loginData,
         SetLoginData,
         showLogInValidationModal,
-        setShowLogInValidationModal
+        setShowLogInValidationModal,
+        recaptchaToken,
+        setRecaptchaToken
     }
 
     return (

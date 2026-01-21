@@ -27,10 +27,7 @@ export const userModalViewModel = () => {
             setStatus("loading")
             const response = await MODEL.deleteUser(id)
             setResponse(response)
-            if (response.ok)
-                setStatus("success")
-            else
-                setStatus("failed")
+            setStatus(response.ok ? "success" : "failed" )
 
         } catch (error) {
             console.error(error)

@@ -3,10 +3,13 @@ import {Link} from "react-router-dom"
 import {LoginContextProvider, useLoginContext} from "../../../context/login.context.jsx"
 import {useEffect} from "react";
 import {LoginValidationModal} from "./login.validation.modal.jsx";
+import ReCAPTCHA from "react-google-recaptcha";
+import { CONFIG } from "../../../config.js";
 
 const LoginContent = () => {
     const loginContext = useLoginContext()
     const { passwordVisibility,HandlePasswordVisibility, buttonDisabled, SetConnexionButtonActivation } = loginVm()
+
 
     useEffect(() => { SetConnexionButtonActivation() }, [loginContext.loginData])
 
@@ -97,6 +100,12 @@ const LoginContent = () => {
                             Se connecter
                         </button>
                     </div>
+
+                    <ReCAPTCHA
+                        sitekey={CONFIG.ReCAPTCHA_SITE_KEY}
+                        onChange={(token) => { loginContext.setRecaptchaToken(token) }}
+                    />
+                    
 
                 </form>
             </div>

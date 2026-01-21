@@ -3,11 +3,11 @@ import {LoginApi} from "../api/login.api.js"
 
 export const LoginModel = () => {
 
-    const { loginData } = useLoginContext()
-    const { submitLogin, logoutAPI } = LoginApi()
+    const { loginData, recaptchaToken } = useLoginContext()
+    const { submitLogin } = LoginApi()
 
     const SubmitForm = async() => {
-        return await submitLogin(loginData)
+        return await submitLogin({...loginData, recaptchaToken : recaptchaToken })
     }
 
     return { SubmitForm }

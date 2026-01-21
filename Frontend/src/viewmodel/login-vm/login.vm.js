@@ -10,6 +10,7 @@ export const loginVm = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [buttonDisabled, setButtonDisabled] = useState(true)
     const HandlePasswordVisibility = () => { setPasswordVisibility(!passwordVisibility) }
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         document.getElementById('password_viewer').innerHTML = (passwordVisibility) ? '&#xE224;' : '&#xE220;'

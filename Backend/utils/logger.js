@@ -54,14 +54,6 @@ export function createLogger() {
     }
 
     return {
-        logIn,
-        logOut,
-        removeUser,
-        blockUser,
-        unBlockUser,
-        addResource,
-        removeResource,
-        addSchool,
-        removeSchool,
+        logIn, logOut, removeUser, blockUser, unBlockUser, addResource, removeResource, addSchool, removeSchool,
     };
 }
