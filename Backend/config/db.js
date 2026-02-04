@@ -14,27 +14,4 @@ const pool = mysql.createPool({
     charset: 'utf8mb4'
 });
 
-export async function testConnection() {
-    let conn;
-    try{
-        conn = await pool.getConnection();
-        const [rows] = await conn.query('SELECT 1 AS ok');
-        return {
-            ok:true,
-            rows
-        };
-    }
-    catch (error) {
-        return {
-            ok: false,
-            error: error.message || error
-        };
-    }
-    finally {
-        if (conn) {
-            conn.release();
-        }
-    }
-}
-
-export  { pool };
+export default { pool };

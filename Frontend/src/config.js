@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-    hostname : "localhost",
+    hostname : "10.13.4.245",
     port : 3000,
 }
 
