@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import pool from './config/db.js';
+import {pool} from './config/db.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

@@ -6,21 +6,16 @@ import { registerPersonService,registerOrganisationService } from '../services/r
 export async function registerPersonController(req, res) {
     try {
         const result = await registerPersonService(req.body);
-
-        if(result.ok){
-            res.status(200).json({ message: 'Inscription réussie' });
-        }
+        res.status(200).json({ ok : result.ok, message: 'Inscription réussie' });
     } catch (error) {
         res.status(error.status||500).json({ message: error.message });
     }
 }
+
 export async function registerOrganisationController(req, res) {
     try {
         const result = await registerOrganisationService(req.body);
-        
-        if(result.ok){
-            res.status(200).json({message: 'Inscription réussie'});
-        }
+        res.status(200).json({ ok : result.ok ,message: 'Inscription réussie'});
     } catch (error) {
         res.status(error.status||500).json({ message: error.message });
     }

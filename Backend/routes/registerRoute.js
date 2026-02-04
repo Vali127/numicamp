@@ -3,7 +3,6 @@ import {registerOrganisationController, registerPersonController} from '../contr
 
 const router = express.Router();
 
-//pour les inscriptions, fonction diff selon usage
 router.post('/person', registerPersonController);
 router.post('/organisation', registerOrganisationController);
 
