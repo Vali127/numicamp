@@ -1,75 +1,36 @@
-import {pool} from "../config/db.js";
+import { pool } from '../config/db.js';
 
-
-export async function getAccountInfo(user_id, usage ) {
-    
-    let connection
+export async function getAccountInfo(user_id, usage) {
     try {
+        const table = (usage === 'personal' || usage === 'admin') ? 'personne' : 'organisation';
+        const [rows] = await pool.query(
+            `SELECT * FROM ${table} WHERE id_profil = ?`,
+            [user_id]
+        );
 
-        connection = await pool.getConnection()
-        await connection.beginTransaction()
-
-        let  sql
-        if ( usage === "personal" || usage === "admin" )
-            sql = `SELECT * FROM personne WHERE id_profil = ?`
-        else
-            sql = `SELECT * FROM organisation WHERE id_profil = ?`
-
-        const [rows] = await connection.query( sql, [user_id] )
-
-        if ( rows.length <= 0 )
-            throw new Error("données introuvable")
-        
-        await connection.commit()
-        return { ok: true, data: rows[0] }
-
-    }
-    catch (error) {
-        if (connection) await connection.rollback()
-        throw new Error("Erreur dans getAccountInfo Model : "+ error.message)
-    }
-    finally {
-        if (connection) connection.release()
-    }
-
-}
-
-
-export async function getUserDomains(id_user, usage) {
-
-    let connection
-
-    try {
-
-        const connection = await pool.getConnection()
-        await connection.beginTransaction()
-
-        let sql
-        if ( usage === "personal" ) {
-            sql = `
-            SELECT design_domaine 
-            FROM domaine, orienter_pers 
-            WHERE domaine.id_domaine = orienter_pers.id_domaine 
-            AND orienter_pers.id_profil = ? `
-        } else {
-            sql = `
-            SELECT design_domaine 
-            FROM domaine, orienter_org 
-            WHERE domaine.id_domaine = orienter_org.id_domaine 
-            AND orienter_org.id_profil = ? `
+        if (rows.length === 0) {
+            throw new Error('Données introuvables');
         }
 
-        const result = await connection.query(sql, [id_user])
-        //await connection.commit()
+        return { ok: true, data: rows[0] };
+    } catch (error) {
+        throw new Error(`Erreur dans getAccountInfo Model: ${error.message}`);
+    }
+}
 
-        return { ok: true, data: result[0] }
-    }
-    catch (error) {
-        if (connection) await connection.rollback()
-        throw new Error('Erreur de recuperation de domaine : ' + error.message);
-    }
-    finally {
-        if (connection) connection.release()
-    }
+export async function getUserDomains(id_user, usage) {
+    try {
+        const relationTable = usage === 'personal' ? 'orienter_pers' : 'orienter_org';
+        const sql = `
+            SELECT design_domaine 
+            FROM domaine 
+            INNER JOIN ${relationTable} ON domaine.id_domaine = ${relationTable}.id_domaine 
+            WHERE ${relationTable}.id_profil = ?
+        `;
 
+        const [rows] = await pool.query(sql, [id_user]);
+        return { ok: true, data: rows };
+    } catch (error) {
+        throw new Error(`Erreur de récupération de domaine: ${error.message}`);
+    }
 }

@@ -7,12 +7,11 @@ export async function accountInfoService(data) {
     const usage = data.query.usage
 
     try {
-        const res = await getAccountInfo(id_profil, usage);
-        return res
+        return await getAccountInfo(id_profil, usage)
     }
     catch (error) {
         console.log(error)
-        throw error;
+        throw Error(error);
     }
     
 }
@@ -22,36 +21,33 @@ export async function userDomainsService(data) {
     const id_user = data.user.id || data.user.id_profil
     const usage = data.query.usage
     try {
-        const res = await getUserDomains(id_user, usage)
-        return res
+        return await getUserDomains(id_user, usage)
     }
     catch (error) {
         console.log(error)
-        throw error;
+        throw Error(error);
     }   
 }
 
 export async function organisationInfoService(data) {
     const id_org = data.query.id_org
     try {
-        const res = await getAccountInfo( id_org, "organisational" )
-        return res
+        return await getAccountInfo(id_org, "organisational")
     }
     catch (error) {
         console.log(error)
-        throw error;
+        throw Error(error);
     }
 }
 
 export async function personInfoService(data) {
     const id_person = data.query.id_person
     try {
-        const res = await getAccountInfo( id_person, "personal" )
-        return res
+        return await getAccountInfo(id_person, "personal")
     }
     catch (error) {
         console.log(error)
-        throw error;
+        throw Error(error);
     }
 }
 
