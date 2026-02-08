@@ -1,15 +1,9 @@
 import {profileInfoService, profileUpdateService} from "../services/profileService.js"
 
 export async function getProfileController(req, res) {
-    try {  
-        
+    try {
         const result = await profileInfoService(req)
-
-        if (result.ok)
-            res.status(200).json({data : result})
-        else
-            res.status(500).json({data : {...result , ok : false}})
-
+        res.status(200).json({data : result.data || null, ok : result.ok})
     }
     catch(error) {
         console.log('ERREUR : ', error)
@@ -21,10 +15,7 @@ export async function getProfileController(req, res) {
 export async function profileUpdateController(req, res){
     try {
         const result = await profileUpdateService(req,res)
-        if (result === true )
-            res.status(200).json({message : "profile data updated", ok : true, authorized : true })
-        if (result === false )
-            res.status(403).json({message : "action non autorisé", ok : false, authorized : false })
+        res.status(200).json({message : (result) ? "profile data updated" : "an error occurred", ok : result, authorized : true })
     }
     catch(error) {
         console.log('ERREUR : ', error)

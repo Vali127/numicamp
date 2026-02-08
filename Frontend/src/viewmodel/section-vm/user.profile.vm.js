@@ -19,6 +19,7 @@ export const userProfileViewModel = (id) => {
             const response = await model.getProfilData(data)
             let usage = response.user_type
             setProfileData(response)
+            console.log("DATA : ", response)
             await fetchPosts(usage)
         }
         catch(e) {
