@@ -3,11 +3,11 @@ import { API_CONFIG } from '../config.js'
 
 export const OrgSuggestionApi = () => {
 
-    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/organisation`
+    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/organization`
     const token = localStorage.getItem('token')
 
     const getOrganisationSuggestionApi = async() => {
-        const response = await axios.get( BASE_URL + "/orgDomain", {
+        const response = await axios.get( BASE_URL + "/suggestion", {
             headers: { 'Authorization': "Bearer " + token }
         })
         return response.data

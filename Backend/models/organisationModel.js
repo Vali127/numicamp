@@ -19,7 +19,8 @@ export async function getOrganisation(idProfil) {
         const rows = await pool.query(sqlOrg, [idProfil,idProfil]);
         return {
             ok: true,
-            data: rows[0]
+            data: rows[0],
+            message : "suggested organisations retrieved"
         }
     }catch(err){
         throw new Error("Erreur dans Model : "+ err.message)
