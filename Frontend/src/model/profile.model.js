@@ -18,7 +18,7 @@ export const  profileModel = () => {
 
     const getProfilePostData = async (obj, type) => {
         const foo = await PostApi().getUserPostsApi(obj, type)
-        const data = foo.rows
+        const data = foo.publications
         return {
             rows : data.map((item) => ({...item, photo_pub : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_pub}` , date_pub : DateShortFormat(item.date_pub) })),
             ownership : foo.owner

@@ -26,7 +26,7 @@ export function PostModel () {
 
     const GetPostFromOrg = async () => {
         const foo = await api.getPostsFromOrg()
-        const data = foo.rows
+        const data = foo.publications
         return {
             rows : data.map( item => ( { ...item, photo_pub : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) ),
             ownership : foo.owner
@@ -53,7 +53,7 @@ export function PostModel () {
 
     const getApplierPosts = async () => {
         const foo = await api.getApplierPostsApi()
-        const data = foo.rows
+        const data = foo.publications
         return {
             rows : data.map( item => ( { ...item, photo_pub : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) ),
             ownership : foo.owner

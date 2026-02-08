@@ -8,7 +8,7 @@ export const PostApi = () => {
     const token = localStorage.getItem('token')
 
     const uploadPostApi = async ( dataPost ) => {
-        return await axios.post( BASE_URL + "/sendPost", dataPost, {
+        return await axios.post( BASE_URL + "/create", dataPost, {
             headers: { 'Authorization' : "Bearer " + token }
         })
     }
@@ -16,18 +16,18 @@ export const PostApi = () => {
     const uploadPostImageApi = async ( file ) => {
         const formData = new FormData()
         formData.append('image', file)
-        return await axios.post( BASE_URL + "/uploadPostImage", formData)
+        return await axios.post( BASE_URL + "/upload-image", formData)
     }
 
     const getPostsFromOrg = async () => {
-        const response = await axios.get( BASE_URL + "/pubDescriptionOrg", {
+        const response = await axios.get( BASE_URL + "/subscribed", {
                 headers : { 'Authorization' : "Bearer " + token }
             })
         return response.data
     }
 
     const getUserPostsApi = async (obj, user_type) => {
-        const URL = (user_type === "personal") ? BASE_URL + "/person" : BASE_URL + "/org"
+        const URL = (user_type === "personal") ? BASE_URL + "/user" : BASE_URL + "/organization"
         const response = await axios.get( URL, {
             headers : { Authorization : "Bearer " + token },
             params : obj
@@ -46,7 +46,7 @@ export const PostApi = () => {
     }
 
     const getApplierPostsApi = async () => {
-        const response = await axios.get( BASE_URL + "/applier", {
+        const response = await axios.get( BASE_URL + "/applicants", {
             headers : { Authorization : "Bearer " + token },
         })
         return response.data

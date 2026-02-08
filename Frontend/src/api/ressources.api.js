@@ -3,7 +3,7 @@ import { API_CONFIG } from '../config.js'
 
 export const RessourcesApi = () => {
 
-    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/ressources`
+    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/resources`
     const token = localStorage.getItem('token')
 
     const getListApi = async () => {

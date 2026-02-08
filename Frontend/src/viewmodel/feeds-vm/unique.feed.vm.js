@@ -93,7 +93,7 @@ export const DeletionViewModel = (postId) => {
     const DeletePost = async () => {
         try {
             const response = await PostModel().DeletePost(postId)
-            if (response.ok)
+            if (response.success)
                 setStatus("success")
             else setStatus("error")
             console.log("Response : ", response)
