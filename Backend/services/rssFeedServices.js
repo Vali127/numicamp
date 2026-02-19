@@ -21,6 +21,7 @@ export async function getResourceListService(req, res) {
         verifyToken(req, res)
         const isAdmin = await verifyAdmin(req.user.id)
         console.log("is admin : ",isAdmin)
+
         if (!isAdmin) { return { ok : false, message : "Accès interdit , vous devez être un administrateur" } }
 
         const rows = await getResourceList();
@@ -30,6 +31,7 @@ export async function getResourceListService(req, res) {
             message : "Liste des resources obténue",
             rows : rows
         }
+
     } catch (err) {
         throw Error(err);
     }

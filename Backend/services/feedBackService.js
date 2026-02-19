@@ -9,8 +9,7 @@ export async function sendFeedBackService (req, res) {
         const MODEL = FeedbackModel()
         verifyToken( req, res )
         const result = await MODEL.registerFeedback(req.user.id, req.body.content)
-        
-        
+
         SendMailForFeedBackNotification(req).catch(err => 
             console.error('Erreur envoi email:', err)
         )
