@@ -1,30 +1,11 @@
-import axios from 'axios'
-import { API_CONFIG } from '../config.js'
+import createClient from './modules/api.client.js'
 
 export const commentApi = () => {
-
-    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/comment`
-    const token = localStorage.getItem('token')
-
-    const postCommentApi = async (data) => {
-        const res = await axios.post( BASE_URL + "/sendComment", data, {
-            headers : { 'Authorization' : "Bearer " + token }
-        })
-        return res.data
-    }
-
-    const getCommentsApi = async ( postId ) => {
-        const res = await axios.get( BASE_URL + "/getComment", {
-            headers : {'Authorization' : "Bearer " + token},
-            params : { idPub : postId }
-        })
-        return res.data
-    }
-
+    const client = createClient('comment')
+    const auth = { headers: client.getAuth() }
 
     return {
-        postCommentApi,
-        getCommentsApi
+        postCommentApi: (data)   => client.post("sendComment", data, auth),
+        getCommentsApi: (postId) => client.get("getComment", { ...auth, params: { idPub: postId } }),
     }
-
 }

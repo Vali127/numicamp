@@ -1,14 +1,9 @@
-import axios from "axios";
-import { API_CONFIG } from '../config.js'
+import createClient from './modules/api.client.js'
 
+export const LoginApi = () => {
+    const client = createClient('login')
 
-export const  LoginApi = () => {
-    const submitLogin = async (obj) => {
-        return await axios.post(`http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/login/checkLoginInfo`, obj)
-    }
-
-
-    return { 
-        submitLogin
+    return {
+        submitLogin: (obj) => client.post("checkLoginInfo", obj),
     }
 }

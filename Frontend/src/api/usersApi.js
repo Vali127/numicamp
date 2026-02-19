@@ -1,39 +1,13 @@
-import axios from "axios";
-import {API_CONFIG} from "../config.js";
-
+import createClient from './modules/api.client.js'
 
 export const usersApi = () => {
+    const client = createClient('users')
+    const auth = { headers: client.getAuth() }
 
-    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/users`
-    const token = localStorage.getItem("token")
-
-    const getListApi = async () => {
-        const res = await axios.get(BASE_URL + '/userList',
-            { headers: { Authorization: `Bearer ${token}` } },);
-        return res.data
+    return {
+        getListApi:    ()    => client.get("userList", auth),
+        deleteUserApi: (id)  => client.delete("remove",  { ...auth, params: { id_user: id } }),
+        blockUserApi:  (id)  => client.post("block",   { id_user: id }, auth),
+        unblockUserApi:(id)  => client.post("unblock", { id_user: id }, auth),
     }
-
-    const deleteUserApi = async (id) => {
-        const res = await axios.delete(BASE_URL + '/remove', {
-            headers: { Authorization: `Bearer ${token}` },
-            params: { id_user : id }
-        })
-        return res.data
-    }
-
-    const blockUserApi = async (id) => {
-        const res = await axios.post(BASE_URL + '/block',{ id_user : id },{
-            headers: { Authorization: `Bearer ${token}` }
-        })
-        return res.data
-    }
-
-    const unblockUserApi = async (id) => {
-        const res = await axios.post(BASE_URL + '/unblock', { id_user : id },{
-            headers: { Authorization: `Bearer ${token}` }
-        })
-        return res.data
-    }
-
-    return { getListApi, deleteUserApi, blockUserApi, unblockUserApi, }
 }

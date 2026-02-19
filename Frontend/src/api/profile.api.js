@@ -1,29 +1,11 @@
-import axios from "axios";
-import { API_CONFIG } from '../config.js'
-
+import createClient from './modules/api.client.js'
 
 export const profileApi = () => {
-
-    const  BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/profile`
-    const  token = localStorage.getItem("token")
-
-    const getProfileDataApi = async(obj) => {
-        const res = await  axios.get( BASE_URL + "/info", {
-            headers: { Authorization: "Bearer " + token },
-            params: obj
-        } )
-        return res.data
-    }
-
-    const updateProfileDataApi = async(obj) => {
-        const res = await  axios.post( BASE_URL + "/update", obj, {
-            headers: { Authorization: "Bearer " + token }
-        })
-        return res.data
-    }
+    const client = createClient('profile')
+    const auth = { headers: client.getAuth() }
 
     return {
-        getProfileDataApi,
-        updateProfileDataApi,
+        getProfileDataApi:    (obj) => client.get("info",   { ...auth, params: obj }),
+        updateProfileDataApi: (obj) => client.post("update", obj, auth),
     }
 }
