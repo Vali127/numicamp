@@ -14,11 +14,11 @@ export const  LoginValidationVm = () => {
         try {
             const response = await loginModel.SubmitForm()
             console.log(response)
-            setMessage(response.data.message)
-            if (response.data.ok) {
+            setMessage(response.message)
+            if (response.ok) {
                 setResult('success')
-                localStorage.setItem('token', response.data.token)
-                localStorage.setItem('usage', response.data.usage)
+                localStorage.setItem('token', response.token)
+                localStorage.setItem('usage', response.usage)
                 localStorage.setItem('isLoggedIn', true )
             }
             else {

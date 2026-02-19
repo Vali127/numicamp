@@ -17,9 +17,11 @@ export async function checkInfoLoginService(data) {
         }
 
         // CHECK reCAPTCHA
-        const reCAPTCHAResponse = await reCAPTCHA(data);
-        if (!reCAPTCHAResponse.ok) {
-            return { ok: false, message: reCAPTCHAResponse.text };
+        if (process.env.NODE_ENV === 'production') {
+            const reCAPTCHAResponse = await reCAPTCHA(data);
+            if (!reCAPTCHAResponse.ok) {
+                return { ok: false, message: reCAPTCHAResponse.text };
+            }
         }
 
         const userInfo = await getLoginInfo(data.username);
