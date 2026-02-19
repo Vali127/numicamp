@@ -1,16 +1,25 @@
 import {pool} from "../config/db.js";
 
 export async function searchModel(data) {
-    console.log("debut model")
-    const connection = await pool.getConnection();
 
     try{
+
+        const [username, user, orgName, org, posts ] = await Promise.all(
+            [
+                findUsername(data),
+                findUser(data),
+                findOrgName(data),
+                findOrg(data),
+                findPost(data)
+            ]
+        )
+
         let res = {
-            username: (await findUsername(data)).rows,
-            user: (await findUser(data)).rows,
-            orgName: (await findOrgName(data)).rows,
-            org: (await findOrg(data)).rows,
-            posts: await findPost(data)
+            username: username.rows,
+            user: user.rows,
+            orgName: orgName.rows,
+            org: org.rows,
+            posts: posts
         };
 
         return {
