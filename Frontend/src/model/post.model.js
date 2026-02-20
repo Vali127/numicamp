@@ -3,63 +3,52 @@ import { PostApi } from "../api/post.api.js"
 import { DateShortFormat } from "../utils/display.format.js"
 import { API_CONFIG } from "../config.js"
 
-
-export function PostModel () {
-    
+export const PostModel = () => {
     const api = PostApi()
-    
-    const UploadPostImage = async ( data ) => {
-        return await api.uploadPostImageApi(data)
-    }
+    const staticUrl = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users`
 
-    const UploadPostData = async ( data ) => {
-       const obj = {
-        title : data.title,
-        description : data.description,
-        photoPath : data.photo,
-        keywords : data.keywords,
-        domains : data.domains
-       }
-       
-       return await  api.uploadPostApi(obj)
-    }
+    const formatPost = (item) => ({
+        ...item,
+        photo_pub: `${staticUrl}/${item.photo_pub}`,
+        date_pub: DateShortFormat(item.date_pub)
+    })
+
+    const formatProfile = (data) => ({
+        ...data,
+        photo_profil: `${staticUrl}/${data.photo_profil}`
+    })
+
+    const UploadPostImage = (data) => api.uploadPostImageApi(data)
+
+    const UploadPostData = (data) => api.uploadPostApi({
+        title: data.title,
+        description: data.description,
+        photoPath: data.photo,
+        keywords: data.keywords,
+        domains: data.domains
+    })
 
     const GetPostFromOrg = async () => {
         const foo = await api.getPostsFromOrg()
-        const data = foo.publications
-        return {
-            rows : data.map( item => ( { ...item, photo_pub : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) ),
-            ownership : foo.owner
-        }
+        return { rows: foo.publications.map(formatPost), ownership: foo.owner }
     }
 
     const GetPostingOrgData = async (id) => {
-        const foo =  await AccountApi().getOrganisationDataApi(id)
-        const data = foo.data
-        data.photo_profil = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${data.photo_profil}`
-        return data
+        const { data } = await AccountApi().getOrganisationDataApi(id)
+        return formatProfile(data)
     }
 
     const GetPostingPersonData = async (id) => {
-        const foo =  await AccountApi().getPersonDataApi(id)
-        const data = foo.data
-        data.photo_profil = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${data.photo_profil}`
-        return data
+        const { data } = await AccountApi().getPersonDataApi(id)
+        return formatProfile(data)
     }
 
-    const DeletePost = async (id) => {
-        return await api.deletePostApi(id)
-    }
+    const DeletePost = (id) => api.deletePostApi(id)
 
     const getApplierPosts = async () => {
         const foo = await api.getApplierPostsApi()
-        const data = foo.publications
-        return {
-            rows : data.map( item => ( { ...item, photo_pub : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_pub}`, date_pub : DateShortFormat(item.date_pub) } ) ),
-            ownership : foo.owner
-        }
+        return { rows: foo.publications.map(formatPost), ownership: foo.owner }
     }
-
 
     return {
         UploadPostImage,
@@ -70,5 +59,4 @@ export function PostModel () {
         DeletePost,
         getApplierPosts
     }
-
 }

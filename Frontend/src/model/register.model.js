@@ -1,51 +1,40 @@
-import {useSignInContext} from "../context/register.context.jsx";
-import {RegisterApi} from "../api/register.api.js"
+import { useSignInContext } from "../context/register.context.jsx"
+import { RegisterApi } from "../api/register.api.js"
 
 export const RegisterModel = () => {
-
-
     const { SendFormForPersonalUsage, SendFormForOrganisationalUsage } = RegisterApi()
-    const SignInData = useSignInContext()
+    const { typeOfUsage, personForm, organisationForm, accountForm, domain } = useSignInContext()
+
+    const commonAccountFields = {
+        profil_name: accountForm.username,
+        profil_description: accountForm.bio,
+        mail: accountForm.mail,
+        password: accountForm.password,
+        temp_photo: accountForm.tempPhotoFilename,
+        domaines: domain
+    }
 
     const SubmitForm = async () => {
-
-        let object = null
-        if ( SignInData.typeOfUsage === "personal" ) {
-            object = {
-                name: SignInData.personForm.name,
-                firstname: SignInData.personForm.firstname,
-                birth_date: SignInData.personForm.birth_date,
-                sex: SignInData.personForm.sex,
-                localisation: SignInData.personForm.place,
-                profil_name: SignInData.accountForm.username,
-                profil_description: SignInData.accountForm.bio,
-                mail: SignInData.accountForm.mail,
-                password: SignInData.accountForm.password,
-                temp_photo: SignInData.accountForm.tempPhotoFilename,
-                domaines : SignInData.domain
-            }
-            return await SendFormForPersonalUsage(object)
+        if (typeOfUsage === "personal") {
+            return SendFormForPersonalUsage({
+                name: personForm.name,
+                firstname: personForm.firstname,
+                birth_date: personForm.birth_date,
+                sex: personForm.sex,
+                localisation: personForm.place,
+                ...commonAccountFields
+            })
         }
-        else if ( SignInData.typeOfUsage === "organisational" ) {
-             object = {
-                 name : SignInData.organisationForm.name ,
-                 creation_date : SignInData.organisationForm.creation_date,
-                 localisation : SignInData.organisationForm.place,
-                 profil_name : SignInData.accountForm.username,
-                 profil_description : SignInData.accountForm.bio,
-                 mail : SignInData.accountForm.mail,
-                 password : SignInData.accountForm.password,
-                 temp_photo: SignInData.accountForm.tempPhotoFilename,
-                 domaines : SignInData.domain
-             }
-            return await SendFormForOrganisationalUsage(object)
+        if (typeOfUsage === "organisational") {
+            return SendFormForOrganisationalUsage({
+                name: organisationForm.name,
+                creation_date: organisationForm.creation_date,
+                localisation: organisationForm.place,
+                ...commonAccountFields
+            })
         }
-        if (!object) {
-            throw new Error('Objet de données null - vérifiez le typeOfUsage et les données des formulaires')
-        }
+        throw new Error('Objet de données null - vérifiez le typeOfUsage et les données des formulaires')
     }
 
-    return {
-        SubmitForm
-    }
+    return { SubmitForm }
 }
