@@ -1,20 +1,7 @@
+const VALID_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
+const MAX_IMAGE_SIZE = 10 * 1024 * 1024
 
-
-export function ImageServices() {
-
-    const isImageSizeValid = (size) => {
-        const maxSize = 10 * 1024 * 1024; // 5MB
-        return size < maxSize
-    }
-
-    const isImageTypeValid = (type) => {
-        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
-        return validTypes.includes(type)
-    }
-
-    return {
-        isImageSizeValid,
-        isImageTypeValid
-    }
-
-}
+export const ImageServices = () => ({
+    isImageSizeValid: (size) => size < MAX_IMAGE_SIZE,
+    isImageTypeValid: (type) => VALID_IMAGE_TYPES.includes(type),
+})
