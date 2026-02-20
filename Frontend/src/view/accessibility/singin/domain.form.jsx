@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {ITDomain, useSignInContext} from "../../../context/register.context.jsx";
-import { HandleItemSelection } from "../../../utils/ui.js";
+import {HandleItemSelection} from "../../../utils/ui.js";
 
 export const DomainForm = ({CurrentPage, isButtonNextDisabled}) => {
     const { domain, setDomain } = useSignInContext()
@@ -18,14 +18,12 @@ export const DomainForm = ({CurrentPage, isButtonNextDisabled}) => {
     useEffect(() => { if (CurrentPage) { CurrentPage('domainForm') } }, [])
     useEffect( () => { ( domain.length >= 1 ) ? isButtonNextDisabled(false) : isButtonNextDisabled(true)  }, [domain] )
 
-    const data = ITDomain
-
     return (
         <div className={"text-left mx-8 md:mx-20"}>
             <h2 className={" text-[20px] md:text-2xl font-bold mb-5"}>Quelles<span className="span"> domaines</span> vous interresses ?</h2>
             <div className={"flex gap-4 flex-wrap h-90 md:h-auto"}>
                 {
-                    data.map((domain, index) => (
+                    ITDomain.map((domain, index) => (
                         <button
                             className={"selection_btn"}
                             onClick={HandleSelection}

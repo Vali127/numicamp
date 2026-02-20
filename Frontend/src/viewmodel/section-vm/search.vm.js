@@ -1,35 +1,21 @@
 import { useEffect, useState } from "react"
 import { searchModel } from "../../model/search.model"
 
-
 export const SearchViewModel = (prompt) => {
-
     const model = searchModel()
     const [data, setData] = useState(null)
-
-    const [ currentTab, setCurrentTab ] = useState("posts")
+    const [currentTab, setCurrentTab] = useState("posts")
 
     const FetchPrompt = async () => {
-        const data_to_send = { keywords : prompt }
         try {
-            const received_data = await model.search(data_to_send)
+            const received_data = await model.search({ keywords: prompt })
             setData(received_data)
+        } catch (err) {
+            console.error("ERROR ON SENDING PROMPT : ", err)
         }
-        catch (err) {   
-            console.log("ERROR ON SENDING PROMPT : ", err)
-        }
-
     }
 
-    useEffect(
-        () => { FetchPrompt() }, []
-    )
+    useEffect(() => { FetchPrompt() }, [])
 
-    return {
-        currentTab,
-        setCurrentTab,
-        data,
-        FetchPrompt
-    }
-
+    return { currentTab, setCurrentTab, data, FetchPrompt }
 }

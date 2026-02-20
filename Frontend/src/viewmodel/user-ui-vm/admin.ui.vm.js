@@ -1,41 +1,27 @@
-import {HomeModel} from "../../model/home.model.js";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react"
+import { HomeModel } from "../../model/home.model.js"
 
+const isUserAuthenticated = () => !!localStorage.getItem("token")
 
 export const AdminHomeViewModel = () => {
+    const { getAccountInfo } = HomeModel()
+    const [authenticated, setAuthenticated] = useState(false)
+    const [userInfo, setUserInfo] = useState({})
+    const [logout, setLogout] = useState(false)
 
-    //L'Admin est un compte personnel donc il utilise toutes les ressources des utilisateurs personnels.
+    useEffect(() => { setAuthenticated(isUserAuthenticated()) }, [])
 
-    //MODEL
-    const { getAccountInfo } = HomeModel();
-
-    //STATES
-    const [authenticated, setAuthenticated] = useState(false);
-    const [userInfo, setUserInfo] = useState({});
-    const [logout, setLogout] = useState(false);
-
-    //FUNCTIONS
-    const HandleAccountInformation = async () => {
-        try {
-            const res = await getAccountInfo();
-            setUserInfo(res);
-        } catch (error) {
-            console.log(error);
+    useEffect(() => {
+        const HandleAccountInformation = async () => {
+            try {
+                const res = await getAccountInfo()
+                setUserInfo(res)
+            } catch (error) {
+                console.error(error)
+            }
         }
-    }
+        HandleAccountInformation()
+    }, [])
 
-    //EFFECT
-    useEffect(() => { setAuthenticated(isUserAuthenticated()); }, []);
-    useEffect(() => { HandleAccountInformation(); }, []);
-    return {
-        authenticated,
-        userInfo,
-        logout,
-        setLogout
-    }
-
-}
-
-const isUserAuthenticated = () => {
-    return localStorage.getItem("token")
+    return { authenticated, userInfo, logout, setLogout }
 }

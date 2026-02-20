@@ -1,44 +1,34 @@
-import {UserModel} from "../../model/usersModel.js";
-import {useEffect, useState} from "react";
-
+import { useEffect, useState } from "react"
+import { UserModel } from "../../model/usersModel.js"
 
 export const UsersViewModel = () => {
-    //MODEL
-    const MODEL = UserModel();
+    const MODEL = UserModel()
+    const [listStatus, setListStatus] = useState('')
+    const [userList, setUserList] = useState([])
+    const [showBlockageModal, setShowBlockageModal] = useState(false)
+    const [showDeletionModal, setShowDeletionModal] = useState(false)
 
-    //STATES
-    const [listStatus, setListStatus] = useState('');
-    const [userList, setUserList] = useState([]);
-    const [showBlockageModal, setShowBlockageModal] = useState(false);
-    const [showDeletionModal, setShowDeletionModal] = useState(false);
-
-    //FUNCTIONS
     const FetchUserList = async () => {
         try {
-            setListStatus('loading');
+            setListStatus('loading')
             const result = await MODEL.getUsers()
-            console.log("Result : ", result)
             if (result.ok) {
                 setUserList(result.rows)
-                setListStatus('success');
+                setListStatus('success')
             } else {
-                setListStatus('unauthorized');
+                setListStatus('unauthorized')
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 
-    //EFFECT
-    useEffect(() => { FetchUserList() }, []);
+    useEffect(() => { FetchUserList() }, [])
 
     return {
         FetchUserList,
-        listStatus,
-        userList,
-        showBlockageModal,
-        showDeletionModal,
-        setShowDeletionModal,
-        setShowBlockageModal
+        listStatus, userList,
+        showBlockageModal, setShowBlockageModal,
+        showDeletionModal, setShowDeletionModal,
     }
 }

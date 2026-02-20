@@ -3,10 +3,10 @@ import {ThreeDots} from "react-loader-spinner";
 import successAnimation from "../../../assets/animations/system-solid-31-check-in-reveal.json"
 import errorAnimation from "../../../assets/animations/system-regular-56-red-warning-in-warning.json"
 import Lottie from "lottie-react";
-import {userModalViewModel} from "../../../viewmodel/section-vm/user.modal.vm.js";
+import {UserModalViewModel} from "../../../viewmodel/section-vm/user.modal.vm.js";
 
 export const DeleteModal = ({user = "", userId = null, modalVisibility}) => {
-    const { status, DeleteUser, response } = userModalViewModel();
+    const { status, DeleteUser, response } = UserModalViewModel();
     return (
         <Modal>
             { status === "normal" && <Confirmation user={user} userId={userId} action={DeleteUser} modalVisibility={modalVisibility} /> }

@@ -1,59 +1,49 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ressourcesModel } from "../../model/ressources.model"
-import { useEffect } from "react"
-import {statsModel} from "../../model/stats.model.js";
-
 
 export const RessourcesViewModel = () => {
     const model = ressourcesModel()
-
     const [section, setSection] = useState("news")
-    const [news, setNews] = useState([])  // Changed to array
-    const [sites, setSites] = useState([]) // Changed to array
+    const [news, setNews] = useState([])
+    const [sites, setSites] = useState([])
     const [newsStatus, setNewsStatus] = useState("loading")
-    const [siteStatus, setSiteStatus] = useState("loading") // Fixed setter name
+    const [siteStatus, setSiteStatus] = useState("loading")
 
-    const FetchNews = async() => {
-        try {
-            setNewsStatus("loading")
-            const response = await model.getNews()
-            console.log("NEWS : \n",response.data)
-            if (response.ok) {
-                setNews(response.data)
-                setNewsStatus("loaded") 
-            } else {
+    useEffect(() => {
+        const FetchNews = async () => {
+            try {
+                setNewsStatus("loading")
+                const response = await model.getNews()
+                if (response.ok) {
+                    setNews(response.data)
+                    setNewsStatus("loaded")
+                } else {
+                    setNews([])
+                    setNewsStatus("noInternet")
+                }
+            } catch (error) {
+                console.error("ERREUR : ", error)
                 setNews([])
                 setNewsStatus("noInternet")
             }
-        } catch (error) {
-            setNews([])
-            setNewsStatus("noInternet")
-            console.log("ERREUR : ", error)
         }
-    }
-    
-    const FetchSites = async() => {
-        try {
-            setSiteStatus("loading")
-            const response = await model.getSites()
-            setSites(response.data)
-            setSiteStatus("loaded")
-        } catch (error) {
-            console.log("ERREUR : ", error)
-            setSiteStatus("error")
+        FetchNews()
+    }, [])
+
+    useEffect(() => {
+        const FetchSites = async () => {
+            try {
+                setSiteStatus("loading")
+                const response = await model.getSites()
+                setSites(response.data)
+                setSiteStatus("loaded")
+            } catch (error) {
+                console.error("ERREUR : ", error)
+                setSiteStatus("error")
+            }
         }
-    }
-    
-    //EFFECT
-    useEffect(() => { FetchNews() }, [])
-    useEffect(() => { FetchSites() }, [])
-    
-    return {
-        news,
-        sites,
-        newsStatus,
-        siteStatus,
-        section,
-        setSection
-    }
+        FetchSites()
+    }, [])
+
+    return { news, sites, newsStatus, siteStatus, section, setSection }
 }

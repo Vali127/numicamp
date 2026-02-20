@@ -1,4 +1,4 @@
-import {schoolListVm} from "../../../viewmodel/section-vm/admin.school.section.vm.js";
+import {SchoolListVm} from "../../../viewmodel/section-vm/admin.school.section.vm.js";
 import {useEffect, useState} from "react";
 import {SchoolCard} from "./school.card.jsx";
 import {ThreeDots} from "react-loader-spinner";
@@ -8,7 +8,7 @@ import {useGlobalUiContext} from "../../../context/ui.context.jsx";
 
 
 export const SchoolList = ({isAdmin = false }) => {
-    const { list, status, FetchSchool } = schoolListVm()
+    const { list, status, FetchSchool } = SchoolListVm()
     const { refresh } = useGlobalUiContext();
     useEffect(() => {
         FetchSchool()

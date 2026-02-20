@@ -1,4 +1,4 @@
-import  {loginVm} from "../../../viewmodel/login-vm/login.vm.js"
+import  {LoginVm} from "../../../viewmodel/login-vm/loginVm.js"
 import {Link} from "react-router-dom"
 import {LoginContextProvider, useLoginContext} from "../../../context/login.context.jsx"
 import {useEffect} from "react";
@@ -6,9 +6,17 @@ import {LoginValidationModal} from "./login.validation.modal.jsx";
 import ReCAPTCHA from "react-google-recaptcha";
 import { CONFIG } from "../../../config.js";
 
+export const Login = () => {
+    return (
+        <LoginContextProvider>
+            <LoginContent/>
+        </LoginContextProvider>
+    )
+}
+
 const LoginContent = () => {
     const loginContext = useLoginContext()
-    const { passwordVisibility,HandlePasswordVisibility, buttonDisabled, SetConnexionButtonActivation } = loginVm()
+    const { passwordVisibility,HandlePasswordVisibility, buttonDisabled, SetConnexionButtonActivation } = LoginVm()
 
 
     useEffect(() => { SetConnexionButtonActivation() }, [loginContext.loginData])
@@ -32,16 +40,9 @@ const LoginContent = () => {
                 Bienvenue Sur <span className="span">NumiCamp</span>
             </h2>
 
-            <div
-                className={'flex justify-center mt-5'}>
-
-
-                <form 
-                    className={'md:w-[20vw] flex flex-col gap-4 md:gap-2'}>
-
-                    <div 
-                        className={'flex flex-col text-left gap-1'}>
-                        
+            <div className={'flex justify-center mt-5'}>
+                <form className={'md:w-[20vw] flex flex-col gap-4 md:gap-2'}>
+                    <div className={'flex flex-col text-left gap-1'}>
                         <label 
                             htmlFor="name" 
                             className={'text-[11px] font-bold'}>Nom d' utilisateur
@@ -51,7 +52,7 @@ const LoginContent = () => {
                             type="text"
                             id="username"
                             value={loginContext.loginData.username}
-                            onChange={ (e) => { loginContext.setLoginData({ ...loginContext.loginData,username: e.target.value }) } }
+                            onChange={ (e) => loginContext.setLoginData({ ...loginContext.loginData,username: e.target.value }) }
                             placeholder="Nom d'Utilisateur..."
                             className={'input__shadow text_input w-[273px]'} />
                     </div>
@@ -69,7 +70,7 @@ const LoginContent = () => {
                             <input
                                 type={(passwordVisibility)? "text" : "password"}
                                 id="password" value={loginContext.loginData.password}
-                                onChange={ (e) => { loginContext.setLoginData({ ...loginContext.loginData,password : e.target.value }) } }
+                                onChange={ (e) => loginContext.setLoginData({ ...loginContext.loginData,password : e.target.value }) }
                                 placeholder={"votre mot de passe..."}
                                 className={'input__shadow text_input'} />
                             
@@ -113,13 +114,5 @@ const LoginContent = () => {
             </div>
             { loginContext.showLogInValidationModal && <LoginValidationModal/> }
         </div>
-    )
-}
-
-export const Login = () => {
-    return (
-        <LoginContextProvider>
-            <LoginContent/>
-        </LoginContextProvider>
     )
 }

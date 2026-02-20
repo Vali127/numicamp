@@ -2,112 +2,68 @@ import { useEffect, useState } from "react"
 import { PostModel } from "../../model/post.model.js"
 import { SuggestionModel } from "../../model/suggestion.model.js"
 
-
 export const UniqueFeedVm = (owner, feedOf) => {
-
+    const MODEL = PostModel()
     const [editor, setEditor] = useState({})
     const [followState, setFollowState] = useState("followed")
-    const [org, setOrg] = useState(false)
-    const [ commentSectionShown, setCommentSectionShown ] = useState(false)
+    const [org] = useState(feedOf === "organisation")
+    const [commentSectionShown, setCommentSectionShown] = useState(false)
     const [deletionModalVisibility, setDeletionModalVisibility] = useState(false)
 
-    const MODEL = PostModel()
-
-    const GetPostEditorInfo = async() => {
+    useEffect(() => {
+        const GetPostEditorInfo = async () => {
             try {
-                const response = (feedOf === "organisation") ? await MODEL.GetPostingOrgData(owner) : await MODEL.GetPostingPersonData(owner)
+                const response = feedOf === "organisation"
+                    ? await MODEL.GetPostingOrgData(owner)
+                    : await MODEL.GetPostingPersonData(owner)
                 setEditor(response)
-            }
-            catch(error) {
-                console.log("ERRER :" , error)
+            } catch (error) {
+                console.error("ERREUR :", error)
             }
         }
+        GetPostEditorInfo()
+    }, [])
 
-    const Follow = async(data) => {
+    const Follow = async (data) => {
         try {
-            const model = SuggestionModel()
-            const foo = await model.followModel(data)
-            const res = foo.data
-            
-            if(res.ok)
-                setFollowState("followed")
-            else
-                setFollowState("error")
-
-        }
-        catch(error) {
-            console.log("An error occurred : ", error)
+            const { data: res } = await SuggestionModel().followModel(data)
+            setFollowState(res.ok ? "followed" : "error")
+        } catch {
             setFollowState("error")
         }
     }
 
-    const Unfollow = async(data) => {
+    const Unfollow = async (data) => {
         try {
-            const model = SuggestionModel()
-            const foo = await model.unFollowModel(data)
-            const res = foo.data
-
-            if(res.ok)
-                setFollowState("unfollowed")
-            else
-                setFollowState("error")
-        }
-        catch(error) {
-            console.log("An error occured : ", error)
+            const { data: res } = await SuggestionModel().unFollowModel(data)
+            setFollowState(res.ok ? "unfollowed" : "error")
+        } catch {
             setFollowState("error")
         }
     }
-    
-
-
-    useEffect(
-        () => {
-            if (feedOf === "organisation")
-                setOrg(true)
-            else
-                setOrg(false)
-            GetPostEditorInfo() 
-        }, []
-    )
 
     return {
-        editor,
-        Follow,
-        Unfollow,
-        followState,
-        org,
-        commentSectionShown,
-        setCommentSectionShown,
-        deletionModalVisibility,
-        setDeletionModalVisibility,
+        editor, Follow, Unfollow, followState, org,
+        commentSectionShown, setCommentSectionShown,
+        deletionModalVisibility, setDeletionModalVisibility,
     }
-    
 }
-
-
 
 export const DeletionViewModel = (postId) => {
     const [status, setStatus] = useState("loading")
 
-
-    const DeletePost = async () => {
-        try {
-            const response = await PostModel().DeletePost(postId)
-            if (response.success)
-                setStatus("success")
-            else setStatus("error")
-            console.log("Response : ", response)
-        } catch (err) {
-            console.error(err)
-            setStatus("error")
+    useEffect(() => {
+        const DeletePost = async () => {
+            try {
+                const response = await PostModel().DeletePost(postId)
+                setStatus(response.success ? "success" : "error")
+            } catch (err) {
+                console.error(err)
+                setStatus("error")
+            }
         }
-    }
-
-    useEffect( () => {
         DeletePost()
-    } , [] )
+    }, [])
 
-    return {
-        status
-    }
+    return { status }
 }

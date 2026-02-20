@@ -1,85 +1,32 @@
-import {useState} from "react";
-import {UserModel} from "../../model/usersModel.js";
-import {useGlobalUiContext} from "../../context/ui.context.jsx";
+import { useState } from "react"
+import { UserModel } from "../../model/usersModel.js"
+import { useGlobalUiContext } from "../../context/ui.context.jsx"
 
-
-export const userModalViewModel = () => {
-    //MODEL
+export const UserModalViewModel = () => {
     const MODEL = UserModel()
-
-    //context
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { refresh, setRefresh } = useGlobalUiContext()
-
-    //STATE
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { setRefresh } = useGlobalUiContext()
     const [status, setStatus] = useState("normal")
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [response, setResponse] = useState({
-        message: "",
-        ok : false,
-        state : ""
-    })
+    const [response, setResponse] = useState({ message: "", ok: false, state: "" })
 
-    //FUNCTION
-    const DeleteUser = async (id) => {
+    const handleAction = async (action) => {
         try {
             setStatus("loading")
-            const response = await MODEL.deleteUser(id)
-            setResponse(response)
-            setStatus(response.ok ? "success" : "failed" )
-
+            const res = await action()
+            setResponse(res)
+            setStatus(res.ok ? "success" : "failed")
         } catch (error) {
             console.error(error)
             setStatus("failed")
         } finally {
-            setRefresh(!refresh)
-        }
-    }
-
-    const BlockUser = async (id) => {
-        try {
-            console.log(id)
-            setStatus("loading")
-            const response = await MODEL.blockUser(id)
-            setResponse(response)
-            if (response.ok)
-                setStatus("success")
-            else
-                setStatus("failed")
-
-        } catch (error) {
-            console.error(error)
-            setStatus("failed")
-        } finally {
-            setRefresh(!refresh)
-        }
-    }
-
-    const UnblockUser = async (id) => {
-        try {
-            setStatus("loading")
-            const response = await MODEL.unblockUser(id)
-            setResponse(response)
-            if (response.ok)
-                setStatus("success")
-            else
-                setStatus("failed")
-
-        } catch (error) {
-            console.error(error)
-            setStatus("failed")
-        } finally {
-            setRefresh(!refresh)
+            setRefresh(r => !r)
         }
     }
 
     return {
         status,
         response,
-        DeleteUser,
-        BlockUser,
-        UnblockUser,
+        DeleteUser: (id) => handleAction(() => MODEL.deleteUser(id)),
+        BlockUser: (id) => handleAction(() => MODEL.blockUser(id)),
+        UnblockUser: (id) => handleAction(() => MODEL.unblockUser(id)),
     }
-
 }

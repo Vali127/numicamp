@@ -1,85 +1,40 @@
-import {DashBoardModel} from "../../model/dasboard.model.js";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react"
+import { DashBoardModel } from "../../model/dasboard.model.js"
 
+const useDashboardFetch = (fetchFn, initialState) => {
+    const [data, setData] = useState(initialState)
+    const [error, setError] = useState(false)
+
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const result = await fetchFn()
+                result.ok ? setData(result.data) : setError(true)
+            } catch (err) {
+                console.error(err)
+                setError(true)
+            }
+        }
+        fetch()
+    }, [])
+
+    return { data, error }
+}
 
 export const UserStatsViewModel = () => {
-    //MODEL
     const MODEL = DashBoardModel()
-
-    //STATE
-    const [userStats, setUsersStats] = useState({})
-    const [error, setError] = useState(false)
-    //FUNCTION
-    const FetchUSersStats = async () => {
-        try {
-            const response = await MODEL.getUserStats()
-            if (response.ok)
-                setUsersStats(response.data)
-            else
-                setError(true)
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
-    //UseEffect
-    useEffect(() => { FetchUSersStats() }, [])
-
-    return {
-        userStats,
-        error,
-    }
-
+    const { data: userStats, error } = useDashboardFetch(() => MODEL.getUserStats(), {})
+    return { userStats, error }
 }
 
 export const DomainStatsViewModel = () => {
-
     const MODEL = DashBoardModel()
-
-    const [domainStats, setDomainStats] = useState([])
-    const [error, setError] = useState(false)
-
-    const FetchDomainStats = async () => {
-        try {
-            const result = await MODEL.getDomainStats()
-            if (result.ok)
-                setDomainStats(result.data)
-            else
-                setError(true)
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
-    useEffect(() => { FetchDomainStats() }, [])
-
-    return {
-        domainStats,
-        error,
-    }
+    const { data: domainStats, error } = useDashboardFetch(() => MODEL.getDomainStats(), [])
+    return { domainStats, error }
 }
 
 export const PostChartsViewModel = () => {
     const MODEL = DashBoardModel()
-
-    const [postsStats, setPostsStats] = useState([])
-    const [error, setError] = useState(false)
-
-    const FetchPostsStats = async () => {
-        try {
-             const response = await  MODEL.getPostsStats()
-            if (response.ok)
-                setPostsStats(response.data)
-            else
-                setError(true)
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
-    useEffect(() => { FetchPostsStats() }, [])
-    return {
-        postsStats,
-        error,
-    }
+    const { data: postsStats, error } = useDashboardFetch(() => MODEL.getPostsStats(), [])
+    return { postsStats, error }
 }

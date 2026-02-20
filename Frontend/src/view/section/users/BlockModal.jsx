@@ -3,11 +3,11 @@ import {ThreeDots} from "react-loader-spinner";
 import successAnimation from "../../../assets/animations/system-solid-31-check-in-reveal.json"
 import errorAnimation from "../../../assets/animations/system-regular-56-red-warning-in-warning.json"
 import Lottie from "lottie-react";
-import {userModalViewModel} from "../../../viewmodel/section-vm/user.modal.vm.js";
+import {UserModalViewModel} from "../../../viewmodel/section-vm/user.modal.vm.js";
 
 export const BlockModal = ({user = "", userId = null, isBlocked, modalVisibility}) => {
     //ViewModel
-    const { status, response, BlockUser, UnblockUser } = userModalViewModel()
+    const { status, response, BlockUser, UnblockUser } = UserModalViewModel()
 
     return (
         <Modal>

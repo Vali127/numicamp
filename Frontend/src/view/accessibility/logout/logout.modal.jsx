@@ -8,10 +8,9 @@ export const LogoutModal = ({SetLogout}) => {
     const MODEL = LogoutModel()
 
     const HandleLogout = async () => {
-        const token = localStorage.getItem('token');
-        await MODEL.logout(token)
+        await MODEL.logout()
+        localStorage.clear()
         navigate("/");
-        localStorage.clear('token')
     }
 
     return (

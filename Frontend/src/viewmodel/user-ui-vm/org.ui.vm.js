@@ -1,11 +1,10 @@
-import {useEffect, useState} from "react";
-import {HomeModel} from "../../model/home.model.js";
+import { useEffect, useState } from "react"
+import { HomeModel } from "../../model/home.model.js"
+
+const isUserAuthenticated = () => !!localStorage.getItem("token")
 
 export const OrgUiVm = () => {
-    //MODEL
     const model = HomeModel()
-
-    //STATE
     const [authenticated, setAuthenticated] = useState(false)
     const [userInfo, setUserInfo] = useState({})
     const [logout, setLogout] = useState(false)
@@ -13,41 +12,26 @@ export const OrgUiVm = () => {
     const [searchContent, setSearchContent] = useState("")
     const [searched, setSearched] = useState(false)
 
+    useEffect(() => { setAuthenticated(isUserAuthenticated()) }, [])
 
-    //FUNCTION
-    const HandleAccountInformation = async () => {
-        try {
-            const user_data = await  model.getAccountInfo()
-            const user_domains = await model.getUserDomains()
-            setUserInfo({...user_data, domains : user_domains.data })
-        } catch (error) {
-            console.log(error)
+    useEffect(() => {
+        const HandleAccountInformation = async () => {
+            try {
+                const [user_data, user_domains] = await Promise.all([
+                    model.getAccountInfo(),
+                    model.getUserDomains()
+                ])
+                setUserInfo({ ...user_data, domains: user_domains.data })
+            } catch (error) {
+                console.error(error)
+            }
         }
-    }
+        HandleAccountInformation()
+    }, [])
 
-
-    //EFFECT
-    useEffect(() => { setAuthenticated(isUserAuthenticated())}, [])
-    useEffect( () => { HandleAccountInformation() }, [] )
-
-
-    //RETURN
     return {
-        authenticated,
-        postModalVisibility,
-        setPostModalVisibility,
-        userInfo,
-        logout,
-        setLogout,
-        searched,
-        setSearched,
-        searchContent,
-        setSearchContent,
+        authenticated, logout, setLogout,
+        userInfo, postModalVisibility, setPostModalVisibility,
+        searchContent, setSearchContent, searched, setSearched,
     }
-
-}
-
-
-const isUserAuthenticated = () => {
-    return localStorage.getItem("token")
 }

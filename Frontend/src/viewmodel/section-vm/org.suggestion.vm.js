@@ -1,64 +1,43 @@
 import { useEffect, useState } from "react"
 import { SuggestionModel } from "../../model/suggestion.model.js"
 
-
 export const OrgSuggestionVm = () => {
+    const [suggestedOrganisation, setSuggestedOrganisation] = useState([])
+    const [isEmpty, setIsEmpty] = useState(true)
 
-    const [ suggestedOrganisation, setSuggestedOrganisation ] = useState([])
-    const [ isEmpty, setIsEmpty ] = useState(true)
-
-    const HandleSuggestion = async() => {
-        try {
-            const model = SuggestionModel()
-            const result = await model.getOrganisationSuggestion()
-            
-            if ( result.length == 0 ) 
+    useEffect(() => {
+        const HandleSuggestion = async () => {
+            try {
+                const result = await SuggestionModel().getOrganisationSuggestion()
+                setIsEmpty(result.length === 0)
+                setSuggestedOrganisation(result)
+            } catch (error) {
+                console.error("ERREUR DE RECUP :", error)
                 setIsEmpty(true)
-            else
-                setIsEmpty(false)
-            
-            setSuggestedOrganisation(result)
+            }
         }
-        catch(error) {
-            setIsEmpty(true)
-            console.log("ERREUR DE RECUP :", error)
-        }
-    }
+        HandleSuggestion()
+    }, [])
 
-    useEffect( () => { HandleSuggestion() }, [] )
-
-
-    const Follow = async(data) => {
+    const Follow = async (data) => {
         try {
-            const model = SuggestionModel()
-            const res = await model.followModel(data)
-            
+            const res = await SuggestionModel().followModel(data)
             return res.data.ok
-        }
-        catch(error) {
-            console.log("An error occured : ", error)
+        } catch (error) {
+            console.error("An error occurred : ", error)
             return false
         }
     }
 
-    const Unfollow = async(data) => {
+    const Unfollow = async (data) => {
         try {
-            const model = SuggestionModel()
-            const res = await model.unFollowModel(data)
-
+            const res = await SuggestionModel().unFollowModel(data)
             return res.data.ok
-        }
-        catch(error) {
-            console.log("An error occured : ", error)
+        } catch (error) {
+            console.error("An error occurred : ", error)
             return false
         }
     }
 
-    return {
-        isEmpty,
-        suggestedOrganisation,
-        Follow,
-        Unfollow,
-    }
-
+    return { isEmpty, suggestedOrganisation, Follow, Unfollow }
 }
