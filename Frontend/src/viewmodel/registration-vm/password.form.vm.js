@@ -5,7 +5,7 @@ import {accountFormValidation} from "../../services/form.services.js";
 
 export const PasswordFormVm = () => {
 
-    const { accountForm, SetAccountForm } = useSignInContext()
+    const { accountForm, setAccountForm } = useSignInContext()
     const { password } = accountFormValidation()
     const [ error, setError ] = useState({ type : null, message: null })
     const [ passwordError, setPasswordError ] = useState({ type : null, message: null })
@@ -21,7 +21,7 @@ export const PasswordFormVm = () => {
     }
 
     const HandleInputPassword = (e) => {
-        SetAccountForm({...accountForm, password: e.target.value})
+        setAccountForm({...accountForm, password: e.target.value})
         if ( password.checkLength(e.target.value).type != null ) { setPasswordError(password.checkLength(e.target.value)) }
         else { setPasswordError( password.checkExpression(e.target.value) ) }
     }

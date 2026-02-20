@@ -4,13 +4,13 @@ import {organisationFormValidation} from "../../services/form.services.js";
 
 export const  OrgFormVm = () => {
 
-    const  { organisationForm, SetOrganisationForm } = useSignInContext()
+    const  { organisationForm, setOrganisationForm } = useSignInContext()
     const { name } = organisationFormValidation()
 
     const [ nameError, setNameError ] = useState({type : null, message : null})
 
     const HandleInputNameChange = (e) => {
-        SetOrganisationForm({...organisationForm, name: e.target.value})
+        setOrganisationForm({...organisationForm, name: e.target.value})
         setNameError(name.checkExpression(e.target.value))
         if ( name.checkLength().type != null ) { setNameError(name.checkLength()) }
     }
@@ -18,7 +18,7 @@ export const  OrgFormVm = () => {
     return {
         organisationForm,
         nameError,
-        SetOrganisationForm,
+        setOrganisationForm,
         HandleInputNameChange
     }
 }

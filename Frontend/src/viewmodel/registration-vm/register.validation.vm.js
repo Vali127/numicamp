@@ -5,16 +5,15 @@ import {RegisterModel} from "../../model/register.model.js";
 export const RegisterValidationVm = () => {
     const { SubmitForm } = RegisterModel()
 
-    const [ FormUploaded, setFormUploaded ] = useState(true)
     const [ response, setResponse ] = useState('')
-    const hasRun = useRef(false) // Protection contre les appels multiples
+    const hasRun = useRef(false)
 
     const HandleModalBehavior = async() => {
         try {
+            setResponse('loading')
             const response = await SubmitForm()
             
-            if (response.status === 200 ) {
-                setFormUploaded(false)
+            if (response.ok) {
                 setResponse('success')
             }
             else {
@@ -22,7 +21,6 @@ export const RegisterValidationVm = () => {
             }
         } catch (error) {
             setResponse('failure')
-            setFormUploaded(false)
             console.log(error)
         }
     }
@@ -38,7 +36,6 @@ export const RegisterValidationVm = () => {
     }, [])
 
     return {
-        FormUploaded,
         response
     }
 

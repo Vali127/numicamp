@@ -6,7 +6,7 @@ const UiGlobalUiContext = createContext(null)
 
 //Provider
 export const GlobalUiContextProvider = ({children}) => {
-
+    /* ce provider doit être impérativement dans un 'routes' */
     const navigate = useNavigate()
 
     const [refresh, setRefresh] = useState(false)
@@ -17,7 +17,7 @@ export const GlobalUiContextProvider = ({children}) => {
     const [searchExpanded, setSearchExpanded] = useState(false)
 
     
-    const GoToProfile = (id) => {           //visiter d' autre profil
+    const GoToProfile = (id) => {           //visiter d'autre profil
         setUserProfilId(id)                 //id de l' utilisateur à visité
         setCurrentSection("profileVisit")   //changer de page
         setRefresh(!refresh)                //simulation de mise à jour

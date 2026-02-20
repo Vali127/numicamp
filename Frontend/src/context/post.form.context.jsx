@@ -6,7 +6,7 @@ import { createContext, useContext, useState } from 'react'
 const  PostFormContext = createContext(null)
 
 //PROVIDER
-export const PostCreationContextProvider = ({Children}) => {
+export const PostCreationContextProvider = ({children}) => {
 
     const [ interest, setInterest ] = useState([])
     
@@ -18,7 +18,7 @@ export const PostCreationContextProvider = ({Children}) => {
   return (
 
     <PostFormContext.Provider value={value} >
-        {Children}
+        {children}
     </PostFormContext.Provider>
     
   )

@@ -1,5 +1,5 @@
 import {useSignInContext} from "../context/register.context.jsx";
-import { RegisterApi } from "../api/register.api.js"
+import {RegisterApi} from "../api/register.api.js"
 
 export const RegisterModel = () => {
 
@@ -38,7 +38,7 @@ export const RegisterModel = () => {
                  temp_photo: SignInData.accountForm.tempPhotoFilename,
                  domaines : SignInData.domain
              }
-             return await SendFormForOrganisationalUsage(object)
+            return await SendFormForOrganisationalUsage(object)
         }
         if (!object) {
             throw new Error('Objet de données null - vérifiez le typeOfUsage et les données des formulaires')

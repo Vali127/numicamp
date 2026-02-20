@@ -18,7 +18,7 @@ export const DomainForm = ({CurrentPage, isButtonNextDisabled}) => {
     useEffect(() => { if (CurrentPage) { CurrentPage('domainForm') } }, [])
     useEffect( () => { ( domain.length >= 1 ) ? isButtonNextDisabled(false) : isButtonNextDisabled(true)  }, [domain] )
 
-    const data = ITDomain()
+    const data = ITDomain
 
     return (
         <div className={"text-left mx-8 md:mx-20"}>

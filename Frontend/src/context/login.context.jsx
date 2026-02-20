@@ -10,11 +10,9 @@ export const LoginContextProvider = ({children}) => {
     const [showLogInValidationModal, setShowLogInValidationModal] = useState(false)
     const [recaptchaToken, setRecaptchaToken] = useState(null)
 
-    const SetLoginData = (data) => { setLoginData(data) }
-
     const values = {
         loginData,
-        SetLoginData,
+        setLoginData,
         showLogInValidationModal,
         setShowLogInValidationModal,
         recaptchaToken,

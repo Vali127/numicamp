@@ -9,7 +9,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
 
     const { 
         accountForm, 
-        SetAccountForm 
+        setAccountForm
     } = useSignInContext()
     
     const { 
@@ -98,7 +98,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                                 className={'text_input resize-none input__shadow w-full md:w-110 h-[80px] pr-2'}
                                 placeholder={"Qui êtes vous ? ..."}
                                 value={accountForm.bio}
-                                onChange={(e) => SetAccountForm({...accountForm, bio: e.target.value})}
+                                onChange={(e) => setAccountForm({...accountForm, bio: e.target.value})}
                             />
                         </div>
                     </div>

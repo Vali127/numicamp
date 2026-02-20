@@ -51,7 +51,7 @@ const LoginContent = () => {
                             type="text"
                             id="username"
                             value={loginContext.loginData.username}
-                            onChange={ (e) => { loginContext.SetLoginData({ ...loginContext.loginData,username: e.target.value }) } }
+                            onChange={ (e) => { loginContext.setLoginData({ ...loginContext.loginData,username: e.target.value }) } }
                             placeholder="Nom d'Utilisateur..."
                             className={'input__shadow text_input w-[273px]'} />
                     </div>
@@ -69,7 +69,7 @@ const LoginContent = () => {
                             <input
                                 type={(passwordVisibility)? "text" : "password"}
                                 id="password" value={loginContext.loginData.password}
-                                onChange={ (e) => { loginContext.SetLoginData({ ...loginContext.loginData,password : e.target.value }) } }
+                                onChange={ (e) => { loginContext.setLoginData({ ...loginContext.loginData,password : e.target.value }) } }
                                 placeholder={"votre mot de passe..."}
                                 className={'input__shadow text_input'} />
                             
@@ -101,12 +101,14 @@ const LoginContent = () => {
                         </button>
                     </div>
 
-                    <ReCAPTCHA
-                        sitekey={CONFIG.ReCAPTCHA_SITE_KEY}
-                        onChange={(token) => { loginContext.setRecaptchaToken(token) }}
-                    />
-                    
-
+                    {
+                        (import.meta.env.PROD)
+                        &&
+                        <ReCAPTCHA
+                            sitekey={CONFIG.ReCAPTCHA_SITE_KEY}
+                            onChange={(token) => {loginContext.setRecaptchaToken(token)}}
+                        />
+                    }
                 </form>
             </div>
             { loginContext.showLogInValidationModal && <LoginValidationModal/> }
