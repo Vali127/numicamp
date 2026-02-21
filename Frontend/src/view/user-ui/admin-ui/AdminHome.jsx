@@ -47,16 +47,18 @@ const LeftNavbar = ({ section, setSection }) => (
 
 const MainContent = ({ userProfilId, setLogout }) => (
     <div className="flex-1 px-2">
-        <Suspense fallback={null}>
-            <Routes>
-                <Route path="dashboard" element={<DashBoard />} />
-                <Route path="feedback" element={<Feedback />} />
-                <Route path="schoolAdmin" element={<AdminSchoolSection />} />
-                <Route path="resourceAdmin" element={<AdminResource />} />
-                <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
-                <Route path="settings" element={<Setting setLogout={setLogout} />} />
-                <Route path="users" element={<Users />} />
-            </Routes>
-        </Suspense>
+        <div>
+            <Suspense fallback={null}>
+                <Routes>
+                    <Route path="dashboard" element={<DashBoard />} />
+                    <Route path="feedback" element={<Feedback />} />
+                    <Route path="schoolAdmin" element={<AdminSchoolSection />} />
+                    <Route path="resourceAdmin" element={<AdminResource />} />
+                    <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
+                    <Route path="settings" element={<Setting setLogout={setLogout} />} />
+                    <Route path="users" element={<Users />} />
+                </Routes>
+            </Suspense>
+        </div>
     </div>
 )

@@ -69,15 +69,17 @@ const MainContent = ({ section, setSection, userInfo, setLogout, userProfilId, s
                 <OrgMobileMenu setSection={setSection} section={section} />
             </div>
         </div>
-        <Suspense fallback={null}>
-            <Routes>
-                <Route path="notifications" element={<Notification />} />
-                <Route path="settings" element={<Setting setLogout={setLogout} />} />
-                {userInfo.id_profil && <Route path="profile" element={<Profile owner={true} id={userInfo.id_profil} />} />}
-                <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
-                <Route path="search" element={<SearchSection prompt={searchContent} refresh={searched} />} />
-                <Route path="applier" element={<ApplierFeed />} />
-            </Routes>
-        </Suspense>
+        <div>
+            <Suspense fallback={null}>
+                <Routes>
+                    <Route path="notifications" element={<Notification />} />
+                    <Route path="settings" element={<Setting setLogout={setLogout} />} />
+                    {userInfo.id_profil && <Route path="profile" element={<Profile owner={true} id={userInfo.id_profil} />} />}
+                    <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
+                    <Route path="search" element={<SearchSection prompt={searchContent} refresh={searched} />} />
+                    <Route path="applier" element={<ApplierFeed />} />
+                </Routes>
+            </Suspense>
+        </div>
     </div>
 )
