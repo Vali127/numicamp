@@ -30,7 +30,6 @@ export default PersonalInfo
 
 
 const PersonalForm = ({data,modify,status, update, uploadFile}) => {
-    const  places = OrderedListOfPlace()
     return (
         <div className='max-w-4xl mx-auto py-3 sm:py-4 md:py-6 space-y-2'>
 
@@ -149,7 +148,7 @@ const PersonalForm = ({data,modify,status, update, uploadFile}) => {
                     className='w-full sm:w-auto px-3 py-2 rounded-lg border border-neutral-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm sm:text-base'
                     id='place'
                     name='place'>
-                    {places.map((place,index) => (
+                    {OrderedListOfPlace.map((place,index) => (
                         <option key={index} value={place}>{place}</option>
                     ))}
                 </select>

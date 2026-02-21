@@ -46,7 +46,7 @@ const LeftNavbar = ({ section, setSection }) => (
 )
 
 const MainContent = ({ userProfilId, setLogout }) => (
-    <div className="flex-1 px-2 pt-5">
+    <div className="flex-1 px-2">
         <Suspense fallback={null}>
             <Routes>
                 <Route path="dashboard" element={<DashBoard />} />

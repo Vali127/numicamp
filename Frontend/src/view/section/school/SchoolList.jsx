@@ -1,5 +1,5 @@
+import {useState} from "react";
 import {SchoolListVm} from "../../../viewmodel/section-vm/admin.school.section.vm.js";
-import {useEffect, useState} from "react";
 import {SchoolCard} from "./school.card.jsx";
 import {ThreeDots} from "react-loader-spinner";
 import {AlertCircle} from "lucide-react";
@@ -7,12 +7,8 @@ import {SchoolDeletionModal} from "./SchoolDeletionModal.jsx";
 import {useGlobalUiContext} from "../../../context/ui.context.jsx";
 
 
-export const SchoolList = ({isAdmin = false }) => {
-    const { list, status, FetchSchool } = SchoolListVm()
-    const { refresh } = useGlobalUiContext();
-    useEffect(() => {
-        FetchSchool()
-    }, [refresh]);
+export const SchoolList = ({ isAdmin = false }) => {
+    const { list, status } = SchoolListVm()
 
     return (
         <>

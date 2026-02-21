@@ -3,8 +3,10 @@ import { useMutation } from "@tanstack/react-query"
 import { LoginModel } from "../../model/login.model.js"
 
 export const LoginValidationVm = () => {
+    const model = LoginModel()
+
     const { mutate, data, status } = useMutation({
-        mutationFn: () => LoginModel().SubmitForm(),
+        mutationFn: () => model.SubmitForm(),
         onSuccess: (response) => {
             if (response.ok) {
                 localStorage.setItem('token', response.token)

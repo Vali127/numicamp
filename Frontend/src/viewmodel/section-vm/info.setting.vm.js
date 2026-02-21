@@ -27,8 +27,9 @@ export const InfoSettingVm = () => {
         onError: (e) => console.error(e),
     })
 
+    const profile = profileModel()
     const { mutate: UpdateNewAccountData, status } = useMutation({
-        mutationFn: () => profileModel().updateProfile(userData),
+        mutationFn: () => profile.updateProfile(userData),
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ["accountInfo"] })
             previousDataRef.current = null

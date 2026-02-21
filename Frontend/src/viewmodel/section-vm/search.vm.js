@@ -4,10 +4,10 @@ import { searchModel } from "../../model/search.model"
 
 export const SearchViewModel = (prompt) => {
     const [currentTab, setCurrentTab] = useState("posts")
-
+    const model = searchModel()
     const { data, refetch: FetchPrompt } = useQuery({
         queryKey: ["search", prompt],
-        queryFn: () => searchModel().search({ keywords: prompt }),
+        queryFn: () => model.search({ keywords: prompt }),
         enabled: !!prompt,
     })
 

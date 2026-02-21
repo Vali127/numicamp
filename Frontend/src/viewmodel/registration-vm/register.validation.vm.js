@@ -3,8 +3,9 @@ import { useMutation } from "@tanstack/react-query"
 import { RegisterModel } from "../../model/register.model.js"
 
 export const RegisterValidationVm = () => {
+    const model = RegisterModel();
     const { mutate, status, data } = useMutation({
-        mutationFn: () => RegisterModel().SubmitForm(),
+        mutationFn: () => model.SubmitForm(),
         onError: (error) => console.error(error),
     })
 

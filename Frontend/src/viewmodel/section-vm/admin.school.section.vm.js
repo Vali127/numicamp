@@ -76,9 +76,10 @@ export const AdminSchoolViewModel = () => {
 }
 
 export const SchoolListVm = () => {
+    const MODEL = SchoolModel()
     const { data: list = [], status } = useQuery({
         queryKey: ["schools"],
-        queryFn: () => SchoolModel().getSchools(),
+        queryFn: () => MODEL.getSchools(),
     })
 
     return {
@@ -88,16 +89,17 @@ export const SchoolListVm = () => {
 }
 
 export const SchoolDeletionVM = () => {
+    const MODEL = SchoolModel()
     const queryClient = useQueryClient()
 
     const { mutate: DeleteSchool, status, data } = useMutation({
-        mutationFn: (id) => SchoolModel().deleteSchool(id),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["schools"] }),
+        mutationFn: (id) => MODEL.deleteSchool(id),
+        onSuccess: () => void queryClient.invalidateQueries({ queryKey: ["schools"] }),
         onError: (e) => console.error(e),
     })
 
     return {
-        DeleteSchool,
+        DeleteSchool: (id) => { DeleteSchool(id) },
         status: status === "pending" ? "loading" : status === "error" ? "error" : data?.ok ? "success" : "normal",
         message: status === "error" ? "Something went wrong." : data?.message ?? "",
     }

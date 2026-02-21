@@ -4,19 +4,20 @@ import { SuggestionModel } from "../../model/suggestion.model.js"
 export const OrgSuggestionVm = () => {
     const queryClient = useQueryClient()
 
+    const suggestion = SuggestionModel()
     const { data: suggestedOrganisation = [] } = useQuery({
         queryKey: ["orgSuggestions"],
-        queryFn: () => SuggestionModel().getOrganisationSuggestion(),
+        queryFn: () => suggestion.getOrganisationSuggestion(),
     })
 
     const { mutateAsync: Follow } = useMutation({
-        mutationFn: (data) => SuggestionModel().followModel(data),
+        mutationFn: (data) => suggestion.followModel(data),
         onSuccess: () => void queryClient.invalidateQueries({ queryKey: ["orgSuggestions"] }),
         onError: (error) => console.error("An error occurred : ", error),
     })
 
     const { mutateAsync: Unfollow } = useMutation({
-        mutationFn: (data) => SuggestionModel().unFollowModel(data),
+        mutationFn: (data) => suggestion.unFollowModel(data),
         onSuccess: () => void queryClient.invalidateQueries({ queryKey: ["orgSuggestions"] }),
         onError: (error) => console.error("An error occurred : ", error),
     })

@@ -78,18 +78,20 @@ const MainContent = ({ section, setSection, userInfo, setLogout, userProfilId, s
                 <MobileMenu section={section} setSection={setSection} />
             </div>
         </div>
-        <Suspense fallback={null}>
-            <Routes>
-                <Route path="feeds" element={<Feeds />} />
-                <Route path="notifications" element={<Notification />} />
-                <Route path="ressources" element={<Resources />} />
-                <Route path="schools" element={<Schools />} />
-                <Route path="settings" element={<Setting setLogout={setLogout} />} />
-                <Route path="profile" element={<Profile owner={true} id={userInfo.id_profil} />} />
-                <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
-                <Route path="search" element={<SearchSection prompt={searchContent} refresh={searched} />} />
-            </Routes>
-        </Suspense>
+        <div>
+            <Suspense fallback={null}>
+                <Routes>
+                    <Route path="feeds" element={<Feeds />} />
+                    <Route path="notifications" element={<Notification />} />
+                    <Route path="ressources" element={<Resources />} />
+                    <Route path="schools" element={<Schools />} />
+                    <Route path="settings" element={<Setting setLogout={setLogout} />} />
+                    <Route path="profile" element={<Profile owner={true} id={userInfo.id_profil} />} />
+                    <Route path="profileVisit" element={<Profile owner={false} id={userProfilId} />} />
+                    <Route path="search" element={<SearchSection prompt={searchContent} refresh={searched} />} />
+                </Routes>
+            </Suspense>
+        </div>
     </div>
 )
 
@@ -100,7 +102,7 @@ const RightSidebar = ({ searchContent, setSearchContent, searched, setSearched, 
     }
 
     return (
-        <div className="w-[25vw] mx-2 h-screen hidden md:block sticky top-0 text-left overflow-scroll scrollbar-none">
+        <div className="w-[25vw]  mx-2 h-screen hidden md:block sticky top-0 text-left overflow-scroll scrollbar-none">
             <div className="p-2 bg-neutral-50 sticky top-0">
                 <form onSubmit={handleSearchSubmit}>
                     <div className="relative">

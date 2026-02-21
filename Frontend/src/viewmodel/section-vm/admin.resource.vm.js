@@ -5,6 +5,7 @@ import { statsModel } from "../../model/stats.model.js"
 
 export const AdminRessourceViewModel = () => {
     const MODEL = ressourcesModel()
+    const STATS = statsModel()
     const queryClient = useQueryClient()
     const [currentTab, setCurrentTab] = useState("form")
     const [data, setData] = useState({ link: "", name: "", type: "", description: "", domain: "" })
@@ -12,7 +13,7 @@ export const AdminRessourceViewModel = () => {
 
     const { data: domains = [] } = useQuery({
         queryKey: ["domains"],
-        queryFn: async () => (await statsModel().getDomains()).data,
+        queryFn: async () => (await STATS.getDomains()).data,
     })
 
     const { data: list = [] } = useQuery({
@@ -23,7 +24,7 @@ export const AdminRessourceViewModel = () => {
 
     const { mutate: sendData, data: formResult = { message: "", status: "normal" }, status: sendStatus } = useMutation({
         mutationFn: () => MODEL.createResource(data),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["resourceList"] }),
+        onSuccess: () => void queryClient.invalidateQueries({ queryKey: ["resourceList"] }),
         onError: (error) => console.error(error),
     })
 
@@ -47,13 +48,13 @@ export const ResourceDeletionModalVM = () => {
 
     const { mutate: DeleteResource, status, data } = useMutation({
         mutationFn: ({ id, type }) => MODEL.deleteResource(id, type),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["resourceList"] }),
+        onSuccess: () => void queryClient.invalidateQueries({ queryKey: ["resourceList"] }),
         onError: (err) => console.error(err),
     })
 
     return {
         status: status === "pending" ? "loading" : status === "error" ? "error" : data?.ok ? "success" : status,
         message: status === "error" ? "Something went wrong" : data?.message ?? "",
-        DeleteResource: (id, type) => DeleteResource({ id, type }),
+        DeleteResource: (id, type) => { DeleteResource({ id, type }) },
     }
 }
