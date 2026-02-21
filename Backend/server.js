@@ -1,81 +1,46 @@
-import {testConnection, pool} from './config/db.js';
 import express from 'express';
 import dotenv from 'dotenv';
-import cors from "cors";
-import registerRoute from "./routes/registerRoute.js";
-import loginRoute from "./routes/loginRoute.js";
-import LogoutRoute from "./routes/logoutRoute.js";
-import uploadRoute from "./routes/uploadRoute.js";
-import accountInfoRoute from "./routes/accountInfoRoute.js";
-import publicationRoute from "./routes/publicationRoute.js";
-import organisationRoute from "./routes/organisationRoute.js";
-import profileRoute from "./routes/profileRouter.js"
-import commentRoute from "./routes/commentRoute.js";
-import searchRoute from "./routes/searchRoute.js";
-import ressourcesRoute from "./routes/ressourcesRoute.js"
-import statsRoute from "./routes/administration/statsRoute.js"
-import userRoute from "./routes/administration/userRoute.js"
-import {fileURLToPath} from 'url';
+import cors from 'cors';
+import { fileURLToPath } from 'url';
 import path from 'path';
-import etablishmentRoute from "./routes/etablishmentRoute.js";
-import feedbackRoute from "./routes/feedbackRoute.js";
+import {pool} from './config/db.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-//chargement des variables environnement
 dotenv.config();
 
-//Lancement Express
 const app = express();
 app.use(express.json());
 
-//test de connection
-app.get('/test/db', async  (req, res) => {
-    const result = await testConnection();
-    if (result.ok) {return res.status(200).json({info: result.rows,status: 'Connected to mysql database'})}
-    return  res.status(500).json({status: 'Error', info: result.error});
-});
+app.use(cors({
+    origin: [process.env.FRONTEND_PROD_URL, process.env.FRONTEND_DEV_URL],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 
-//autoriser react a envoyer des requetes
-app.use(cors(
-    {
-        origin: [
-            process.env.FRONTEND_URL,
-            'http://localhost:5173'
-        ],
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        credentials: true
-    }
-))
+//Lazy loading
+app.use('/api/register', (req, res, next) => import('./routes/registerRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/login', (req, res, next) => import('./routes/loginRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/logout', (req, res, next) => import('./routes/logoutRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/upload', (req, res, next) => import('./routes/uploadRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/account', (req, res, next) => import('./routes/accountInfoRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/publication', (req, res, next) => import('./routes/publicationRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/organization', (req, res, next) => import('./routes/organisationRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/profile', (req, res, next) => import('./routes/profileRouter.js').then(m => m.default(req, res, next)));
+app.use('/api/comment', (req, res, next) => import('./routes/commentRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/search', (req, res, next) => import('./routes/searchRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/feedback', (req, res, next) => import('./routes/feedbackRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/resources', (req, res, next) => import('./routes/ressourcesRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/stats', (req, res, next) => import('./routes/administration/statsRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/users', (req, res, next) => import('./routes/administration/userRoute.js').then(m => m.default(req, res, next)));
+app.use('/api/etablishment', (req, res, next) => import('./routes/etablishmentRoute.js').then(m => m.default(req, res, next)));
 
-//definition des fichiers de routage(redirige les req)
-app.use('/api/register',registerRoute);
-app.use('/api/login',loginRoute);
-app.use('/api/logout', LogoutRoute )
-app.use('/api/upload', uploadRoute);
-app.use('/api/account', accountInfoRoute );
-app.use('/api/publication',publicationRoute);
-app.use('/api/organisation',organisationRoute);
-app.use('/api/comment',commentRoute)
-app.use('/api/profile', profileRoute )
-app.use('/api/search',searchRoute)
-app.use('/api/feedback', feedbackRoute)
-app.use('/api/ressources', ressourcesRoute)
-app.use('/api/stats', statsRoute)
-app.use('/api/users', userRoute)
-app.use('/api/etablishment', etablishmentRoute )
-// Servir les fichiers statiques (images utilisateurs)
+//ENDPOINT FOR FILE SERVICE
 app.use('/static/users', express.static(path.join(__dirname, 'Users')));
 
-
-//creation server et ecoute sur le port dans .env
 const PORT = process.env.SERVER_PORT;
-
-//demarrage du serveur node
 const server = app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 
-//fonction pour fermer le server et les connexions mysql de pool
 async function gracefulShutdown() {
     console.log('Shutting down...');
     server.close(async () => {
@@ -88,13 +53,12 @@ async function gracefulShutdown() {
             process.exit(1);
         }
     });
-    // Force la fermeture après 10s si le serveur ne se ferme pas proprement
+
     setTimeout(() => {
         console.error('Could not close connections in time, forcefully shutting down');
         process.exit(1);
     }, 3000);
 }
 
-//appel de gracefulShutdown si CTrl + C ou interruption du programme
 process.on('SIGINT', gracefulShutdown);
 process.on('SIGTERM', gracefulShutdown);

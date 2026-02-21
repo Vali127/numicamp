@@ -1,75 +1,80 @@
-//appel insertPubDescriptionModel
-import {verifyToken} from "../middleware/verifyToken.js";
+/**
+ * Publication Services
+ * Business logic for publication operations
+ */
+import { verifyToken } from "../middleware/verifyToken.js";
 import {
-    deletePost,
-    getOrgPub,
-    getPersonPub, GetPostsForOrganisation,
-    getPubDescriptionOrg,
-    insertPublication
+    deletePublication,
+    getOrganizationPublications,
+    getUserPublications,
+    getOrganizationApplicants,
+    getSubscribedOrganizationsPublications,
+    createPublication
 } from "../models/publicationModel.js";
 
-export async function sendPubDescriptionService(data){
-    return await insertPublication(data);
+export async function createPublicationService(publicationData) {
+    return await createPublication(publicationData);
 }
 
-export async function getPersonPubService(req, res){
-    verifyToken(req, res)
-    const owner = ( req.user.id === req.query.user_id )
-    const result = await getPersonPub(req.query.user_id);
+export async function getUserPublicationsService(req, res) {
+    verifyToken(req, res);
+    const owner = (req.user.id === req.query.user_id);
+    const result = await getUserPublications(req.query.user_id);
 
     return {
         ...result,
-        owner : owner
+        owner
     };
 }
 
-export async function getOrgPubService(req, res){
-    verifyToken(req, res)
-    const owner = ( req.user.id === req.query.user_id )
-    const result = await getOrgPub(req.query.user_id);
+export async function getOrganizationPublicationsService(req, res) {
+    verifyToken(req, res);
+    const owner = (req.user.id === req.query.user_id);
+    const result = await getOrganizationPublications(req.query.user_id);
     
     return {
         ...result,
-        owner : owner
+        owner
     };
 }
 
-export async function getPubDescriptionOrgService(req, res){
-    verifyToken(req, res)
-    const owner = ( req.user.id === req.query.user_id )
-    const idProfil = req.user.id
-    const result = await getPubDescriptionOrg(idProfil);
+export async function getSubscribedOrganizationsPublicationsService(req, res) {
+    verifyToken(req, res);
+    const owner = (req.user.id === req.query.user_id);
+    const userProfileId = req.user.id;
+    const result = await getSubscribedOrganizationsPublications(userProfileId);
 
     return {
         ...result,
-        owner : owner
-    }
+        owner
+    };
 }
 
-export async function postDeletionService(req, res){
+export async function deletePublicationService(req, res) {
     try {
-        verifyToken(req, res)
-        const response = await deletePost(req.query.id_post)
-        const message = (response) ? "Suppression effectuée avec succès " : "Échec de la suppression réessayez plus tard !"
+        verifyToken(req, res);
+        const publicationId = req.query.id_post;
+        const deletionSuccess = await deletePublication(publicationId);
+        const message = deletionSuccess 
+            ? "Publication deleted successfully" 
+            : "Failed to delete publication, please try again later";
 
         return {
-            ok : response,
-            message : message,
-        }
-
-    } catch (err) {
-        console.log(err);
-        throw Error(err);
+            ok: deletionSuccess,
+            message
+        };
+    } catch (error) {
+        console.error("Error in deletePublicationService:", error);
+        throw error;
     }
 }
 
-
-export async function postForOrgService(req, res){
+export async function getOrganizationApplicantsService(req, res) {
     try {
-        verifyToken(req, res)
-        return await GetPostsForOrganisation(req.user.id)
+        verifyToken(req, res);
+        return await getOrganizationApplicants(req.user.id);
     } catch (error) {
-        console.log(error);
-        throw Error(error);
+        console.error("Error in getOrganizationApplicantsService:", error);
+        throw error;
     }
 }

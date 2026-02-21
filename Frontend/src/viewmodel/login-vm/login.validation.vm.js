@@ -1,46 +1,27 @@
-import {useEffect, useRef, useState} from "react";
-import {LoginModel} from "../../model/login.model.js"
+import { useEffect } from "react"
+import { useMutation } from "@tanstack/react-query"
+import { LoginModel } from "../../model/login.model.js"
 
-export const  LoginValidationVm = () => {
+export const LoginValidationVm = () => {
+    const model = LoginModel()
 
-    const loginModel = LoginModel()
-
-    const [ message, setMessage ] = useState(null)
-    const [ result, setResult ] = useState('')
-    const [ formUploaded, setFormUploaded ] = useState(true)
-    const hasRun = useRef(false)
-
-    const HandleModalBehavior = async() => {
-        try {
-            const response = await loginModel.SubmitForm()
-            console.log(response)
-            setMessage(response.data.message)
-            if (response.data.ok) {
-                setResult('success')
-                localStorage.setItem('token', response.data.token)
-                localStorage.setItem('usage', response.data.usage)
-                localStorage.setItem('isLoggedIn', true )
+    const { mutate, data, status } = useMutation({
+        mutationFn: () => model.SubmitForm(),
+        onSuccess: (response) => {
+            if (response.ok) {
+                localStorage.setItem('token', response.token)
+                localStorage.setItem('usage', response.usage)
+                localStorage.setItem('isLoggedIn', true)
             }
-            else {
-                setResult('failed')
-            }
-        } catch (error) {
-            setResult('error')
-            console.log("Erreur : ",error)
-        }
-        setFormUploaded(false)
-    }
+        },
+        onError: (error) => console.error("Erreur : ", error),
+    })
 
-    useEffect(() => {
-        // Protection contre la double exécution en StrictMode(eviter d envoyer la requete deux fois)
-        if (hasRun.current) { return }
-        hasRun.current = true
-        HandleModalBehavior()
-    }, [])
+    useEffect(() => { mutate() }, [])
 
     return {
-        message,
-        result,
-        formUploaded,
+        message: data?.message ?? null,
+        result: status === "pending" ? '' : status === "error" ? 'error' : data?.ok ? 'success' : 'failed',
+        formUploaded: status === "pending",
     }
 }

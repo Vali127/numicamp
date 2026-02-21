@@ -1,36 +1,17 @@
-import {useEffect, useState} from "react";
-import {PostModel} from "../../model/post.model.js";
-
+import { useQuery } from "@tanstack/react-query"
+import { PostModel } from "../../model/post.model.js"
 
 export const ApplierFeedVm = () => {
-
     const MODEL = PostModel()
 
-    const [ PostData, setPostData ] = useState([])
-    const [ ownership, setOwnership ] = useState(false)
-    const [ isEmpty, setIsEmpty ] = useState(true)
-
-    const GetFeeds = async () => {
-        try {
-            const response = await MODEL.getApplierPosts()
-            setPostData(response.rows)
-            setOwnership(response.ownership)
-            setIsEmpty(response.rows.length === 0 )
-        } catch (error) {
-            console.error(error)
-            setIsEmpty(false)
-        }
-    }
-
-    useEffect(
-        () => {
-            GetFeeds()
-        }, []
-    )
+    const { data, isError } = useQuery({
+        queryKey: ["applierPosts"],
+        queryFn: () => MODEL.getApplierPosts(),
+    })
 
     return {
-        PostData,
-        ownership,
-        isEmpty,
+        PostData: data?.rows ?? [],
+        ownership: data?.ownership ?? false,
+        isEmpty: isError ? false : (data?.rows?.length ?? 1) === 0,
     }
 }

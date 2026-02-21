@@ -1,60 +1,32 @@
-import {useEffect, useState} from "react"
+import { useState } from "react"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { CommentModel } from "../../model/comment.model.js"
 
-
-
 export const CommentVm = (postId = null) => {
-
     const Model = CommentModel()
+    const queryClient = useQueryClient()
+    const [content, setContent] = useState("")
 
-    const [ comment, setComment ] = useState("fetched")
-    const [ content, setContent ] = useState("")
-    const [ commentData, setCommentData ] = useState([])
-    const [ refresh, setRefresh ] = useState(false)
+    const { data: commentData = [] } = useQuery({
+        queryKey: ["comments", postId],
+        queryFn: () => Model.getComments(postId),
+        enabled: postId !== null,
+    })
 
-    const SendComment = async(e) => {
-        const data = {
-            idPub : e.target.id,
-            content : content
-        }
-        
-        try {
-            setComment("fetching")
-            await Model.sendComment(data)
-            setComment("fetched")
-        }
-        catch(error) {
-            console.log("ERROR AT SENDING COMMENTS : ", error)
-            setComment("error")
-        } finally {
-            setRefresh(!refresh)
+    const { status, mutate: SendComment } = useMutation({
+        mutationFn: (e) => Model.sendComment({ idPub: e.target.id, content }),
+        onSettled: () => {
+            void queryClient.invalidateQueries({ queryKey: ["comments", postId] })
             setContent("")
-        }
-
-    }
-
-    const fetchComments = async() => {
-        try {
-            const res = await Model.getComments(postId)
-            setCommentData(res)
-        }
-        catch (error) {
-            console.log("ERROR FETCHING COMMENTS IN VM : ", error)
-        }
-    }
-
-    useEffect(() => {
-        fetchComments().then(r => r )
-    }, [postId,refresh])
+        },
+        onError: (error) => console.error("ERROR AT SENDING COMMENTS : ", error),
+    })
 
     return {
-        comment,
+        comment: status,
         content,
         setContent,
         SendComment,
-        fetchComments,
         commentData,
-        setRefresh,
     }
-
 }

@@ -1,59 +1,31 @@
 import { useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { ressourcesModel } from "../../model/ressources.model"
-import { useEffect } from "react"
-import {statsModel} from "../../model/stats.model.js";
-
 
 export const RessourcesViewModel = () => {
     const model = ressourcesModel()
-
     const [section, setSection] = useState("news")
-    const [news, setNews] = useState([])  // Changed to array
-    const [sites, setSites] = useState([]) // Changed to array
-    const [newsStatus, setNewsStatus] = useState("loading")
-    const [siteStatus, setSiteStatus] = useState("loading") // Fixed setter name
 
-    const FetchNews = async() => {
-        try {
-            setNewsStatus("loading")
+    const { data: news = [], status: newsStatus } = useQuery({
+        queryKey: ["news"],
+        queryFn: async () => {
             const response = await model.getNews()
-            console.log("NEWS : \n",response.data)
-            if (response.ok) {
-                setNews(response.data)
-                setNewsStatus("loaded") 
-            } else {
-                setNews([])
-                setNewsStatus("noInternet")
-            }
-        } catch (error) {
-            setNews([])
-            setNewsStatus("noInternet")
-            console.log("ERREUR : ", error)
-        }
-    }
-    
-    const FetchSites = async() => {
-        try {
-            setSiteStatus("loading")
+            if (!response.ok) throw new Error()
+            return response.data
+        },
+    })
+
+    const { data: sites = [], status: siteStatus } = useQuery({
+        queryKey: ["sites"],
+        queryFn: async () => {
             const response = await model.getSites()
-            setSites(response.data)
-            setSiteStatus("loaded")
-        } catch (error) {
-            console.log("ERREUR : ", error)
-            setSiteStatus("error")
-        }
-    }
-    
-    //EFFECT
-    useEffect(() => { FetchNews() }, [])
-    useEffect(() => { FetchSites() }, [])
-    
+            return response.data
+        },
+    })
+
     return {
-        news,
-        sites,
-        newsStatus,
-        siteStatus,
-        section,
-        setSection
+        news, sites, section, setSection,
+        newsStatus: newsStatus === "pending" ? "loading" : newsStatus === "error" ? "noInternet" : "loaded",
+        siteStatus: siteStatus === "pending" ? "loading" : siteStatus === "error" ? "error" : "loaded",
     }
 }

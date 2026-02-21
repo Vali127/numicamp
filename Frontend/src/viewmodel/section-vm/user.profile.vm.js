@@ -1,57 +1,27 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import {useEffect, useState} from "react";
-import {profileModel} from "../../model/profile.model.js";
+import { useQuery } from "@tanstack/react-query"
+import { profileModel } from "../../model/profile.model.js"
 
-
-export const userProfileViewModel = (id) => {
-
+export const UserProfileViewModel = (id) => {
     const model = profileModel()
 
-    const [ profileData, setProfileData ] = useState({})
-    const [ posts, setPosts ] = useState([])
-    const [ ownership, setOwnership ] = useState(false)
-    const [ loaded, setLoaded ] = useState(false)
+    const { data: profileData = {}, isSuccess } = useQuery({
+        queryKey: ["profileData", id],
+        queryFn: () => model.getProfilData({ profil_id: id }),
+        enabled: !!id,
+    })
 
-    const fetchData = async() => {
-        const data = { profil_id : id }
-        try {
-            setLoaded(false)
-            const response = await model.getProfilData(data)
-            let usage = response.user_type
-            setProfileData(response)
-            await fetchPosts(usage)
-        }
-        catch(e) {
-            console.error(e)
-        }
-    }
-
-    const fetchPosts = async(usage) => {
-        const data = { user_id : id }
-        console.log("USAGE : ", usage)
-        try {
-            const response = await model.getProfilePostData(data, usage)
-            setPosts(response.rows)
-            setOwnership(response.ownership)
-            setLoaded(true)
-        }
-        catch(e) {
-            console.error(e)
-        }
-    }
-
-    useEffect(
-        () => { 
-            fetchData()
-        }, []
-    )
+    const { data: postsData, refetch: fetchPosts } = useQuery({
+        queryKey: ["profilePosts", id, profileData?.user_type],
+        queryFn: () => model.getProfilePostData({ user_id: id }, profileData?.user_type),
+        enabled: !!profileData?.user_type,
+    })
 
     return {
         profileData,
-        loaded,
-        posts,
-        ownership,
-        fetchData,
-        fetchPosts,
+        posts: postsData?.rows ?? [],
+        ownership: postsData?.ownership ?? false,
+        loaded: isSuccess && !!postsData,
+        fetchData: () => { void fetchPosts() },
+        fetchPosts: () => { void fetchPosts() },
     }
 }

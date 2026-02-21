@@ -5,26 +5,12 @@ import {pool} from "../config/db.js";
 export async function insertComment({idPub,idUser,content}){
     
     const sql = `INSERT INTO commenter(id_pub,id_profil,contenue) VALUES (?,?,?)`
-    
-    let connection
+
     try{
-        
-        connection = await pool.getConnection()
-        await connection.beginTransaction()
-
-        await connection.query(sql,[idPub,idUser,content])  
-        await connection.commit()
-        
-        return{
-            ok : true
-        }
-
+        const [result] = await pool.query(sql,[idPub,idUser,content])
+        return{ ok : result.affectedRows > 0 }
     }catch(err){
-        if (connection) await connection.rollback()
         throw new Error("Erreur lors de l'insertion : " + err.message);
-    }
-    finally {
-        if (connection) connection.release()
     }
 }
 

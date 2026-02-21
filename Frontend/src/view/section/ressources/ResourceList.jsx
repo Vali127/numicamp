@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {DeletionModal} from "./DeletionModal.jsx";
 
 
-export const ResourceList = ({ list, deletionModal, setDeletionModal, Refresh }) => {
+export const ResourceList = ({ list, deletionModal, setDeletionModal }) => {
     const [selectedResource, setSelectedResource] = useState(null);
 
     return (
@@ -23,7 +23,6 @@ export const ResourceList = ({ list, deletionModal, setDeletionModal, Refresh })
                     id={selectedResource.lien}
                     type={selectedResource.type}
                     modalVisibility={setDeletionModal}
-                    Refresh={Refresh}
                 />
             )}
         </>

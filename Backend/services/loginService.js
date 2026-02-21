@@ -1,71 +1,52 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import {getAccountUsage, getLoginInfo, isUserBlocked} from '../models/loginModel.js';
+import {generateToken} from '../modules/loginModules.js';
 import dotenv from 'dotenv';
-import {createLogger} from "../utils/logger.js";
+import { getAccountUsage, getLoginInfo, isUserBlocked } from '../models/loginModel.js';
+import { createLogger } from '../utils/logger.js';
 import { reCAPTCHA } from './recaptchaCheck.js';
 
 dotenv.config();
 
 export async function checkInfoLoginService(data) {
     try {
+        const LOG = createLogger();
 
-        const LOG = createLogger()
-        //blocage checker
-        const userIsBlocked = await isUserBlocked(data.username)
-        if (userIsBlocked) {
-            return {
-                ok : false,
-                message : "Vous avez été bloquer par l' administrateur !",
-            }
+        // CHECK IF BLOCKED
+        if (await isUserBlocked(data.username)) {
+            return { ok: false, message: "Vous avez été bloqué par l'administrateur !" };
         }
-    
-        //recaptcha
-        const reCAPTCHAResponse = await reCAPTCHA(data)
-        if (!reCAPTCHAResponse.ok) {
-            return {
-                ok : reCAPTCHAResponse.ok,
-                message : reCAPTCHAResponse.text
+
+        // CHECK reCAPTCHA
+        if (process.env.NODE_ENV === 'production') {
+            const reCAPTCHAResponse = await reCAPTCHA(data);
+            if (!reCAPTCHAResponse.ok) {
+                return { ok: false, message: reCAPTCHAResponse.text };
             }
         }
 
-        const res = await getLoginInfo(data.username)
-        const usage = await  getAccountUsage(data.username);
-
-        if ( usage ===  "admin" ) { LOG.logIn(data.username) }
-
-        //si resultat obtenu => comparaison
-         if(res) {
-            const isMatch = await bcrypt.compare(data.password, res.mot_de_passe);
-            if (!isMatch) {
-                return {
-                    ok: false, message: 'Mot de passe incorrect'
-                };
-            }
-
-            const token = jwt.sign(
-                {
-                    id: res.id_profil,
-                    role: res.id_role,
-                    email: res.mail
-                },
-                process.env.JWT_SECRET
-            );
-
-            return {
-                ok: true,
-                message: 'Connexion réussie',
-                usage: usage,
-                token
-            };
+        const userInfo = await getLoginInfo(data.username);
+        if (!userInfo) {
+            return { ok: false, message: 'Utilisateur introuvable' };
         }
-         else {
-             return {
-                 ok: false,
-                 message: 'Utilisateur introuvable'
-             }
-         }
+
+        // CHECK PASSWORD
+        const isPasswordValid = await bcrypt.compare(data.password, userInfo.mot_de_passe );
+        if (!isPasswordValid) {
+            return { ok: false, message: 'Mot de passe incorrect' };
+        }
+
+        // LOG ADMINS
+        const usage = await getAccountUsage(data.username);
+        if (usage === 'admin') { LOG.logIn(data.username); }
+
+        return {
+            ok: true,
+            message: 'Connexion réussie',
+            usage,
+            token: generateToken(userInfo)
+        };
+
     } catch (error) {
-        throw new Error("Erreur dans le service :"+error.message) ;
+        throw new Error(`Erreur dans le service: ${error.message}`);
     }
 }

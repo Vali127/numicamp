@@ -1,44 +1,26 @@
-import {UserModel} from "../../model/usersModel.js";
-import {useEffect, useState} from "react";
-
+import { useState } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { UserModel } from "../../model/usersModel.js"
 
 export const UsersViewModel = () => {
-    //MODEL
-    const MODEL = UserModel();
+    const MODEL = UserModel()
+    const [showBlockageModal, setShowBlockageModal] = useState(false)
+    const [showDeletionModal, setShowDeletionModal] = useState(false)
 
-    //STATES
-    const [listStatus, setListStatus] = useState('');
-    const [userList, setUserList] = useState([]);
-    const [showBlockageModal, setShowBlockageModal] = useState(false);
-    const [showDeletionModal, setShowDeletionModal] = useState(false);
-
-    //FUNCTIONS
-    const FetchUserList = async () => {
-        try {
-            setListStatus('loading');
+    const { data, status, refetch: FetchUserList } = useQuery({
+        queryKey: ["users"],
+        queryFn: async () => {
             const result = await MODEL.getUsers()
-            console.log("Result : ", result)
-            if (result.ok) {
-                setUserList(result.rows)
-                setListStatus('success');
-            } else {
-                setListStatus('unauthorized');
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    //EFFECT
-    useEffect(() => { FetchUserList() }, []);
+            if (!result.ok) throw new Error("unauthorized")
+            return result.rows
+        },
+    })
 
     return {
         FetchUserList,
-        listStatus,
-        userList,
-        showBlockageModal,
-        showDeletionModal,
-        setShowDeletionModal,
-        setShowBlockageModal
+        listStatus: status === "pending" ? "loading" : status === "error" ? "unauthorized" : "success",
+        userList: data ?? [],
+        showBlockageModal, setShowBlockageModal,
+        showDeletionModal, setShowDeletionModal,
     }
 }

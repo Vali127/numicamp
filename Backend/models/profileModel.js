@@ -2,11 +2,7 @@ import {pool} from "../config/db.js";
 
 
 export async function  getProfileData(user_id) {
-
-        console.log("MODEL : ID = ", user_id)
-
-      try {
-        
+    try {
         const user_type = await getUserType(user_id)
         const user_data = await getUserData(user_id, user_type)
         const domains = await getUserDomain(user_id, user_type)
@@ -18,12 +14,10 @@ export async function  getProfileData(user_id) {
             domains : domains,
             follow : following
         }
-
       } 
       catch (error) {
         throw new Error("Erreur de données : " + error)
       }
-
 }
 
 
@@ -31,7 +25,6 @@ async  function getUserType(id) {
     const sql = `SELECT nom_personne FROM personne WHERE id_profil = ?`
     try {
         const res = await pool.query(sql, [id])
-        console.log("searching for usage .... ")
         return ( res[0].length > 0 ) ? "personal" : "organisational"
     }
     catch (e) {

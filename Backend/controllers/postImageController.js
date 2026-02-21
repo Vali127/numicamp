@@ -1,37 +1,39 @@
-import path from 'path'
+import path from 'path';
 import { fileURLToPath } from 'url';
 
-export const  postImageController = (req, res) => {
+export const uploadPublicationImageController = (req, res) => {
     try {
-        console.log("postImagecontroller...")
+        console.log("uploadPublicationImageController...");
         
         if (!req.file) {
             return res.status(400).json({ 
                 ok: false,
-                message: 'Aucun fichier fourni' 
+                message: 'No file provided' 
             });
         }
-        //cette sequence d' instruction extrait le chemin depuis 'Posts' du chemin absolu 
+        
+        // Extract relative path from absolute path starting from 'Users'
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(__filename);
-        const absolute_path = path.join(__dirname, '..', 'Users', 'Posts', req.file.filename)
-        const parts = absolute_path.split(path.sep)
-        const head = parts.indexOf('Users')
-        const data = parts.slice(head + 1).join(path.sep)
-        console.log("chemin : ", data)
+        const absolutePath = path.join(__dirname, '..', 'Users', 'Posts', req.file.filename);
+        const parts = absolutePath.split(path.sep);
+        const usersIndex = parts.indexOf('Users');
+        const relativePath = parts.slice(usersIndex + 1).join(path.sep);
         
-        // Retourner le chemins du fichier uploadé
+        console.log("Publication image path:", relativePath);
+        
+        // Return the uploaded file path
         res.status(200).json({
             ok: true,
-            message: 'Photo uploadée avec succès',
-            data: data
+            message: 'Publication image uploaded successfully',
+            data: relativePath
         });
 
     } catch (error) {
-        res.status(500).json({ //yes ...using an error status on the catch block seems to work Lol...
+        res.status(500).json({
             ok: false,
-            message: 'Erreur lors de l\'upload',
+            message: 'Error during image upload',
             error: error.message
         });
     }
-}
+};

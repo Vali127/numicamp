@@ -1,11 +1,9 @@
 import {getComment, insertComment} from "../models/commentModel.js";
 
 export async function commentService(data){
-    const result = await insertComment(data);
-    return result;
+    return await insertComment(data);
 }
 
 export async function getCommentService(idPub){
-    const result = await getComment(idPub);
-    return result;
+    return await getComment(idPub);
 }

@@ -1,41 +1,17 @@
-import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { PostModel } from "../../model/post.model.js"
 
-
 export const FeedsVm = () => {
-
     const MODEL = PostModel()
 
-    const [ PostData, setPostData ] = useState([])
-    const [ ownership, setOwnership ] = useState(false)
-    const [ isEmpty, setIsEmpty ] = useState(true)
-
-
-    const GetFeeds = async() => {
-        try {
-            const response = await MODEL.GetPostFromOrg()
-            setOwnership(response.ownership)
-            setPostData(response.rows)
-            setIsEmpty(response.rows.length === 0)
-        }
-        catch(error) {
-            console.log("ERREUR DE RECUPERATION DE PUBLICATION : ", error)
-            setIsEmpty(true)
-        }
-    }
-
-    
-
-    useEffect(
-        () => {
-            GetFeeds()
-        }, []
-    )
+    const { data, isError } = useQuery({
+        queryKey: ["orgPosts"],
+        queryFn: () => MODEL.GetPostFromOrg(),
+    })
 
     return {
-        PostData,
-        ownership,
-        isEmpty,
+        PostData: data?.rows ?? [],
+        ownership: data?.ownership ?? false,
+        isEmpty: isError ? true : (data?.rows?.length ?? 1) === 0,
     }
-
 }

@@ -1,4 +1,4 @@
-import {userProfileViewModel} from "../../../viewmodel/section-vm/user.profile.vm.js";
+import {UserProfileViewModel} from "../../../viewmodel/section-vm/user.profile.vm.js";
 import ProfilePosts from "./profile.posts.jsx";
 import {useGlobalUiContext} from "../../../context/ui.context.jsx";
 import Loading from "../../components/loading.jsx";
@@ -9,7 +9,7 @@ import {useEffect} from "react";
 
 export const    Profile = ({id}) => {
 
-    const { profileData, loaded, posts, ownership, fetchData, fetchPosts } = userProfileViewModel(id)
+    const { profileData, loaded, posts, ownership, fetchData, fetchPosts } = UserProfileViewModel(id)
     const { refresh } = useGlobalUiContext();
 
     useEffect(() => {

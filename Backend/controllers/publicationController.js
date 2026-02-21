@@ -1,25 +1,98 @@
 /**
- * param : req avec (titre,description)
- * retour : res
+ * Publication Controllers
+ * Handles HTTP requests for publication operations
  */
 import { verifyToken } from "../middleware/verifyToken.js";
 import {
-    getPersonPubService, getOrgPubService, getPubDescriptionOrgService, sendPubDescriptionService, postDeletionService,
-    postForOrgService
+    getUserPublicationsService,
+    getOrganizationPublicationsService,
+    getSubscribedOrganizationsPublicationsService,
+    createPublicationService,
+    deletePublicationService,
+    getOrganizationApplicantsService
 } from "../services/publicationService.js";
 
-export async function sendPubDescriptionController(req, res) {
-    try{
+export async function createPublicationController(req, res) {
+    try {
         const { title, description, photoPath, keywords, domains } = req.body;
-        verifyToken(req, res)
-        const id = req.user.id
+        verifyToken(req, res);
+        const userId = req.user.id;
+        const result = await createPublicationService({ title, description, photoPath, keywords, domains, userId });
 
-        const result  = await sendPubDescriptionService({title, description,photoPath,keywords,domains,id});
-        if(result.ok){
-            res.status(200).json({message: "Enregistrement de publication reussi"});
+        res.status(200).json({ ok : result.ok , message: "Publication created successfully" });
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+}
+
+export async function getUserPublicationsController(req, res) {
+    try {
+        const result = await getUserPublicationsService(req, res);
+        if (result.ok) {
+            res.status(200).json({
+                message: result.message,
+                publications: result.rows,
+                owner: result.owner
+            });
         }
-    }catch (err){
-        res.status(err.status||500).json({ message: err.message });
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+}
+
+export async function getOrganizationPublicationsController(req, res) {
+    try {
+        const result = await getOrganizationPublicationsService(req, res);
+        if (result.ok) {
+            res.status(200).json({
+                message: result.message,
+                publications: result.rows,
+                owner: result.owner
+            });
+        }
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+}
+
+export async function getSubscribedOrganizationsPublicationsController(req, res) {
+    try {
+        const result = await getSubscribedOrganizationsPublicationsService(req, res);
+        if (result.ok) {
+            res.status(200).json({
+                message: result.message,
+                publications: result.rows,
+                owner: result.owner
+            });
+        }
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+}
+
+export async function deletePublicationController(req, res) {
+    try {
+        const result = await deletePublicationService(req, res);
+        res.status(200).json({
+            message: result.message,
+            success: result.ok
+        });
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+}
+
+export async function getOrganizationApplicantsController(req, res) {
+    try {
+        const result = await getOrganizationApplicantsService(req, res);
+        res.status(200).json({
+            message: result.message,
+            success: result.ok,
+            owner: false,
+            publications: result.rows
+        });
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
     }
 }
 

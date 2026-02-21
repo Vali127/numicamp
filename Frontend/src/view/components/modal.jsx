@@ -1,7 +1,6 @@
 import numicamp from '../../assets/images/numicamp.png'
 import numicampRed from '../../assets/images/numicamp-red.png'
 import { Portal } from './portal.jsx'
-import {useEffect} from "react";
 
 export const Modal = ({children, Type = null }) => {
     return (

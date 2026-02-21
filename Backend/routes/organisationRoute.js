@@ -4,7 +4,7 @@ import { getOrganisationController, followOrganisationController, unFollowOrgani
 
 const router = express.Router();
 
-router.get('/orgDomain',getOrganisationController)
+router.get('/suggestion',getOrganisationController)
 router.post('/follow', followOrganisationController)
 router.post('/unfollow', unFollowOrganisationController)
 

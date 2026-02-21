@@ -1,16 +1,9 @@
-import axios from 'axios'
-import { API_CONFIG } from "../config.js";
+import createClient from './modules/api.client.js'
 
-export function LogoutApi() {
-
-    const logoutAPI = async (token) => {
-        return await axios.post(`http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/logout/logout`, null, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-    }
+export const LogoutApi = () => {
+    const client = createClient('logout')
 
     return {
-        logoutAPI
+        logoutAPI: () => client.post("logout", null, { headers: client.getAuth() }),
     }
-
 }

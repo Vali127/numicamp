@@ -1,13 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {FormModal} from "./FormModal.jsx";
 import {useGlobalUiContext} from "../../../context/ui.context.jsx";
 
-export const ResourceForm = ({data, setData, action = null, result, domains, getDomains}) => {
+export const ResourceForm = ({data, setData, action = null, result, domains}) => {
 
     const [formModalVisibility, setFormModalVisibility] = React.useState(false);
     const { refresh, setRefresh } = useGlobalUiContext()
-
-    useEffect(() => { getDomains() }, []);
 
     return (
         <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-300/30">

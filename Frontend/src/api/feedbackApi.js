@@ -1,28 +1,11 @@
-import axios from "axios";
-import { API_CONFIG } from '../config.js'
-
+import createClient from './modules/api.client.js'
 
 export const feedbackApi = () => {
-    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/feedback`;
-    const token = localStorage.getItem('token');
-
-    const getFeedback = async () => {
-        const result = await axios.get(BASE_URL + '/list', {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-        return result.data
-    }
-
-    const sendFeedback = async (data) => {
-        const result = await axios.post(BASE_URL + '/send',
-            { content: data },
-            { headers: { Authorization: `Bearer ${token}` },
-        })
-        return result.data
-    }
+    const client = createClient('feedback')
+    const auth = { headers: client.getAuth() }
 
     return {
-        getFeedback,
-        sendFeedback,
+        getFeedback:  ()     => client.get("list", auth),
+        sendFeedback: (data) => client.post("send", { content: data }, auth),
     }
 }

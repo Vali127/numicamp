@@ -1,34 +1,12 @@
-import axios from "axios"
-import { API_CONFIG } from '../config.js'
+import createClient from './modules/api.client.js'
 
 export const OrgSuggestionApi = () => {
-
-    const BASE_URL = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/api/organisation`
-    const token = localStorage.getItem('token')
-
-    const getOrganisationSuggestionApi = async() => {
-        const response = await axios.get( BASE_URL + "/orgDomain", {
-            headers: { 'Authorization': "Bearer " + token }
-        })
-        return response.data
-    }
-
-    const followApi = async(data) => {
-        return await axios.post( BASE_URL + "/follow", data, {
-            headers: { 'Authorization' : "Bearer " + token }
-        })
-    }
-
-    const unfollowApi = async(data) => {
-        return await axios.post( BASE_URL + "/unfollow", data, {
-            headers: { 'Authorization' : "Bearer " + token }
-        })
-    }
+    const client = createClient('organization')
+    const auth = { headers: client.getAuth() }
 
     return {
-        getOrganisationSuggestionApi,
-        followApi,
-        unfollowApi
+        getOrganisationSuggestionApi: ()     => client.get("suggestion", auth),
+        followApi: (data) => client.post("follow",    data, auth),
+        unfollowApi: (data) => client.post("unfollow",  data, auth),
     }
-
 }

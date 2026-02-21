@@ -5,9 +5,9 @@ import { personFormValidation } from "../../../services/form.services.js";
 
 export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
 
-    const { personForm,SetPersonForm, HandleInputNameChange, nameError, HandleInputFirstnameChange, firstnameError, HandleInputDateChange, dateError } = PersonFormVm()
+    const { personForm,setPersonForm, HandleInputNameChange, nameError, HandleInputFirstnameChange, firstnameError, HandleInputDateChange, dateError } = PersonFormVm()
     const { isAllPersonFormFulFilled } = personFormValidation()
-    const Places = OrderedListOfPlace()
+    const Places = OrderedListOfPlace
 
     useEffect(() => { if (CurrentPage) { CurrentPage('personForm') } }, [])
     useEffect(() => {
@@ -63,14 +63,14 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                             <div className={'text-[12px] pt-2 flex gap-2'}>
                                 <p><input
                                     checked={ personForm.sex === "F" }
-                                    onChange={(e) => { SetPersonForm({...personForm, sex : e.target.value }) }}
+                                    onChange={(e) => { setPersonForm({...personForm, sex : e.target.value }) }}
                                     type={"radio"} name={'sex'}
                                     value={"F"}
                                     className={'mr-2'}/>
                                     <label>Femme</label></p>
                                 <p><input
                                     checked={ personForm.sex === "M" }
-                                    onChange={(e) => { SetPersonForm({...personForm, sex : e.target.value }) }}
+                                    onChange={(e) => { setPersonForm({...personForm, sex : e.target.value }) }}
                                     type={"radio"} name={'sex'}
                                     value={"M"}
                                     className={'mr-2'}/>
@@ -82,7 +82,7 @@ export const PersonForm = ({CurrentPage, isButtonNextDisabled}) => {
                         <p className={'text-[14px]'}><b>Lieu actuel</b></p>
                         <select
                             value={personForm.place}
-                            onChange={(e) => { SetPersonForm({...personForm, place : e.target.value }) }}
+                            onChange={(e) => { setPersonForm({...personForm, place : e.target.value }) }}
                             className={'text_input input__shadow w-full md:w-60 !text-[13px]'}
                             id={'place'}
                             name={'place'}>

@@ -61,7 +61,7 @@ export const SignInValidationModal = () => {
 
         return (
             <Modal>
-                { (FormUploaded) && < SignInValidationLoading/>  }
+                { ( response === "loading" ) && < SignInValidationLoading/>  }
                 { ( response === "success" ) && <SignInValidationAccepted/> }
                 { ( response === "failure" ) && <SignInValidationRejected/> }
             </Modal>

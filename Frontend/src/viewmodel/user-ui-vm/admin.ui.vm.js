@@ -1,41 +1,22 @@
-import {HomeModel} from "../../model/home.model.js";
-import {useEffect, useState} from "react";
+import { useState } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { HomeModel } from "../../model/home.model.js"
 
+const isUserAuthenticated = () => !!localStorage.getItem("token")
 
 export const AdminHomeViewModel = () => {
+    const { getAccountInfo } = HomeModel()
+    const [logout, setLogout] = useState(false)
 
-    //L'Admin est un compte personnel donc il utilise toutes les ressources des utilisateurs personnels.
+    const { data: userInfo = {} } = useQuery({
+        queryKey: ["accountInfo"],
+        queryFn: () => getAccountInfo(),
+        enabled: isUserAuthenticated(),
+    })
 
-    //MODEL
-    const { getAccountInfo } = HomeModel();
-
-    //STATES
-    const [authenticated, setAuthenticated] = useState(false);
-    const [userInfo, setUserInfo] = useState({});
-    const [logout, setLogout] = useState(false);
-
-    //FUNCTIONS
-    const HandleAccountInformation = async () => {
-        try {
-            const res = await getAccountInfo();
-            setUserInfo(res);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    //EFFECT
-    useEffect(() => { setAuthenticated(isUserAuthenticated()); }, []);
-    useEffect(() => { HandleAccountInformation(); }, []);
     return {
-        authenticated,
+        authenticated: isUserAuthenticated(),
         userInfo,
-        logout,
-        setLogout
+        logout, setLogout,
     }
-
-}
-
-const isUserAuthenticated = () => {
-    return localStorage.getItem("token")
 }

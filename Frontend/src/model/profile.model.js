@@ -1,40 +1,36 @@
-import {profileApi} from "../api/profile.api.js";
-import { PostApi } from "../api/post.api.js";
-import { DateShortFormat } from "../utils/display.format.js";
+import { profileApi } from "../api/profile.api.js"
+import { PostApi } from "../api/post.api.js"
+import { DateShortFormat } from "../utils/display.format.js"
 import { API_CONFIG } from "../config.js"
 
-export const  profileModel = () => {
+export const profileModel = () => {
     const api = profileApi()
-    const file_api = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users`
+    const staticUrl = `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users`
 
     const getProfilData = async (obj) => {
-        const foo = await api.getProfileDataApi(obj)
-        const res = foo.data
-        res.user_data.photo_profil = `${file_api}/${res.user_data.photo_profil}`
-        res.user_data.datenais = res.user_data.datenais ? DateShortFormat(res.user_data.datenais) : null
-        res.user_data.date_creation = res.user_data.date_creation ? DateShortFormat(res.user_data.date_creation) : null 
-        return res
+        const { data: { user_data, ...rest } } = await api.getProfileDataApi(obj)
+        user_data.photo_profil = `${staticUrl}/${user_data.photo_profil}`
+        user_data.datenais = user_data.datenais ? DateShortFormat(user_data.datenais) : null
+        user_data.date_creation = user_data.date_creation ? DateShortFormat(user_data.date_creation) : null
+        return { user_data, ...rest }
     }
 
     const getProfilePostData = async (obj, type) => {
         const foo = await PostApi().getUserPostsApi(obj, type)
-        const data = foo.rows
         return {
-            rows : data.map((item) => ({...item, photo_pub : `http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/${item.photo_pub}` , date_pub : DateShortFormat(item.date_pub) })),
-            ownership : foo.owner
+            rows: foo.publications.map(item => ({
+                ...item,
+                photo_pub: `${staticUrl}/${item.photo_pub}`,
+                date_pub: DateShortFormat(item.date_pub)
+            })),
+            ownership: foo.owner
         }
     }
 
-    const  updateProfile = async (obj) => {
-        obj.photo_profil = obj.photo_profil.replace(`http://${API_CONFIG.hostname}:${API_CONFIG.port}/static/users/`,'')
-        const data = await api.updateProfileDataApi(obj)
-        console.log(data)
+    const updateProfile = async (obj) => {
+        obj.photo_profil = obj.photo_profil.replace(`${staticUrl}/`, '')
+        return await api.updateProfileDataApi(obj)
     }
 
-
-    return {
-        getProfilData,
-        getProfilePostData,
-        updateProfile,
-    }
+    return { getProfilData, getProfilePostData, updateProfile }
 }

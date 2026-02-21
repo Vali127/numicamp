@@ -1,107 +1,60 @@
-import React, {useEffect} from "react";
-import {ressourcesModel} from "../../model/ressources.model.js";
-import {statsModel} from "../../model/stats.model.js";
+import { useState } from "react"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { ressourcesModel } from "../../model/ressources.model.js"
+import { statsModel } from "../../model/stats.model.js"
 
 export const AdminRessourceViewModel = () => {
-
     const MODEL = ressourcesModel()
+    const STATS = statsModel()
+    const queryClient = useQueryClient()
+    const [currentTab, setCurrentTab] = useState("form")
+    const [data, setData] = useState({ link: "", name: "", type: "", description: "", domain: "" })
+    const [deletionModal, setDeletionModal] = useState(false)
 
-    const [currentTab, setCurrentTab] = React.useState("form")
-    const [domains, setDomains] = React.useState([])
-    const [formResult, setFormResult] = React.useState({ message : "", status : "normal" })
-    const [list, setList] = React.useState([])
-    const [data, setData] = React.useState({
-        link: "",
-        name: "",
-        type: "",
-        description: "",
-        domain : ""
-    });
-    const [deletionModal, setDeletionModal] = React.useState(false);
+    const { data: domains = [] } = useQuery({
+        queryKey: ["domains"],
+        queryFn: async () => (await STATS.getDomains()).data,
+    })
 
-    const FetchDomains = async () => {
-        try {
-            const result = await statsModel().getDomains()
-            setDomains(result.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    const { data: list = [] } = useQuery({
+        queryKey: ["resourceList"],
+        queryFn: async () => (await MODEL.getList()).rows,
+        enabled: currentTab === "list",
+    })
 
-    const fetchResources = async () => {
-        try {
-            const result = await MODEL.getList()
-            setList(result.rows)
-        } catch (error) {
-            console.log(error)
-            setList([])
-        }
-    }
-
-    const sendData = async () => {
-        try {
-            setFormResult({...formResult, status: "loading"})
-            const result = await MODEL.createResource(data)
-            setFormResult({
-                status: (result.ok) ? "success" : "failed",
-                message: result.message,
-            })
-        } catch (error) {
-            console.log(error)
-            setFormResult({ status: "error", message: error.message || "Something went wrong" })
-        }
-    }
-
-    useEffect(() => {
-        if (currentTab === "list")
-            fetchResources()
-    }, [currentTab])
-
+    const { mutate: sendData, data: formResult = { message: "", status: "normal" }, status: sendStatus } = useMutation({
+        mutationFn: () => MODEL.createResource(data),
+        onSuccess: () => void queryClient.invalidateQueries({ queryKey: ["resourceList"] }),
+        onError: (error) => console.error(error),
+    })
 
     return {
-        currentTab,
-        setCurrentTab,
-        data,
-        setData,
-        list,
-        deletionModal,
-        setDeletionModal,
+        currentTab, setCurrentTab,
+        data, setData,
+        list, deletionModal, setDeletionModal,
         sendData,
-        formResult,
-        FetchDomains,
-        fetchResources,
-        domains
+        formResult: sendStatus === "pending" ? { message: "", status: "loading" }
+            : sendStatus === "error" ? { message: "Something went wrong", status: "error" }
+                : formResult.ok === false ? { message: formResult.message, status: "failed" }
+                    : sendStatus === "success" ? { message: formResult.message, status: "success" }
+                        : { message: "", status: "normal" },
+        domains,
     }
 }
 
-
-
-
-
-
 export const ResourceDeletionModalVM = () => {
-
     const MODEL = ressourcesModel()
+    const queryClient = useQueryClient()
 
-    const [status, setStatus] = React.useState("normal")
-    const [message, setMessage] = React.useState("")
-
-    const DeleteResource = async (id, type) => {
-        try {
-            setStatus("loading")
-            const result = await MODEL.deleteResource(id, type)
-            setMessage(result.message)
-            setStatus((result.ok) ? "success" : "error")
-        } catch (err) {
-            console.log(err)
-            setStatus("error")
-            setMessage("Something went wrong")
-        }
-    }
+    const { mutate: DeleteResource, status, data } = useMutation({
+        mutationFn: ({ id, type }) => MODEL.deleteResource(id, type),
+        onSuccess: () => void queryClient.invalidateQueries({ queryKey: ["resourceList"] }),
+        onError: (err) => console.error(err),
+    })
 
     return {
-        status,
-        message,
-        DeleteResource
+        status: status === "pending" ? "loading" : status === "error" ? "error" : data?.ok ? "success" : status,
+        message: status === "error" ? "Something went wrong" : data?.message ?? "",
+        DeleteResource: (id, type) => { DeleteResource({ id, type }) },
     }
 }

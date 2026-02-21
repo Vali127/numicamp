@@ -1,58 +1,38 @@
-import {FeedbackModel} from "../../model/feedback.model.js";
-import {useEffect, useState} from "react";
-
+import { useState } from "react"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { FeedbackModel } from "../../model/feedback.model.js"
 
 export const FeedbackViewModel = () => {
-    //MODEL
     const MODEL = FeedbackModel()
-
-
-    //STATE
-    const [typeOfUser, setTypeOfUser] = useState("")
+    const queryClient = useQueryClient()
     const [feedback, setFeedback] = useState("")
-    const [history, setHistory] = useState([])
-    const [status, setStatus] = useState({ list : "", form : "" })
 
-
-    //FUNCTION
-    const DispatchFeedback = async () => {
-        try {
-            setStatus({...status, form : "loading"});
-            const response = await MODEL.sendFeedback(feedback);
-            console.log("DATA : ", response)
-            if (response.ok) { setStatus({...status, form : "success"}) }
-            else { setStatus({...status, form : "fail"}) }
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
-    const FetchFeedBacks = async () => {
-        try {
-            setStatus({...status, list : "loading"});
+    const { data, isError } = useQuery({
+        queryKey: ["feedbacks"],
+        queryFn: async () => {
             const response = await MODEL.getFeedback()
-            console.log("DATA LIST : ", response)
-            if (response.ok) {
-                setTypeOfUser(response.user_type)
-                setStatus({...status, form : "success"})
-                setHistory(response.rows)
-            } else {
-                setStatus({...status, form : "fail"})
-                setHistory([])
-            }
-        } catch (err) {
-            console.error(err)
-        }
-    }
+            if (!response.ok) throw new Error()
+            return response
+        },
+    })
 
-    //EFFECT
-    useEffect(() => { FetchFeedBacks() },[])
+    const { mutate: DispatchFeedback, status: formStatus } = useMutation({
+        mutationFn: () => MODEL.sendFeedback(feedback),
+        onSuccess: (response) => {
+            if (!response.ok) throw new Error()
+            void queryClient.invalidateQueries({ queryKey: ["feedbacks"] })
+        },
+        onError: (err) => console.error(err),
+    })
 
     return {
-        feedback,
-        setFeedback,
+        feedback, setFeedback,
         DispatchFeedback,
-        history,
-        typeOfUser,
+        history: data?.rows ?? [],
+        typeOfUser: data?.user_type ?? "",
+        status: {
+            list: isError ? "fail" : data ? "success" : "loading",
+            form: formStatus === "pending" ? "loading" : formStatus === "error" ? "fail" : formStatus === "success" ? "success" : "",
+        }
     }
 }

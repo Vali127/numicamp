@@ -1,64 +1,31 @@
-import { useEffect, useState } from "react"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { SuggestionModel } from "../../model/suggestion.model.js"
 
-
 export const OrgSuggestionVm = () => {
+    const queryClient = useQueryClient()
 
-    const [ suggestedOrganisation, setSuggestedOrganisation ] = useState([])
-    const [ isEmpty, setIsEmpty ] = useState(true)
+    const suggestion = SuggestionModel()
+    const { data: suggestedOrganisation = [] } = useQuery({
+        queryKey: ["orgSuggestions"],
+        queryFn: () => suggestion.getOrganisationSuggestion(),
+    })
 
-    const HandleSuggestion = async() => {
-        try {
-            const model = SuggestionModel()
-            const result = await model.getOrganisationSuggestion()
-            
-            if ( result.length == 0 ) 
-                setIsEmpty(true)
-            else
-                setIsEmpty(false)
-            
-            setSuggestedOrganisation(result)
-        }
-        catch(error) {
-            setIsEmpty(true)
-            console.log("ERREUR DE RECUP :", error)
-        }
-    }
+    const { mutateAsync: Follow } = useMutation({
+        mutationFn: (data) => suggestion.followModel(data),
+        onSuccess: () => void queryClient.invalidateQueries({ queryKey: ["orgSuggestions"] }),
+        onError: (error) => console.error("An error occurred : ", error),
+    })
 
-    useEffect( () => { HandleSuggestion() }, [] )
-
-
-    const Follow = async(data) => {
-        try {
-            const model = SuggestionModel()
-            const res = await model.followModel(data)
-            
-            return res.data.ok
-        }
-        catch(error) {
-            console.log("An error occured : ", error)
-            return false
-        }
-    }
-
-    const Unfollow = async(data) => {
-        try {
-            const model = SuggestionModel()
-            const res = await model.unFollowModel(data)
-
-            return res.data.ok
-        }
-        catch(error) {
-            console.log("An error occured : ", error)
-            return false
-        }
-    }
+    const { mutateAsync: Unfollow } = useMutation({
+        mutationFn: (data) => suggestion.unFollowModel(data),
+        onSuccess: () => void queryClient.invalidateQueries({ queryKey: ["orgSuggestions"] }),
+        onError: (error) => console.error("An error occurred : ", error),
+    })
 
     return {
-        isEmpty,
+        isEmpty: suggestedOrganisation.length === 0,
         suggestedOrganisation,
-        Follow,
-        Unfollow,
+        Follow: async (data) => { try { const res = await Follow(data); return res.data.ok } catch { return false } },
+        Unfollow: async (data) => { try { const res = await Unfollow(data); return res.data.ok } catch { return false } },
     }
-
 }

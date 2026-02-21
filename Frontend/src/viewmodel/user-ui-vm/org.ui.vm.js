@@ -1,53 +1,32 @@
-import {useEffect, useState} from "react";
-import {HomeModel} from "../../model/home.model.js";
+import { useState } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { HomeModel } from "../../model/home.model.js"
+
+const isUserAuthenticated = () => !!localStorage.getItem("token")
 
 export const OrgUiVm = () => {
-    //MODEL
     const model = HomeModel()
-
-    //STATE
-    const [authenticated, setAuthenticated] = useState(false)
-    const [userInfo, setUserInfo] = useState({})
     const [logout, setLogout] = useState(false)
     const [postModalVisibility, setPostModalVisibility] = useState(false)
     const [searchContent, setSearchContent] = useState("")
     const [searched, setSearched] = useState(false)
 
+    const { data: userInfo = {} } = useQuery({
+        queryKey: ["accountInfo"],
+        queryFn: async () => {
+            const [user_data, user_domains] = await Promise.all([
+                model.getAccountInfo(),
+                model.getUserDomains()
+            ])
+            return { ...user_data, domains: user_domains.data }
+        },
+        enabled: isUserAuthenticated(),
+    })
 
-    //FUNCTION
-    const HandleAccountInformation = async () => {
-        try {
-            const user_data = await  model.getAccountInfo()
-            const user_domains = await model.getUserDomains()
-            setUserInfo({...user_data, domains : user_domains.data })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-
-    //EFFECT
-    useEffect(() => { setAuthenticated(isUserAuthenticated())}, [])
-    useEffect( () => { HandleAccountInformation() }, [] )
-
-
-    //RETURN
     return {
-        authenticated,
-        postModalVisibility,
-        setPostModalVisibility,
-        userInfo,
-        logout,
-        setLogout,
-        searched,
-        setSearched,
-        searchContent,
-        setSearchContent,
+        authenticated: isUserAuthenticated(),
+        logout, setLogout,
+        userInfo, postModalVisibility, setPostModalVisibility,
+        searchContent, setSearchContent, searched, setSearched,
     }
-
-}
-
-
-const isUserAuthenticated = () => {
-    return localStorage.getItem("token")
 }
