@@ -1,8 +1,10 @@
 # DEPOT POUR LE PROJET NUMICAMP
 
 ## Prérequis :
-- Node js ( + v22 recommandé )
-- Mariadb/Mysql
+- Node js ( + v22 recommandé ).
+- Mariadb/Mysql.
+- creer un compte mail pour le plateforme.
+- clé API de reCAPTCHA v2.
 
 ## Instruction :
 
