@@ -24,6 +24,7 @@ export const SchoolCard = ({ school, isAdmin = false, setElement = null, setShow
             <div className="h-48 bg-gradient-to-br from-indigo-500 to-violet-500 relative">
                 {photo_etab ? (
                     <img
+                        loading="lazy" 
                         src={photo_etab}
                         alt={nom_etab}
                         className="w-full h-full object-cover"

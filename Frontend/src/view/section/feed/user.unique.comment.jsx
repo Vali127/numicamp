@@ -5,7 +5,7 @@ export const UserUniqueComment = ({profil,owner, name, firstname, username, id, 
         <div id={id} className="flex flex-col gap-2 mb-1 bg-neutral-300/20 border border-neutral-200/50 p-2 sm:p-3 rounded-md">
             <div className="flex gap-2">
                 <div className='w-8 h-8 sm:w-10 sm:h-10 bg-gray-500 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0'>
-                    <img src={profil} alt="pfp" className="h-full w-full object-cover" />
+                    <img loading="lazy" src={profil} alt="pfp" className="h-full w-full object-cover" />
                 </div>
                 <div className="flex-1 flex-col min-w-0">
                     <div className="flex gap-1 sm:gap-2 items-center flex-wrap">

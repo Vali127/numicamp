@@ -9,7 +9,7 @@ const Sites = ({favicon,name,domain,link,description}) => {
             <div className='flex gap-2'>
 
                 <div className='h-6 w-6 sm:h-8 sm:w-8 rounded-2xl overflow-hidden relative flex items-center justify-around flex-shrink-0'>
-                    <img src={!faviconError && favicon ? favicon : globe} className='w-full h-full' onError={() => setFaviconError(true)}  alt="fav" />
+                    <img loading="lazy" src={!faviconError && favicon ? favicon : globe} className='w-full h-full' onError={() => setFaviconError(true)}  alt="fav" />
                 </div>
 
                 <div className='flex-1 flex flex-col gap-1 min-w-0'>

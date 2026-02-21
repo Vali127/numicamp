@@ -38,7 +38,7 @@ const PersonalForm = ({data,modify,status, update, uploadFile}) => {
                 <div className='flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6'>
                     <div className='relative group'>
                         <div className='w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-indigo-100'>
-                            <img src={data.photo_profil} alt="pfp" className='w-full h-full object-cover' />
+                            <img loading="lazy" src={data.photo_profil} alt="pfp" className='w-full h-full object-cover' />
                         </div>
                         <button
                             onClick={() => {document.getElementById("imageInput").click()}}
@@ -192,7 +192,7 @@ const OrganisationForm = ({data,modify,status, update, uploadFile}) => {
                 <div className='flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6'>
                     <div className='relative group'>
                         <div className='w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-green-100'>
-                            <img src={data.photo_profil} alt="pfp" className='w-full h-full object-cover' />
+                            <img loading="lazy" src={data.photo_profil} alt="pfp" className='w-full h-full object-cover' />
                         </div>
                         <button
                             onClick={() => {document.getElementById("imageInput").click()}}

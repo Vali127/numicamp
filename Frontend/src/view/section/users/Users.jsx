@@ -105,6 +105,7 @@ const Table = ({ list = [] , showBlockModal, showDeleteModal, deleteModal, block
                                 <tr key={item.id_profil || index} className="hover:bg-gray-50">
                                     <td className="px-6 py-1">
                                         <img
+                                            loading="lazy" 
                                             src={item.photo_profil || '/api/placeholder/40/40'}
                                             alt={item.nom_profil}
                                             className="w-10 h-10 rounded-full object-cover"

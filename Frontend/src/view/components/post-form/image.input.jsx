@@ -13,7 +13,7 @@ const ImageInput = ({image, HandleImage, resetImage }) => {
              }>
 
             { !image && <div className='text-center flex flex-col items-center' ><Camera/>Photo</div> }
-            { image && <img src={URL.createObjectURL(image)} alt='image' className='h-25' /> }
+            { image && <img loading="lazy" src={URL.createObjectURL(image)} alt='image' className='h-25' /> }
             
             <input
                 id="imageInput" 

@@ -14,7 +14,7 @@ export const FeedbackItem = ({ item, editor }) => {
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
                         <div className="flex items-center gap-2 sm:gap-3">
                             <div className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center bg-gray-500 rounded-full overflow-hidden flex-shrink-0">
-                                { userData.photo_profil && <img src={userData.photo_profil} alt="pfp" className="w-full h-full object-cover" /> }
+                                { userData.photo_profil && <img loading="lazy" src={userData.photo_profil} alt="pfp" className="w-full h-full object-cover" /> }
                             </div>
                             <span className="text-[11px] sm:text-[12px]">de :
                                 <b

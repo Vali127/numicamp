@@ -15,7 +15,7 @@ const AccountIndex = ({name, firstname = "", username, profile, description, id,
                     <div className='w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-indigo-100 to-purple-100
                                 rounded-lg overflow-hidden flex items-center justify-center
                                 ring-2 ring-neutral-100 group-hover:ring-indigo-200 transition-all duration-300'>
-                        <img src={profile} alt={`${name} profile`} className='w-full h-full object-cover' />
+                        <img loading="lazy" src={profile} alt={`${name} profile`} className='w-full h-full object-cover' />
                     </div>
                 </div>
 
