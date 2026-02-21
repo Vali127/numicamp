@@ -2,14 +2,17 @@ import { Modal } from "../../components/modal.jsx";
 import { useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import { LogoutModel } from "../../../model/logout.model.js";
+import {useQueryClient} from "@tanstack/react-query";
 
 export const LogoutModal = ({SetLogout}) => {
     const navigate = useNavigate();
     const MODEL = LogoutModel()
+    const queryClient = useQueryClient();
 
     const HandleLogout = async () => {
         await MODEL.logout()
         localStorage.clear()
+        queryClient.clear()
         navigate("/");
     }
 
