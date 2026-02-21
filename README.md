@@ -22,7 +22,7 @@ clonez le repo :
 ```sh
     npm install
 ```
-1. Creez une **fichie de configuration** `/src/config.js` avec ce modèle.
+1. Creez une **fichier de configuration** `/src/config.js` avec ce modèle.
 ```js
     export const API_CONFIG = {
         hostname : "localhost", //backend hostname
