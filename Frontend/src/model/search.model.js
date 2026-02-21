@@ -1,7 +1,7 @@
-import { searchApi } from "../api/search.api.js"
-import { Combine, UniqueValue } from "../utils/data.js"
-import { DateShortFormat } from "../utils/display.format.js"
-import { API_CONFIG } from "../config.js"
+import {searchApi} from "../api/search.api.js"
+import {Combine, UniqueValue} from "../utils/data.js"
+import {DateShortFormat} from "../utils/display.format.js"
+import {API_CONFIG} from "../config.js"
 
 export const searchModel = () => {
     const api = searchApi()
@@ -10,7 +10,7 @@ export const searchModel = () => {
     const withPhoto = (item) => ({ ...item, photo_profil: `${staticUrl}/${item.photo_profil}` })
 
     const search = async (obj) => {
-        const foo = (await api.searchValueApi(obj)).data.res
+        const foo = (await api.searchValueApi(obj)).res
 
         const data = {
             org: foo.org.map(withPhoto),

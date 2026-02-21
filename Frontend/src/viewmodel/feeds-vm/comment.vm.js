@@ -23,7 +23,7 @@ export const CommentVm = (postId = null) => {
     })
 
     return {
-        comment: status === "idle" ? "fetched" : status === "pending" ? "fetching" : status,
+        comment: status,
         content,
         setContent,
         SendComment,
