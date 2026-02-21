@@ -1,49 +1,31 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { ressourcesModel } from "../../model/ressources.model"
 
 export const RessourcesViewModel = () => {
     const model = ressourcesModel()
     const [section, setSection] = useState("news")
-    const [news, setNews] = useState([])
-    const [sites, setSites] = useState([])
-    const [newsStatus, setNewsStatus] = useState("loading")
-    const [siteStatus, setSiteStatus] = useState("loading")
 
-    useEffect(() => {
-        const FetchNews = async () => {
-            try {
-                setNewsStatus("loading")
-                const response = await model.getNews()
-                if (response.ok) {
-                    setNews(response.data)
-                    setNewsStatus("loaded")
-                } else {
-                    setNews([])
-                    setNewsStatus("noInternet")
-                }
-            } catch (error) {
-                console.error("ERREUR : ", error)
-                setNews([])
-                setNewsStatus("noInternet")
-            }
-        }
-        FetchNews()
-    }, [])
+    const { data: news = [], status: newsStatus } = useQuery({
+        queryKey: ["news"],
+        queryFn: async () => {
+            const response = await model.getNews()
+            if (!response.ok) throw new Error()
+            return response.data
+        },
+    })
 
-    useEffect(() => {
-        const FetchSites = async () => {
-            try {
-                setSiteStatus("loading")
-                const response = await model.getSites()
-                setSites(response.data)
-                setSiteStatus("loaded")
-            } catch (error) {
-                console.error("ERREUR : ", error)
-                setSiteStatus("error")
-            }
-        }
-        FetchSites()
-    }, [])
+    const { data: sites = [], status: siteStatus } = useQuery({
+        queryKey: ["sites"],
+        queryFn: async () => {
+            const response = await model.getSites()
+            return response.data
+        },
+    })
 
-    return { news, sites, newsStatus, siteStatus, section, setSection }
+    return {
+        news, sites, section, setSection,
+        newsStatus: newsStatus === "pending" ? "loading" : newsStatus === "error" ? "noInternet" : "loaded",
+        siteStatus: siteStatus === "pending" ? "loading" : siteStatus === "error" ? "error" : "loaded",
+    }
 }

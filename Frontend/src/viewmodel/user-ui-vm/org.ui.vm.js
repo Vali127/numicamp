@@ -1,36 +1,31 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { HomeModel } from "../../model/home.model.js"
 
 const isUserAuthenticated = () => !!localStorage.getItem("token")
 
 export const OrgUiVm = () => {
     const model = HomeModel()
-    const [authenticated, setAuthenticated] = useState(false)
-    const [userInfo, setUserInfo] = useState({})
     const [logout, setLogout] = useState(false)
     const [postModalVisibility, setPostModalVisibility] = useState(false)
     const [searchContent, setSearchContent] = useState("")
     const [searched, setSearched] = useState(false)
 
-    useEffect(() => { setAuthenticated(isUserAuthenticated()) }, [])
-
-    useEffect(() => {
-        const HandleAccountInformation = async () => {
-            try {
-                const [user_data, user_domains] = await Promise.all([
-                    model.getAccountInfo(),
-                    model.getUserDomains()
-                ])
-                setUserInfo({ ...user_data, domains: user_domains.data })
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        HandleAccountInformation()
-    }, [])
+    const { data: userInfo = {} } = useQuery({
+        queryKey: ["accountInfo"],
+        queryFn: async () => {
+            const [user_data, user_domains] = await Promise.all([
+                model.getAccountInfo(),
+                model.getUserDomains()
+            ])
+            return { ...user_data, domains: user_domains.data }
+        },
+        enabled: isUserAuthenticated(),
+    })
 
     return {
-        authenticated, logout, setLogout,
+        authenticated: isUserAuthenticated(),
+        logout, setLogout,
         userInfo, postModalVisibility, setPostModalVisibility,
         searchContent, setSearchContent, searched, setSearched,
     }

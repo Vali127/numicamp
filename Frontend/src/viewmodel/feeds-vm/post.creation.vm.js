@@ -1,15 +1,32 @@
 import { useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
 import { PostModel } from '../../model/post.model.js'
 import { ImageServices } from '../../services/image.services.js'
 
 export const PostCreationVm = ({ setModalVisibility }) => {
+    const MODEL = PostModel()
     const [imageError, setImageError] = useState('')
-    const [uploadState, setUploadState] = useState('')
     const [postData, setPostData] = useState({
         title: '', description: '', domains: [], keywords: [], photo_pub: null, photo: null,
     })
 
-    const HandleImage = async (e) => {
+    const { mutate: uploadImage } = useMutation({
+        mutationFn: (file) => MODEL.UploadPostImage(file),
+        onSuccess: (res, file) => setPostData({ ...postData, photo: res.data.data, photo_pub: file }),
+        onError: (error) => {
+            console.error("Erreur d'upload : ", error)
+            setImageError("Erreur lors de l'upload de l'image. Veuillez réessayer plus tard.")
+            setPostData({ ...postData, photo_pub: null })
+        },
+    })
+
+    const { mutate: uploadPost, status: uploadState } = useMutation({
+        mutationFn: () => MODEL.UploadPostData(postData),
+        onSuccess: () => setTimeout(() => setModalVisibility(false), 3000),
+        onError: (error) => console.error("UNE ERREUR S'EST PRODUITE !! :", error),
+    })
+
+    const HandleImage = (e) => {
         const file = e.target.files[0]
         if (!file) {
             setImageError(null)
@@ -29,14 +46,7 @@ export const PostCreationVm = ({ setModalVisibility }) => {
         }
 
         setImageError(null)
-        try {
-            const res = await PostModel().UploadPostImage(file)
-            setPostData({ ...postData, photo: res.data.data, photo_pub: file })
-        } catch (error) {
-            console.error("Erreur d'upload : ", error)
-            setImageError("Erreur lors de l'upload de l'image. Veuillez réessayer plus tard.")
-            setPostData({ ...postData, photo_pub: null })
-        }
+        uploadImage(file)
     }
 
     const resetImage = () => {
@@ -44,17 +54,5 @@ export const PostCreationVm = ({ setModalVisibility }) => {
         setImageError(null)
     }
 
-    const HandleUpload = async () => {
-        try {
-            setUploadState("loading")
-            await PostModel().UploadPostData(postData)
-            setUploadState("success")
-            setTimeout(() => setModalVisibility(false), 3000)
-        } catch (error) {
-            console.error("UNE ERREUR S'EST PRODUITE !! :", error)
-            setUploadState("error")
-        }
-    }
-
-    return { HandleImage, imageError, resetImage, postData, setPostData, HandleUpload, uploadState }
+    return { HandleImage, imageError, resetImage, postData, setPostData, HandleUpload: uploadPost, uploadState }
 }

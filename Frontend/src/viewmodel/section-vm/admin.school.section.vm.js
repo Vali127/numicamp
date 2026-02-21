@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { ImageServices } from "../../services/image.services.js"
 import { SchoolModel } from "../../model/shool.model.js"
 
@@ -7,13 +8,30 @@ export const AdminSchoolViewModel = () => {
     const [currentTab, setCurrentTab] = useState("inscription")
     const [imagePreview, setImagePreview] = useState(null)
     const [imageError, setImageError] = useState(null)
-    const [status, setStatus] = useState("normal")
-    const [message, setMessage] = useState("")
     const [schoolData, setSchoolData] = useState({
         name: "", description: "", image: "", province: "", city: "", neighbourhood: "", site: ""
     })
 
-    const HandleImage = async (e) => {
+    const { mutate: uploadImage } = useMutation({
+        mutationFn: (file) => model.uploadImage(file),
+        onSuccess: (res, file) => {
+            setSchoolData({ ...schoolData, image: String(res.data) })
+            setImagePreview(URL.createObjectURL(file))
+        },
+        onError: (error) => {
+            console.error("Erreur upload : ", error)
+            setImageError("Erreur lors de upload de l'image. Veuillez réessayer plus tard.")
+            setSchoolData({ ...schoolData, image: "" })
+            setImagePreview(null)
+        },
+    })
+
+    const { mutate: sendData, status, data } = useMutation({
+        mutationFn: () => model.registerSchool(schoolData),
+        onError: (e) => console.error(e),
+    })
+
+    const HandleImage = (e) => {
         const file = e.target.files[0]
         if (!file) {
             setImageError(null)
@@ -37,16 +55,7 @@ export const AdminSchoolViewModel = () => {
         }
 
         setImageError(null)
-        try {
-            const res = await model.uploadImage(file)
-            setSchoolData({ ...schoolData, image: res.data })
-            setImagePreview(URL.createObjectURL(file))
-        } catch (error) {
-            console.error("Erreur upload : ", error)
-            setImageError("Erreur lors de upload de l'image. Veuillez réessayer plus tard.")
-            setSchoolData({ ...schoolData, image: "" })
-            setImagePreview(null)
-        }
+        uploadImage(file)
     }
 
     const resetImage = () => {
@@ -55,63 +64,41 @@ export const AdminSchoolViewModel = () => {
         setImageError(null)
     }
 
-    const sendData = async () => {
-        try {
-            setStatus("loading")
-            const response = await model.registerSchool(schoolData)
-            setStatus(response.ok ? "success" : "error")
-            setMessage(response.message)
-        } catch (e) {
-            console.error(e)
-            setStatus("error")
-            setMessage("Something went wrong.")
-        }
-    }
-
     return {
         currentTab, setCurrentTab,
         HandleImage, resetImage,
         imagePreview, imageError,
         schoolData, setSchoolData,
-        status, message, sendData,
+        status: status === "pending" ? "loading" : status === "error" ? "error" : data?.ok ? "success" : "normal",
+        message: data?.message ?? "Something went wrong.",
+        sendData,
     }
 }
 
 export const SchoolListVm = () => {
-    const MODEL = SchoolModel()
-    const [status, setStatus] = useState("loading")
-    const [list, setList] = useState([])
+    const { data: list = [], status } = useQuery({
+        queryKey: ["schools"],
+        queryFn: () => SchoolModel().getSchools(),
+    })
 
-    const FetchSchool = async () => {
-        try {
-            const result = await MODEL.getSchools()
-            setList(result)
-            setStatus("success")
-        } catch (e) {
-            console.error(e)
-            setStatus("error")
-        }
+    return {
+        list,
+        status: status === "pending" ? "loading" : status,
     }
-
-    return { FetchSchool, status, list }
 }
 
 export const SchoolDeletionVM = () => {
-    const MODEL = SchoolModel()
-    const [status, setStatus] = useState("normal")
-    const [message, setMessage] = useState("")
+    const queryClient = useQueryClient()
 
-    const DeleteSchool = async (id) => {
-        try {
-            const result = await MODEL.deleteSchool(id)
-            setStatus(result.ok ? "success" : "error")
-            setMessage(result.message)
-        } catch (e) {
-            console.error(e)
-            setStatus("error")
-            setMessage(e.message || "Something went wrong.")
-        }
+    const { mutate: DeleteSchool, status, data } = useMutation({
+        mutationFn: (id) => SchoolModel().deleteSchool(id),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["schools"] }),
+        onError: (e) => console.error(e),
+    })
+
+    return {
+        DeleteSchool,
+        status: status === "pending" ? "loading" : status === "error" ? "error" : data?.ok ? "success" : "normal",
+        message: status === "error" ? "Something went wrong." : data?.message ?? "",
     }
-
-    return { DeleteSchool, status, message }
 }

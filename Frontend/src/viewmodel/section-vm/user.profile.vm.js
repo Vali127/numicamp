@@ -1,32 +1,27 @@
-import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { profileModel } from "../../model/profile.model.js"
 
 export const UserProfileViewModel = (id) => {
     const model = profileModel()
-    const [profileData, setProfileData] = useState({})
-    const [posts, setPosts] = useState([])
-    const [ownership, setOwnership] = useState(false)
-    const [loaded, setLoaded] = useState(false)
 
-    const fetchPosts = async (usage) => {
-        const response = await model.getProfilePostData({ user_id: id }, usage)
-        setPosts(response.rows)
-        setOwnership(response.ownership)
-        setLoaded(true)
+    const { data: profileData = {}, isSuccess } = useQuery({
+        queryKey: ["profileData", id],
+        queryFn: () => model.getProfilData({ profil_id: id }),
+        enabled: !!id,
+    })
+
+    const { data: postsData, refetch: fetchPosts } = useQuery({
+        queryKey: ["profilePosts", id, profileData?.user_type],
+        queryFn: () => model.getProfilePostData({ user_id: id }, profileData?.user_type),
+        enabled: !!profileData?.user_type,
+    })
+
+    return {
+        profileData,
+        posts: postsData?.rows ?? [],
+        ownership: postsData?.ownership ?? false,
+        loaded: isSuccess && !!postsData,
+        fetchData: () => { void fetchPosts() },
+        fetchPosts: () => { void fetchPosts() },
     }
-
-    const fetchData = async () => {
-        try {
-            setLoaded(false)
-            const response = await model.getProfilData({ profil_id: id })
-            setProfileData(response)
-            await fetchPosts(response.user_type)
-        } catch (e) {
-            console.error(e)
-        }
-    }
-
-    useEffect(() => { fetchData() }, [])
-
-    return { profileData, loaded, posts, ownership, fetchData, fetchPosts }
 }

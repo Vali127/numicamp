@@ -1,40 +1,33 @@
-import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { DashBoardModel } from "../../model/dasboard.model.js"
 
-const useDashboardFetch = (fetchFn, initialState) => {
-    const [data, setData] = useState(initialState)
-    const [error, setError] = useState(false)
-
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                const result = await fetchFn()
-                result.ok ? setData(result.data) : setError(true)
-            } catch (err) {
-                console.error(err)
-                setError(true)
-            }
-        }
-        fetch()
-    }, [])
-
+const useDashboardQuery = (key, fetchFn, initialData) => {
+    const { data = initialData, isError: error } = useQuery({
+        queryKey: [key],
+        queryFn: async () => {
+            const result = await fetchFn()
+            if (!result.ok) throw new Error()
+            return result.data
+        },
+        retry: false,
+    })
     return { data, error }
 }
 
 export const UserStatsViewModel = () => {
     const MODEL = DashBoardModel()
-    const { data: userStats, error } = useDashboardFetch(() => MODEL.getUserStats(), {})
+    const { data: userStats, error } = useDashboardQuery("userStats", () => MODEL.getUserStats(), {})
     return { userStats, error }
 }
 
 export const DomainStatsViewModel = () => {
     const MODEL = DashBoardModel()
-    const { data: domainStats, error } = useDashboardFetch(() => MODEL.getDomainStats(), [])
+    const { data: domainStats, error } = useDashboardQuery("domainStats", () => MODEL.getDomainStats(), [])
     return { domainStats, error }
 }
 
 export const PostChartsViewModel = () => {
     const MODEL = DashBoardModel()
-    const { data: postsStats, error } = useDashboardFetch(() => MODEL.getPostsStats(), [])
+    const { data: postsStats, error } = useDashboardQuery("postsStats", () => MODEL.getPostsStats(), [])
     return { postsStats, error }
 }

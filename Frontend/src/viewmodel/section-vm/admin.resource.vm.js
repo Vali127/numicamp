@@ -1,76 +1,59 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { ressourcesModel } from "../../model/ressources.model.js"
 import { statsModel } from "../../model/stats.model.js"
 
 export const AdminRessourceViewModel = () => {
     const MODEL = ressourcesModel()
+    const queryClient = useQueryClient()
     const [currentTab, setCurrentTab] = useState("form")
-    const [domains, setDomains] = useState([])
-    const [formResult, setFormResult] = useState({ message: "", status: "normal" })
-    const [list, setList] = useState([])
     const [data, setData] = useState({ link: "", name: "", type: "", description: "", domain: "" })
     const [deletionModal, setDeletionModal] = useState(false)
 
-    const FetchDomains = async () => {
-        try {
-            const result = await statsModel().getDomains()
-            setDomains(result.data)
-        } catch (error) {
-            console.error(error)
-        }
-    }
+    const { data: domains = [] } = useQuery({
+        queryKey: ["domains"],
+        queryFn: async () => (await statsModel().getDomains()).data,
+    })
 
-    const fetchResources = async () => {
-        try {
-            const result = await MODEL.getList()
-            setList(result.rows)
-        } catch (error) {
-            console.error(error)
-            setList([])
-        }
-    }
+    const { data: list = [] } = useQuery({
+        queryKey: ["resourceList"],
+        queryFn: async () => (await MODEL.getList()).rows,
+        enabled: currentTab === "list",
+    })
 
-    const sendData = async () => {
-        try {
-            setFormResult({ ...formResult, status: "loading" })
-            const result = await MODEL.createResource(data)
-            setFormResult({ status: result.ok ? "success" : "failed", message: result.message })
-        } catch (error) {
-            console.error(error)
-            setFormResult({ status: "error", message: error.message || "Something went wrong" })
-        }
-    }
-
-    useEffect(() => {
-        if (currentTab === "list") fetchResources()
-    }, [currentTab])
+    const { mutate: sendData, data: formResult = { message: "", status: "normal" }, status: sendStatus } = useMutation({
+        mutationFn: () => MODEL.createResource(data),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["resourceList"] }),
+        onError: (error) => console.error(error),
+    })
 
     return {
         currentTab, setCurrentTab,
         data, setData,
         list, deletionModal, setDeletionModal,
-        sendData, formResult,
-        FetchDomains, fetchResources, domains
+        sendData,
+        formResult: sendStatus === "pending" ? { message: "", status: "loading" }
+            : sendStatus === "error" ? { message: "Something went wrong", status: "error" }
+                : formResult.ok === false ? { message: formResult.message, status: "failed" }
+                    : sendStatus === "success" ? { message: formResult.message, status: "success" }
+                        : { message: "", status: "normal" },
+        domains,
     }
 }
 
 export const ResourceDeletionModalVM = () => {
     const MODEL = ressourcesModel()
-    const [status, setStatus] = useState("normal")
-    const [message, setMessage] = useState("")
+    const queryClient = useQueryClient()
 
-    const DeleteResource = async (id, type) => {
-        try {
-            setStatus("loading")
-            const result = await MODEL.deleteResource(id, type)
-            setMessage(result.message)
-            setStatus(result.ok ? "success" : "error")
-        } catch (err) {
-            console.error(err)
-            setStatus("error")
-            setMessage("Something went wrong")
-        }
+    const { mutate: DeleteResource, status, data } = useMutation({
+        mutationFn: ({ id, type }) => MODEL.deleteResource(id, type),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["resourceList"] }),
+        onError: (err) => console.error(err),
+    })
+
+    return {
+        status: status === "pending" ? "loading" : status === "error" ? "error" : data?.ok ? "success" : status,
+        message: status === "error" ? "Something went wrong" : data?.message ?? "",
+        DeleteResource: (id, type) => DeleteResource({ id, type }),
     }
-
-    return { status, message, DeleteResource }
 }

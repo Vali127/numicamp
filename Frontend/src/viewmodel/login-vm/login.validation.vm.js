@@ -1,33 +1,25 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useMutation } from "@tanstack/react-query"
 import { LoginModel } from "../../model/login.model.js"
 
 export const LoginValidationVm = () => {
-    const loginModel = LoginModel()
-    const [message, setMessage] = useState(null)
-    const [result, setResult] = useState('')
-    const [formUploaded, setFormUploaded] = useState(true)
-
-    useEffect(() => {
-        const HandleModalBehavior = async () => {
-            try {
-                const response = await loginModel.SubmitForm()
-                setMessage(response.message)
-                if (response.ok) {
-                    setResult('success')
-                    localStorage.setItem('token', response.token)
-                    localStorage.setItem('usage', response.usage)
-                    localStorage.setItem('isLoggedIn', true)
-                } else {
-                    setResult('failed')
-                }
-            } catch (error) {
-                console.error("Erreur : ", error)
-                setResult('error')
+    const { mutate, data, status } = useMutation({
+        mutationFn: () => LoginModel().SubmitForm(),
+        onSuccess: (response) => {
+            if (response.ok) {
+                localStorage.setItem('token', response.token)
+                localStorage.setItem('usage', response.usage)
+                localStorage.setItem('isLoggedIn', true)
             }
-            setFormUploaded(false)
-        }
-        HandleModalBehavior()
-    }, [])
+        },
+        onError: (error) => console.error("Erreur : ", error),
+    })
 
-    return { message, result, formUploaded }
+    useEffect(() => { mutate() }, [])
+
+    return {
+        message: data?.message ?? null,
+        result: status === "pending" ? '' : status === "error" ? 'error' : data?.ok ? 'success' : 'failed',
+        formUploaded: status === "pending",
+    }
 }

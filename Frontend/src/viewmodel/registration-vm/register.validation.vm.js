@@ -1,23 +1,16 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
+import { useMutation } from "@tanstack/react-query"
 import { RegisterModel } from "../../model/register.model.js"
 
 export const RegisterValidationVm = () => {
-    const { SubmitForm } = RegisterModel()
-    const [response, setResponse] = useState('')
+    const { mutate, status, data } = useMutation({
+        mutationFn: () => RegisterModel().SubmitForm(),
+        onError: (error) => console.error(error),
+    })
 
-    useEffect(() => {
-        const HandleModalBehavior = async () => {
-            try {
-                setResponse('loading')
-                const res = await SubmitForm()
-                setResponse(res.ok ? 'success' : 'failure')
-            } catch (error) {
-                console.error(error)
-                setResponse('failure')
-            }
-        }
-        HandleModalBehavior()
-    }, [])
+    useEffect(() => { mutate() }, [])
 
-    return { response }
+    return {
+        response: status === "pending" ? "loading" : status === "error" ? "failure" : data?.ok ? "success" : "failure"
+    }
 }
