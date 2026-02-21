@@ -29,7 +29,7 @@ const Feed = ( {date, title, description, illustration, owner, ownership, postId
 
             {/* Photo de profil en haut à gauche */}
             <div className='h-10 w-10 md:h-13 md:w-13 rounded-full bg-gray-600 overflow-hidden flex justify-center items-center absolute top-3 left-3 border-2 border-white shadow-md'>
-                <img src={editor.photo_profil} alt="profil" className='w-full h-full object-cover' id={editor.id_profil} />
+                <img loading="lazy" src={editor.photo_profil} alt="profil" className='w-full h-full object-cover' id={editor.id_profil} />
             </div>
 
             {/* Header avec nom et date */}
@@ -116,7 +116,7 @@ const Feed = ( {date, title, description, illustration, owner, ownership, postId
             {/* Image avec gradient en grand format + Zoom */}
             <Zoom zoomMargin={20} >
                 <div className='relative bg-neutral-300 h-48 sm:h-64 md:h-80 w-full rounded-md flex items-center justify-center overflow-hidden cursor-zoom-in'>
-                    <img src={illustration} className='h-full w-full object-cover' alt="illustration" />
+                    <img loading="lazy" src={illustration} className='h-full w-full object-cover' alt="illustration" />
                     <div className='absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none'></div>
                 </div>
             </Zoom>

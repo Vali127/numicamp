@@ -17,7 +17,7 @@ export const AppHeader = ({ userInfo, setSection, searchContent, setSearchConten
             <div className="flex h-10 w-full gap-2 items-center justify-between">
                 <div className="flex gap-2 items-center">
                     <UserProfile profile={userInfo.photo_profil || numicamp} setSection={setSection} />
-                    <img src={numicamp} alt="numicamp" className="w-8 sm:w-10" />
+                    <img loading="lazy" src={numicamp} alt="numicamp" className="w-8 sm:w-10" />
                     <div className="font-bold text-indigo-500 text-2xl sm:text-3xl md:text-[34px] big-title whitespace-nowrap">
                         Numicamp
                     </div>

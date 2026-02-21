@@ -9,7 +9,7 @@ export const Presentation = () => (
     <div className="h-screen w-screen flex flex-col justify-center">
         <div className="m-auto w-[90vw] md:w-[60vw] h-[75vh] md:h-[80vh] bg-white shadow-lg rounded-2xl relative">
             <div className="absolute w-full flex items-center justify-center top-[-35px] md:top-[-50px]">
-                <img src={numicamp} alt="numicamp" className="w-[80px] md:w-[120px]" />
+                <img loading="lazy" src={numicamp} alt="numicamp" className="w-[80px] md:w-[120px]" />
             </div>
             <div className="h-15 md:h-23"></div>
             <Suspense fallback={null}>

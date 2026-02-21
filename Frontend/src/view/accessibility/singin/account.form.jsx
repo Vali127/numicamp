@@ -50,7 +50,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
                             onChange={HandleImage} 
                             className="hidden"
                         />
-                        { accountForm.image && <img src={URL.createObjectURL(accountForm.image)} alt="image" className="w-full h-full object-cover" /> }
+                        { accountForm.image && <img loading="lazy" src={URL.createObjectURL(accountForm.image)} alt="image" className="w-full h-full object-cover" /> }
                         { !accountForm.image && !isUploading && <h2 className="text-gray-400 text-xs">Photo</h2> }
                         { isUploading && <h2 className="text-blue-500 text-xs">Upload...</h2> }
                     </div>

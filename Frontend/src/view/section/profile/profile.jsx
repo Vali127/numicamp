@@ -145,7 +145,7 @@ const AvatarHeader = ({avatar="", username="", type="", owner=false}) => {
                             <Zoom zoomMargin={40}>
                                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center z-5 cursor-zoom-in">
                                     {avatar ? (
-                                        <img src={avatar} alt={username} className="h-full w-full object-cover" />
+                                        <img loading="lazy" src={avatar} alt={username} className="h-full w-full object-cover" />
                                     ) : (
                                         <span className="text-gray-400 text-3xl sm:text-4xl icon_btn">&#xe7fd;</span>
                                     )}

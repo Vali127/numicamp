@@ -30,7 +30,8 @@ const UserSuggestionList = ({id, name, username, description, photo, FollowEvent
                 onClick={() => GoToProfile(id)} 
                 className="flex-shrink-0 cursor-pointer"
             >
-                <img 
+                <img
+                    loading="lazy"  
                     src={photo} 
                     alt={name} 
                     className="w-12 h-12 rounded-full object-cover"

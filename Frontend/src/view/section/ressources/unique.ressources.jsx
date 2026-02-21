@@ -15,6 +15,7 @@ const UniqueResource = ({illustration, title, description, date, favicon, link, 
             {/* Favicon en haut à gauche */}
             <div className='w-5 h-5 rounded-full flex items-center justify-center overflow-hidden absolute top-2 left-2 bg-white border border-neutral-200 z-5'>
                 <img
+                    loading="lazy" 
                     src={!faviconError && favicon ? favicon : globe}
                     className='w-5 h-5 object-cover'
                     alt="fav"
@@ -38,6 +39,7 @@ const UniqueResource = ({illustration, title, description, date, favicon, link, 
                 {/* Image avec gradient */}
                 <div className='relative bg-neutral-300 w-full aspect-video rounded-md overflow-hidden flex-shrink-0'>
                     <img
+                        loading="lazy" 
                         src={imageToDisplay}
                         className='w-full h-full object-cover'
                         alt="illustration"

@@ -121,6 +121,7 @@ export const SchoolForm = ({HandleImage, resetImage, imagePreview, setSchoolData
                                 <div className="relative w-full h-48 rounded-lg overflow-hidden border-2 border-gray-300">
                                     <Zoom zoomMargin={40}>
                                         <img
+                                            loading="lazy" 
                                             src={imagePreview}
                                             alt="Aperçu"
                                             className="w-full h-full object-cover"

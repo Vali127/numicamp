@@ -11,7 +11,8 @@ export const UserCard = ({ setSection,profile, user, postModalIsVisible}) => {
                 
                 <div 
                     className={"w-12 h-12 rounded-[14px] bg-gray-500 overflow-hidden"} >
-                    <img 
+                    <img
+                        loading="lazy"  
                         src={profile} 
                         alt="image" 
                         className="w-full h-full"  />

@@ -12,7 +12,7 @@ const PostModalHeader = ({name, firstname, profil, username, setModalVisibility}
             <div 
                 className='w-10 h-10 rounded-full overflow-hidden ' >
 
-                <img src={profil} className='w-10 h-10'   />
+                <img loading="lazy" src={profil} className='w-10 h-10'   />
 
             </div>
 
