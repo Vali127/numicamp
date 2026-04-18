@@ -30,7 +30,7 @@ export const AccountForm = ({CurrentPage, isButtonNextDisabled}) => {
     useEffect(() => { if (CurrentPage) { CurrentPage('accountForm') } }, [])
 
     useEffect(() => {
-        if ( usernameError.type != null || emailError.type != null || imageError != null ) {
+        if ( usernameError?.type != null || emailError?.type != null || imageError != null || !accountForm.image ) {
             isButtonNextDisabled(true)
         } else {
             isButtonNextDisabled(!isAllAccountFormFulFilled())
